@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
-import { Note, useNotesContext } from "contexts";
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
+
+import { Note, useNotesContext } from "contexts";
 
 import Spacing from "../spacing";
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter, useSegments } from "expo-router";
+
 import { Auth, FirebaseAuthUser } from "config";
 
 interface AuthContext {
@@ -28,6 +29,7 @@ function useProtectedRoute(user?: AuthContext["user"]) {
     } else if (user && isProtectedRoute) {
       router.replace("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, segments]);
 }
 

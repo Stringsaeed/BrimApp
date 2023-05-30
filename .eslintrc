@@ -1,0 +1,53 @@
+{
+  "extends": "@callstack",
+
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {},
+      "babel-module": {}
+    }
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "object"
+        ]
+      }
+    ],
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "react-native/no-raw-text": [
+      "error",
+      {
+        "skip": ["Heading", "Body", "Title"]
+      }
+    ],
+    "react-native/no-color-literals": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.tsx", "test/**"],
+      "rules": {
+        "import/no-default-export": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["test/**"],
+      "env": {
+        "jest": true,
+        "jest/globals": true
+      }
+    }
+  ]
+}

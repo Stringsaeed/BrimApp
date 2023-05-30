@@ -1,7 +1,8 @@
-import { database } from "config";
-import { useAuth } from "contexts/auth";
 import { off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
+
+import { database } from "config";
+import { useAuth } from "contexts/auth";
 
 export default function useNotesQuery() {
   const [data, setData] = useState([]);

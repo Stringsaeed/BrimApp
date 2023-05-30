@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 
 interface SpacingProps extends ViewProps {

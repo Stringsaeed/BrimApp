@@ -1,5 +1,7 @@
-import { database } from "config";
 import { push, ref } from "firebase/database";
+
+import { database } from "config";
+
 import { Note } from "../types";
 
 export default function useNoteMutation() {

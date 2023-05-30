@@ -7,6 +7,7 @@ import {
   PhoneAuthProvider,
   signInWithCredential,
 } from "firebase/auth";
+
 import { app } from "./base";
 
 export * from "./base";

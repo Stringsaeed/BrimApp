@@ -1,8 +1,9 @@
-import { useNotesContext } from "contexts";
 import { Stack, useRouter } from "expo-router";
 import { CheckIcon } from "lucide-react-native";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, TextInput } from "react-native";
+
+import { useNotesContext } from "contexts";
 
 export default function NotesCreate() {
   const [note, setNote] = useState("");
@@ -12,6 +13,7 @@ export default function NotesCreate() {
   const renderHeaderRight = () => {
     return (
       <Pressable
+        accessibilityRole="button"
         onPress={() => {
           addNote(note);
           router.back();
@@ -27,24 +29,14 @@ export default function NotesCreate() {
       <Stack.Screen
         options={{
           title: "",
-          // title: "test",
           headerTintColor: "black",
           headerShown: true,
           headerRight: renderHeaderRight,
         }}
       />
       <TextInput
-        style={{
-          flex: 1,
-          width: "100%",
-          height: "100%",
-          padding: 16,
-          paddingVertical: 16,
-          paddingHorizontal: 16,
-          paddingTop: 16,
-          fontSize: 16,
-          fontWeight: "400",
-        }}
+        accessibilityLabel="Text input field"
+        style={styles.input}
         scrollEnabled
         multiline
         value={note}
@@ -55,7 +47,15 @@ export default function NotesCreate() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  input: {
     flex: 1,
+    width: "100%",
+    height: "100%",
+    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    fontSize: 16,
+    fontWeight: "400",
   },
 });
