@@ -1,25 +1,15 @@
 const rootImport = [
-  "babel-plugin-root-import",
+  "module-resolver",
   {
-    paths: [
-      {
-        rootPathSuffix: "./contexts",
-        rootPathPrefix: "contexts",
-      },
-
-      {
-        rootPathSuffix: "./components",
-        rootPathPrefix: "components",
-      },
-      {
-        rootPathSuffix: "./utils",
-        rootPathPrefix: "utils",
-      },
-      {
-        rootPathSuffix: "./config",
-        rootPathPrefix: "config",
-      },
-    ],
+    root: ["."],
+    extensions: [".ios.js", ".android.js", ".js", ".json", ".ts", ".tsx"],
+    alias: {
+      contexts: "./contexts",
+      components: "./components",
+      utils: "./utils",
+      config: "./config",
+      test: "./test",
+    },
   },
 ];
 

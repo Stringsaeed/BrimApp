@@ -1,7 +1,7 @@
 import React from "react";
-import { Text } from "react-native";
-import { Button, FormScrollContainer, Input, Spacing } from "components";
 import { Stack, useLocalSearchParams } from "expo-router";
+
+import { Button, FormScrollContainer, Input, Spacing, Title } from "components";
 import { Auth } from "config";
 
 export default function VerifyPage() {
@@ -22,7 +22,7 @@ export default function VerifyPage() {
           gestureDirection: "horizontal",
         }}
       />
-      <Text style={{ fontSize: 36, fontWeight: "700" }}>Verify</Text>
+      <Title>Verify</Title>
       <Spacing size={6} />
 
       <Input

@@ -6,7 +6,7 @@ export default StyleSheet.create({
     borderColor: "#eaeaea",
     borderRadius: 16,
 
-    backgroundColor: 'darkblue',
+    backgroundColor: "darkblue",
 
     paddingHorizontal: 16,
     paddingVertical: 16,

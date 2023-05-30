@@ -1,7 +1,7 @@
 import React from "react";
-import { Text } from "react-native";
-import { Button, FormScrollContainer, Input, Spacing } from "components";
 import { useRouter } from "expo-router";
+
+import { Button, FormScrollContainer, Input, Spacing, Title } from "components";
 import { Auth } from "config";
 
 export default function LoginPage() {
@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   return (
     <FormScrollContainer centerContent>
-      <Text style={{ fontSize: 36, fontWeight: "700" }}>Login</Text>
+      <Title>What&apos;s your phone number</Title>
       <Spacing size={6} />
       <Input
         textContentType="telephoneNumber"
