@@ -15,13 +15,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./config/GoogleService-Info.plist"
+      "googleServicesFile": "./config/GoogleService-Info.plist",
+      "bundleIdentifier": "com.stringsaeed.brim"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.stringsaeed.brim",
+      "googleServicesFile": "./config/google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png",

@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "374318773989",
+    "firebase_url": "https://brim-mobile-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "brim-mobile",
+    "storage_bucket": "brim-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374318773989:android:50670d7d4e4f6bca75860c",
+        "android_client_info": {
+          "package_name": "com.stringsaeed.brim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuAAjNu6jTziSrCoEl8oKkoLON-ExY-ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374318773989-dn25qpi00c9udnb96nsuo9bo3pkadr6i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stringsaeed.brim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
