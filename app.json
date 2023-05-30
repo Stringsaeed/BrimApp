@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "brim",
     "name": "BrimApp",
     "slug": "BrimApp",
     "version": "1.0.0",
@@ -11,11 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./config/GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +24,19 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
   }
 }
