@@ -1,10 +1,20 @@
-import { Slot } from "expo-router";
-import { AuthProvider } from "contexts";
+import { Stack } from "expo-router";
+import { AuthProvider, NotesProvider } from "contexts";
 
 export default function Layout() {
   return (
     <AuthProvider>
-      <Slot />
+      <NotesProvider>
+        <Stack
+          initialRouteName="(notes)"
+          screenOptions={{
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+      </NotesProvider>
     </AuthProvider>
   );
 }

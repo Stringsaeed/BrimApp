@@ -15,6 +15,10 @@ const rootImport = [
         rootPathSuffix: "./utils",
         rootPathPrefix: "utils",
       },
+      {
+        rootPathSuffix: "./config",
+        rootPathPrefix: "config",
+      },
     ],
   },
 ];

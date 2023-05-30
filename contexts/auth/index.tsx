@@ -1,13 +1,9 @@
 import React from "react";
 import { useRouter, useSegments } from "expo-router";
-
-export interface User {}
+import { Auth, FirebaseAuthUser } from "config";
 
 interface AuthContext {
-  user?: User | undefined;
-
-  signIn: (user: User) => void;
-  signOut: () => void;
+  user?: FirebaseAuthUser | null;
 }
 
 const authContext = React.createContext<AuthContext | undefined>(undefined);
@@ -24,8 +20,6 @@ function useProtectedRoute(user?: AuthContext["user"]) {
   const segments = useSegments();
   const router = useRouter();
 
-  console.log("isProtectedRoute", user);
-
   React.useEffect(() => {
     const isProtectedRoute = segments[0] === "(auth)";
 
@@ -38,20 +32,23 @@ function useProtectedRoute(user?: AuthContext["user"]) {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<User | undefined>(undefined);
+  const [user, setUser] = React.useState<FirebaseAuthUser | null>(
+    () => Auth.currentUser
+  );
 
   useProtectedRoute(user);
 
-  const contextValue = React.useMemo<AuthContext>(
-    () => ({
-      user,
-      signIn: setUser,
-      signOut: () => {
-        setUser(undefined);
-      },
-    }),
-    [user]
-  );
+  const listener = React.useCallback(() => {
+    Auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    listener();
+  }, [listener]);
+
+  const contextValue = React.useMemo<AuthContext>(() => ({ user }), [user]);
 
   return (
     <authContext.Provider value={contextValue}>{children}</authContext.Provider>

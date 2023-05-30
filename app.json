@@ -26,12 +26,10 @@
       "package": "com.stringsaeed.brim",
       "googleServicesFile": "./config/google-services.json"
     },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
-    },
     "plugins": [
       "@react-native-firebase/app",
+      "@react-native-firebase/dynamic-links",
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {

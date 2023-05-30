@@ -1,9 +1,17 @@
 import React from "react";
 import { Text } from "react-native";
 import { Button, FormScrollContainer, Input, Spacing } from "components";
-import { Stack } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
+import { Auth } from "config";
 
 export default function VerifyPage() {
+  const [code, setCode] = React.useState("");
+  const { verificationId } = useLocalSearchParams();
+
+  const handleLogin = React.useCallback(async () => {
+    await Auth.verifyOTP(code, verificationId as string);
+  }, [code, verificationId]);
+
   return (
     <FormScrollContainer centerContent>
       <Stack.Screen
@@ -25,9 +33,11 @@ export default function VerifyPage() {
         autoCapitalize="none"
         autoCorrect={false}
         maxLength={6}
+        value={code}
+        onChangeText={setCode}
       />
       <Spacing size={6} />
-      <Button label="Login" />
+      <Button label="Login" onPress={handleLogin} />
     </FormScrollContainer>
   );
 }

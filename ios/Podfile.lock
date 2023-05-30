@@ -92,6 +92,8 @@ PODS:
     - React-Core
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
+  - ExpoSystemUI (2.2.1):
+    - ExpoModulesCore
   - EXSplashScreen (0.18.2):
     - ExpoModulesCore
     - React-Core
@@ -104,21 +106,45 @@ PODS:
     - React-Core (= 0.71.8)
     - React-jsi (= 0.71.8)
     - ReactCommon/turbomodule/core (= 0.71.8)
+  - Firebase/Auth (10.7.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.7.0)
   - Firebase/CoreOnly (10.7.0):
     - FirebaseCore (= 10.7.0)
+  - Firebase/DynamicLinks (10.7.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 10.7.0)
+  - FirebaseAuth (10.7.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseCore (10.7.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
   - FirebaseCoreInternal (10.10.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseDynamicLinks (10.7.0):
+    - FirebaseCore (~> 10.0)
   - fmt (6.2.1)
   - glog (0.3.5)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.11.1):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.11.1):
     - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.11.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.11.1)"
+  - GoogleUtilities/Reachability (7.11.1):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (3.1.1)
   - PromisesObjC (2.2.0)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -432,11 +458,22 @@ PODS:
   - RNFBApp (17.5.0):
     - Firebase/CoreOnly (= 10.7.0)
     - React-Core
+  - RNFBAuth (17.5.0):
+    - Firebase/Auth (= 10.7.0)
+    - React-Core
+    - RNFBApp
+  - RNFBDynamicLinks (17.5.0):
+    - Firebase/DynamicLinks (= 10.7.0)
+    - GoogleUtilities/AppDelegateSwizzler
+    - React-Core
+    - RNFBApp
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
+  - RNSVG (13.4.0):
+    - React-Core
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -455,6 +492,7 @@ DEPENDENCIES:
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - ExpoSystemUI (from `../node_modules/expo-system-ui/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -490,17 +528,23 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
+  - "RNFBDynamicLinks (from `../node_modules/@react-native-firebase/dynamic-links`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - Firebase
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
+    - FirebaseDynamicLinks
     - fmt
     - GoogleUtilities
+    - GTMSessionFetcher
     - PromisesObjC
 
 EXTERNAL SOURCES:
@@ -534,6 +578,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoSystemUI:
+    :path: "../node_modules/expo-system-ui/ios"
   EXSplashScreen:
     :path: "../node_modules/expo-splash-screen/ios"
   EXUpdatesInterface:
@@ -602,10 +648,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
+  RNFBDynamicLinks:
+    :path: "../node_modules/@react-native-firebase/dynamic-links"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -625,16 +677,20 @@ SPEC CHECKSUMS:
   expo-dev-menu-interface: 6c82ae323c4b8724dead4763ce3ff24a2108bdb1
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
   ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
+  ExpoSystemUI: 0be5173ee2a7c01e9abc44f56d879a1eaaa16527
   EXSplashScreen: 0e0a9ba0cf7553094e93213099bd7b42e6e237e9
   EXUpdatesInterface: dd699d1930e28639dcbd70a402caea98e86364ca
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 0d9a4f4de7ab614c49e98c00aedfd3bfbda33d59
   Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
+  FirebaseAuth: dd64c01631df724b09f33e584625775c52f7d71f
   FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
   FirebaseCoreInternal: 971029061d326000d65bfdc21f5502c75c8b0893
+  FirebaseDynamicLinks: 16a8fae3697fba66fed7a1d646fe59f30d42aa31
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 8af6a32dfc2b65ec82193c2dee6e1011ff22ac2a
@@ -665,8 +721,11 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 7c51ae9d4b3e9608a2366e39ccaa606aa551b9ed
   ReactCommon: 868466840f051b8cb5b8309b3bdffbb14351fbe0
   RNFBApp: 0d8bf86673bbad0524d1ceac3944d71ccf48a0e4
+  RNFBAuth: a8f774e0dd28c1b0f4c3ab8a52333276b34fd3a4
+  RNFBDynamicLinks: 8cdcc0425d0b636ff079b4220785eb1132c24228
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNSVG: 07dbd870b0dcdecc99b3a202fa37c8ca163caec2
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
 
 PODFILE CHECKSUM: faf9a259f4153a8522d2559f39371e7be848984e
