@@ -35,9 +35,6 @@
         {
           "ios": {
             "useFrameworks": "static"
-          },
-          "android": {
-            "flipper": false
           }
         }
       ]
