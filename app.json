@@ -35,9 +35,17 @@
         {
           "ios": {
             "useFrameworks": "static"
+          },
+          "android": {
+            "flipper": false
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e630d577-becd-41a6-ad64-226cac9be574"
+      }
+    }
   }
 }
