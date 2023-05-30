@@ -8,7 +8,6 @@ export default function Layout() {
     <AuthProvider>
       <NotesProvider>
         <Stack
-          initialRouteName="(notes)"
           screenOptions={{
             headerTintColor: "#fff",
             headerTitleStyle: {
