@@ -26,14 +26,10 @@ export default function NotePage() {
         }}
         accessibilityRole="button"
       >
-        <CheckIcon />
+        <CheckIcon color="black" />
       </Pressable>
     );
   };
-
-  if (!data) {
-    return null;
-  }
 
   return (
     <>

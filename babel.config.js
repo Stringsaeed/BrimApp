@@ -1,3 +1,5 @@
+process.env.TAMAGUI_TARGET = "native";
+
 const rootImport = [
   "module-resolver",
   {

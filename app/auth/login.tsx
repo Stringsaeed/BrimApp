@@ -29,6 +29,7 @@ export default function LoginPage() {
           autoCapitalize="none"
           autoCorrect={false}
           value={phoneNumber}
+          textAlignVertical="center"
           onChangeText={setPhoneNumber}
         />
         <Spacing size={6} />
@@ -37,7 +38,6 @@ export default function LoginPage() {
             icon={isLoading ? <Spinner /> : null}
             width="100%"
             bg="$purple7"
-            onPress={handleSubmit}
           >
             Continue
           </Button>
