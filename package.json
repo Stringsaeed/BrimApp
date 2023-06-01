@@ -36,6 +36,7 @@
     "expo-system-ui": "~2.2.1",
     "firebase": "^9.22.1",
     "lucide-react-native": "^0.224.0",
+    "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",

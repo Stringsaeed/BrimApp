@@ -3,10 +3,13 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider, Theme } from "tamagui";
+import * as SplashScreen from "expo-splash-screen";
 import { LinearGradient } from "tamagui/linear-gradient";
 
 import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
 import { tamaguiConfig } from "config";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const colorScheme = useColorScheme();
