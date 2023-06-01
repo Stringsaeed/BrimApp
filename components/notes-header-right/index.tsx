@@ -1,4 +1,4 @@
-import { PlusIcon, UserIcon } from "lucide-react-native";
+import { Plus, User } from "phosphor-react-native";
 import React from "react";
 import { Stack } from "tamagui";
 
@@ -14,10 +14,10 @@ export default function NotesHeaderRight({
   return (
     <Stack gap={8} flexDirection="row">
       <Stack accessibilityRole="button" onPress={onPressCreate}>
-        <PlusIcon color="black" />
+        <Plus color="black" />
       </Stack>
       <Stack accessibilityRole="button" onPress={onPressProfile}>
-        <UserIcon color="black" />
+        <User color="black" />
       </Stack>
     </Stack>
   );

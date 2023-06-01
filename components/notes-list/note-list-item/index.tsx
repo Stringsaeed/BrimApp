@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ListItem } from "tamagui";
-import { ChevronRightIcon } from "lucide-react-native";
+import { ArrowRight } from "phosphor-react-native";
 
 import { Note } from "types";
 
@@ -24,7 +24,7 @@ export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
       // borderWidth="$1"
       onPress={onPress}
       textProps={{ numberOfLines: 1 }}
-      iconAfter={<ChevronRightIcon color="black" />}
+      iconAfter={<ArrowRight color="black" />}
     >
       {content}
     </ListItem>

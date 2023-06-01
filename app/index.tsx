@@ -3,6 +3,7 @@ import { Stack, useRouter } from "expo-router";
 import { View } from "react-native";
 import { styled } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
+import { hideAsync } from "expo-splash-screen";
 
 import { NotesHeaderRight, NotesList } from "components";
 import { useNotesContext } from "contexts";
@@ -18,6 +19,8 @@ export default function NotesPage() {
 
   const onPressCreate = async () => {
     const ref = await addNote("");
+    console.log(ref);
+
     router.push(`/notes/${ref}`);
   };
 
@@ -47,7 +50,7 @@ export default function NotesPage() {
           },
         }}
       />
-      <Container>
+      <Container onLayout={hideAsync}>
         <NotesList onPressNote={onPressNote} notes={notes} />
       </Container>
     </>

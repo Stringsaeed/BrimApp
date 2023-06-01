@@ -1,7 +1,8 @@
-import React from "react";
+/* eslint-disable promise/catch-or-return */
+import React, { useEffect } from "react";
 import { Stack as RouterStack } from "expo-router";
 import { Stack } from "tamagui";
-import { CheckIcon } from "lucide-react-native";
+import { Check } from "phosphor-react-native";
 import { RichEditor } from "react-native-pell-rich-editor";
 import { Pressable } from "react-native";
 import database from "@react-native-firebase/database";
@@ -16,6 +17,25 @@ export default function NotePage() {
 
   const [updatedNote, setNote] = React.useState<string>();
 
+  useEffect(() => {
+    return () => {
+      if (updatedNote) {
+        database().ref(`/notes/${userId}/${noteId}`).update({
+          note: updatedNote,
+        });
+      } else {
+        database()
+          .ref(`/notes/${userId}/${noteId}`)
+          .update({
+            note: "",
+          })
+          .finally(() => {
+            database().ref(`/notes/${userId}/${noteId}`).remove();
+          });
+      }
+    };
+  }, [noteId, updatedNote, userId]);
+
   const renderHeaderRight = () => {
     return (
       <Pressable
@@ -26,7 +46,7 @@ export default function NotePage() {
         }}
         accessibilityRole="button"
       >
-        <CheckIcon color="black" />
+        <Check color="black" />
       </Pressable>
     );
   };
