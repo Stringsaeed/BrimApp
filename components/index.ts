@@ -5,3 +5,4 @@ export { default as Spacing } from "./spacing";
 export { default as NotesList } from "./notes-list";
 export { default as Title } from "./title";
 export { default as NotesHeaderRight } from "./notes-header-right";
+export { default as Composer } from "./composer";

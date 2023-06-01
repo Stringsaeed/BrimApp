@@ -4,7 +4,7 @@ import database from "@react-native-firebase/database";
 import { Note } from "types";
 
 async function createNote(input: Omit<Note, "id">) {
-  await database().ref(`/notes/${input.user}`).push(input);
+  return await database().ref(`/notes/${input.user}`).push(input);
 }
 
 export default function useCreateNoteMutation() {

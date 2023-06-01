@@ -4,12 +4,13 @@
   "main": "index.js",
   "scripts": {
     "start:native": "TAMAGUI_TARGET=native expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "TAMAGUI_TARGET=native expo run:android",
+    "ios": "TAMAGUI_TARGET=native expo run:ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@prscx/react-native-richtext": "^0.0.11",
     "@react-native-firebase/analytics": "^17.5.0",
     "@react-native-firebase/app": "^17.5.0",
     "@react-native-firebase/auth": "^17.5.0",
@@ -28,6 +29,7 @@
     "expo-constants": "~14.2.1",
     "expo-dev-client": "~2.2.1",
     "expo-font": "~11.1.1",
+    "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",

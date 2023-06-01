@@ -4,6 +4,9 @@ import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
 async function signInWithPhoneNumber(phoneNumber: string) {
+  if (__DEV__) {
+    auth().settings.appVerificationDisabledForTesting = true;
+  }
   const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
   return confirmation;
 }
@@ -13,7 +16,7 @@ export default function useSignInWithPhoneNumberMutation() {
   const router = useRouter();
   const signInWithPhoneNumberMutation = useMutation(signInWithPhoneNumber, {
     onSuccess({ verificationId }) {
-      router.push({ pathname: "verify", params: { verificationId } });
+      router.push({ pathname: "auth/verify", params: { verificationId } });
     },
   });
 

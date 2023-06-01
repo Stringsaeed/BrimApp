@@ -1,17 +1,16 @@
 import React from "react";
-import { Stack } from "tamagui";
+import { Stack, Button } from "tamagui";
 
-import { Button } from "components";
 import { useSignOutMutation } from "hooks";
 
 export default function Profile() {
   const signOutMutation = useSignOutMutation();
 
   return (
-    <>
-      <Stack flex={1} justifyContent="center" paddingHorizontal="$4">
-        <Button label="Sign out" onPress={() => signOutMutation.mutate()} />
-      </Stack>
-    </>
+    <Stack bg="beige" flex={1} justifyContent="center" paddingHorizontal="$4">
+      <Button bg="$purple5" onPress={() => signOutMutation.mutate()}>
+        Sign out
+      </Button>
+    </Stack>
   );
 }
