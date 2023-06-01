@@ -1,5 +1,5 @@
-import React from "react";
-import { Heading, Stack, useTheme } from "tamagui";
+import React, { useMemo } from "react";
+import { ListItem } from "tamagui";
 import { ChevronRightIcon } from "lucide-react-native";
 
 import { Note } from "types";
@@ -9,24 +9,24 @@ export interface NoteListItemProps {
   onPress: () => void;
 }
 
+const regex = /<[^>]+>([^<]+)<\/[a-z]+>/i;
+
 export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
-  const theme = useTheme();
+  const content = useMemo(() => {
+    const match = item.note.match(regex);
+
+    return match?.[1] ?? item.note;
+  }, [item.note]);
+
   return (
-    <Stack
-      accessibilityRole="button"
-      borderRadius="$10"
-      paddingHorizontal={16}
-      paddingVertical={8}
-      flexDirection="row"
-      justifyContent="space-between"
-      alignItems="center"
-      bg="$purple12"
+    <ListItem
+      bg="beige"
+      // borderWidth="$1"
       onPress={onPress}
+      textProps={{ numberOfLines: 1 }}
+      iconAfter={<ChevronRightIcon color="black" />}
     >
-      <Heading color="$yellow10" numberOfLines={1}>
-        {item.note}
-      </Heading>
-      <ChevronRightIcon color={theme.yellow10.val} />
-    </Stack>
+      {content}
+    </ListItem>
   );
 }

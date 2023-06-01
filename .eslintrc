@@ -27,9 +27,9 @@
     ],
     "import/newline-after-import": ["error", { "count": 1 }],
     "react-native/no-raw-text": [
-      "error",
+      "off",
       {
-        "skip": ["Heading", "Body", "Title"]
+        "skip": ["Heading", "Body", "Title", "Button"]
       }
     ],
     "react-native/no-color-literals": "off"

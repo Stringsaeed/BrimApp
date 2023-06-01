@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider, Theme } from "tamagui";
+import { LinearGradient } from "tamagui/linear-gradient";
 
 import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
 import { tamaguiConfig } from "config";
@@ -27,24 +28,28 @@ export default function Layout() {
             <Theme name={colorScheme === "dark" ? "dark" : "light"}>
               <Stack
                 screenOptions={{
-                  headerTintColor: "#fff",
-                  headerTitleStyle: {
-                    fontWeight: "bold",
+                  headerTintColor: "#000",
+                  headerBackTitleVisible: false,
+                  headerBackground() {
+                    return (
+                      <LinearGradient flex={1} colors={["$purple5", "beige"]} />
+                    );
                   },
                 }}
               >
                 <Stack.Screen
                   name="(user)/profile"
-                  options={{ presentation: "modal" }}
+                  options={{ title: "Profile" }}
                 />
                 <Stack.Screen
-                  name="(auth)/login"
-                  options={{ headerShown: false }}
+                  name="auth"
+                  options={{
+                    headerShown: false,
+                    headerBackground: () => null,
+                    headerTransparent: true,
+                  }}
                 />
-                <Stack.Screen
-                  name="(auth)/verify"
-                  options={{ headerShown: false }}
-                />
+                <Stack.Screen name="notes/[id]" options={{ title: "" }} />
               </Stack>
             </Theme>
           </TamaguiProvider>

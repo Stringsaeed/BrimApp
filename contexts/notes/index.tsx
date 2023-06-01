@@ -10,23 +10,26 @@ const NotesContext = React.createContext<NotesContextType | undefined>(
 
 export interface NotesContextType {
   notes: Note[];
-  addNote: (note: string) => void;
+  addNote: (note: string) => Promise<string | null>;
   removeNote: (id: number) => void;
 }
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const { data } = useNotesQuery();
+
   const createNoteMutation = useCreateNoteMutation();
   const { user } = useAuth();
 
   const addNote = useCallback(
     async (noteText: string) => {
-      await createNoteMutation.mutateAsync({
+      const ref = await createNoteMutation.mutateAsync({
         note: noteText,
         user: user?.uid ?? null,
         created_at: new Date().toISOString(),
         is_draft: false,
       });
+
+      return ref.key;
     },
     [createNoteMutation, user?.uid]
   );

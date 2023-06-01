@@ -22,10 +22,10 @@ function useProtectedRoute(user?: AuthContext["user"]) {
   const router = useRouter();
 
   React.useEffect(() => {
-    const isProtectedRoute = segments[0] === "(auth)";
+    const isProtectedRoute = segments[0] === "auth";
 
     if (!isProtectedRoute && !user) {
-      router.replace("/login");
+      router.replace("/auth/login");
     } else if (user && isProtectedRoute) {
       router.replace("/");
     }

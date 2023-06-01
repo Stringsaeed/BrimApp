@@ -1,9 +1,7 @@
-import React, { useCallback } from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
+import React from "react";
+import { ScrollView, Separator, YGroup } from "tamagui";
 
 import { Note } from "types";
-
-import Spacing from "../spacing";
 
 import NoteListItemView from "./note-list-item";
 
@@ -13,34 +11,25 @@ interface NotesListProps {
 }
 
 export default function NotesList({ notes, onPressNote }: NotesListProps) {
-  const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Note>) => (
-      <NoteListItemView item={item} onPress={() => onPressNote(item)} />
-    ),
-    [onPressNote]
-  );
-
-  const renderSeparator = useCallback(() => <Spacing size={4} />, []);
-
   return (
-    <FlatList
-      style={styles.list}
-      contentContainerStyle={styles.content}
-      ItemSeparatorComponent={renderSeparator}
-      data={notes}
-      renderItem={renderItem}
-    />
+    <ScrollView flex={1} contentContainerStyle={$content}>
+      <YGroup
+        bg="beige"
+        size="$20"
+        separator={<Separator borderColor="$purple5" />}
+      >
+        {notes.map((item) => (
+          <NoteListItemView
+            key={item.id}
+            item={item}
+            onPress={() => onPressNote(item)}
+          />
+        ))}
+      </YGroup>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-  },
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 24,
-    paddingBottom: 48,
-  },
-});
+const $content = {
+  flexGrow: 1,
+};
