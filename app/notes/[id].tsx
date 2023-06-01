@@ -1,5 +1,5 @@
-import React from "react";
-import { Stack as RouterStack } from "expo-router";
+import React, { useCallback } from "react";
+import { Stack as RouterStack, useFocusEffect } from "expo-router";
 import { Stack } from "tamagui";
 import { Check } from "phosphor-react-native";
 import { RichEditor } from "react-native-pell-rich-editor";
@@ -16,23 +16,30 @@ export default function NotePage() {
 
   const [updatedNote, setNote] = React.useState<string>();
 
+  const onUpdate = useCallback(() => {
+    database()
+      .ref(`/notes/${userId}/${noteId}`)
+      .update({
+        note: updatedNote ?? "",
+        is_draft: false,
+      });
+  }, [noteId, updatedNote, userId]);
+
   const renderHeaderRight = () => {
     return (
-      <Pressable
-        onPress={() => {
-          database()
-            .ref(`/notes/${userId}/${noteId}`)
-            .update({
-              note: updatedNote ?? "",
-              is_draft: false,
-            });
-        }}
-        accessibilityRole="button"
-      >
+      <Pressable onPress={onUpdate} accessibilityRole="button">
         <Check color="black" />
       </Pressable>
     );
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        onUpdate();
+      };
+    }, [onUpdate])
+  );
 
   return (
     <>
