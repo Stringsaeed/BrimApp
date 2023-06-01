@@ -4,11 +4,14 @@ import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
 async function signInWithPhoneNumber(phoneNumber: string) {
-  if (__DEV__) {
-    auth().settings.appVerificationDisabledForTesting = true;
+  auth().settings.appVerificationDisabledForTesting = true;
+
+  try {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+    return confirmation;
+  } catch (error) {
+    throw new Error("Invalid phone number");
   }
-  const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-  return confirmation;
 }
 
 export default function useSignInWithPhoneNumberMutation() {
@@ -17,6 +20,9 @@ export default function useSignInWithPhoneNumberMutation() {
   const signInWithPhoneNumberMutation = useMutation(signInWithPhoneNumber, {
     onSuccess({ verificationId }) {
       router.push({ pathname: "auth/verify", params: { verificationId } });
+    },
+    onError(error) {
+      console.log(error);
     },
   });
 

@@ -14,10 +14,10 @@ export default function NotesHeaderRight({
   return (
     <Stack gap={8} flexDirection="row">
       <Stack accessibilityRole="button" onPress={onPressCreate}>
-        <PlusIcon />
+        <PlusIcon color="black" />
       </Stack>
       <Stack accessibilityRole="button" onPress={onPressProfile}>
-        <UserIcon />
+        <UserIcon color="black" />
       </Stack>
     </Stack>
   );

@@ -1,10 +1,9 @@
 import React from "react";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRouter, useSegments } from "expo-router";
 
-import { Auth, FirebaseAuthUser } from "config";
-
 interface AuthContext {
-  user?: FirebaseAuthUser | null;
+  user?: FirebaseAuthTypes.User | null;
 }
 
 const authContext = React.createContext<AuthContext | undefined>(undefined);
@@ -34,14 +33,14 @@ function useProtectedRoute(user?: AuthContext["user"]) {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<FirebaseAuthUser | null>(
-    () => Auth.currentUser
+  const [user, setUser] = React.useState<FirebaseAuthTypes.User | null>(
+    () => auth().currentUser
   );
 
   useProtectedRoute(user);
 
   const listener = React.useCallback(() => {
-    Auth.onAuthStateChanged((user) => {
+    auth().onAuthStateChanged((user) => {
       setUser(user);
     });
   }, []);
