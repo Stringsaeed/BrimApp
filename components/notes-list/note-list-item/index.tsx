@@ -1,29 +1,32 @@
 import React from "react";
+import { Heading, Stack, useTheme } from "tamagui";
 import { ChevronRightIcon } from "lucide-react-native";
-import { Pressable, StyleSheet, Text } from "react-native";
 
-import { Note } from "contexts";
+import { Note } from "types";
 
 export interface NoteListItemProps {
   item: Note;
+  onPress: () => void;
 }
 
-export default function NoteListItemView({ item }: NoteListItemProps) {
+export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
+  const theme = useTheme();
   return (
-    <Pressable style={styles.container} accessibilityRole="button">
-      <Text numberOfLines={1}>{item.note}</Text>
-      <ChevronRightIcon color="black" />
-    </Pressable>
+    <Stack
+      accessibilityRole="button"
+      borderRadius="$10"
+      paddingHorizontal={16}
+      paddingVertical={8}
+      flexDirection="row"
+      justifyContent="space-between"
+      alignItems="center"
+      bg="$purple12"
+      onPress={onPress}
+    >
+      <Heading color="$yellow10" numberOfLines={1}>
+        {item.note}
+      </Heading>
+      <ChevronRightIcon color={theme.yellow10.val} />
+    </Stack>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    paddingVertical: 8,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-});

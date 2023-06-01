@@ -1,22 +1,37 @@
 import React from "react";
 import { Stack, useRouter } from "expo-router";
-import { PlusIcon } from "lucide-react-native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import { styled } from "tamagui";
 
-import { NotesList } from "components";
+import { NotesHeaderRight, NotesList } from "components";
+import { useNotesContext } from "contexts";
+import { Note } from "types";
 
-export default function Page() {
+export default function NotesPage() {
   const router = useRouter();
+  const { notes } = useNotesContext();
+
+  const onPressNote = (note: Note) => {
+    router.push(`/note/${note.id}`);
+  };
+
+  const onPressCreate = () => {
+    router.push("/create");
+  };
+
+  const onPressProfile = () => {
+    router.push("/profile");
+  };
+
   const renderHeaderRight = () => {
     return (
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => router.push("/notes/create")}
-      >
-        <PlusIcon />
-      </Pressable>
+      <NotesHeaderRight
+        onPressCreate={onPressCreate}
+        onPressProfile={onPressProfile}
+      />
     );
   };
+
   return (
     <>
       <Stack.Screen
@@ -27,15 +42,14 @@ export default function Page() {
           headerRight: renderHeaderRight,
         }}
       />
-      <View style={styles.container}>
-        <NotesList />
-      </View>
+      <Container>
+        <NotesList onPressNote={onPressNote} notes={notes} />
+      </Container>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+const Container = styled(View, {
+  flex: 1,
+  backgroundColor: "beige",
 });
