@@ -1,10 +1,8 @@
 import React, { useCallback } from "react";
 
 import { useAuth } from "contexts/auth";
-
-import useNotesQuery from "./use-notes-query";
-import { Note } from "./types";
-import useNoteMutation from "./use-note-mutation";
+import { useCreateNoteMutation, useNotesQuery } from "hooks";
+import { Note } from "types";
 
 const NotesContext = React.createContext<NotesContextType | undefined>(
   undefined
@@ -18,20 +16,19 @@ export interface NotesContextType {
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const { data } = useNotesQuery();
-  const { create } = useNoteMutation();
+  const createNoteMutation = useCreateNoteMutation();
   const { user } = useAuth();
 
   const addNote = useCallback(
     async (noteText: string) => {
-      create({
+      await createNoteMutation.mutateAsync({
         note: noteText,
         user: user?.uid ?? null,
         created_at: new Date().toISOString(),
         is_draft: false,
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user?.uid]
+    [createNoteMutation, user?.uid]
   );
 
   const removeNote = useCallback((_: number) => {}, []);
@@ -52,5 +49,3 @@ export const useNotesContext = () => {
 
   return context;
 };
-
-export * from "./types";

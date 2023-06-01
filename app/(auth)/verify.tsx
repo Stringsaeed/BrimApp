@@ -1,27 +1,13 @@
 import React from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
 
 import { Button, FormScrollContainer, Input, Spacing, Title } from "components";
-import { Auth } from "config";
+import { useVerifyPhoneNumberMutation } from "hooks";
 
 export default function VerifyPage() {
-  const [code, setCode] = React.useState("");
-  const { verificationId } = useLocalSearchParams();
-
-  const handleLogin = React.useCallback(async () => {
-    await Auth.verifyOTP(code, verificationId as string);
-  }, [code, verificationId]);
+  const { code, setCode, handleVerify } = useVerifyPhoneNumberMutation();
 
   return (
     <FormScrollContainer centerContent>
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          title: "My home",
-          gestureEnabled: true,
-          gestureDirection: "horizontal",
-        }}
-      />
       <Title>Verify</Title>
       <Spacing size={6} />
 
@@ -37,7 +23,7 @@ export default function VerifyPage() {
         onChangeText={setCode}
       />
       <Spacing size={6} />
-      <Button label="Login" onPress={handleLogin} />
+      <Button label="Login" onPress={handleVerify} />
     </FormScrollContainer>
   );
 }

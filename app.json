@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./config/GoogleService-Info.plist",
@@ -24,7 +26,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.stringsaeed.brim",
-      "googleServicesFile": "./config/google-services.json"
+      "googleServicesFile": "./config/google-services.json",
+      "versionCode": 2
     },
     "plugins": [
       "@react-native-firebase/app",

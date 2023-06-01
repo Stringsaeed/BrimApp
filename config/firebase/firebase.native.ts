@@ -17,6 +17,7 @@ export const Auth = {
     return auth().onAuthStateChanged(callback);
   },
   currentUser: auth().currentUser,
+  signOut: () => auth().signOut(),
 };
 
 export type FirebaseAuthUser = FirebaseAuthTypes.User;

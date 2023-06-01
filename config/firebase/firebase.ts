@@ -9,4 +9,5 @@ export const Auth = {
   verifyOTP: async (_: string, __: ConfirmationResult | string) => {},
   onAuthStateChanged: (_: (user: FirebaseAuthUser) => void) => {},
   currentUser: {} as FirebaseAuthUser,
+  signOut: async () => {},
 };

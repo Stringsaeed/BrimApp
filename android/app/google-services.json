@@ -13,7 +13,28 @@
           "package_name": "com.stringsaeed.brim"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "374318773989-b0ke51mascqohtd8mnjthe03obo4nisi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stringsaeed.brim",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "374318773989-reuonsmp5b53appmh9bsdbm3htb7tuph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stringsaeed.brim",
+            "certificate_hash": "8e6d43b79eb095a8f82b31dc7e8fda3258b18571"
+          }
+        },
+        {
+          "client_id": "374318773989-8n0glunp5vmgl4p02hdvtfrsbhsohg18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAuAAjNu6jTziSrCoEl8oKkoLON-ExY-ew"
@@ -22,6 +43,10 @@
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
+            {
+              "client_id": "374318773989-8n0glunp5vmgl4p02hdvtfrsbhsohg18.apps.googleusercontent.com",
+              "client_type": 3
+            },
             {
               "client_id": "374318773989-dn25qpi00c9udnb96nsuo9bo3pkadr6i.apps.googleusercontent.com",
               "client_type": 2,

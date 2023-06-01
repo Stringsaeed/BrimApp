@@ -1,18 +1,11 @@
 import React from "react";
-import { useRouter } from "expo-router";
 
 import { Button, FormScrollContainer, Input, Spacing, Title } from "components";
-import { Auth } from "config";
+import useSignInWithPhoneNumberMutation from "hooks/use-sign-in-with-phone-number-mutation";
 
 export default function LoginPage() {
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-
-  const router = useRouter();
-
-  const handleContinue = React.useCallback(async () => {
-    await Auth.sendPhoneOTP(phoneNumber);
-    router.push("/auth/verify");
-  }, [phoneNumber, router]);
+  const { handleSubmit, phoneNumber, setPhoneNumber } =
+    useSignInWithPhoneNumberMutation();
 
   return (
     <FormScrollContainer centerContent>
@@ -29,7 +22,7 @@ export default function LoginPage() {
         onChangeText={setPhoneNumber}
       />
       <Spacing size={6} />
-      <Button label="continue" onPress={handleContinue} />
+      <Button label="continue" onPress={handleSubmit} />
     </FormScrollContainer>
   );
 }

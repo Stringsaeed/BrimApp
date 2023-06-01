@@ -1,18 +1,24 @@
 import React, { useCallback } from "react";
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 
-import { Note, useNotesContext } from "contexts";
+import { Note } from "types";
 
 import Spacing from "../spacing";
 
 import NoteListItemView from "./note-list-item";
 
-export default function NotesList() {
-  const { notes } = useNotesContext();
+interface NotesListProps {
+  onPressNote: (note: Note) => void;
+  notes: Note[];
+}
 
-  const renderItem = useCallback(({ item }: ListRenderItemInfo<Note>) => {
-    return <NoteListItemView item={item} />;
-  }, []);
+export default function NotesList({ notes, onPressNote }: NotesListProps) {
+  const renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<Note>) => (
+      <NoteListItemView item={item} onPress={() => onPressNote(item)} />
+    ),
+    [onPressNote]
+  );
 
   const renderSeparator = useCallback(() => <Spacing size={4} />, []);
 
