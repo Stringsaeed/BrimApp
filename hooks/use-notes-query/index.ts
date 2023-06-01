@@ -15,12 +15,20 @@ export default function useNotesQuery() {
     const notesRef = database().ref(`/notes/${user?.uid}`);
 
     notesRef.on("value", (snapshot) => {
-      const notes = snapshot.val();
+      const notes: Record<
+        string,
+        {
+          note?: string | null;
+          created_at?: string | null;
+          is_draft?: boolean | null;
+          user?: string | null;
+        }
+      > = snapshot.val();
       if (!notes) return;
 
       const notesArray = Object.entries(notes).map(([id, note]) => ({
-        // @ts-expect-error
         ...note,
+        note: note.note ?? "",
         id,
         user: user.uid,
       }));

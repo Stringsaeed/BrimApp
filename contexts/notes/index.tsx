@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import database from "@react-native-firebase/database";
 
 import { useAuth } from "contexts/auth";
 import { useCreateNoteMutation, useNotesQuery } from "hooks";
@@ -10,8 +11,8 @@ const NotesContext = React.createContext<NotesContextType | undefined>(
 
 export interface NotesContextType {
   notes: Note[];
-  addNote: (note: string) => Promise<string | null>;
-  removeNote: (id: number) => void;
+  addNote: (note: string, isDraft?: boolean) => Promise<string | null>;
+  removeNote: (id: string) => void;
 }
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
@@ -21,12 +22,12 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
 
   const addNote = useCallback(
-    async (noteText: string) => {
+    async (noteText: string, isDraft: boolean = false) => {
       const ref = await createNoteMutation.mutateAsync({
         note: noteText,
         user: user?.uid ?? null,
         created_at: new Date().toISOString(),
-        is_draft: false,
+        is_draft: isDraft,
       });
 
       return ref.key;
@@ -34,7 +35,28 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     [createNoteMutation, user?.uid]
   );
 
-  const removeNote = useCallback((_: number) => {}, []);
+  const removeNote = useCallback(
+    (id: string) => {
+      return database().ref(`/notes/${user?.uid}/${id}`).remove();
+    },
+    [user?.uid]
+  );
+
+  const syncNotes = useCallback(async () => {
+    const toRemoved = data
+      .map((note) => {
+        if (note.is_draft) return;
+        if (note.note) return;
+        return removeNote(note.id);
+      })
+      .filter(Boolean);
+
+    await Promise.all(toRemoved);
+  }, [data, removeNote]);
+
+  React.useEffect(() => {
+    syncNotes();
+  }, [syncNotes]);
 
   return (
     <NotesContext.Provider value={{ notes: data ?? [], addNote, removeNote }}>

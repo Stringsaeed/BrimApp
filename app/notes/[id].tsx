@@ -1,5 +1,4 @@
-/* eslint-disable promise/catch-or-return */
-import React, { useEffect } from "react";
+import React from "react";
 import { Stack as RouterStack } from "expo-router";
 import { Stack } from "tamagui";
 import { Check } from "phosphor-react-native";
@@ -17,32 +16,16 @@ export default function NotePage() {
 
   const [updatedNote, setNote] = React.useState<string>();
 
-  useEffect(() => {
-    return () => {
-      if (updatedNote) {
-        database().ref(`/notes/${userId}/${noteId}`).update({
-          note: updatedNote,
-        });
-      } else {
-        database()
-          .ref(`/notes/${userId}/${noteId}`)
-          .update({
-            note: "",
-          })
-          .finally(() => {
-            database().ref(`/notes/${userId}/${noteId}`).remove();
-          });
-      }
-    };
-  }, [noteId, updatedNote, userId]);
-
   const renderHeaderRight = () => {
     return (
       <Pressable
         onPress={() => {
-          database().ref(`/notes/${userId}/${noteId}`).update({
-            note: updatedNote,
-          });
+          database()
+            .ref(`/notes/${userId}/${noteId}`)
+            .update({
+              note: updatedNote ?? "",
+              is_draft: false,
+            });
         }}
         accessibilityRole="button"
       >
@@ -64,6 +47,7 @@ export default function NotePage() {
           onUserInput={setNote}
           onLoadEnd={() => {
             if (data?.note) richTextRef.current?.insertHTML(data?.note);
+            if (data?.note) setNote?.(data?.note);
             richTextRef.current?.focusContentEditor();
           }}
         />

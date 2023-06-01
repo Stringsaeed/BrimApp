@@ -18,8 +18,7 @@ export default function NotesPage() {
   };
 
   const onPressCreate = async () => {
-    const ref = await addNote("");
-    console.log(ref);
+    const ref = await addNote("", true);
 
     router.push(`/notes/${ref}`);
   };

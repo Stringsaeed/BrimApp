@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { ListItem } from "tamagui";
 import { ArrowRight } from "phosphor-react-native";
+import { decode } from "html-entities";
 
 import { Note } from "types";
 
@@ -15,7 +16,7 @@ export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
   const content = useMemo(() => {
     const match = item.note.match(regex);
 
-    return match?.[1] ?? item.note;
+    return decode(match?.[1] ?? item.note);
   }, [item.note]);
 
   return (
