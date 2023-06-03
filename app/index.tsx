@@ -14,13 +14,19 @@ export default function NotesPage() {
   const { notes, addNote } = useNotesContext();
 
   const onPressNote = (note: Note) => {
-    router.push(`/notes/${note.id}`);
+    router.push({
+      pathname: `/notes/${note.id}`,
+      params: { note: JSON.stringify(note) },
+    });
   };
 
   const onPressCreate = async () => {
-    const ref = await addNote("", true);
+    const note = await addNote("", true);
 
-    router.push(`/notes/${ref}`);
+    router.push({
+      pathname: `/notes/${note.id}`,
+      params: { note: JSON.stringify(note) },
+    });
   };
 
   const onPressProfile = () => {

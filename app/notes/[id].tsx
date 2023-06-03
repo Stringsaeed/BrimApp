@@ -1,64 +1,49 @@
-import React, { useCallback } from "react";
-import { Stack as RouterStack, useFocusEffect } from "expo-router";
+import React from "react";
+import { useLocalSearchParams } from "expo-router";
 import { Stack } from "tamagui";
-import { Check } from "phosphor-react-native";
 import { RichEditor } from "react-native-pell-rich-editor";
-import { Pressable } from "react-native";
 import database from "@react-native-firebase/database";
+import { Formik } from "formik";
 
-import { useNoteQuery } from "hooks";
-import { Composer } from "components";
+import { AutoSave, Composer } from "components";
+import { noteSchema } from "hooks/use-notes-query/schema";
+
+async function updateNote(text: string = "", userId: string, noteId: string) {
+  await database().ref(`/notes/${userId}/${noteId}`).update({
+    note: text,
+    is_draft: false,
+  });
+}
 
 export default function NotePage() {
-  const { data, userId, noteId } = useNoteQuery();
-
+  const params = useLocalSearchParams();
+  const { note: stringifiedNote } = params;
+  const note = noteSchema.parse(JSON.parse(stringifiedNote as string));
   const richTextRef = React.useRef<RichEditor>(null);
 
-  const [updatedNote, setNote] = React.useState<string>();
-
-  const onUpdate = useCallback(() => {
-    database()
-      .ref(`/notes/${userId}/${noteId}`)
-      .update({
-        note: updatedNote ?? "",
-        is_draft: false,
-      });
-  }, [noteId, updatedNote, userId]);
-
-  const renderHeaderRight = () => {
-    return (
-      <Pressable onPress={onUpdate} accessibilityRole="button">
-        <Check color="black" />
-      </Pressable>
-    );
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        onUpdate();
-      };
-    }, [onUpdate])
-  );
-
   return (
-    <>
-      <RouterStack.Screen
-        options={{
-          headerRight: renderHeaderRight,
-        }}
-      />
-      <Stack flex={1} bg="beige">
-        <Composer
-          ref={richTextRef}
-          onUserInput={setNote}
-          onLoadEnd={() => {
-            if (data?.note) richTextRef.current?.insertHTML(data?.note);
-            if (data?.note) setNote?.(data?.note);
-            richTextRef.current?.focusContentEditor();
-          }}
-        />
-      </Stack>
-    </>
+    <Formik
+      initialValues={{ note: note.note }}
+      onSubmit={async (values, { setSubmitting }) => {
+        setSubmitting(true);
+        await updateNote(values.note, note.user!, note.id);
+        setSubmitting(false);
+      }}
+    >
+      {({ handleChange }) => (
+        <Stack flex={1} bg="beige">
+          <AutoSave />
+          <Composer
+            ref={richTextRef}
+            onUserInput={handleChange("note")}
+            onLoadEnd={() => {
+              if (note.note) richTextRef.current?.insertHTML(note.note);
+
+              richTextRef.current?.focusContentEditor();
+            }}
+          />
+        </Stack>
+      )}
+    </Formik>
   );
 }
