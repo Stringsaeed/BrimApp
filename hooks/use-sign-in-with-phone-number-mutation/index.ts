@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
 async function signInWithPhoneNumber(phoneNumber: string) {
-  auth().settings.appVerificationDisabledForTesting = true;
+  if (__DEV__) auth().settings.appVerificationDisabledForTesting = true;
 
   try {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);

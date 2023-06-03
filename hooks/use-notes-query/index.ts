@@ -24,7 +24,11 @@ export default function useNotesQuery() {
           user?: string | null;
         }
       > = snapshot.val();
-      if (!notes) return;
+      console.log("notes", notes);
+
+      if (!notes) {
+        return setData([]);
+      }
 
       const notesArray = Object.entries(notes).map(([id, note]) => ({
         ...note,

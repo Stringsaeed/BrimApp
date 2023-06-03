@@ -4,6 +4,7 @@ import database from "@react-native-firebase/database";
 import { useAuth } from "contexts/auth";
 import { useCreateNoteMutation, useNotesQuery } from "hooks";
 import { Note } from "types";
+import { noteSchema } from "hooks/use-notes-query/schema";
 
 const NotesContext = React.createContext<NotesContextType | undefined>(
   undefined
@@ -11,7 +12,7 @@ const NotesContext = React.createContext<NotesContextType | undefined>(
 
 export interface NotesContextType {
   notes: Note[];
-  addNote: (note: string, isDraft?: boolean) => Promise<string | null>;
+  addNote: (note: string, isDraft?: boolean) => Promise<Note>;
   removeNote: (id: string) => void;
 }
 
@@ -29,8 +30,9 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
         created_at: new Date().toISOString(),
         is_draft: isDraft,
       });
+      const note = await ref.once("value");
 
-      return ref.key;
+      return noteSchema.parse({ ...note.val(), id: ref.key });
     },
     [createNoteMutation, user?.uid]
   );
