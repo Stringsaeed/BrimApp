@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { Stack, Paragraph } from "tamagui";
+import { Stack as RouterStack } from "expo-router";
 
 interface AutoSaveFormikProps {
   debounceMs?: number;
@@ -10,35 +10,30 @@ interface AutoSaveFormikProps {
 export default function AutoSaveFormik({
   debounceMs = 1000,
 }: AutoSaveFormikProps) {
-  const { submitForm, values, isSubmitting, submitCount } = useFormikContext<{
-    note: string;
-  }>();
+  const { submitForm, dirty, values, isSubmitting, submitCount } =
+    useFormikContext<{
+      note: string;
+    }>();
 
-  const debouncedSubmit = useMemo(
-    () =>
-      debounce(() => {
-        submitForm();
-      }, debounceMs),
-    [submitForm, debounceMs]
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedSubmit = useCallback(debounce(submitForm, debounceMs), [
+    submitForm,
+    debounceMs,
+  ]);
+
+  useEffect(() => {
+    dirty && debouncedSubmit();
+  }, [debouncedSubmit, dirty, values.note]);
+
+  return (
+    <RouterStack.Screen
+      options={{
+        title: isSubmitting
+          ? "Saving..."
+          : submitCount > 0
+          ? `Saved (${submitCount})`
+          : "",
+      }}
+    />
   );
-
-  useEffect(() => debouncedSubmit, [debouncedSubmit, values.note]);
-
-  if (isSubmitting) {
-    return (
-      <Stack>
-        <Paragraph>Saving...</Paragraph>
-      </Stack>
-    );
-  }
-
-  if (submitCount > 0) {
-    return (
-      <Stack>
-        <Paragraph>Saved {submitCount}</Paragraph>
-      </Stack>
-    );
-  }
-
-  return null;
 }

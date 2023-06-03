@@ -4,4 +4,5 @@ export type Note = {
   is_draft?: boolean | null;
   note: string;
   user?: string | null;
+  is_private?: boolean | null;
 };

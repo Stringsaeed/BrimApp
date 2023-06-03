@@ -30,6 +30,7 @@
     "expo-font": "~11.1.1",
     "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
+    "expo-local-authentication": "~13.3.0",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
@@ -38,7 +39,6 @@
     "formik": "^2.4.1",
     "html-entities": "^2.3.3",
     "lodash.debounce": "^4.0.8",
-    "lucide-react-native": "^0.224.0",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -51,7 +51,6 @@
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.10",
     "react-native-webview": "11.26.0",
-    "react-query": "^3.39.3",
     "tamagui": "^1.30.16",
     "zod": "^3.21.4"
   },

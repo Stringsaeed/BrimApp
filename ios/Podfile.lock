@@ -90,6 +90,8 @@ PODS:
     - ExpoModulesCore
   - ExpoLinearGradient (12.1.2):
     - ExpoModulesCore
+  - ExpoLocalAuthentication (13.3.0):
+    - ExpoModulesCore
   - ExpoModulesCore (1.2.7):
     - React-Core
     - React-RCTAppDelegate
@@ -595,6 +597,7 @@ DEPENDENCIES:
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
+  - ExpoLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - ExpoSystemUI (from `../node_modules/expo-system-ui/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -692,6 +695,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoLinearGradient:
     :path: "../node_modules/expo-linear-gradient/ios"
+  ExpoLocalAuthentication:
+    :path: "../node_modules/expo-local-authentication/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
   ExpoSystemUI:
@@ -801,6 +806,7 @@ SPEC CHECKSUMS:
   expo-dev-menu-interface: 6c82ae323c4b8724dead4763ce3ff24a2108bdb1
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
   ExpoLinearGradient: 8eaab76b7f55c612ed8348c8be8c2a18a9b4529f
+  ExpoLocalAuthentication: 32919307c66fb3661caefa07e7811a95a7539d7b
   ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
   ExpoSystemUI: 0be5173ee2a7c01e9abc44f56d879a1eaaa16527
   EXSplashScreen: 0e0a9ba0cf7553094e93213099bd7b42e6e237e9
