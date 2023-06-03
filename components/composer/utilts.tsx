@@ -9,6 +9,7 @@ import {
   TextItalic,
   TextStrikethrough,
   TextUnderline,
+  LineSegment,
 } from "phosphor-react-native";
 
 interface ToolbarIconMapper {
@@ -19,7 +20,9 @@ export function getToolbarIconMapper(): ToolbarIconMapper {
   return {
     [actions.setBold]: ({ tintColor }) => <TextBolder color={tintColor} />,
     [actions.setItalic]: ({ tintColor }) => <TextItalic color={tintColor} />,
-    [actions.line]: ({ tintColor }) => <TextStrikethrough color={tintColor} />,
+    [actions.setStrikethrough]: ({ tintColor }) => (
+      <TextStrikethrough color={tintColor} />
+    ),
     [actions.code]: ({ tintColor }) => <Code color={tintColor} />,
     [actions.insertLink]: ({ tintColor }) => <Link color={tintColor} />,
     [actions.insertBulletsList]: ({ tintColor }) => (
@@ -31,5 +34,6 @@ export function getToolbarIconMapper(): ToolbarIconMapper {
     [actions.setUnderline]: ({ tintColor }) => (
       <TextUnderline color={tintColor} />
     ),
+    [actions.line]: ({ tintColor }) => <LineSegment color={tintColor} />,
   };
 }

@@ -24,7 +24,6 @@ export default function useNotesQuery() {
           user?: string | null;
         }
       > = snapshot.val();
-      console.log("notes", notes);
 
       if (!notes) {
         return setData([]);

@@ -37,7 +37,6 @@ export default function NotePage() {
         disableDeviceFallback: true,
       });
       if (!result.success) {
-        console.log(result.error, result.warning);
         return;
       }
       isPrivate = true;

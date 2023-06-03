@@ -21,9 +21,7 @@ export default function useSignInWithPhoneNumberMutation() {
     onSuccess({ verificationId }) {
       router.push({ pathname: "auth/verify", params: { verificationId } });
     },
-    onError(error) {
-      console.log(error);
-    },
+    onError() {},
   });
 
   const handleSubmit = useCallback(() => {

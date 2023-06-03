@@ -1,27 +1,21 @@
 import React, { useMemo } from "react";
 import { ListItem } from "tamagui";
 import { ArrowRight } from "phosphor-react-native";
-import { decode } from "html-entities";
 
 import { Note } from "types";
+import { cipherTitle, getNoteTitle } from "utils";
 
 export interface NoteListItemProps {
   item: Note;
   onPress: () => void;
 }
 
-const regex = /<[^>]+>([^<]+)<\/[a-z]+>/i;
-
 export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
   const content = useMemo(() => {
-    const match = item.note.match(regex);
+    const title = getNoteTitle(item.note);
+    if (!item.is_private) return title;
 
-    const text = decode(match?.[1] ?? item.note);
-    if (!item.is_private) return text;
-    return text.replace(
-      /(\w)\w+/g,
-      (match, firstChar) => firstChar + "*".repeat(match.length - 1)
-    );
+    return cipherTitle(title);
   }, [item.is_private, item.note]);
 
   return (

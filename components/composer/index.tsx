@@ -22,12 +22,13 @@ function ComposerComponent(
         actions={[
           actions.setBold,
           actions.setItalic,
-          actions.line,
+          actions.setStrikethrough,
           actions.code,
           actions.insertLink,
           actions.insertOrderedList,
           actions.insertBulletsList,
           actions.setUnderline,
+          actions.line,
         ]}
         style={[$toolbarStyle, { borderColor: theme.purple5.val }]}
         iconMap={getToolbarIconMapper()}

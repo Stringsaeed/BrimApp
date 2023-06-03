@@ -25,7 +25,7 @@
       },
       "package": "com.stringsaeed.brim",
       "googleServicesFile": "./config/google-services.json",
-      "versionCode": 7
+      "versionCode": 8
     },
     "plugins": [
       "@react-native-firebase/app",
