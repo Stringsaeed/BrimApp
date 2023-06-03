@@ -16,8 +16,13 @@ export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
   const content = useMemo(() => {
     const match = item.note.match(regex);
 
-    return decode(match?.[1] ?? item.note);
-  }, [item.note]);
+    const text = decode(match?.[1] ?? item.note);
+    if (!item.is_private) return text;
+    return text.replace(
+      /(\w)\w+/g,
+      (match, firstChar) => firstChar + "*".repeat(match.length - 1)
+    );
+  }, [item.is_private, item.note]);
 
   return (
     <ListItem

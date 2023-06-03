@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { styled } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
 import { hideAsync } from "expo-splash-screen";
+import * as LocalAuthentication from "expo-local-authentication";
 
 import { NotesHeaderRight, NotesList } from "components";
 import { useNotesContext } from "contexts";
@@ -13,7 +14,15 @@ export default function NotesPage() {
   const router = useRouter();
   const { notes, addNote } = useNotesContext();
 
-  const onPressNote = (note: Note) => {
+  const onPressNote = async (note: Note) => {
+    if (note.is_private) {
+      const { success } = await LocalAuthentication.authenticateAsync({
+        disableDeviceFallback: false,
+      });
+      if (!success) {
+        return;
+      }
+    }
     router.push({
       pathname: `/notes/${note.id}`,
       params: { note: JSON.stringify(note) },

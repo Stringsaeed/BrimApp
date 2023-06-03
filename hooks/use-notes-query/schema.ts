@@ -13,6 +13,7 @@ export const noteSchema = z.object({
   is_draft: z.boolean().nullish(),
   note: z.string(),
   user: z.string().nullish(),
+  is_private: z.boolean().nullish().optional().default(false),
 });
 
 export const notesSchema = z.array(noteSchema);
