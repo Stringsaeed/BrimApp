@@ -1,26 +1,27 @@
 import React from "react";
-import { Button, Heading, Input, Stack, Form, Spinner } from "tamagui";
+import { View, Text } from "react-native";
 
-import { Spacing } from "components";
+import { Spacing, Button, Input } from "components";
 import { useLoginMutation } from "hooks";
+import { theme } from "themes";
 
 export default function LoginPage() {
-  const { handleSubmit, phoneNumber, setPhoneNumber, isLoading } =
-    useLoginMutation();
+  const { handleSubmit, phoneNumber, setPhoneNumber } = useLoginMutation();
 
   return (
-    <Form onSubmit={handleSubmit} flex={1} bg="beige">
-      <Stack
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        paddingHorizontal="$4"
-        bg="beige"
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingHorizontal: 16,
+        }}
       >
-        <Heading>What&apos;s your phone number</Heading>
+        <Text>What&apos;s your phone number</Text>
         <Spacing size={6} />
         <Input
-          width="100%"
           textAlign="center"
           textContentType="telephoneNumber"
           autoComplete="tel"
@@ -33,16 +34,9 @@ export default function LoginPage() {
           onChangeText={setPhoneNumber}
         />
         <Spacing size={6} />
-        <Form.Trigger asChild>
-          <Button
-            icon={isLoading ? <Spinner /> : null}
-            width="100%"
-            bg="$purple7"
-          >
-            Continue
-          </Button>
-        </Form.Trigger>
-      </Stack>
-    </Form>
+
+        <Button label="Continue" onPress={handleSubmit} />
+      </View>
+    </View>
   );
 }

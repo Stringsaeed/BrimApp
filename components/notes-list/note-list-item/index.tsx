@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
-import { ListItem } from "tamagui";
 import { ArrowRight } from "phosphor-react-native";
+import { Pressable } from "react-native";
 
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
+import Body from "components/body";
 
 export interface NoteListItemProps {
   item: Note;
@@ -19,14 +20,19 @@ export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
   }, [item.is_private, item.note]);
 
   return (
-    <ListItem
-      bg="beige"
-      // borderWidth="$1"
+    <Pressable
+      accessibilityRole="button"
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+      }}
       onPress={onPress}
-      textProps={{ numberOfLines: 1 }}
-      iconAfter={<ArrowRight color="black" />}
     >
-      {content}
-    </ListItem>
+      <Body>{content}</Body>
+      <ArrowRight color="black" />
+    </Pressable>
   );
 }

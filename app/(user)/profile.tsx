@@ -1,16 +1,23 @@
 import React from "react";
-import { Stack, Button } from "tamagui";
+import { View } from "react-native";
 
 import { useSignOutMutation } from "hooks";
+import { Button } from "components";
+import { theme } from "themes";
 
 export default function Profile() {
   const signOutMutation = useSignOutMutation();
 
   return (
-    <Stack bg="beige" flex={1} justifyContent="center" paddingHorizontal="$4">
-      <Button bg="$purple5" onPress={() => signOutMutation.mutate()}>
-        Sign out
-      </Button>
-    </Stack>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        justifyContent: "center",
+        paddingHorizontal: 16,
+      }}
+    >
+      <Button label="Sign out" onPress={() => signOutMutation.mutate()} />
+    </View>
   );
 }

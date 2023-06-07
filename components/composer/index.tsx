@@ -1,9 +1,10 @@
 import React from "react";
 import { actions } from "react-native-pell-rich-editor";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
-import { useTheme } from "tamagui";
 
-import { getToolbarIconMapper } from "./utilts";
+import { theme } from "themes";
+
+import { FontFamilyStylesheet, getToolbarIconMapper } from "./utilts";
 
 interface ComposerComponentProps {
   onUserInput: (input: string) => void;
@@ -14,7 +15,6 @@ function ComposerComponent(
   { onUserInput, onLoadEnd }: ComposerComponentProps,
   ref: React.Ref<RichEditor>
 ) {
-  const theme = useTheme();
   return (
     <>
       <RichToolbar
@@ -30,7 +30,7 @@ function ComposerComponent(
           actions.setUnderline,
           actions.line,
         ]}
-        style={[$toolbarStyle, { borderColor: theme.purple5.val }]}
+        style={[$toolbarStyle, { borderColor: theme.colors.secondary }]}
         iconMap={getToolbarIconMapper()}
       />
       <RichEditor
@@ -58,14 +58,14 @@ const $rootStyle = {
 
 const $editorStyle = {
   flex: 1,
-  backgroundColor: "beige",
-  cssText: `font-family: 'Inter', monospace;background: beige;`,
-  initialCSSText: `font-family: 'Inter', monospace;background: beige;`,
-  contentCSSText: `font-family: 'Inter', monospace;background: beige;`,
+  backgroundColor: theme.colors.background,
+  cssText: `font-family: Lato;background: white;`,
+  initialCSSText: `${FontFamilyStylesheet}`,
+  contentCSSText: `font-family: Lato; font-size: 16px; background: white;`,
 };
 
 const $toolbarStyle = {
-  backgroundColor: "beige",
+  backgroundColor: theme.colors.background,
   borderWidth: 1,
   borderLeftWidth: 0,
   borderRightWidth: 0,

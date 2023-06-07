@@ -1,26 +1,26 @@
 import React from "react";
-import { Button, Form, Heading, Input, Spinner, Stack } from "tamagui";
+import { View, Text } from "react-native";
 
-import { Spacing } from "components";
+import { Spacing, Button, Input } from "components";
 import { useVerifyPhoneNumberMutation } from "hooks";
+import { theme } from "themes";
 
 export default function VerifyPage() {
-  const { code, setCode, handleVerify, isLoading } =
-    useVerifyPhoneNumberMutation();
-
+  const { code, setCode, handleVerify } = useVerifyPhoneNumberMutation();
   return (
-    <Form onSubmit={handleVerify} flex={1} bg="beige">
-      <Stack
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        paddingHorizontal="$4"
-        bg="beige"
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingHorizontal: 16,
+        }}
       >
-        <Heading>Verify</Heading>
+        <Text>Verify</Text>
         <Spacing size={6} />
         <Input
-          width="100%"
           textAlign="center"
           textContentType="oneTimeCode"
           autoComplete="sms-otp"
@@ -33,16 +33,9 @@ export default function VerifyPage() {
           onChangeText={setCode}
         />
         <Spacing size={6} />
-        <Form.Trigger asChild>
-          <Button
-            icon={isLoading ? <Spinner /> : null}
-            width="100%"
-            bg="$purple7"
-          >
-            Login
-          </Button>
-        </Form.Trigger>
-      </Stack>
-    </Form>
+
+        <Button label="Login" onPress={handleVerify} />
+      </View>
+    </View>
   );
 }

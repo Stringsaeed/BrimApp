@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { Stack } from "tamagui";
 import { RichEditor } from "react-native-pell-rich-editor";
 import database from "@react-native-firebase/database";
 import { Formik, FormikHelpers } from "formik";
 import * as LocalAuthentication from "expo-local-authentication";
+import { View } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 import { AutoSave, Composer, NoteHeaderRight } from "components";
-import { noteSchema } from "hooks/use-notes-query/schema";
+import { useNotesContext } from "contexts";
+import { theme } from "themes";
 
 interface FormValues {
   note: string;
@@ -21,12 +23,14 @@ async function updateNote(text: string = "", userId: string, noteId: string) {
 }
 
 export default function NotePage() {
-  const params = useLocalSearchParams();
-  const { note: stringifiedNote } = params;
-  const [note, setNote] = useState(() =>
-    noteSchema.parse(JSON.parse(stringifiedNote as string))
-  );
+  const { id } = useLocalSearchParams();
+  const { notes } = useNotesContext();
+  const selectedNote = notes.find((note) => note.id === id);
+
+  const [note, setNote] = useState(() => selectedNote!);
   const richTextRef = React.useRef<RichEditor>(null);
+
+  const headerHeight = useHeaderHeight();
 
   const handleSetPrivate = async () => {
     let isPrivate = note.is_private;
@@ -75,7 +79,13 @@ export default function NotePage() {
         onSubmit={handleSubmit}
       >
         {({ handleChange }) => (
-          <Stack flex={1} bg="beige">
+          <View
+            style={{
+              flex: 1,
+              paddingTop: headerHeight,
+              backgroundColor: theme.colors.background,
+            }}
+          >
             <AutoSave />
             <Composer
               ref={richTextRef}
@@ -86,7 +96,7 @@ export default function NotePage() {
                 richTextRef.current?.focusContentEditor();
               }}
             />
-          </Stack>
+          </View>
         )}
       </Formik>
     </>

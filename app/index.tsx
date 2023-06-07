@@ -1,18 +1,19 @@
 import React from "react";
 import { Stack, useRouter } from "expo-router";
 import { View } from "react-native";
-import { styled } from "tamagui";
-import { LinearGradient } from "tamagui/linear-gradient";
 import { hideAsync } from "expo-splash-screen";
 import * as LocalAuthentication from "expo-local-authentication";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 import { NotesHeaderRight, NotesList } from "components";
 import { useNotesContext } from "contexts";
 import { Note } from "types";
+import { theme } from "themes";
 
 export default function NotesPage() {
   const router = useRouter();
   const { notes, addNote } = useNotesContext();
+  const headerHeight = useHeaderHeight();
 
   const onPressNote = async (note: Note) => {
     if (note.is_private) {
@@ -23,6 +24,7 @@ export default function NotesPage() {
         return;
       }
     }
+
     router.push({
       pathname: `/notes/${note.id}`,
       params: { note: JSON.stringify(note) },
@@ -56,22 +58,20 @@ export default function NotesPage() {
       <Stack.Screen
         options={{
           title: "Notes",
-          headerTintColor: "black",
           headerShown: true,
           headerRight: renderHeaderRight,
-          headerBackground() {
-            return <LinearGradient flex={1} colors={["$purple5", "beige"]} />;
-          },
         }}
       />
-      <Container onLayout={hideAsync}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+          paddingTop: headerHeight,
+        }}
+        onLayout={hideAsync}
+      >
         <NotesList onPressNote={onPressNote} notes={notes} />
-      </Container>
+      </View>
     </>
   );
 }
-
-const Container = styled(View, {
-  flex: 1,
-  backgroundColor: "beige",
-});

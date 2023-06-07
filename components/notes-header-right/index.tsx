@@ -1,6 +1,6 @@
 import { Plus, User } from "phosphor-react-native";
 import React from "react";
-import { Stack } from "tamagui";
+import { Pressable, View } from "react-native";
 
 interface NotesHeaderRightProps {
   onPressCreate: () => void;
@@ -12,13 +12,13 @@ export default function NotesHeaderRight({
   onPressProfile,
 }: NotesHeaderRightProps) {
   return (
-    <Stack gap={8} flexDirection="row">
-      <Stack accessibilityRole="button" onPress={onPressCreate}>
+    <View style={{ gap: 8, flexDirection: "row" }}>
+      <Pressable accessibilityRole="button" onPress={onPressCreate}>
         <Plus color="black" />
-      </Stack>
-      <Stack accessibilityRole="button" onPress={onPressProfile}>
+      </Pressable>
+      <Pressable accessibilityRole="button" onPress={onPressProfile}>
         <User color="black" />
-      </Stack>
-    </Stack>
+      </Pressable>
+    </View>
   );
 }
