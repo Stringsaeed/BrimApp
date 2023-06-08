@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { Spacing, Button, Input } from "components";
+import { Spacing, Button, Input, Headline } from "components";
 import { useLoginMutation } from "hooks";
 import { theme } from "themes";
 
@@ -9,17 +9,9 @@ export default function LoginPage() {
   const { handleSubmit, phoneNumber, setPhoneNumber } = useLoginMutation();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.background,
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 16,
-        }}
-      >
-        <Text>What&apos;s your phone number</Text>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Headline>What&apos;s your phone number</Headline>
         <Spacing size={6} />
         <Input
           textAlign="center"
@@ -40,3 +32,17 @@ export default function LoginPage() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  content: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 16,
+  },
+});

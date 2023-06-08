@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
-import { Lock } from "phosphor-react-native";
+import { Lock, Plus, User } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 
 interface NoteHeaderRightProps {
@@ -20,9 +20,17 @@ export default function NoteHeaderRight({
       return null;
     }
     return (
-      <Pressable onPress={onPressLock} accessibilityRole="button">
-        <Lock color={isPrivate ? "#000000" : "#71787F"} />
-      </Pressable>
+      <View style={{ gap: 8, flexDirection: "row" }}>
+        <Pressable onPress={onPressLock} accessibilityRole="button">
+          <Lock color={isPrivate ? "#000000" : "#71787F"} />
+        </Pressable>
+        <Pressable accessibilityRole="button">
+          <Plus color="black" />
+        </Pressable>
+        <Pressable accessibilityRole="button">
+          <User color="black" />
+        </Pressable>
+      </View>
     );
   }, [isEligible, isPrivate, onPressLock]);
 

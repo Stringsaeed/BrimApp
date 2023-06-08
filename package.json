@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@expo-google-fonts/lato": "^0.2.3",
+    "@expo-google-fonts/dm-sans": "^0.2.3",
     "@react-native-firebase/analytics": "^17.5.0",
     "@react-native-firebase/app": "^17.5.0",
     "@react-native-firebase/auth": "^17.5.0",

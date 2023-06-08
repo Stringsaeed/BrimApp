@@ -1,71 +1,43 @@
-const palette = {
-  lightBlue: "#b3cbce",
-  mediumBlue: "#468499",
-  darkBlue: "#005b74",
-  bondiBlue: "#0093A7",
-};
+import { colors } from "./colors";
+import { palette } from "./palette";
+import { fonts, textVariants } from "./typography";
 
 const theme = {
-  colors: {
-    primary: palette.bondiBlue,
-    secondary: palette.lightBlue,
-    success: "#28a745",
-    danger: "#dc3545",
-    warning: "#ffc107",
-    info: "#17a2b8",
-    light: "#f8f9fa",
-    dark: "#343a40",
-    background: "#ffffff",
-  },
+  colors,
   buttons: {
     primary: {
       backgroundColor: palette.bondiBlue,
-      textColor: "#000000",
+      textColor: palette.white,
       borderColor: palette.bondiBlue,
     },
     secondary: {
       backgroundColor: palette.lightBlue,
-      textColor: "#ffffff",
+      textColor: palette.white,
       borderColor: palette.lightBlue,
     },
     success: {
-      backgroundColor: "#28a745",
-      textColor: "#ffffff",
-      borderColor: "#28a745",
+      backgroundColor: palette.eucalyptus,
+      textColor: palette.white,
+      borderColor: palette.eucalyptus,
     },
     danger: {
-      backgroundColor: "#dc3545",
-      textColor: "#ffffff",
-      borderColor: "#dc3545",
+      backgroundColor: palette.ceriseRed,
+      textColor: palette.white,
+      borderColor: palette.ceriseRed,
     },
     warning: {
-      backgroundColor: "#ffc107",
-      textColor: "#ffffff",
-      borderColor: "#ffc107",
+      backgroundColor: palette.amber,
+      textColor: palette.white,
+      borderColor: palette.amber,
     },
     info: {
-      backgroundColor: "#17a2b8",
-      textColor: "#ffffff",
-      borderColor: "#17a2b8",
+      backgroundColor: palette.easternBlue,
+      textColor: palette.white,
+      borderColor: palette.easternBlue,
     },
   },
-  textVariants: {
-    heading: {
-      fontFamily: "Lato-Bold",
-      fontSize: 24,
-      color: "#000000",
-    },
-    body: {
-      fontFamily: "Lato",
-      fontSize: 16,
-      color: "#000000",
-    },
-    caption: {
-      fontFamily: "Lato",
-      fontSize: 12,
-      color: "#6c757d",
-    },
-  },
+  fonts,
+  textVariants,
   borderRadius: {
     small: 4,
     medium: 8,
@@ -78,21 +50,21 @@ const theme = {
   },
   shadowVariants: {
     small: {
-      shadowColor: "#000000",
+      shadowColor: palette.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
       elevation: 2,
     },
     medium: {
-      shadowColor: "#000000",
+      shadowColor: palette.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       shadowRadius: 8,
       elevation: 4,
     },
     large: {
-      shadowColor: "#000000",
+      shadowColor: palette.black,
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.1,
       shadowRadius: 16,

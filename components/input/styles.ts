@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+import { theme } from "themes";
+
 export default StyleSheet.create({
   input: {
     paddingHorizontal: 16,
@@ -10,8 +12,8 @@ export default StyleSheet.create({
     paddingVertical: 16,
     paddingTop: 16,
     paddingBottom: 16,
-    fontSize: 16,
     width: "100%",
     textAlign: "center",
+    ...theme.textVariants.Body,
   },
 });
