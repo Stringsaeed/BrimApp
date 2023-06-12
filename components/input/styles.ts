@@ -4,16 +4,16 @@ import { theme } from "themes";
 
 export default StyleSheet.create({
   input: {
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    borderColor: "#eaeaea",
     backgroundColor: "#eaeaea",
-    borderRadius: 16,
-    paddingVertical: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    width: "100%",
+    borderColor: "#eaeaea",
+    paddingHorizontal: 16,
     textAlign: "center",
+    paddingVertical: 16,
+    paddingBottom: 16,
+    borderRadius: 16,
+    paddingTop: 16,
+    borderWidth: 1,
+    width: "100%",
     ...theme.textVariants.Body,
   },
 });

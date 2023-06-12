@@ -1,6 +1,6 @@
 {
   "extends": "@callstack",
-
+  "plugins": ["perfectionist"],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
@@ -11,18 +11,11 @@
     }
   },
   "rules": {
-    "import/order": [
+    "perfectionist/sort-objects": [
       "error",
       {
-        "newlines-between": "always",
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "object"
-        ]
+        "type": "line-length",
+        "order": "desc"
       }
     ],
     "import/newline-after-import": ["error", { "count": 1 }],
@@ -32,7 +25,8 @@
         "skip": ["Heading", "Body", "Title", "Button"]
       }
     ],
-    "react-native/no-color-literals": "off"
+    "react-native/no-color-literals": "off",
+    "import/order": "off"
   },
   "overrides": [
     {

@@ -5,9 +5,9 @@ export * from "./base";
 export type FirebaseAuthUser = User;
 
 export const Auth = {
-  sendPhoneOTP: async (_: string) => {},
   verifyOTP: async (_: string, __: ConfirmationResult | string) => {},
   onAuthStateChanged: (_: (user: FirebaseAuthUser) => void) => {},
+  sendPhoneOTP: async (_: string) => {},
   currentUser: {} as FirebaseAuthUser,
   signOut: async () => {},
 };

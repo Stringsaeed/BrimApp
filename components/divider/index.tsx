@@ -9,8 +9,8 @@ export default function Divider() {
 
 const styles = StyleSheet.create({
   divider: {
-    borderBottomColor: theme.colors.info,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.info,
     alignSelf: "stretch",
   },
 });

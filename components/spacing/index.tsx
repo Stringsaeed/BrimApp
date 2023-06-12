@@ -9,9 +9,9 @@ interface SpacingProps extends ViewProps {
 const factor = 4.0;
 
 export default function Spacing({
-  size = 4,
-  horizontal = false,
   style: overrideStyle,
+  horizontal = false,
+  size = 4,
   ...props
 }: SpacingProps) {
   const style = StyleSheet.flatten([

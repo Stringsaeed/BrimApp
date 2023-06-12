@@ -25,14 +25,14 @@ window.recaptchaVerifier = new RecaptchaVerifier(
 );
 
 export const Auth = {
-  sendPhoneOTP: (phoneNumber: string) => {
-    // @ts-expect-error
-    return signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-  },
   verifyOTP: (code: string, verificationId: string) => {
     const credential = PhoneAuthProvider.credential(verificationId, code);
 
     return signInWithCredential(auth, credential);
+  },
+  sendPhoneOTP: (phoneNumber: string) => {
+    // @ts-expect-error
+    return signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
   },
   onAuthStateChanged: (callback: (user: FirebaseAuthUser | null) => void) => {
     return onAuthStateChanged(auth, callback);

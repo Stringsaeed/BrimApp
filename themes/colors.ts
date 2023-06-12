@@ -1,14 +1,14 @@
 import { palette } from "./palette";
 
 export const colors = {
-  primary: palette.bondiBlue,
   secondary: palette.lightBlue,
   success: palette.eucalyptus,
-  danger: palette.ceriseRed,
-  warning: palette.amber,
-  info: palette.easternBlue,
-  light: palette.athensGray,
-  dark: palette.outerSpace,
+  primary: palette.bondiBlue,
   background: palette.white,
+  light: palette.athensGray,
+  info: palette.easternBlue,
+  danger: palette.ceriseRed,
   text: palette.outerSpace,
+  dark: palette.outerSpace,
+  warning: palette.amber,
 };

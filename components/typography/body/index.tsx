@@ -1,15 +1,14 @@
 import React from "react";
 
+import BaseText, { BaseTextProps } from "components/typography/base-text";
 import { theme } from "themes";
-
-import BaseText, { BaseTextProps } from "../base-text";
 
 type Props = BaseTextProps & {
   italic?: boolean;
   emphasized?: boolean;
 };
 
-const getBodyStyle = ({ italic, emphasized }: Props) => {
+const getBodyStyle = ({ emphasized, italic }: Props) => {
   let variantName: keyof typeof theme.textVariants = "Body";
 
   if (italic) {
@@ -24,10 +23,10 @@ const getBodyStyle = ({ italic, emphasized }: Props) => {
 };
 
 export default function Body({
-  italic = false,
   emphasized = false,
+  italic = false,
   ...restProps
 }: Props) {
-  const style = getBodyStyle({ italic, emphasized });
+  const style = getBodyStyle({ emphasized, italic });
   return <BaseText {...restProps} style={style} />;
 }

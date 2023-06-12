@@ -4,18 +4,21 @@ import { theme } from "themes";
 
 export default StyleSheet.create({
   button: {
-    borderRadius: 12,
+    justifyContent: "center",
     paddingHorizontal: 16,
+    overflow: "hidden",
+    borderRadius: 12,
     width: "100%",
     height: 56,
-    justifyContent: "center",
-    overflow: "hidden",
   },
-  lg: { height: 56, borderRadius: 12 },
   label: {
-    textAlign: "center",
     textTransform: "capitalize",
+    textAlign: "center",
     ...theme.textVariants.Body,
     fontFamily: theme.fonts.bold,
+  },
+  lg: { borderRadius: 12, height: 56 },
+  disabled: {
+    opacity: 0.5,
   },
 });

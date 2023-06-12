@@ -1,15 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { RichEditor } from "react-native-pell-rich-editor";
 import database from "@react-native-firebase/database";
-import { Formik, FormikHelpers } from "formik";
-import * as LocalAuthentication from "expo-local-authentication";
-import { View } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
-
+import { FormikHelpers, FormikProvider, useFormik } from "formik";
+import { View, ViewStyle } from "react-native";
 import { AutoSave, Composer, NoteHeaderRight } from "components";
 import { useNotesContext } from "contexts";
 import { theme } from "themes";
+import { useNotePrivacyMutation } from "hooks";
 
 interface FormValues {
   note: string;
@@ -17,88 +15,84 @@ interface FormValues {
 
 async function updateNote(text: string = "", userId: string, noteId: string) {
   await database().ref(`/notes/${userId}/${noteId}`).update({
-    note: text,
     is_draft: false,
+    note: text,
   });
 }
 
 export default function NotePage() {
   const { id } = useLocalSearchParams();
   const { notes } = useNotesContext();
-  const selectedNote = notes.find((note) => note.id === id);
+  const note = notes.find((note) => note.id === id);
 
-  const [note, setNote] = useState(() => selectedNote!);
+  const notePrivacyMutation = useNotePrivacyMutation();
+
   const richTextRef = React.useRef<RichEditor>(null);
 
-  const headerHeight = useHeaderHeight();
-
-  const handleSetPrivate = async () => {
-    let isPrivate = note.is_private;
-    if (isPrivate) {
-      isPrivate = false;
-    } else {
-      const result = await LocalAuthentication.authenticateAsync({
-        disableDeviceFallback: true,
-      });
-      if (!result.success) {
-        return;
-      }
-      isPrivate = true;
-    }
-    if (isPrivate === note.is_private) return;
-    await database().ref(`/notes/${note.user!}/${note.id!}`).update({
-      is_private: isPrivate,
-    });
-    setNote((_note) => ({
-      ..._note,
-      is_private: isPrivate,
-    }));
-  };
-
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     async (
       values: FormValues,
       { setSubmitting }: FormikHelpers<FormValues>
     ) => {
+      if (!note) return;
       setSubmitting(true);
       await updateNote(values.note, note.user!, note.id);
       setSubmitting(false);
     },
-    [note.id, note.user]
+    [note]
   );
+  const config = useFormik<FormValues>({
+    initialValues: { note: note?.note ?? "" },
+    onSubmit,
+  });
+
+  const togglePrivacy = useCallback(async () => {
+    if (!note) return;
+    notePrivacyMutation.mutate({ note });
+  }, [notePrivacyMutation, note]);
+
+  const handleDelete = useCallback(async () => {
+    if (!note) return;
+    await database().ref(`/notes/${note.user}/${note.id}`).remove();
+  }, [note]);
+
+  useEffect(() => {
+    return () => {
+      if (!note) return;
+      const isDirty = config.dirty;
+      const isSubmittedBefore = config.submitCount > 0;
+      const isEmptyNote = config.values.note === "";
+
+      if (isEmptyNote && !isSubmittedBefore && !isDirty) {
+        config.submitForm();
+      }
+    };
+  }, [config, note]);
 
   return (
-    <>
+    <FormikProvider value={config}>
       <NoteHeaderRight
-        onPressLock={handleSetPrivate}
-        isPrivate={note.is_private}
+        onPressLock={togglePrivacy}
+        onPressTrash={handleDelete}
+        isPrivate={note?.is_private}
       />
-      <Formik
-        enableReinitialize
-        initialValues={{ note: note.note }}
-        onSubmit={handleSubmit}
-      >
-        {({ handleChange }) => (
-          <View
-            style={{
-              flex: 1,
-              paddingTop: headerHeight,
-              backgroundColor: theme.colors.background,
-            }}
-          >
-            <AutoSave />
-            <Composer
-              ref={richTextRef}
-              onUserInput={handleChange("note")}
-              onLoadEnd={() => {
-                if (note.note) richTextRef.current?.insertHTML(note.note);
+      <View style={container}>
+        <AutoSave />
+        <Composer
+          ref={richTextRef}
+          onUserInput={config.handleChange("note")}
+          onLoadEnd={() => {
+            if (note?.note) richTextRef.current?.insertHTML(note.note);
 
-                richTextRef.current?.focusContentEditor();
-              }}
-            />
-          </View>
-        )}
-      </Formik>
-    </>
+            richTextRef.current?.focusContentEditor();
+          }}
+        />
+      </View>
+    </FormikProvider>
   );
 }
+
+const container: ViewStyle = {
+  backgroundColor: theme.colors.background,
+  flex: 1,
+};

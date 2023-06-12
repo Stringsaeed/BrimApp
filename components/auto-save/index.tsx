@@ -10,7 +10,7 @@ interface AutoSaveFormikProps {
 export default function AutoSaveFormik({
   debounceMs = 1000,
 }: AutoSaveFormikProps) {
-  const { submitForm, dirty, values, isSubmitting, submitCount } =
+  const { isSubmitting, submitCount, submitForm, values, dirty } =
     useFormikContext<{
       note: string;
     }>();

@@ -32,9 +32,9 @@ export default function useVerifyPhoneNumberMutation() {
   }, [code, verificationId, verifyPhoneNumberMutation]);
 
   return {
-    code,
-    setCode,
     handleVerify,
+    setCode,
+    code,
     ...verifyPhoneNumberMutation,
   };
 }

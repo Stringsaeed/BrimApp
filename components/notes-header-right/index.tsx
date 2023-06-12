@@ -8,11 +8,11 @@ interface NotesHeaderRightProps {
 }
 
 export default function NotesHeaderRight({
-  onPressCreate,
   onPressProfile,
+  onPressCreate,
 }: NotesHeaderRightProps) {
   return (
-    <View style={{ gap: 8, flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", gap: 8 }}>
       <Pressable accessibilityRole="button" onPress={onPressCreate}>
         <Plus color="black" />
       </Pressable>

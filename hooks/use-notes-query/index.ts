@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import database from "@react-native-firebase/database";
 
+import { notesSchema } from "./schema";
 import { useAuth } from "contexts/auth";
 import { Note } from "types";
-
-import { notesSchema } from "./schema";
 
 export default function useNotesQuery() {
   const [data, setData] = useState<Note[]>([]);
@@ -32,8 +31,8 @@ export default function useNotesQuery() {
       const notesArray = Object.entries(notes).map(([id, note]) => ({
         ...note,
         note: note.note ?? "",
-        id,
         user: user.uid,
+        id,
       }));
 
       setData(notesSchema.parse(notesArray));

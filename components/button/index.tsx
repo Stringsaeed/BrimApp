@@ -9,9 +9,8 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-import { theme } from "themes";
-
 import styles from "./styles";
+import { theme } from "themes";
 
 interface ButtonProps extends Omit<TouchableOpacityProps, "children"> {
   label: string;
@@ -19,18 +18,27 @@ interface ButtonProps extends Omit<TouchableOpacityProps, "children"> {
   variant?: keyof typeof theme.buttons;
 }
 
+// type Props = {
+//   mode: "Light" | "Dark";
+//   style: "Borderless" | "BezeledGray" | "Belezed" | "Filled";
+//   size: "Small" | "Medium" | "Large";
+//   iconOnly: boolean;
+// };
+
 export default function Button({
-  label,
-  style: overrideStyle,
   labelStyle: overrideLabelStyle,
+  style: overrideStyle,
   variant = "primary",
+  disabled,
+  label,
   ...props
 }: ButtonProps) {
-  const { textColor, backgroundColor } = theme.buttons[variant];
+  const { backgroundColor, textColor } = theme.buttons[variant];
 
   const style = StyleSheet.flatten([
     styles.button,
     { backgroundColor },
+    disabled && styles.disabled,
     overrideStyle,
   ]);
 
@@ -41,7 +49,7 @@ export default function Button({
   ]);
 
   return (
-    <TouchableOpacity {...props} style={style}>
+    <TouchableOpacity {...props} disabled={disabled} style={style}>
       <LinearGradient
         colors={[backgroundColor, "transparent"]}
         style={[styles.lg, StyleSheet.absoluteFill]}

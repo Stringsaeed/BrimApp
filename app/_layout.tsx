@@ -18,12 +18,12 @@ SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const [loaded] = useFonts({
-    [fonts.regular]: DMSans_400Regular,
-    [fonts.regularItalic]: DMSans_400Regular_Italic,
-    [fonts.bold]: DMSans_700Bold,
-    [fonts.semiBold]: DMSans_500Medium,
     [fonts.semiBoldItalic]: DMSans_500Medium_Italic,
+    [fonts.regularItalic]: DMSans_400Regular_Italic,
     [fonts.boldItalic]: DMSans_700Bold_Italic,
+    [fonts.semiBold]: DMSans_500Medium,
+    [fonts.regular]: DMSans_400Regular,
+    [fonts.bold]: DMSans_700Bold,
   });
 
   if (!loaded) {
@@ -36,10 +36,9 @@ export default function Layout() {
         <NotesProvider>
           <Stack
             screenOptions={{
-              headerTintColor: "#000",
-              headerBackTitleVisible: false,
               headerTitleStyle: theme.textVariants.Headline,
-              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000",
             }}
           >
             <Stack.Screen
@@ -49,9 +48,9 @@ export default function Layout() {
             <Stack.Screen
               name="auth"
               options={{
-                headerShown: false,
                 headerBackground: () => null,
                 headerTransparent: true,
+                headerShown: false,
               }}
             />
             <Stack.Screen name="notes/[id]" options={{ title: "" }} />

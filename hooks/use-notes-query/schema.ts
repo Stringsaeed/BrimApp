@@ -8,12 +8,12 @@ import { z } from "zod";
 //   user: z.string(),
 // });
 export const noteSchema = z.object({
-  created_at: z.string().nullish(),
-  id: z.string(),
-  is_draft: z.boolean().nullish(),
-  note: z.string(),
-  user: z.string().nullish(),
   is_private: z.boolean().nullish().optional().default(false),
+  created_at: z.string().nullish(),
+  is_draft: z.boolean().nullish(),
+  user: z.string().nullish(),
+  note: z.string(),
+  id: z.string(),
 });
 
 export const notesSchema = z.array(noteSchema);

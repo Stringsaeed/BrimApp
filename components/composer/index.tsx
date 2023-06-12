@@ -2,9 +2,8 @@ import React from "react";
 import { actions } from "react-native-pell-rich-editor";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
-import { theme } from "themes";
-
 import { FontFamilyStylesheet, getToolbarIconMapper } from "./utilts";
+import { theme } from "themes";
 
 interface ComposerComponentProps {
   onUserInput: (input: string) => void;
@@ -57,16 +56,16 @@ const $rootStyle = {
 };
 
 const $editorStyle = {
-  flex: 1,
-  backgroundColor: theme.colors.background,
+  contentCSSText: `font-family: Lato; font-size: 16px; background: white;`,
   cssText: `font-family: Lato;background: white;`,
   initialCSSText: `${FontFamilyStylesheet}`,
-  contentCSSText: `font-family: Lato; font-size: 16px; background: white;`,
+  backgroundColor: theme.colors.background,
+  flex: 1,
 };
 
 const $toolbarStyle = {
   backgroundColor: theme.colors.background,
-  borderWidth: 1,
-  borderLeftWidth: 0,
   borderRightWidth: 0,
+  borderLeftWidth: 0,
+  borderWidth: 1,
 };

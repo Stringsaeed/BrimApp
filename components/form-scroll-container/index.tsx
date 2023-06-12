@@ -14,9 +14,9 @@ interface FormScrollContainerProps extends ScrollViewProps {
 }
 
 export default function FormScrollContainer({
-  style,
-  centered = true,
   contentContainerStyle,
+  centered = true,
+  style,
   ...props
 }: FormScrollContainerProps) {
   const containerStyle = StyleSheet.flatten([styles.scrollContainer, style]);

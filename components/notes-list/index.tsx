@@ -2,12 +2,11 @@ import React, { Fragment } from "react";
 import { FlatList, Text, View, ViewStyle } from "react-native";
 import { Plus } from "phosphor-react-native";
 
+import NoteListItemView from "./note-list-item";
 import { Note } from "types";
 import { theme } from "themes";
 import Spacing from "components/spacing";
 import Divider from "components/divider";
-
-import NoteListItemView from "./note-list-item";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
@@ -20,7 +19,7 @@ const ItemSeparatorComponent = React.memo(() => (
   </Fragment>
 ));
 
-export default function NotesList({ notes, onPressNote }: NotesListProps) {
+export default function NotesList({ onPressNote, notes }: NotesListProps) {
   const renderItem = ({ item }: { item: Note }) => {
     return (
       <NoteListItemView
@@ -58,7 +57,7 @@ export default function NotesList({ notes, onPressNote }: NotesListProps) {
   );
 }
 
-const $root: ViewStyle = { flex: 1, backgroundColor: theme.colors.background };
+const $root: ViewStyle = { backgroundColor: theme.colors.background, flex: 1 };
 
 const $emptyContainer: ViewStyle = {
   justifyContent: "flex-end",
@@ -66,17 +65,17 @@ const $emptyContainer: ViewStyle = {
 };
 
 const $emptyContent: ViewStyle = {
-  alignItems: "center",
   justifyContent: "center",
+  alignItems: "center",
   paddingBottom: 40,
 };
 
 const $content: ViewStyle = {
-  flexGrow: 1,
   backgroundColor: theme.colors.background,
+  flexGrow: 1,
 };
 
 const $container: ViewStyle = {
-  flex: 1,
   backgroundColor: theme.colors.background,
+  flex: 1,
 };

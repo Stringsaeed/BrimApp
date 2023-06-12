@@ -25,10 +25,10 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const addNote = useCallback(
     async (noteText: string, isDraft: boolean = false) => {
       const ref = await createNoteMutation.mutateAsync({
-        note: noteText,
-        user: user?.uid ?? null,
         created_at: new Date().toISOString(),
+        user: user?.uid ?? null,
         is_draft: isDraft,
+        note: noteText,
       });
       const note = await ref.once("value");
 
@@ -61,7 +61,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   }, [syncNotes]);
 
   return (
-    <NotesContext.Provider value={{ notes: data ?? [], addNote, removeNote }}>
+    <NotesContext.Provider value={{ notes: data ?? [], removeNote, addNote }}>
       {children}
     </NotesContext.Provider>
   );

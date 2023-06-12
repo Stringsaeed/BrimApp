@@ -11,7 +11,7 @@ export interface NoteListItemProps {
   onPress: () => void;
 }
 
-export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
+export default function NoteListItemView({ onPress, item }: NoteListItemProps) {
   const content = useMemo(() => {
     const title = getNoteTitle(item.note);
     if (!item.is_private) return title;
@@ -33,10 +33,10 @@ export default function NoteListItemView({ item, onPress }: NoteListItemProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     paddingHorizontal: 16,
+    alignItems: "center",
+    flexDirection: "row",
     paddingVertical: 8,
   },
 });

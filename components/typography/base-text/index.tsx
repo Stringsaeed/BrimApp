@@ -6,8 +6,8 @@ import { ColorProp, getColorValue } from "themes";
 export type BaseTextProps = TextProps & ColorProp;
 
 export default function BaseText({
-  color = "text",
   style: overrideStyle,
+  color = "text",
   ...restProps
 }: BaseTextProps) {
   const colorValue = getColorValue(color);
