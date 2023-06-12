@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import <RNFBDynamicLinksAppDelegateInterceptor.h>
 #import <Firebase/Firebase.h>
 
 #import <React/RCTBundleURLProvider.h>
@@ -11,6 +12,9 @@
 // @generated begin @react-native-firebase/app-didFinishLaunchingWithOptions - expo prebuild (DO NOT MODIFY) sync-ecd111c37e49fdd1ed6354203cd6b1e2a38cccda
 [FIRApp configure];
 // @generated end @react-native-firebase/app-didFinishLaunchingWithOptions
+// @generated begin @react-native-firebase/dynamic-links-didFinishLaunchingWithOptions - expo prebuild (DO NOT MODIFY) sync-5b7813c3af090f886568429140e982730142dbe7
+[RNFBDynamicLinksAppDelegateInterceptor sharedInstance];
+// @generated end @react-native-firebase/dynamic-links-didFinishLaunchingWithOptions
   self.moduleName = @"main";
 
   // You can add your custom initial props in the dictionary below.

@@ -1,5 +1,4 @@
 import * as LocalAuthentication from "expo-local-authentication";
-import { hideAsync } from "expo-splash-screen";
 import { Stack, useRouter } from "expo-router";
 import React from "react";
 import { useNotesContext } from "contexts";
@@ -53,15 +52,13 @@ export default function NotesPage() {
       <Stack.Screen
         options={{
           headerRight: renderHeaderRight,
+          headerBlurEffect: "light",
+          headerTransparent: true,
           headerShown: true,
           title: "Notes",
         }}
       />
-      <ScreenContainer
-        withoutBeautifulPadding
-        onLayout={hideAsync}
-        type="fixed"
-      >
+      <ScreenContainer withoutBeautifulPadding type="fixed">
         <NotesList onPressNote={onPressNote} notes={notes} />
       </ScreenContainer>
     </>

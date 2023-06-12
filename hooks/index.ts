@@ -6,3 +6,4 @@ export { default as useSignOutMutation } from "./use-sign-out-mutation";
 export { default as useNoteQuery } from "./use-note-query";
 export { default as useThrottle } from "./use-throttle";
 export { default as useNotePrivacyMutation } from "./use-note-privacy-mutation";
+export { default as useLoadAssets } from "./use-load-assets";

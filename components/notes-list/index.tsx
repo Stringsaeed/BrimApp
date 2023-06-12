@@ -7,6 +7,7 @@ import { Note } from "types";
 import { theme } from "themes";
 import Spacing from "components/spacing";
 import Divider from "components/divider";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
@@ -20,6 +21,7 @@ const ItemSeparatorComponent = React.memo(() => (
 ));
 
 export default function NotesList({ onPressNote, notes }: NotesListProps) {
+  const headerHeight = useHeaderHeight();
   const renderItem = ({ item }: { item: Note }) => {
     return (
       <NoteListItemView
@@ -46,7 +48,7 @@ export default function NotesList({ onPressNote, notes }: NotesListProps) {
             </View>
           );
         }}
-        contentContainerStyle={$content}
+        contentContainerStyle={[$content, { paddingTop: headerHeight }]}
         data={notes}
         scrollEnabled={!!notes.length}
         renderItem={renderItem}

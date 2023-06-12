@@ -2,9 +2,15 @@ import React from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRouter, useSegments } from "expo-router";
 
-interface AuthContext {
-  user?: FirebaseAuthTypes.User | null;
-}
+type AuthContext =
+  | {
+      isAuthenticated: true;
+      user: FirebaseAuthTypes.User;
+    }
+  | {
+      isAuthenticated: false;
+      user: null;
+    };
 
 const authContext = React.createContext<AuthContext | undefined>(undefined);
 
@@ -36,6 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<FirebaseAuthTypes.User | null>(
     () => auth().currentUser
   );
+  const isAuthenticated = !!user;
 
   useProtectedRoute(user);
 
@@ -49,7 +56,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     listener();
   }, [listener]);
 
-  const contextValue = React.useMemo<AuthContext>(() => ({ user }), [user]);
+  const contextValue = React.useMemo<AuthContext>(() => {
+    if (isAuthenticated) {
+      return { isAuthenticated, user: user! };
+    } else {
+      return { isAuthenticated, user: null };
+    }
+  }, [isAuthenticated, user]);
 
   return (
     <authContext.Provider value={contextValue}>{children}</authContext.Provider>

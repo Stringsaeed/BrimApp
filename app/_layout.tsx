@@ -1,30 +1,14 @@
-import React from "react";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import {
-  useFonts,
-  DMSans_400Regular,
-  DMSans_400Regular_Italic,
-  DMSans_500Medium,
-  DMSans_500Medium_Italic,
-  DMSans_700Bold,
-  DMSans_700Bold_Italic,
-} from "@expo-google-fonts/dm-sans";
-
 import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
-import { fonts, theme } from "themes";
+import * as SplashScreen from "expo-splash-screen";
+import { useLoadAssets } from "hooks";
+import { Stack } from "expo-router";
+import { theme } from "themes";
+import React from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
-  const [loaded] = useFonts({
-    [fonts.semiBoldItalic]: DMSans_500Medium_Italic,
-    [fonts.regularItalic]: DMSans_400Regular_Italic,
-    [fonts.boldItalic]: DMSans_700Bold_Italic,
-    [fonts.semiBold]: DMSans_500Medium,
-    [fonts.regular]: DMSans_400Regular,
-    [fonts.bold]: DMSans_700Bold,
-  });
+  const loaded = useLoadAssets();
 
   if (!loaded) {
     return null;

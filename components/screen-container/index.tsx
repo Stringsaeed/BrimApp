@@ -9,6 +9,7 @@ import {
 
 import AnimatedKeyboardView from "components/animated-keyboard-view";
 import { theme } from "themes";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
@@ -21,16 +22,21 @@ type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   centered?: boolean;
   withoutBeautifulPadding?: boolean;
   handleKeyboard?: boolean;
+  handleHeaderHeight?: boolean;
 };
 
 function FixedScreen({
   withoutBeautifulPadding,
   style: overrideStyle,
+  handleHeaderHeight,
   handleKeyboard,
   centered,
   ...restProps
 }: Props<"fixed">) {
   const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
+
+  const headerHeight = useHeaderHeight();
+  const paddingTop = handleHeaderHeight ? headerHeight : 0;
 
   const containerStyle = useMemo(
     () =>
@@ -39,9 +45,10 @@ function FixedScreen({
         styles.background,
         !withoutBeautifulPadding && styles.beautifulPadding,
         centered && styles.centered,
+        { paddingTop },
         overrideStyle,
       ]),
-    [centered, overrideStyle, withoutBeautifulPadding]
+    [centered, overrideStyle, paddingTop, withoutBeautifulPadding]
   );
 
   return <Wrapper {...restProps} style={containerStyle} />;
@@ -51,6 +58,7 @@ function ScrollScreen({
   contentContainerStyle: overrideContentStyle,
   withoutBeautifulPadding,
   style: overrideStyle,
+  handleHeaderHeight,
   handleKeyboard,
   centered,
   ...restProps
@@ -61,15 +69,24 @@ function ScrollScreen({
     [overrideStyle]
   );
 
+  const headerHeight = useHeaderHeight();
+
   const contentContainerStyle = useMemo(
     () =>
       StyleSheet.flatten([
         !withoutBeautifulPadding && styles.beautifulPadding,
         centered && styles.centered,
         centered && styles.grow,
+        { paddingTop: handleHeaderHeight ? headerHeight : 0 },
         overrideContentStyle,
       ]),
-    [centered, overrideContentStyle, withoutBeautifulPadding]
+    [
+      centered,
+      handleHeaderHeight,
+      headerHeight,
+      overrideContentStyle,
+      withoutBeautifulPadding,
+    ]
   );
 
   return (

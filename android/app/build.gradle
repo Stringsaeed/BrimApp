@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.stringsaeed.brim"
+    namespace 'com.stringsaeed.brim'
     defaultConfig {
-        applicationId "com.stringsaeed.brim"
+        applicationId 'com.stringsaeed.brim'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 8
