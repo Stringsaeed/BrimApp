@@ -11,12 +11,19 @@ import { useNotePrivacyMutation } from "hooks";
 
 interface FormValues {
   note: string;
+  title: string;
 }
 
-async function updateNote(text: string = "", userId: string, noteId: string) {
+async function updateNote(
+  text: string = "",
+  title: string = "",
+  userId: string,
+  noteId: string
+) {
   await database().ref(`/notes/${userId}/${noteId}`).update({
     is_draft: false,
     note: text,
+    title,
   });
 }
 
@@ -36,13 +43,13 @@ export default function NotePage() {
     ) => {
       if (!note) return;
       setSubmitting(true);
-      await updateNote(values.note, note.user!, note.id);
+      await updateNote(values.note, values.title, note.user!, note.id);
       setSubmitting(false);
     },
     [note]
   );
   const config = useFormik<FormValues>({
-    initialValues: { note: note?.note ?? "" },
+    initialValues: { title: note?.title ?? "", note: note?.note ?? "" },
     onSubmit,
   });
 
@@ -81,6 +88,8 @@ export default function NotePage() {
         <Composer
           ref={richTextRef}
           onUserInput={config.handleChange("note")}
+          onTitleChange={config.handleChange("title")}
+          title={config.values.title}
           onLoadEnd={() => {
             if (note?.note) richTextRef.current?.insertHTML(note.note);
 

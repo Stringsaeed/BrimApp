@@ -41,5 +41,5 @@ export default function useNotesQuery() {
     return () => notesRef.off();
   }, [user]);
 
-  return { data };
+  return { setData, data };
 }

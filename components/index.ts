@@ -12,3 +12,7 @@ export * from "./typography";
 export { default as ScreenContainer } from "./screen-container";
 export { default as AnimatedKeyboardView } from "./animated-keyboard-view";
 export { default as BlurView } from "./blur-view";
+export { default as Spacer } from "./spacer";
+export { default as Row } from "./row";
+export { default as Tag } from "./tag";
+export { default as DashboardHeader } from "./dashboard-header";

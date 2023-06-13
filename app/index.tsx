@@ -1,9 +1,10 @@
 import * as LocalAuthentication from "expo-local-authentication";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
-import { useNotesContext } from "contexts";
+
 import { Note } from "types";
-import { NotesHeaderRight, NotesList, ScreenContainer } from "components";
+import { useNotesContext } from "contexts";
+import { DashboardHeader, NotesList, ScreenContainer } from "components";
 
 export default function NotesPage() {
   const router = useRouter();
@@ -26,7 +27,11 @@ export default function NotesPage() {
   };
 
   const onPressCreate = async () => {
-    const note = await addNote("", true);
+    const newNote = {
+      title: "",
+      note: "",
+    };
+    const note = await addNote(newNote, true);
 
     router.push({
       params: { note: JSON.stringify(note) },
@@ -38,26 +43,9 @@ export default function NotesPage() {
     router.push("/profile");
   };
 
-  const renderHeaderRight = () => {
-    return (
-      <NotesHeaderRight
-        onPressProfile={onPressProfile}
-        onPressCreate={onPressCreate}
-      />
-    );
-  };
-
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerRight: renderHeaderRight,
-          headerBlurEffect: "light",
-          headerTransparent: true,
-          headerShown: true,
-          title: "Notes",
-        }}
-      />
+      <DashboardHeader {...{ onPressProfile, onPressCreate }} />
       <ScreenContainer withoutBeautifulPadding type="fixed">
         <NotesList onPressNote={onPressNote} notes={notes} />
       </ScreenContainer>

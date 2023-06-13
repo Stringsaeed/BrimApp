@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet, TextInput } from "react-native";
 import { actions } from "react-native-pell-rich-editor";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
@@ -8,10 +9,12 @@ import { theme } from "themes";
 interface ComposerComponentProps {
   onUserInput: (input: string) => void;
   onLoadEnd: () => void;
+  onTitleChange: (title: string) => void;
+  title: string;
 }
 
 function ComposerComponent(
-  { onUserInput, onLoadEnd }: ComposerComponentProps,
+  { onTitleChange, onUserInput, onLoadEnd, title }: ComposerComponentProps,
   ref: React.Ref<RichEditor>
 ) {
   return (
@@ -31,6 +34,13 @@ function ComposerComponent(
         ]}
         style={[$toolbarStyle, { borderColor: theme.colors.secondary }]}
         iconMap={getToolbarIconMapper()}
+      />
+      <TextInput
+        accessibilityLabel="Text input field"
+        placeholder="Wanna title your note? 😒"
+        style={$titleInputStyle}
+        value={title}
+        onChangeText={onTitleChange}
       />
       <RichEditor
         ref={ref}
@@ -56,7 +66,7 @@ const $rootStyle = {
 };
 
 const $editorStyle = {
-  contentCSSText: `font-family: Lato; font-size: 16px; background: white;`,
+  contentCSSText: `font-family: Lato; font-size: 16px; background: white; padding: 16px;`,
   cssText: `font-family: Lato;background: white;`,
   initialCSSText: `${FontFamilyStylesheet}`,
   backgroundColor: theme.colors.background,
@@ -68,4 +78,12 @@ const $toolbarStyle = {
   borderRightWidth: 0,
   borderLeftWidth: 0,
   borderWidth: 1,
+};
+
+const $titleInputStyle = {
+  paddingHorizontal: 16,
+  paddingVertical: 8,
+  ...theme.textVariants.Headline,
+  borderWidth: StyleSheet.hairlineWidth,
+  borderColor: theme.colors.secondary,
 };

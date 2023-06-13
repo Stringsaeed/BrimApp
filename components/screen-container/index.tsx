@@ -9,7 +9,7 @@ import {
 
 import AnimatedKeyboardView from "components/animated-keyboard-view";
 import { theme } from "themes";
-import { useHeaderHeight } from "@react-navigation/elements";
+import { useScreenContainerContentStyle } from "hooks";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
@@ -23,33 +23,31 @@ type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   withoutBeautifulPadding?: boolean;
   handleKeyboard?: boolean;
   handleHeaderHeight?: boolean;
+  handleSafeArea?: false | "top" | "bottom" | ["top", "bottom"];
 };
 
 function FixedScreen({
   withoutBeautifulPadding,
   style: overrideStyle,
   handleHeaderHeight,
+  handleSafeArea,
   handleKeyboard,
   centered,
   ...restProps
 }: Props<"fixed">) {
   const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
 
-  const headerHeight = useHeaderHeight();
-  const paddingTop = handleHeaderHeight ? headerHeight : 0;
+  const contentStyle = useScreenContainerContentStyle({
+    overrideStyle: overrideStyle,
+    withoutBeautifulPadding,
+    handleHeaderHeight,
+    handleSafeArea,
+    centered,
+  });
 
-  const containerStyle = useMemo(
-    () =>
-      StyleSheet.flatten([
-        styles.flex,
-        styles.background,
-        !withoutBeautifulPadding && styles.beautifulPadding,
-        centered && styles.centered,
-        { paddingTop },
-        overrideStyle,
-      ]),
-    [centered, overrideStyle, paddingTop, withoutBeautifulPadding]
-  );
+  const containerStyle = useMemo(() => {
+    return StyleSheet.flatten([styles.flex, styles.background, contentStyle]);
+  }, [contentStyle]);
 
   return <Wrapper {...restProps} style={containerStyle} />;
 }
@@ -60,6 +58,7 @@ function ScrollScreen({
   style: overrideStyle,
   handleHeaderHeight,
   handleKeyboard,
+  handleSafeArea,
   centered,
   ...restProps
 }: Props<"scroll">) {
@@ -69,32 +68,20 @@ function ScrollScreen({
     [overrideStyle]
   );
 
-  const headerHeight = useHeaderHeight();
-
-  const contentContainerStyle = useMemo(
-    () =>
-      StyleSheet.flatten([
-        !withoutBeautifulPadding && styles.beautifulPadding,
-        centered && styles.centered,
-        centered && styles.grow,
-        { paddingTop: handleHeaderHeight ? headerHeight : 0 },
-        overrideContentStyle,
-      ]),
-    [
-      centered,
-      handleHeaderHeight,
-      headerHeight,
-      overrideContentStyle,
-      withoutBeautifulPadding,
-    ]
-  );
+  const contentStyle = useScreenContainerContentStyle({
+    overrideStyle: overrideContentStyle,
+    withoutBeautifulPadding,
+    handleHeaderHeight,
+    handleSafeArea,
+    centered,
+  });
 
   return (
     <Wrapper style={styles.flex}>
       <ScrollView
         {...restProps}
         style={containerStyle}
-        contentContainerStyle={contentContainerStyle}
+        contentContainerStyle={contentStyle}
       />
     </Wrapper>
   );
@@ -116,18 +103,8 @@ export default function ScreenContainer<T extends "scroll" | "fixed">({
 }
 
 const styles = StyleSheet.create({
-  centered: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
   background: {
     backgroundColor: theme.colors.background,
-  },
-  beautifulPadding: {
-    paddingHorizontal: 16,
-  },
-  grow: {
-    flexGrow: 1,
   },
   flex: {
     flex: 1,

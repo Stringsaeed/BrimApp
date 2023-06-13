@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
-import { FlatList, Text, View, ViewStyle } from "react-native";
-import { Plus } from "phosphor-react-native";
+import { StyleSheet, View, ViewStyle } from "react-native";
 
 import NoteListItemView from "./note-list-item";
 import { Note } from "types";
 import { theme } from "themes";
-import Spacing from "components/spacing";
 import Divider from "components/divider";
 import { useHeaderHeight } from "@react-navigation/elements";
+import Animated, { FadeIn, FadeOutLeft, Layout } from "react-native-reanimated";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
@@ -22,19 +21,34 @@ const ItemSeparatorComponent = React.memo(() => (
 
 export default function NotesList({ onPressNote, notes }: NotesListProps) {
   const headerHeight = useHeaderHeight();
-  const renderItem = ({ item }: { item: Note }) => {
-    return (
-      <NoteListItemView
-        key={item.id}
-        item={item}
-        onPress={() => onPressNote(item)}
-      />
-    );
-  };
 
   return (
     <View style={$root}>
-      <FlatList
+      <Animated.ScrollView
+        style={$container}
+        contentContainerStyle={[$content, { marginTop: headerHeight + 16 }]}
+      >
+        <Animated.View>
+          {notes.map((note, index, data) => {
+            return (
+              <Animated.View
+                exiting={FadeOutLeft}
+                entering={FadeIn}
+                layout={Layout.springify().duration(200)}
+                key={note.id}
+              >
+                <NoteListItemView
+                  key={note.id}
+                  item={note}
+                  onPress={() => onPressNote(note)}
+                />
+                {index !== data.length - 1 && <ItemSeparatorComponent />}
+              </Animated.View>
+            );
+          })}
+        </Animated.View>
+      </Animated.ScrollView>
+      {/* <FlatList
         ListEmptyComponent={() => {
           return (
             <View style={$emptyContainer}>
@@ -48,36 +62,39 @@ export default function NotesList({ onPressNote, notes }: NotesListProps) {
             </View>
           );
         }}
-        contentContainerStyle={[$content, { paddingTop: headerHeight }]}
         data={notes}
         scrollEnabled={!!notes.length}
         renderItem={renderItem}
-        style={$container}
         ItemSeparatorComponent={ItemSeparatorComponent}
-      />
+      /> */}
     </View>
   );
 }
 
 const $root: ViewStyle = { backgroundColor: theme.colors.background, flex: 1 };
 
-const $emptyContainer: ViewStyle = {
-  justifyContent: "flex-end",
-  flex: 1,
-};
+// const $emptyContainer: ViewStyle = {
+//   justifyContent: "flex-end",
+//   flex: 1,
+// };
 
-const $emptyContent: ViewStyle = {
-  justifyContent: "center",
-  alignItems: "center",
-  paddingBottom: 40,
-};
+// const $emptyContent: ViewStyle = {
+//   justifyContent: "center",
+//   alignItems: "center",
+//   paddingBottom: 40,
+// };
 
 const $content: ViewStyle = {
   backgroundColor: theme.colors.background,
-  flexGrow: 1,
+  borderWidth: StyleSheet.hairlineWidth,
+  borderColor: theme.colors.info,
+  overflow: "hidden",
+  borderRadius: 8,
+  width: "100%",
 };
 
 const $container: ViewStyle = {
   backgroundColor: theme.colors.background,
-  flex: 1,
+  marginHorizontal: 16,
+  flexGrow: 1,
 };

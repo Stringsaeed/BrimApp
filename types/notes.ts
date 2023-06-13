@@ -5,4 +5,6 @@ export type Note = {
   note: string;
   user?: string | null;
   is_private?: boolean | null;
+  title?: string;
+  updated_at?: string | null;
 };

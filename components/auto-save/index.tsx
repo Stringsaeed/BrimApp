@@ -13,6 +13,7 @@ export default function AutoSaveFormik({
   const { isSubmitting, submitCount, submitForm, values, dirty } =
     useFormikContext<{
       note: string;
+      title: string;
     }>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,7 +24,7 @@ export default function AutoSaveFormik({
 
   useEffect(() => {
     dirty && debouncedSubmit();
-  }, [debouncedSubmit, dirty, values.note]);
+  }, [debouncedSubmit, dirty, values.note, values.title]);
 
   return (
     <RouterStack.Screen

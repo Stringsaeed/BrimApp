@@ -12,35 +12,43 @@ const NotesContext = React.createContext<NotesContextType | undefined>(
 
 export interface NotesContextType {
   notes: Note[];
-  addNote: (note: string, isDraft?: boolean) => Promise<Note>;
+  addNote: (
+    note: Pick<Note, "title" | "note">,
+    isDraft?: boolean
+  ) => Promise<Note>;
   removeNote: (id: string) => void;
 }
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data } = useNotesQuery();
+  const { setData, data } = useNotesQuery();
 
   const createNoteMutation = useCreateNoteMutation();
   const { user } = useAuth();
 
   const addNote = useCallback(
-    async (noteText: string, isDraft: boolean = false) => {
+    async (note: Pick<Note, "title" | "note">, isDraft?: boolean) => {
       const ref = await createNoteMutation.mutateAsync({
         created_at: new Date().toISOString(),
         user: user?.uid ?? null,
+        title: note.title,
         is_draft: isDraft,
-        note: noteText,
+        note: note.note,
       });
-      const note = await ref.once("value");
+      const newNoteSnapshot = await ref.once("value");
 
-      return noteSchema.parse({ ...note.val(), id: ref.key });
+      return noteSchema.parse({ ...newNoteSnapshot.val(), id: ref.key });
     },
     [createNoteMutation, user?.uid]
   );
 
   const removeNote = useCallback(
-    (id: string) => {
-      return database().ref(`/notes/${user?.uid}/${id}`).remove();
+    async (id: string) => {
+      await setData((prev) => prev.filter((note) => note.id !== id));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      await database().ref(`/notes/${user?.uid}/${id}`).remove();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user?.uid]
   );
 
@@ -49,6 +57,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
       .map((note) => {
         if (note.is_draft) return;
         if (note.note) return;
+        if (note.title) return;
         return removeNote(note.id);
       })
       .filter(Boolean);
