@@ -367,7 +367,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stringsaeed.brim;
-				PRODUCT_NAME = "BrimApp";
+				PRODUCT_NAME = BrimApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.stringsaeed.brim";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -400,7 +400,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stringsaeed.brim;
-				PRODUCT_NAME = "BrimApp";
+				PRODUCT_NAME = BrimApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.stringsaeed.brim";
 				SWIFT_VERSION = 5.0;

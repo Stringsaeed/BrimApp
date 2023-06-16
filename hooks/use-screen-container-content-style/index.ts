@@ -49,7 +49,7 @@ function getPaddingBottom({
   safeAreaBottom: number;
 }) {
   const isBottom = getIsDirection({ compareAgainst: "bottom", handleSafeArea });
-  return isBottom ? safeAreaBottom : 0;
+  return isBottom ? safeAreaBottom || 24 : 0;
 }
 
 export default function useScreenContainerContentStyle({

@@ -12,13 +12,19 @@ import { useNotesContext } from "contexts";
 export interface NoteListItemProps {
   item: Note;
   onPress: () => void;
+  beforeRemove?: () => void;
 }
 
-export default function NoteListItemView({ onPress, item }: NoteListItemProps) {
+export default function NoteListItemView({
+  beforeRemove,
+  onPress,
+  item,
+}: NoteListItemProps) {
   const { removeNote } = useNotesContext();
   const handleRemove = useCallback(() => {
+    beforeRemove?.();
     removeNote(item.id);
-  }, [item.id, removeNote]);
+  }, [beforeRemove, item.id, removeNote]);
 
   const content = useMemo(() => {
     const title = getNoteTitle(item.note);
@@ -40,7 +46,7 @@ export default function NoteListItemView({ onPress, item }: NoteListItemProps) {
 
   return (
     <Swipeable
-      onSwipeableOpen={handleRemove}
+      onSwipeableWillOpen={handleRemove}
       renderRightActions={renderRightActions}
     >
       <RectButton style={styles.container} onPress={onPress}>
@@ -62,9 +68,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
+    overflow: "hidden",
     paddingVertical: 8,
+    borderRadius: 8,
   },
   rightActionButton: {
     backgroundColor: theme.colors.danger,
@@ -75,6 +83,8 @@ const styles = StyleSheet.create({
   },
   rightAction: {
     backgroundColor: theme.colors.danger,
+    overflow: "hidden",
+    borderRadius: 8,
     flex: 1,
   },
   content: {

@@ -1,12 +1,21 @@
-import React, { Fragment } from "react";
-import { StyleSheet, View, ViewStyle } from "react-native";
+import React, { Fragment, useCallback } from "react";
+import { ViewStyle } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
+import Animated, {
+  FadeIn,
+  FadeOutLeft,
+  FadeOutUp,
+  Layout,
+} from "react-native-reanimated";
 
-import NoteListItemView from "./note-list-item";
 import { Note } from "types";
 import { theme } from "themes";
 import Divider from "components/divider";
-import { useHeaderHeight } from "@react-navigation/elements";
-import Animated, { FadeIn, FadeOutLeft, Layout } from "react-native-reanimated";
+
+import ListEmptyView from "./list-empty-view";
+import NoteListItemView from "./note-list-item";
+import { useLayout } from "hooks";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
@@ -20,81 +29,55 @@ const ItemSeparatorComponent = React.memo(() => (
 ));
 
 export default function NotesList({ onPressNote, notes }: NotesListProps) {
+  const { onLayout, height } = useLayout();
   const headerHeight = useHeaderHeight();
+  const actualTop = headerHeight + 16;
+  const ref = React.useRef<FlashList<Note>>(null);
+  const renderItem = useCallback(
+    ({ index, item }: ListRenderItemInfo<Note>) => {
+      return (
+        <Animated.View
+          exiting={index === notes.length - 1 ? FadeOutUp : FadeOutLeft}
+          entering={FadeIn}
+          layout={Layout.springify().duration(50)}
+        >
+          <NoteListItemView
+            beforeRemove={() => {
+              ref.current?.prepareForLayoutAnimationRender();
+            }}
+            item={item}
+            onPress={() => onPressNote(item)}
+          />
+        </Animated.View>
+      );
+    },
+    [notes.length, onPressNote]
+  );
 
   return (
-    <View style={$root}>
-      <Animated.ScrollView
-        style={$container}
-        contentContainerStyle={[$content, { marginTop: headerHeight + 16 }]}
-      >
-        <Animated.View>
-          {notes.map((note, index, data) => {
-            return (
-              <Animated.View
-                exiting={FadeOutLeft}
-                entering={FadeIn}
-                layout={Layout.springify().duration(200)}
-                key={note.id}
-              >
-                <NoteListItemView
-                  key={note.id}
-                  item={note}
-                  onPress={() => onPressNote(note)}
-                />
-                {index !== data.length - 1 && <ItemSeparatorComponent />}
-              </Animated.View>
-            );
-          })}
-        </Animated.View>
-      </Animated.ScrollView>
-      {/* <FlatList
-        ListEmptyComponent={() => {
-          return (
-            <View style={$emptyContainer}>
-              <View style={$emptyContent}>
-                <Text>No Notes?</Text>
-                <Spacing />
-                <Text>
-                  Click the <Plus size={18} /> button to create your first note!
-                </Text>
-              </View>
-            </View>
-          );
-        }}
+    <Animated.View
+      onLayout={onLayout}
+      entering={FadeIn}
+      exiting={FadeOutLeft}
+      style={$container}
+    >
+      <FlashList
+        ref={ref}
         data={notes}
-        scrollEnabled={!!notes.length}
+        estimatedItemSize={57}
         renderItem={renderItem}
+        scrollIndicatorInsets={{ top: actualTop }}
+        automaticallyAdjustsScrollIndicatorInsets={false}
         ItemSeparatorComponent={ItemSeparatorComponent}
-      /> */}
-    </View>
+        ListEmptyComponent={() => <ListEmptyView height={height - actualTop} />}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingTop: actualTop }}
+      />
+    </Animated.View>
   );
 }
 
-const $root: ViewStyle = { backgroundColor: theme.colors.background, flex: 1 };
-
-// const $emptyContainer: ViewStyle = {
-//   justifyContent: "flex-end",
-//   flex: 1,
-// };
-
-// const $emptyContent: ViewStyle = {
-//   justifyContent: "center",
-//   alignItems: "center",
-//   paddingBottom: 40,
-// };
-
-const $content: ViewStyle = {
-  backgroundColor: theme.colors.background,
-  borderWidth: StyleSheet.hairlineWidth,
-  borderColor: theme.colors.info,
-  overflow: "hidden",
-  borderRadius: 8,
-  width: "100%",
-};
-
 const $container: ViewStyle = {
   backgroundColor: theme.colors.background,
-  marginHorizontal: 16,
-  flexGrow: 1,
+  flex: 1,
 };
