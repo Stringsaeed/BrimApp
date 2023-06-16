@@ -33,6 +33,11 @@ export default function NotesList({ onPressNote, notes }: NotesListProps) {
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
   const ref = React.useRef<FlashList<Note>>(null);
+
+  const beforeRemove = () => {
+    ref.current?.prepareForLayoutAnimationRender();
+  };
+
   const renderItem = useCallback(
     ({ index, item }: ListRenderItemInfo<Note>) => {
       return (
@@ -42,9 +47,7 @@ export default function NotesList({ onPressNote, notes }: NotesListProps) {
           layout={Layout.springify().duration(50)}
         >
           <NoteListItemView
-            beforeRemove={() => {
-              ref.current?.prepareForLayoutAnimationRender();
-            }}
+            beforeRemove={beforeRemove}
             item={item}
             onPress={() => onPressNote(item)}
           />

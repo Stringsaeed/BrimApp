@@ -11,6 +11,8 @@ interface Props {
   height: number;
 }
 export default function ListEmptyView({ height }: Props) {
+  if (height <= 0) return null;
+
   return (
     <Animated.View
       entering={FadeIn}
