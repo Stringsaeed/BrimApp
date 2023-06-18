@@ -1,6 +1,6 @@
-import React from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRouter, useSegments } from "expo-router";
+import React from "react";
 
 type AuthContext =
   | {

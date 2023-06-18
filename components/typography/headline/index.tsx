@@ -1,6 +1,7 @@
+import React from "react";
+
 import BaseText, { BaseTextProps } from "components/typography/base-text";
 import { theme } from "themes";
-import React from "react";
 
 type Props = BaseTextProps & {
   emphasized?: boolean;

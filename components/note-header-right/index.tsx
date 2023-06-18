@@ -1,8 +1,8 @@
+import * as LocalAuthentication from "expo-local-authentication";
 import { Stack } from "expo-router";
 import { Lock, Plus, TrashSimple, User } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { Pressable, View, ViewStyle } from "react-native";
-import * as LocalAuthentication from "expo-local-authentication";
 
 interface NoteHeaderRightProps {
   onPressLock?: () => void;

@@ -1,7 +1,9 @@
-import Row from "components/row";
 import { Plus, User } from "phosphor-react-native";
 import React from "react";
 import { Pressable } from "react-native";
+
+import Row from "components/row";
+
 import OtherMenu from "./other";
 
 interface DashboardHeaderRightProps {

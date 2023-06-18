@@ -2,9 +2,9 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import React from "react";
 
-import { Note } from "types";
-import { useNotesContext } from "contexts";
 import { DashboardHeader, NotesList, ScreenContainer } from "components";
+import { useNotesContext } from "contexts";
+import { Note } from "types";
 
 export default function NotesPage() {
   const router = useRouter();

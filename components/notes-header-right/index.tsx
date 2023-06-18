@@ -1,6 +1,8 @@
 import { Plus, User } from "phosphor-react-native";
 import React from "react";
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
+
+import Row from "components/row";
 
 interface NotesHeaderRightProps {
   onPressCreate: () => void;
@@ -12,13 +14,13 @@ export default function NotesHeaderRight({
   onPressCreate,
 }: NotesHeaderRightProps) {
   return (
-    <View style={{ flexDirection: "row", gap: 8 }}>
+    <Row gap={8}>
       <Pressable accessibilityRole="button" onPress={onPressCreate}>
         <Plus color="black" />
       </Pressable>
       <Pressable accessibilityRole="button" onPress={onPressProfile}>
         <User color="black" />
       </Pressable>
-    </View>
+    </Row>
   );
 }

@@ -1,5 +1,3 @@
-import React from "react";
-import { actions } from "react-native-pell-rich-editor";
 import {
   Code,
   Link,
@@ -11,6 +9,8 @@ import {
   TextUnderline,
   LineSegment,
 } from "phosphor-react-native";
+import React from "react";
+import { actions } from "react-native-pell-rich-editor";
 
 interface ToolbarIconMapper {
   [key: string]: (props: { tintColor: string }) => JSX.Element;

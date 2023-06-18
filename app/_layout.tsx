@@ -1,9 +1,10 @@
-import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
-import * as SplashScreen from "expo-splash-screen";
-import { useLoadAssets } from "hooks";
 import { Stack } from "expo-router";
-import { theme } from "themes";
+import * as SplashScreen from "expo-splash-screen";
 import React from "react";
+
+import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
+import { useLoadAssets } from "hooks";
+import { theme } from "themes";
 
 SplashScreen.preventAutoHideAsync();
 

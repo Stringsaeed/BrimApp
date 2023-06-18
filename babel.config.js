@@ -15,8 +15,6 @@ const rootImport = [
   },
 ];
 
-const env = ["transform-inline-environment-variables"];
-
 const router = require.resolve("expo-router/babel");
 
 const reanimated = "react-native-reanimated/plugin";
@@ -24,7 +22,7 @@ const reanimated = "react-native-reanimated/plugin";
 module.exports = function (api) {
   api.cache(true);
   return {
-    plugins: [rootImport, env, router, reanimated],
+    plugins: [rootImport, router, reanimated],
     presets: ["babel-preset-expo"],
   };
 };

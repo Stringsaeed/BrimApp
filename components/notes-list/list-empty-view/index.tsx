@@ -1,10 +1,11 @@
-import Spacing from "components/spacing";
-import { Body } from "components/typography";
 import { LinearGradient } from "expo-linear-gradient";
 import { Plus } from "phosphor-react-native";
 import React from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+
+import Spacing from "components/spacing";
+import { Body } from "components/typography";
 import { theme } from "themes";
 
 interface Props {

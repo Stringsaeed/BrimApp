@@ -1,13 +1,14 @@
+import { ArchiveBox, ArrowRight, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
-import { ArrowRight, Trash } from "phosphor-react-native";
 import { Animated, StyleSheet, View } from "react-native";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
+
+import Spacing from "components/spacing";
+import { Body, Caption1 } from "components/typography";
+import { useNotesContext } from "contexts";
+import { theme } from "themes";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
-import { Body, Caption1 } from "components/typography";
-import Spacing from "components/spacing";
-import { theme } from "themes";
-import { useNotesContext } from "contexts";
 
 export interface NoteListItemProps {
   item: Note;
@@ -20,7 +21,7 @@ export default function NoteListItemView({
   onPress,
   item,
 }: NoteListItemProps) {
-  const { removeNote } = useNotesContext();
+  const { archiveNote, removeNote } = useNotesContext();
   const handleRemove = useCallback(() => {
     beforeRemove?.();
     removeNote(item.id);
@@ -44,10 +45,30 @@ export default function NoteListItemView({
     [handleRemove]
   );
 
+  const renderLeftActions = useCallback(
+    () => (
+      <Animated.View style={styles.leftAction}>
+        <RectButton style={styles.leftActionButton} onPress={handleRemove}>
+          <ArchiveBox color="white" />
+        </RectButton>
+      </Animated.View>
+    ),
+    [handleRemove]
+  );
+
+  const onSwipeableWillOpen = (direction: "left" | "right") => {
+    if (direction === "left") {
+      archiveNote?.(item.id);
+    } else {
+      handleRemove();
+    }
+  };
+
   return (
     <Swipeable
-      onSwipeableWillOpen={handleRemove}
+      onSwipeableWillOpen={onSwipeableWillOpen}
       renderRightActions={renderRightActions}
+      renderLeftActions={renderLeftActions}
     >
       <RectButton style={styles.container} onPress={onPress}>
         <View style={styles.content}>
@@ -74,12 +95,25 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 8,
   },
+  leftActionButton: {
+    backgroundColor: theme.colors.warning,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: 16,
+    flexGrow: 1,
+  },
   rightActionButton: {
     backgroundColor: theme.colors.danger,
     justifyContent: "center",
     alignItems: "flex-end",
     paddingHorizontal: 16,
     flexGrow: 1,
+  },
+  leftAction: {
+    backgroundColor: theme.colors.warning,
+    overflow: "hidden",
+    borderRadius: 8,
+    flex: 1,
   },
   rightAction: {
     backgroundColor: theme.colors.danger,

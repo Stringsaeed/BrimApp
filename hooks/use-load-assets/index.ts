@@ -9,6 +9,7 @@ import {
 } from "@expo-google-fonts/dm-sans";
 import { hideAsync } from "expo-splash-screen";
 import { useEffect, useState } from "react";
+
 import { fonts } from "themes";
 
 export default function useLoadAssets() {

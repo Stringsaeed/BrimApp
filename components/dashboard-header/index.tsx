@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 import React from "react";
+import { View, StyleSheet, Platform } from "react-native";
+
+import BlurView from "components/blur-view";
+import Tag from "components/tag";
 
 import DashboardHeaderRight from "./right";
-import Tag from "components/tag";
-import { View, StyleSheet, Platform } from "react-native";
-import BlurView from "components/blur-view";
 
 interface Props {
   onPressCreate: () => void;

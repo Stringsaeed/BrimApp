@@ -1,5 +1,5 @@
-import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
 import {
   StyleProp,
   StyleSheet,
@@ -9,8 +9,9 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-import styles from "./styles";
 import { theme } from "themes";
+
+import styles from "./styles";
 
 interface ButtonProps extends Omit<TouchableOpacityProps, "children"> {
   label: string;

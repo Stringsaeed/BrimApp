@@ -1,14 +1,19 @@
-import React, { useCallback } from "react";
 import database from "@react-native-firebase/database";
+import React, {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 
 import { useAuth } from "contexts/auth";
 import { useCreateNoteMutation, useNotesQuery } from "hooks";
-import { Note } from "types";
 import { noteSchema } from "hooks/use-notes-query/schema";
+import { Note } from "types";
 
-const NotesContext = React.createContext<NotesContextType | undefined>(
-  undefined
-);
+const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
 export interface NotesContextType {
   notes: Note[];
@@ -16,22 +21,30 @@ export interface NotesContextType {
     note: Pick<Note, "title" | "note">,
     isDraft?: boolean
   ) => Promise<Note>;
-  removeNote: (id: string) => void;
+  removeNote: (id: string) => Promise<void>;
+  archiveNote: (id: string) => Promise<void>;
+  updateNote: (
+    id: string,
+    note: Partial<Pick<Note, "title" | "note">>
+  ) => Promise<void>;
 }
 
-export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
-  const { setData, data } = useNotesQuery();
+export const NotesProvider = ({ children }: { children: ReactNode }) => {
+  const { data = [], setData } = useNotesQuery();
 
   const createNoteMutation = useCreateNoteMutation();
   const { user } = useAuth();
 
   const addNote = useCallback(
     async (note: Pick<Note, "title" | "note">, isDraft?: boolean) => {
+      const now = new Date().toISOString();
       const ref = await createNoteMutation.mutateAsync({
-        created_at: new Date().toISOString(),
         user: user?.uid ?? null,
-        title: note.title,
+        is_archived: false,
         is_draft: isDraft,
+        title: note.title,
+        updated_at: now,
+        created_at: now,
         note: note.note,
       });
       const newNoteSnapshot = await ref.once("value");
@@ -52,6 +65,17 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     [user?.uid]
   );
 
+  const archiveNote = useCallback(
+    async (id: string) => {
+      await setData((prev) => prev.filter((note) => note.id !== id));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await database().ref(`/notes/${user?.uid}/${id}`).update({
+        is_archived: true,
+      });
+    },
+    [setData, user?.uid]
+  );
+
   const syncNotes = useCallback(async () => {
     const toRemoved = data
       .map((note) => {
@@ -65,19 +89,44 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     await Promise.all(toRemoved);
   }, [data, removeNote]);
 
-  React.useEffect(() => {
+  const updateNote = useCallback(
+    async (id: string, note: Partial<Pick<Note, "title" | "note">>) => {
+      const now = new Date().toISOString();
+      await database()
+        .ref(`/notes/${user?.uid}/${id}`)
+        .update({
+          ...note,
+          updated_at: now,
+          is_draft: false,
+        });
+    },
+    [user?.uid]
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      notes: data,
+      archiveNote,
+      updateNote,
+      removeNote,
+      addNote,
+    }),
+    [addNote, archiveNote, data, removeNote, updateNote]
+  );
+
+  useEffect(() => {
     syncNotes();
   }, [syncNotes]);
 
   return (
-    <NotesContext.Provider value={{ notes: data ?? [], removeNote, addNote }}>
+    <NotesContext.Provider value={contextValue}>
       {children}
     </NotesContext.Provider>
   );
 };
 
 export const useNotesContext = () => {
-  const context = React.useContext(NotesContext);
+  const context = useContext(NotesContext);
 
   if (!context) {
     throw new Error("useNotes must be used within a NotesProvider");

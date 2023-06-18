@@ -10,9 +10,11 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F7F6E4"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./config/GoogleService-Info.plist",
@@ -21,11 +23,11 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#F7F6E4"
       },
       "package": "com.stringsaeed.brim",
       "googleServicesFile": "./config/google-services.json",
-      "versionCode": 8
+      "versionCode": 9
     },
     "plugins": [
       "@react-native-firebase/app",

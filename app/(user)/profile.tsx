@@ -1,8 +1,8 @@
 import React from "react";
 
+import { Button, Input, ScreenContainer, Spacer, Spacing } from "components";
 import { useAuth } from "contexts";
 import { useSignOutMutation } from "hooks";
-import { Button, Input, ScreenContainer, Spacer, Spacing } from "components";
 
 export default function Profile() {
   const { user } = useAuth();

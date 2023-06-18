@@ -8,8 +8,8 @@ import {
 } from "react-native";
 
 import AnimatedKeyboardView from "components/animated-keyboard-view";
-import { theme } from "themes";
 import { useScreenContainerContentStyle } from "hooks";
+import { theme } from "themes";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps

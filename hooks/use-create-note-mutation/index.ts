@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
 import database from "@react-native-firebase/database";
+import { useMutation } from "@tanstack/react-query";
 
 import { Note } from "types";
 

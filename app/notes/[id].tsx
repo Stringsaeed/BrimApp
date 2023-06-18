@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect } from "react";
-import { useLocalSearchParams } from "expo-router";
-import { RichEditor } from "react-native-pell-rich-editor";
 import database from "@react-native-firebase/database";
+import { useLocalSearchParams } from "expo-router";
 import { FormikHelpers, FormikProvider, useFormik } from "formik";
+import React, { useCallback, useEffect } from "react";
 import { View, ViewStyle } from "react-native";
+import { RichEditor } from "react-native-pell-rich-editor";
+
 import { AutoSave, Composer, NoteHeaderRight } from "components";
 import { useNotesContext } from "contexts";
-import { theme } from "themes";
 import { useNotePrivacyMutation } from "hooks";
+import { theme } from "themes";
 
 interface FormValues {
   note: string;
@@ -20,7 +21,9 @@ async function updateNote(
   userId: string,
   noteId: string
 ) {
+  const now = new Date().toISOString();
   await database().ref(`/notes/${userId}/${noteId}`).update({
+    updated_at: now,
     is_draft: false,
     note: text,
     title,

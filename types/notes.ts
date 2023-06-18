@@ -7,4 +7,5 @@ export type Note = {
   is_private?: boolean | null;
   title?: string;
   updated_at?: string | null;
+  is_archived?: boolean | null;
 };

@@ -1,10 +1,10 @@
 import React from "react";
+import { ViewProps } from "react-native";
 import Animated, {
   AnimateProps,
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { ViewProps } from "react-native";
 
 type Props = AnimateProps<ViewProps> & {
   offset?: number;

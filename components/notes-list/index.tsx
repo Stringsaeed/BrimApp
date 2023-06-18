@@ -1,7 +1,7 @@
-import React, { Fragment, useCallback } from "react";
-import { ViewStyle } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
+import React, { Fragment, useCallback } from "react";
+import { ViewStyle } from "react-native";
 import Animated, {
   FadeIn,
   FadeOutLeft,
@@ -9,13 +9,13 @@ import Animated, {
   Layout,
 } from "react-native-reanimated";
 
-import { Note } from "types";
-import { theme } from "themes";
 import Divider from "components/divider";
+import { useLayout } from "hooks";
+import { theme } from "themes";
+import { Note } from "types";
 
 import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
-import { useLayout } from "hooks";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;

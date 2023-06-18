@@ -1,6 +1,7 @@
-import { Body } from "components/typography";
 import React from "react";
 import { TouchableOpacity } from "react-native";
+
+import { Body } from "components/typography";
 import { ColorProp, getColorValue } from "themes";
 
 interface TagProps extends ColorProp {

@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
 import auth from "@react-native-firebase/auth";
+import { useMutation } from "@tanstack/react-query";
 
 async function signOut() {
   await auth().signOut();

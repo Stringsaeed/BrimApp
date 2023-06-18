@@ -1,8 +1,9 @@
-import { ViewStyle } from "react-native";
 import { Slot } from "expo-router";
 import React from "react";
-import { theme } from "themes";
+import { ViewStyle } from "react-native";
+
 import { AnimatedKeyboardView } from "components";
+import { theme } from "themes";
 
 export default function AuthLayout() {
   return (

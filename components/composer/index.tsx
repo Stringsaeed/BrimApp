@@ -3,8 +3,9 @@ import { StyleSheet, TextInput } from "react-native";
 import { actions } from "react-native-pell-rich-editor";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
-import { FontFamilyStylesheet, getToolbarIconMapper } from "./utilts";
 import { theme } from "themes";
+
+import { FontFamilyStylesheet, getToolbarIconMapper } from "./utilts";
 
 interface ComposerComponentProps {
   onUserInput: (input: string) => void;
