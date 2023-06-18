@@ -2,14 +2,10 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
 import React, { Fragment, useCallback } from "react";
 import { ViewStyle } from "react-native";
-import Animated, {
-  FadeIn,
-  FadeOutLeft,
-  FadeOutUp,
-  Layout,
-} from "react-native-reanimated";
+import Animated, { FadeIn, FadeOutLeft } from "react-native-reanimated";
 
 import Divider from "components/divider";
+import { useNotesContext } from "contexts/notes";
 import { useLayout } from "hooks";
 import { theme } from "themes";
 import { Note } from "types";
@@ -28,33 +24,45 @@ const ItemSeparatorComponent = React.memo(() => (
   </Fragment>
 ));
 
+const AnimatedFlashList = Animated.createAnimatedComponent(FlashList<Note>);
+
 export default function NotesList({ onPressNote, notes }: NotesListProps) {
   const { onLayout, height } = useLayout();
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
   const ref = React.useRef<FlashList<Note>>(null);
+  const { archiveNote, removeNote } = useNotesContext();
 
-  const beforeRemove = () => {
-    ref.current?.prepareForLayoutAnimationRender();
-  };
+  const handleRemove = useCallback(
+    (item: Note) => {
+      removeNote(item.id, ref);
+    },
+    [removeNote]
+  );
+
+  const handleArchive = useCallback(
+    (item: Note) => {
+      archiveNote(item.id, ref);
+    },
+    [archiveNote]
+  );
 
   const renderItem = useCallback(
-    ({ index, item }: ListRenderItemInfo<Note>) => {
+    ({ item }: ListRenderItemInfo<Note>) => {
+      const onRemove = () => handleRemove(item);
+      const onArchive = () => handleArchive(item);
+      const onPress = () => onPressNote(item);
+
       return (
-        <Animated.View
-          exiting={index === notes.length - 1 ? FadeOutUp : FadeOutLeft}
-          entering={FadeIn}
-          layout={Layout.springify().duration(50)}
-        >
-          <NoteListItemView
-            beforeRemove={beforeRemove}
-            item={item}
-            onPress={() => onPressNote(item)}
-          />
-        </Animated.View>
+        <NoteListItemView
+          item={item}
+          onPress={onPress}
+          onRemove={onRemove}
+          onArchive={onArchive}
+        />
       );
     },
-    [notes.length, onPressNote]
+    [handleArchive, handleRemove, onPressNote]
   );
 
   return (
@@ -64,7 +72,7 @@ export default function NotesList({ onPressNote, notes }: NotesListProps) {
       exiting={FadeOutLeft}
       style={$container}
     >
-      <FlashList
+      <AnimatedFlashList
         ref={ref}
         data={notes}
         estimatedItemSize={57}

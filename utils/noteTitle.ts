@@ -3,7 +3,8 @@ import { decode } from "html-entities";
 const contentInsideTagsRegex = /<(\w+)[^>]*>((?:[^<]+|<(?!\/?\1))*)<\/\1>/i;
 const globalRegex = /<(\w+)[^>]*>((?:[^<]+|<(?!\/?\1))*)<\/\1>/gi;
 
-export function getNoteTitle(note: string): string {
+export function getNoteTitle(note?: string): string {
+  if (!note) return "";
   // local match
   const [, , z] = note.match(contentInsideTagsRegex) ?? [];
 

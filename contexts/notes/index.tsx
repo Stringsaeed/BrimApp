@@ -1,12 +1,15 @@
 import database from "@react-native-firebase/database";
+import { FlashList } from "@shopify/flash-list";
 import React, {
   ReactNode,
+  RefObject,
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
 } from "react";
+import { enableLayoutAnimations } from "react-native-reanimated";
 
 import { useAuth } from "contexts/auth";
 import { useCreateNoteMutation, useNotesQuery } from "hooks";
@@ -15,14 +18,16 @@ import { Note } from "types";
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
+type ListRef = RefObject<FlashList<Note>> | undefined;
+
 export interface NotesContextType {
   notes: Note[];
   addNote: (
     note: Pick<Note, "title" | "note">,
     isDraft?: boolean
   ) => Promise<Note>;
-  removeNote: (id: string) => Promise<void>;
-  archiveNote: (id: string) => Promise<void>;
+  removeNote: (id: string, ref?: ListRef) => Promise<void>;
+  archiveNote: (id: string, ref?: ListRef) => Promise<void>;
   updateNote: (
     id: string,
     note: Partial<Pick<Note, "title" | "note">>
@@ -30,7 +35,7 @@ export interface NotesContextType {
 }
 
 export const NotesProvider = ({ children }: { children: ReactNode }) => {
-  const { data = [], setData } = useNotesQuery();
+  const { data = [] } = useNotesQuery();
 
   const createNoteMutation = useCreateNoteMutation();
   const { user } = useAuth();
@@ -54,26 +59,34 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     [createNoteMutation, user?.uid]
   );
 
-  const removeNote = useCallback(
-    async (id: string) => {
-      await setData((prev) => prev.filter((note) => note.id !== id));
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  const handleLayoutAnimation = (ref?: ListRef) => {
+    if (ref) {
+      enableLayoutAnimations(false);
+      ref.current?.prepareForLayoutAnimationRender();
+      requestAnimationFrame(() => {
+        enableLayoutAnimations(true);
+      });
+    }
+  };
 
+  const removeNote = useCallback(
+    async (id: string, ref?: ListRef) => {
       await database().ref(`/notes/${user?.uid}/${id}`).remove();
+
+      handleLayoutAnimation(ref);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user?.uid]
   );
 
   const archiveNote = useCallback(
-    async (id: string) => {
-      await setData((prev) => prev.filter((note) => note.id !== id));
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    async (id: string, ref?: ListRef) => {
       await database().ref(`/notes/${user?.uid}/${id}`).update({
         is_archived: true,
       });
+
+      handleLayoutAnimation(ref);
     },
-    [setData, user?.uid]
+    [user?.uid]
   );
 
   const syncNotes = useCallback(async () => {

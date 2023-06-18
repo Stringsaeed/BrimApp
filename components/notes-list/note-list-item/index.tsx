@@ -1,11 +1,11 @@
 import { ArchiveBox, ArrowRight, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
+import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 
 import Spacing from "components/spacing";
 import { Body, Caption1 } from "components/typography";
-import { useNotesContext } from "contexts";
 import { theme } from "themes";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
@@ -13,20 +13,16 @@ import { cipherTitle, getNoteTitle } from "utils";
 export interface NoteListItemProps {
   item: Note;
   onPress: () => void;
-  beforeRemove?: () => void;
+  onRemove?: () => void;
+  onArchive?: () => void;
 }
 
 export default function NoteListItemView({
-  beforeRemove,
+  onArchive,
+  onRemove,
   onPress,
   item,
 }: NoteListItemProps) {
-  const { archiveNote, removeNote } = useNotesContext();
-  const handleRemove = useCallback(() => {
-    beforeRemove?.();
-    removeNote(item.id);
-  }, [beforeRemove, item.id, removeNote]);
-
   const content = useMemo(() => {
     const title = getNoteTitle(item.note);
     if (!item.is_private) return title;
@@ -34,53 +30,60 @@ export default function NoteListItemView({
     return cipherTitle(title);
   }, [item.is_private, item.note]);
 
-  const renderRightActions = useCallback(
-    () => (
+  const renderRightActions = useCallback(() => {
+    if (!onRemove) return null;
+    return (
       <Animated.View style={styles.rightAction}>
-        <RectButton style={styles.rightActionButton} onPress={handleRemove}>
+        <RectButton style={styles.rightActionButton} onPress={onRemove}>
           <Trash color="white" />
         </RectButton>
       </Animated.View>
-    ),
-    [handleRemove]
-  );
+    );
+  }, [onRemove]);
 
-  const renderLeftActions = useCallback(
-    () => (
+  const renderLeftActions = useCallback(() => {
+    if (!onArchive) return null;
+
+    return (
       <Animated.View style={styles.leftAction}>
-        <RectButton style={styles.leftActionButton} onPress={handleRemove}>
+        <RectButton style={styles.leftActionButton} onPress={onArchive}>
           <ArchiveBox color="white" />
         </RectButton>
       </Animated.View>
-    ),
-    [handleRemove]
-  );
+    );
+  }, [onArchive]);
 
   const onSwipeableWillOpen = (direction: "left" | "right") => {
     if (direction === "left") {
-      archiveNote?.(item.id);
+      onArchive?.();
     } else {
-      handleRemove();
+      onRemove?.();
     }
   };
 
   return (
-    <Swipeable
-      onSwipeableWillOpen={onSwipeableWillOpen}
-      renderRightActions={renderRightActions}
-      renderLeftActions={renderLeftActions}
+    <Animated.View
+      exiting={FadeOut}
+      entering={FadeIn}
+      layout={Layout.springify().duration(1000)}
     >
-      <RectButton style={styles.container} onPress={onPress}>
-        <View style={styles.content}>
-          <Body color={item.title ? "text" : "disabled"} numberOfLines={1}>
-            {item.title || "Draft"}
-          </Body>
-          <Spacing size={0.5} />
-          <Caption1 numberOfLines={1}>{content}</Caption1>
-        </View>
-        <ArrowRight color="black" />
-      </RectButton>
-    </Swipeable>
+      <Swipeable
+        onSwipeableWillOpen={onSwipeableWillOpen}
+        renderRightActions={renderRightActions}
+        renderLeftActions={renderLeftActions}
+      >
+        <RectButton style={styles.container} onPress={onPress}>
+          <View style={styles.content}>
+            <Body color={item.title ? "text" : "disabled"} numberOfLines={1}>
+              {item.title || "Draft"}
+            </Body>
+            <Spacing size={0.5} />
+            <Caption1 numberOfLines={1}>{content}</Caption1>
+          </View>
+          <ArrowRight color="black" />
+        </RectButton>
+      </Swipeable>
+    </Animated.View>
   );
 }
 

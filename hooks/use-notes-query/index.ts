@@ -1,56 +1,53 @@
 import database from "@react-native-firebase/database";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 import { useAuth } from "contexts/auth";
-import { Note } from "types";
+import { useDatabaseSnapshot } from "hooks/use-database-snapshot";
 
 import { notesSchema } from "./schema";
 
 export default function useNotesQuery() {
-  const [data, setData] = useState<Note[]>([]);
   const { user } = useAuth();
-
-  useEffect(() => {
-    if (!user?.uid) return;
-    const notesRef = database()
+  const { data: snapshot } = useDatabaseSnapshot(
+    ["notes"],
+    database()
       .ref(`/notes/${user?.uid}`)
       .orderByChild("is_archived")
-      .equalTo(false);
+      .equalTo(false),
+    { subscribe: true }
+  );
+  const data = useMemo(() => {
+    if (!snapshot) return [];
+    if (!user?.uid) return [];
 
-    notesRef.on("value", (snapshot) => {
-      const notes: Record<
-        string,
-        {
-          note?: string | null;
-          created_at?: string | null;
-          is_draft?: boolean | null;
-          user?: string | null;
-          updated_at?: string | null;
-        }
-      > = snapshot.val();
-
-      if (!notes) {
-        return setData([]);
+    const notes: Record<
+      string,
+      {
+        note?: string | null;
+        created_at?: string | null;
+        is_draft?: boolean | null;
+        user?: string | null;
+        updated_at?: string | null;
       }
+    > | null = snapshot.val();
 
-      const notesArray = Object.entries(notes)
-        .map(([id, note]) => ({
-          ...note,
-          note: note.note ?? "",
-          user: user.uid,
-          id,
-        }))
-        .sort((a, b) => {
-          if (!a.updated_at) return 1;
-          if (!b.updated_at) return -1;
-          return a.updated_at > b.updated_at ? -1 : 1;
-        });
+    if (!notes) return [];
 
-      setData(notesSchema.parse(notesArray));
-    });
+    const notesArray = Object.entries(notes)
+      .map(([id, note]) => ({
+        ...note,
+        note: note.note ?? "",
+        user: user?.uid,
+        id,
+      }))
+      .sort((a, b) => {
+        if (!a.updated_at) return 1;
+        if (!b.updated_at) return -1;
+        return a.updated_at > b.updated_at ? -1 : 1;
+      });
 
-    return () => notesRef.off();
-  }, [user]);
+    return notesSchema.parse(notesArray);
+  }, [snapshot, user?.uid]);
 
-  return { setData, data };
+  return { data };
 }
