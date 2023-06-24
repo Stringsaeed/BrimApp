@@ -1,12 +1,10 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
 import React, { Fragment, useCallback } from "react";
-import { ViewStyle } from "react-native";
+import { ListRenderItemInfo, ViewStyle } from "react-native";
 import Animated, { FadeIn, FadeOutLeft } from "react-native-reanimated";
 
 import Divider from "components/divider";
-import { useNotesContext } from "contexts/notes";
-import { useLayout } from "hooks";
+import { useNotesList } from "contexts";
 import { theme } from "themes";
 import { Note } from "types";
 
@@ -15,76 +13,69 @@ import NoteListItemView from "./note-list-item";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
-  notes: Note[];
 }
 
-const ItemSeparatorComponent = React.memo(() => (
-  <Fragment>
-    <Divider />
-  </Fragment>
-));
-
-const AnimatedFlashList = Animated.createAnimatedComponent(FlashList<Note>);
-
-export default function NotesList({ onPressNote, notes }: NotesListProps) {
-  const { onLayout, height } = useLayout();
+export default function NotesList({ onPressNote }: NotesListProps) {
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
-  const ref = React.useRef<FlashList<Note>>(null);
-  const { archiveNote, removeNote } = useNotesContext();
+  const { unarchiveNote, archiveNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
     (item: Note) => {
-      removeNote(item.id, ref);
+      deleteNote(item);
     },
-    [removeNote]
+    [deleteNote]
   );
 
-  const handleArchive = useCallback(
+  const handleToggleArchive = useCallback(
     (item: Note) => {
-      archiveNote(item.id, ref);
+      if (item.is_archived) {
+        unarchiveNote(item.id);
+      } else {
+        archiveNote(item.id);
+      }
     },
-    [archiveNote]
+    [archiveNote, unarchiveNote]
   );
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Note>) => {
+    ({ index, item }: Omit<ListRenderItemInfo<Note>, "separators">) => {
       const onRemove = () => handleRemove(item);
-      const onArchive = () => handleArchive(item);
+      const toggleArchive = () => handleToggleArchive(item);
       const onPress = () => onPressNote(item);
 
       return (
-        <NoteListItemView
-          item={item}
-          onPress={onPress}
-          onRemove={onRemove}
-          onArchive={onArchive}
-        />
+        <Fragment key={item.id}>
+          <NoteListItemView
+            key={item.id}
+            item={item}
+            onPress={onPress}
+            onRemove={onRemove}
+            toggleArchive={toggleArchive}
+          />
+          {index < notes.length - 1 && <Divider />}
+        </Fragment>
       );
     },
-    [handleArchive, handleRemove, onPressNote]
+    [handleToggleArchive, handleRemove, notes.length, onPressNote]
   );
 
+  if (!notes.length) return <ListEmptyView />;
+
   return (
-    <Animated.View
-      onLayout={onLayout}
+    <Animated.ScrollView
       entering={FadeIn}
       exiting={FadeOutLeft}
       style={$container}
+      contentContainerStyle={[
+        $contentContainerStyle,
+        { paddingTop: actualTop },
+      ]}
     >
-      <AnimatedFlashList
-        ref={ref}
-        data={notes}
-        estimatedItemSize={57}
-        renderItem={renderItem}
-        scrollIndicatorInsets={{ top: actualTop }}
-        automaticallyAdjustsScrollIndicatorInsets={false}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-        ListEmptyComponent={() => <ListEmptyView height={height - actualTop} />}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingTop: actualTop }}
-      />
-    </Animated.View>
+      <Animated.View style={$content_content}>
+        {notes.map((note, index) => renderItem({ item: note, index }))}
+      </Animated.View>
+    </Animated.ScrollView>
   );
 }
 
@@ -92,3 +83,10 @@ const $container: ViewStyle = {
   backgroundColor: theme.colors.background,
   flex: 1,
 };
+
+const $contentContainerStyle: ViewStyle = {
+  height: "100%",
+  flexGrow: 1,
+};
+
+const $content_content: ViewStyle = { minHeight: "100%", flex: 1 };

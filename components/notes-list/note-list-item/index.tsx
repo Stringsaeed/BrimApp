@@ -1,4 +1,4 @@
-import { ArchiveBox, ArrowRight, Trash } from "phosphor-react-native";
+import { ArchiveBox, ArrowUUpLeft, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
@@ -14,11 +14,11 @@ export interface NoteListItemProps {
   item: Note;
   onPress: () => void;
   onRemove?: () => void;
-  onArchive?: () => void;
+  toggleArchive?: () => void;
 }
 
 export default function NoteListItemView({
-  onArchive,
+  toggleArchive,
   onRemove,
   onPress,
   item,
@@ -42,21 +42,25 @@ export default function NoteListItemView({
   }, [onRemove]);
 
   const renderLeftActions = useCallback(() => {
-    if (!onArchive) return null;
+    if (!toggleArchive) return null;
 
     return (
       <Animated.View style={styles.leftAction}>
-        <RectButton style={styles.leftActionButton} onPress={onArchive}>
-          <ArchiveBox color="white" />
+        <RectButton style={styles.leftActionButton} onPress={toggleArchive}>
+          {item.is_archived ? (
+            <ArrowUUpLeft color="white" />
+          ) : (
+            <ArchiveBox color="white" />
+          )}
         </RectButton>
       </Animated.View>
     );
-  }, [onArchive]);
+  }, [item.is_archived, toggleArchive]);
 
   const onSwipeableWillOpen = (direction: "left" | "right") => {
     if (direction === "left") {
-      onArchive?.();
-    } else {
+      toggleArchive?.();
+    } else if (direction === "right") {
       onRemove?.();
     }
   };
@@ -80,7 +84,7 @@ export default function NoteListItemView({
             <Spacing size={0.5} />
             <Caption1 numberOfLines={1}>{content}</Caption1>
           </View>
-          <ArrowRight color="black" />
+          {/* <ArrowRight color="black" /> */}
         </RectButton>
       </Swipeable>
     </Animated.View>

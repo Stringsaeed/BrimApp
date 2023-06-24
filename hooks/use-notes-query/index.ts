@@ -3,10 +3,12 @@ import { useMemo } from "react";
 
 import { useAuth } from "contexts/auth";
 import { useDatabaseSnapshot } from "hooks/use-database-snapshot";
+import useUpdateInMemoryNotesStore from "hooks/use-update-in-memory-notes-store";
 
 import { notesSchema } from "./schema";
 
 export default function useNotesQuery() {
+  const updateInMemoryNotesStore = useUpdateInMemoryNotesStore();
   const { user } = useAuth();
   const { data: snapshot } = useDatabaseSnapshot(
     ["notes"],
@@ -45,6 +47,8 @@ export default function useNotesQuery() {
         if (!b.updated_at) return -1;
         return a.updated_at > b.updated_at ? -1 : 1;
       });
+
+    updateInMemoryNotesStore(notesArray);
 
     return notesSchema.parse(notesArray);
   }, [snapshot, user?.uid]);

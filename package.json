@@ -44,6 +44,7 @@
     "formik": "^2.4.1",
     "html-entities": "^2.3.3",
     "lodash.debounce": "^4.0.8",
+    "lodash.uniqby": "^4.7.0",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -58,7 +59,8 @@
     "react-native-web": "~0.18.10",
     "react-native-webview": "11.26.0",
     "zeego": "^1.6.2",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -67,6 +69,7 @@
     "@testing-library/react-native": "^12.1.2",
     "@types/jest": "^29.2.1",
     "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.uniqby": "^4.7.7",
     "@types/react": "~18.0.14",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.41.0",

@@ -8,17 +8,12 @@ import Spacing from "components/spacing";
 import { Body } from "components/typography";
 import { theme } from "themes";
 
-interface Props {
-  height: number;
-}
-export default function ListEmptyView({ height }: Props) {
-  if (height <= 0) return null;
-
+export default function ListEmptyView() {
   return (
     <Animated.View
       entering={FadeIn}
       exiting={FadeOut}
-      style={[$emptyContainer, { height }]}
+      style={[$emptyContainer]}
     >
       <LinearGradient
         style={StyleSheet.absoluteFill}

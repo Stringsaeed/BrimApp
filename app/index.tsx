@@ -1,30 +1,15 @@
-import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import React from "react";
 
 import { DashboardHeader, NotesList, ScreenContainer } from "components";
-import { useNotesContext } from "contexts";
-import { Note } from "types";
+import { NotesListProvider, useNotesContext } from "contexts";
+import { useNavigateNote } from "hooks";
 
 export default function NotesPage() {
   const router = useRouter();
   const { addNote, notes } = useNotesContext();
 
-  const onPressNote = async (note: Note) => {
-    if (note.is_private) {
-      const { success } = await LocalAuthentication.authenticateAsync({
-        disableDeviceFallback: false,
-      });
-      if (!success) {
-        return;
-      }
-    }
-
-    router.push({
-      params: { note: JSON.stringify(note) },
-      pathname: `/notes/${note.id}`,
-    });
-  };
+  const onNavigateNote = useNavigateNote();
 
   const onPressCreate = async () => {
     const newNote = {
@@ -33,10 +18,7 @@ export default function NotesPage() {
     };
     const note = await addNote(newNote, true);
 
-    router.push({
-      params: { note: JSON.stringify(note) },
-      pathname: `/notes/${note.id}`,
-    });
+    router.push({ pathname: `/notes/${note.id}` });
   };
 
   const onPressProfile = () => {
@@ -47,7 +29,9 @@ export default function NotesPage() {
     <>
       <DashboardHeader {...{ onPressProfile, onPressCreate }} />
       <ScreenContainer withoutBeautifulPadding type="fixed">
-        <NotesList onPressNote={onPressNote} notes={notes} />
+        <NotesListProvider notes={notes}>
+          <NotesList onPressNote={onNavigateNote} />
+        </NotesListProvider>
       </ScreenContainer>
     </>
   );

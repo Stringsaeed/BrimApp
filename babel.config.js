@@ -4,10 +4,11 @@ const rootImport = [
     alias: {
       components: "./components",
       contexts: "./contexts",
+      stores: "./stores",
       config: "./config",
-      types: "./types",
-      hooks: "./hooks",
       utils: "./utils",
+      hooks: "./hooks",
+      types: "./types",
       test: "./test",
     },
     extensions: [".ios.js", ".android.js", ".js", ".json", ".ts", ".tsx"],
