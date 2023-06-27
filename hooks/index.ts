@@ -16,3 +16,5 @@ export { default as useDeleteNoteMutation } from "./use-delete-note-mutation";
 export { default as useNavigateNote } from "./use-navigate-note";
 export { default as useInMemoryNotes } from "./use-in-memory-notes";
 export { default as useUpdateInMemoryNotesStore } from "./use-update-in-memory-notes-store";
+export { default as useCreateEmptyNoteMutation } from "./use-create-empty-note-mutation";
+export { default as useNavigateProfile } from "./use-navigate-profile";

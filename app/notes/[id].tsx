@@ -6,8 +6,10 @@ import { RichEditor } from "react-native-pell-rich-editor";
 
 import { AutoSave, Composer, NoteHeaderRight } from "components";
 import {
+  useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
   useInMemoryNotes,
+  useNavigateProfile,
   useNoteForm,
   useNotePrivacyMutation,
 } from "hooks";
@@ -16,7 +18,9 @@ import { theme } from "themes";
 export default function NotePage() {
   const router = useRouter();
   const { id } = useLocalSearchParams();
+  const onCreateEmptyNote = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
+  const onNavigateProfile = useNavigateProfile();
   const notes = useInMemoryNotes();
   const note = notes.find((note) => note.id === id);
   const config = useNoteForm(note!);
@@ -42,6 +46,8 @@ export default function NotePage() {
         onPressLock={togglePrivacy}
         onPressTrash={handleDelete}
         isPrivate={note?.is_private}
+        onPressPlus={onCreateEmptyNote}
+        onPressProfile={onNavigateProfile}
       />
       <View style={container}>
         <AutoSave />

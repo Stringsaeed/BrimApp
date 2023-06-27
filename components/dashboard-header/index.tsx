@@ -1,8 +1,6 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { View, StyleSheet, Platform } from "react-native";
 
-import BlurView from "components/blur-view";
 import Tag from "components/tag";
 
 import DashboardHeaderRight from "./right";
@@ -31,23 +29,9 @@ export default function DashboardHeader({
     return <Tag>Beta</Tag>;
   };
 
-  const headerBackground = () => {
-    return (
-      <View style={styles.headerContainer}>
-        <BlurView
-          autoUpdate
-          blurAmount={10}
-          blurType="light"
-          style={StyleSheet.absoluteFill}
-        />
-      </View>
-    );
-  };
-
   return (
     <Stack.Screen
       options={{
-        headerBackground: Platform.OS !== "ios" ? headerBackground : undefined,
         headerBlurEffect: "light",
         headerTransparent: true,
         headerShown: true,
@@ -58,7 +42,3 @@ export default function DashboardHeader({
     />
   );
 }
-
-const styles = StyleSheet.create({
-  headerContainer: { flex: 1 },
-});

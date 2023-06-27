@@ -1,29 +1,18 @@
-import { useRouter } from "expo-router";
 import React from "react";
 
 import { DashboardHeader, NotesList, ScreenContainer } from "components";
 import { NotesListProvider, useNotesContext } from "contexts";
-import { useNavigateNote } from "hooks";
+import {
+  useCreateEmptyNoteMutation,
+  useNavigateNote,
+  useNavigateProfile,
+} from "hooks";
 
 export default function NotesPage() {
-  const router = useRouter();
-  const { addNote, notes } = useNotesContext();
-
+  const { notes } = useNotesContext();
+  const onPressCreate = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
-
-  const onPressCreate = async () => {
-    const newNote = {
-      title: "",
-      note: "",
-    };
-    const note = await addNote(newNote, true);
-
-    router.push({ pathname: `/notes/${note.id}` });
-  };
-
-  const onPressProfile = () => {
-    router.push("/profile");
-  };
+  const onPressProfile = useNavigateProfile();
 
   return (
     <>
