@@ -17,3 +17,4 @@ export { default as Row } from "./row";
 export { default as Tag } from "./tag";
 export { default as DashboardHeader } from "./dashboard-header";
 export { default as ArchivedNotesHeader } from "./archived-notes-header";
+export { default as ListItem } from "./list-item";
