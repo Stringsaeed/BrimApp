@@ -1,11 +1,17 @@
-export type Note = {
-  created_at?: string | null;
-  id: string;
-  is_draft?: boolean | null;
-  note: string;
-  user?: string | null;
-  is_private?: boolean | null;
-  title?: string;
-  updated_at?: string | null;
-  is_archived?: boolean | null;
-};
+import { z } from "zod";
+
+export const noteSchema = z.object({
+  is_archived: z.boolean().nullish().optional().default(false),
+  is_private: z.boolean().nullish().optional().default(false),
+  created_at: z.string().nullish(),
+  updated_at: z.string().nullish(),
+  is_draft: z.boolean().nullish(),
+  title: z.string().optional(),
+  user: z.string().nullish(),
+  note: z.string(),
+  id: z.string(),
+});
+
+export const notesSchema = z.array(noteSchema);
+
+export type Note = z.infer<typeof noteSchema>;

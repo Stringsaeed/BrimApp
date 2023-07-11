@@ -4,8 +4,7 @@ import { useMemo } from "react";
 import { useAuth } from "contexts/auth";
 import { useDatabaseSnapshot } from "hooks/use-database-snapshot";
 import useUpdateInMemoryNotesStore from "hooks/use-update-in-memory-notes-store";
-
-import { notesSchema } from "./schema";
+import { getNotesFromSnapshot } from "utils";
 
 export default function useNotesQuery() {
   const updateInMemoryNotesStore = useUpdateInMemoryNotesStore();
@@ -16,41 +15,18 @@ export default function useNotesQuery() {
       .ref(`/notes/${user?.uid}`)
       .orderByChild("is_archived")
       .equalTo(false),
-    { subscribe: true }
+    { subscribe: true },
+    {
+      onSuccess(data) {
+        updateInMemoryNotesStore(getNotesFromSnapshot(data));
+      },
+    }
   );
+
   const data = useMemo(() => {
     if (!snapshot) return [];
     if (!user?.uid) return [];
-
-    const notes: Record<
-      string,
-      {
-        note?: string | null;
-        created_at?: string | null;
-        is_draft?: boolean | null;
-        user?: string | null;
-        updated_at?: string | null;
-      }
-    > | null = snapshot.val();
-
-    if (!notes) return [];
-
-    const notesArray = Object.entries(notes)
-      .map(([id, note]) => ({
-        ...note,
-        note: note.note ?? "",
-        user: user?.uid,
-        id,
-      }))
-      .sort((a, b) => {
-        if (!a.updated_at) return 1;
-        if (!b.updated_at) return -1;
-        return a.updated_at > b.updated_at ? -1 : 1;
-      });
-
-    updateInMemoryNotesStore(notesArray);
-
-    return notesSchema.parse(notesArray);
+    return getNotesFromSnapshot(snapshot);
   }, [snapshot, user?.uid]);
 
   return { data };

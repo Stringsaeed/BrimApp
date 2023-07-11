@@ -10,8 +10,7 @@ import React, {
 
 import { useAuth } from "contexts/auth";
 import { useCreateNoteMutation, useNotesQuery } from "hooks";
-import { noteSchema } from "hooks/use-notes-query/schema";
-import { Note } from "types";
+import { Note, noteSchema } from "types";
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
@@ -37,11 +36,12 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
       const ref = await createNoteMutation.mutateAsync({
         user: user?.uid ?? null,
         is_archived: false,
-        is_draft: isDraft,
+        is_private: false,
         title: note.title,
-        updated_at: now,
-        created_at: now,
+        is_draft: isDraft,
         note: note.note,
+        created_at: now,
+        updated_at: now,
       });
       const newNoteSnapshot = await ref.once("value");
 

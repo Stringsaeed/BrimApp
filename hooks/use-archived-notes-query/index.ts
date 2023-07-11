@@ -5,6 +5,7 @@ import { useAuth } from "contexts/auth";
 import { useDatabaseSnapshot } from "hooks/use-database-snapshot";
 import useUpdateInMemoryNotesStore from "hooks/use-update-in-memory-notes-store";
 import { Note } from "types";
+import { getNotesFromSnapshot } from "utils";
 
 export default function useArchivedNotesQuery() {
   const updateInMemoryNotesStore = useUpdateInMemoryNotesStore();
@@ -21,7 +22,12 @@ export default function useArchivedNotesQuery() {
     {
       subscribe: true,
     },
-    {}
+    {
+      onSuccess(data) {
+        if (!data) return;
+        updateInMemoryNotesStore(getNotesFromSnapshot(data));
+      },
+    }
   );
 
   const data = useMemo<Note[]>(() => {
@@ -34,7 +40,6 @@ export default function useArchivedNotesQuery() {
       });
       return undefined;
     });
-    updateInMemoryNotesStore(notes);
     return notes;
   }, [snapshotQuery.data]);
 

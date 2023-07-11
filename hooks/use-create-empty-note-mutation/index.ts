@@ -1,7 +1,7 @@
-import { useAuth } from "contexts";
+import { useAuth } from "contexts/auth";
 import useCreateNoteMutation from "hooks/use-create-note-mutation";
 import useNavigateNote from "hooks/use-navigate-note";
-import { noteSchema } from "hooks/use-notes-query/schema";
+import { noteSchema } from "types";
 
 export default function useCreateEmptyNoteMutation() {
   const { user } = useAuth();
@@ -14,8 +14,9 @@ export default function useCreateEmptyNoteMutation() {
     const ref = await createNoteMutation.mutateAsync({
       user: user?.uid ?? null,
       is_archived: false,
-      created_at: now,
+      is_private: false,
       updated_at: now,
+      created_at: now,
       is_draft: true,
       title: "",
       note: "",

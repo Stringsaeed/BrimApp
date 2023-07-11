@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "expo-router";
 
 import { useAuth } from "contexts/auth";
-import { noteSchema } from "hooks/use-notes-query/schema";
+import { noteSchema } from "types";
 
 async function fetchNote(id: string, userId: string) {
   const ref = database().ref(`/notes/${userId}/${id}`);
