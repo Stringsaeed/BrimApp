@@ -1,7 +1,10 @@
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { actions } from "react-native-pell-rich-editor";
-import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
+import {
+  actions,
+  RichEditor,
+  RichToolbar,
+} from "react-native-pell-rich-editor";
 
 import { theme } from "themes";
 
@@ -45,9 +48,11 @@ function ComposerComponent(
       />
       <RichEditor
         ref={ref}
+        initialFocus={false}
         onChange={onUserInput}
         editorStyle={$editorStyle}
         style={$rootStyle}
+        forceDarkOn
         containerStyle={$containerStyle}
         onLoadEnd={onLoadEnd}
       />
@@ -67,10 +72,11 @@ const $rootStyle = {
 };
 
 const $editorStyle = {
-  contentCSSText: `font-family: Lato; font-size: 16px; background: white; padding: 16px;`,
-  cssText: `font-family: Lato;background: white;`,
+  contentCSSText: `font-family: sans-serif; font-size: 16px; background: white; padding: 16px;`,
+  cssText: `font-family: sans-serif;background: white;color: rgb(0,0,0);`,
   initialCSSText: `${FontFamilyStylesheet}`,
   backgroundColor: theme.colors.background,
+  color: "#000",
   flex: 1,
 };
 

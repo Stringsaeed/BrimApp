@@ -1,14 +1,11 @@
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 
 import ArchivedNotesHeaderBackground from "components/archived-notes-header/background";
 import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
 import { useLoadAssets } from "hooks";
 import { theme } from "themes";
-
-SplashScreen.preventAutoHideAsync();
 
 const ArchivedHeaderBackground = () => <ArchivedNotesHeaderBackground />;
 
@@ -16,7 +13,7 @@ export default function Layout() {
   const loaded = useLoadAssets();
 
   if (!loaded) {
-    return null;
+    return <View />;
   }
 
   return (

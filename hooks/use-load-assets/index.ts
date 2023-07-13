@@ -1,3 +1,5 @@
+/* eslint-disable promise/prefer-await-to-then */
+/* eslint-disable promise/catch-or-return */
 import {
   useFonts,
   DMSans_400Regular,
@@ -7,7 +9,7 @@ import {
   DMSans_700Bold,
   DMSans_700Bold_Italic,
 } from "@expo-google-fonts/dm-sans";
-import { hideAsync } from "expo-splash-screen";
+import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
 import { fonts } from "themes";
@@ -24,10 +26,13 @@ export default function useLoadAssets() {
   });
 
   useEffect(() => {
-    if (!loaded) return;
-    if (splashScreenHidden) return;
-    // eslint-disable-next-line promise/catch-or-return, promise/prefer-await-to-then
-    hideAsync().finally(() => setSplashScreenHidden(true));
+    (async () => {
+      await preventAutoHideAsync();
+      if (!loaded) return;
+      if (splashScreenHidden) return;
+      await hideAsync();
+      setSplashScreenHidden(true);
+    })();
   }, [loaded, splashScreenHidden]);
 
   return loaded;

@@ -27,22 +27,6 @@ export default function OtherMenu() {
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
           <DropdownMenuItemIcon
             ios={{
-              // alternative to hierarchical color. Requires iOS 15+
-              paletteColors: [
-                {
-                  dynamic: {
-                    light: "green",
-                    dark: "blue",
-                  },
-                },
-              ],
-              // can also be a color string. Requires iOS 15+
-              hierarchicalColor: {
-                dynamic: {
-                  light: "green",
-                  dark: "blue",
-                },
-              },
               name: "archivebox",
               weight: "semibold",
               scale: "medium",
