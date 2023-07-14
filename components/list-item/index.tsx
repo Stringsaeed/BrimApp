@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
+import { Link } from "expo-router";
+import React, { ComponentProps, useMemo } from "react";
 import {
   StyleProp,
   StyleSheet,
   TouchableOpacity,
-  TouchableOpacityProps,
   View,
   ViewStyle,
 } from "react-native";
@@ -12,7 +12,7 @@ import Spacing from "components/spacing";
 import { Body, Subheadline } from "components/typography";
 import { theme } from "themes";
 
-interface ListItemProps extends TouchableOpacityProps {
+interface ListItemProps extends ComponentProps<typeof Link> {
   left?: React.ReactNode;
   right?: React.ReactNode;
   title?: string;
@@ -21,6 +21,7 @@ interface ListItemProps extends TouchableOpacityProps {
   isFirst?: boolean;
   isLast?: boolean;
   contentStyle?: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function ListItem({
@@ -54,53 +55,49 @@ export default function ListItem({
   }, [overrideContentStyle, size]);
 
   return (
-    <TouchableOpacity {...props} style={containerStyle}>
-      {!!left && (
-        <>
-          {left}
-          <Spacing size={4} horizontal />
-        </>
-      )}
-      <View style={contentStyle}>
-        <Body>{title}</Body>
-        {!!subtitle && <Subheadline color="info">{subtitle}</Subheadline>}
-      </View>
-      {!!right && (
-        <>
-          <Spacing size={4} horizontal />
-          {right}
-        </>
-      )}
-    </TouchableOpacity>
+    <Link {...props} asChild style={containerStyle}>
+      <TouchableOpacity accessibilityRole="button" style={containerStyle}>
+        {!!left && (
+          <>
+            {left}
+            <Spacing size={4} horizontal />
+          </>
+        )}
+        <View style={contentStyle}>
+          <Body>{title}</Body>
+          {!!subtitle && <Subheadline color="info">{subtitle}</Subheadline>}
+        </View>
+        {!!right && (
+          <>
+            <Spacing size={4} horizontal />
+            {right}
+          </>
+        )}
+      </TouchableOpacity>
+    </Link>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    shadowOffset: {
-      height: 1,
-      width: 0,
-    },
-    borderBottomColor: "rgba(60, 60, 67, 0.36)",
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderRightWidth: StyleSheet.hairlineWidth,
+    borderLeftWidth: StyleSheet.hairlineWidth,
     backgroundColor: theme.colors.background,
+    borderColor: "rgba(60, 60, 67, 0.36)",
     justifyContent: "space-between",
-    shadowColor: theme.colors.dark,
     paddingHorizontal: 16,
-    alignItems: "center",
     flexDirection: "row",
-    shadowOpacity: 0.12,
-    shadowRadius: 2,
-    elevation: 1,
+    alignItems: "center",
+  },
+  firstContainer: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
   },
   lastContainer: {
     borderBottomStartRadius: 10,
     borderBottomEndRadius: 10,
-    borderBottomWidth: 0,
-  },
-  firstContainer: {
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
   },
   // eslint-disable-next-line react-native/no-unused-styles
   mdContent: {
@@ -112,12 +109,12 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
   },
   // eslint-disable-next-line react-native/no-unused-styles
-  mdContainer: {
-    height: 44,
-  },
-  // eslint-disable-next-line react-native/no-unused-styles
   lgContainer: {
     height: 60,
+  },
+  // eslint-disable-next-line react-native/no-unused-styles
+  mdContainer: {
+    height: 44,
   },
   content: {
     flex: 1,

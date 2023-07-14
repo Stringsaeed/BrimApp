@@ -32,6 +32,10 @@ export default function Layout() {
               options={{ title: "Profile" }}
             />
             <Stack.Screen
+              name="(user)/account-info"
+              options={{ title: "Account Information" }}
+            />
+            <Stack.Screen
               name="auth"
               options={{
                 headerBackground: () => null,

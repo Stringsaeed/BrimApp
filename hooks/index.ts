@@ -18,3 +18,4 @@ export { default as useInMemoryNotes } from "./use-in-memory-notes";
 export { default as useUpdateInMemoryNotesStore } from "./use-update-in-memory-notes-store";
 export { default as useCreateEmptyNoteMutation } from "./use-create-empty-note-mutation";
 export { default as useNavigateProfile } from "./use-navigate-profile";
+export { default as useAnimatedToggle } from "./use-animated-toggle";

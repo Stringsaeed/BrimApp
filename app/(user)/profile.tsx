@@ -16,17 +16,10 @@ export default function Profile() {
       // handleKeyboard
       type="fixed"
     >
-      <ListItem isFirst size="lg" title="Account Information" />
-      <ListItem size="lg" title="Security Settings" />
-      <ListItem size="lg" title="Notifications Settings" />
-      <ListItem
-        isLast
-        size="lg"
-        title="Other Settings"
-        subtitle="theme, languages"
-      />
+      <ListItem href="/account-info" isFirst title="Account Information" />
+      <ListItem href="/account-info" title="Notifications Settings" />
+      <ListItem href="/account-info" isLast title="Preferences" />
       <Spacer />
-
       <Button
         onPress={() => signOutMutation.mutate()}
         variant="warning"

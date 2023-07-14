@@ -3,3 +3,4 @@ export { fonts } from "./typography";
 export type { ColorProp } from "./types";
 export * from "./utils";
 export * from "./dropdown";
+export { default as globalStyles, combineStyles } from "./globalStyles";
