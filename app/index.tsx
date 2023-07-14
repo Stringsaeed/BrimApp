@@ -10,6 +10,8 @@ import {
 
 export default function NotesPage() {
   const { notes } = useNotesContext();
+  const filteredNotes = notes.filter((note) => note.is_archived !== true);
+
   const onPressCreate = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
@@ -18,7 +20,7 @@ export default function NotesPage() {
     <>
       <DashboardHeader {...{ onPressProfile, onPressCreate }} />
       <ScreenContainer withoutBeautifulPadding type="fixed">
-        <NotesListProvider notes={notes}>
+        <NotesListProvider notes={filteredNotes}>
           <NotesList onPressNote={onNavigateNote} />
         </NotesListProvider>
       </ScreenContainer>

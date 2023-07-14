@@ -1,11 +1,12 @@
 import React from "react";
 
 import { NotesList, ScreenContainer } from "components";
-import { NotesListProvider } from "contexts";
-import { useArchivedNotesQuery, useNavigateNote } from "hooks";
+import { NotesListProvider, useNotesContext } from "contexts";
+import { useNavigateNote } from "hooks";
 
 export default function ArchiveNotesPage() {
-  const { data } = useArchivedNotesQuery();
+  const { notes } = useNotesContext();
+  const data = notes.filter((note) => note.is_archived);
 
   const onNavigateNote = useNavigateNote();
 

@@ -23,6 +23,7 @@ export default function useNoteForm(note: Note) {
         title: values.title,
         note: values.note,
         user: note.user!,
+        is_draft: false,
         id: note.id,
       });
       setSubmitting(false);

@@ -55,6 +55,7 @@ function ComposerComponent(
         forceDarkOn
         containerStyle={$containerStyle}
         onLoadEnd={onLoadEnd}
+        styleWithCSS
       />
     </>
   );

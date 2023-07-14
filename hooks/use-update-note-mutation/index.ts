@@ -19,6 +19,7 @@ async function updateNote(input: UpdateNoteMutationInput) {
     .update({
       ...note,
       updated_at: now,
+      is_draft: false,
     });
 }
 

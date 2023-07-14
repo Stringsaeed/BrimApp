@@ -5,10 +5,10 @@ import { View, ViewStyle } from "react-native";
 import { RichEditor } from "react-native-pell-rich-editor";
 
 import { AutoSave, Composer, NoteHeaderRight } from "components";
+import { useNotesContext } from "contexts";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
-  useInMemoryNotes,
   useNavigateProfile,
   useNoteForm,
   useNotePrivacyMutation,
@@ -21,7 +21,7 @@ export default function NotePage() {
   const onCreateEmptyNote = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
   const onNavigateProfile = useNavigateProfile();
-  const notes = useInMemoryNotes();
+  const { notes } = useNotesContext();
   const note = notes.find((note) => note.id === id);
   const config = useNoteForm(note!);
 
