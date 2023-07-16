@@ -19,3 +19,4 @@ export { default as DashboardHeader } from "./dashboard-header";
 export { default as ArchivedNotesHeader } from "./archived-notes-header";
 export { default as ListItem } from "./list-item";
 export { default as Banner } from "./banner";
+export { default as PairedInputButton } from "./paired-input-button";

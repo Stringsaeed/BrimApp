@@ -1,6 +1,11 @@
+import { OpaqueColorValue } from "react-native";
+
 import { colors } from "./colors";
 
-export type ColorKeyOrString = keyof typeof colors | (string & {});
+export type ColorKeyOrString =
+  | keyof typeof colors
+  | (string & {})
+  | OpaqueColorValue;
 
 export type ColorProp<
   key extends "color" | "backgroundColor" | "borderColor" = "color"
