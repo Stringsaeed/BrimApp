@@ -9,6 +9,7 @@ import {
   DropdownMenuItemTitle,
   DropdownMenuRoot,
   DropdownMenuTrigger,
+  theme,
 } from "themes";
 
 export default function OtherMenu() {
@@ -21,7 +22,7 @@ export default function OtherMenu() {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <List color="black" />
+        <List color={theme.colors.text} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={onPressArchive} key="archive">

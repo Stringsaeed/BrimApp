@@ -40,9 +40,8 @@ export function getToolbarIconMapper(): ToolbarIconMapper {
 
 export const FontFamilyStylesheet = `
 @font-face {
-  font-family: "DM Sans"; 
-  src: url("https://github.com/Stringsaeed/fonts-cdn/raw/main/DM_Sans/DMSans-Regular.ttf") format('truetype');
-  font-weight: normal;
+  font-family: Montserrat; 
+  src: url("https://github.com/Stringsaeed/fonts-cdn/raw/main/Montserrat-VariableFont_wght.ttf") format('truetype');
   font-style: normal;
   font-display: swap;
 }

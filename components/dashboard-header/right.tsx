@@ -3,6 +3,7 @@ import React from "react";
 import { Pressable } from "react-native";
 
 import Row from "components/row";
+import { theme } from "themes";
 
 import OtherMenu from "./other";
 
@@ -19,10 +20,10 @@ export default function DashboardHeaderRight({
     <Row gap={8}>
       <OtherMenu />
       <Pressable accessibilityRole="button" onPress={onPressCreate}>
-        <Plus color="black" />
+        <Plus color={theme.colors.text} />
       </Pressable>
       <Pressable accessibilityRole="button" onPress={onPressProfile}>
-        <User color="black" />
+        <User color={theme.colors.text} />
       </Pressable>
     </Row>
   );

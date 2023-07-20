@@ -26,7 +26,7 @@ export default function Tag({
       accessibilityRole="button"
       onPress={onPress}
     >
-      <Body color="white">{children}</Body>
+      <Body color="onPrimary">{children}</Body>
     </TouchableOpacity>
   );
 }

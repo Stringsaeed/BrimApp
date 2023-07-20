@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["RichTextEditorModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.richtexteditor.RichTextEditorModule"]
+  }
+}

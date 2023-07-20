@@ -2,13 +2,13 @@
 /* eslint-disable promise/catch-or-return */
 import {
   useFonts,
-  DMSans_400Regular,
-  DMSans_400Regular_Italic,
-  DMSans_500Medium,
-  DMSans_500Medium_Italic,
-  DMSans_700Bold,
-  DMSans_700Bold_Italic,
-} from "@expo-google-fonts/dm-sans";
+  RedHatText_400Regular,
+  RedHatText_400Regular_Italic,
+  RedHatText_500Medium,
+  RedHatText_500Medium_Italic,
+  RedHatText_700Bold,
+  RedHatText_700Bold_Italic,
+} from "@expo-google-fonts/red-hat-text";
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
@@ -17,12 +17,12 @@ import { fonts } from "themes";
 export default function useLoadAssets() {
   const [splashScreenHidden, setSplashScreenHidden] = useState(false);
   const [loaded] = useFonts({
-    [fonts.semiBoldItalic]: DMSans_500Medium_Italic,
-    [fonts.regularItalic]: DMSans_400Regular_Italic,
-    [fonts.boldItalic]: DMSans_700Bold_Italic,
-    [fonts.semiBold]: DMSans_500Medium,
-    [fonts.regular]: DMSans_400Regular,
-    [fonts.bold]: DMSans_700Bold,
+    [fonts.semiBoldItalic]: RedHatText_500Medium_Italic,
+    [fonts.regularItalic]: RedHatText_400Regular_Italic,
+    [fonts.boldItalic]: RedHatText_700Bold_Italic,
+    [fonts.semiBold]: RedHatText_500Medium,
+    [fonts.regular]: RedHatText_400Regular,
+    [fonts.bold]: RedHatText_700Bold,
   });
 
   useEffect(() => {

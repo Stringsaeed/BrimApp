@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
 import { Platform, View } from "react-native";
@@ -20,42 +21,46 @@ export default function Layout() {
     <QueryProvider>
       <AuthProvider>
         <NotesProvider>
-          <Stack
-            screenOptions={{
-              headerTitleStyle: theme.textVariants.Headline,
-              headerBackTitleVisible: false,
-              headerTintColor: "#000",
-            }}
-          >
-            <Stack.Screen
-              name="(user)/profile"
-              options={{ title: "Profile" }}
-            />
-            <Stack.Screen
-              name="(user)/account-info"
-              options={{ title: "Account Information" }}
-            />
-            <Stack.Screen
-              name="auth"
-              options={{
-                headerBackground: () => null,
-                headerTransparent: true,
-                headerShown: false,
+          <ThemeProvider value={theme.navigation}>
+            <Stack
+              screenOptions={{
+                headerTitleStyle: theme.textVariants.Headline,
+                headerTintColor: theme.colors.text,
+                headerBackTitleVisible: false,
               }}
-            />
-            <Stack.Screen name="notes/[id]" options={{ title: "" }} />
-            <Stack.Screen
-              name="notes/archive"
-              options={{
-                headerBackground:
-                  Platform.OS !== "ios" ? ArchivedHeaderBackground : undefined,
-                headerBlurEffect: "light",
-                headerTransparent: true,
-                title: "Archived",
-                headerShown: true,
-              }}
-            />
-          </Stack>
+            >
+              <Stack.Screen
+                name="(user)/profile"
+                options={{ title: "Profile" }}
+              />
+              <Stack.Screen
+                name="(user)/account-info"
+                options={{ title: "Account Information" }}
+              />
+              <Stack.Screen
+                name="auth"
+                options={{
+                  headerBackground: () => null,
+                  headerTransparent: true,
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen name="notes/[id]" options={{ title: "" }} />
+              <Stack.Screen
+                name="notes/archive"
+                options={{
+                  headerBackground:
+                    Platform.OS !== "ios"
+                      ? ArchivedHeaderBackground
+                      : undefined,
+                  headerBlurEffect: "light",
+                  headerTransparent: true,
+                  title: "Archived",
+                  headerShown: true,
+                }}
+              />
+            </Stack>
+          </ThemeProvider>
         </NotesProvider>
       </AuthProvider>
     </QueryProvider>

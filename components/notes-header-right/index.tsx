@@ -3,6 +3,7 @@ import React from "react";
 import { Pressable } from "react-native";
 
 import Row from "components/row";
+import { theme } from "themes";
 
 interface NotesHeaderRightProps {
   onPressCreate: () => void;
@@ -16,10 +17,10 @@ export default function NotesHeaderRight({
   return (
     <Row gap={8}>
       <Pressable accessibilityRole="button" onPress={onPressCreate}>
-        <Plus color="black" />
+        <Plus color={theme.colors.text} />
       </Pressable>
       <Pressable accessibilityRole="button" onPress={onPressProfile}>
-        <User color="black" />
+        <User color={theme.colors.text} />
       </Pressable>
     </Row>
   );

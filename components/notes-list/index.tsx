@@ -2,6 +2,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import React, { Fragment, useCallback } from "react";
 import { ListRenderItemInfo, ViewStyle } from "react-native";
 import Animated, { FadeIn, FadeOutLeft } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Divider from "components/divider";
 import { useNotesList } from "contexts";
@@ -16,6 +17,7 @@ interface NotesListProps {
 }
 
 export default function NotesList({ onPressNote }: NotesListProps) {
+  const { bottom } = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
   const { unarchiveNote, archiveNote, deleteNote, notes } = useNotesList();
@@ -69,7 +71,7 @@ export default function NotesList({ onPressNote }: NotesListProps) {
       style={$container}
       contentContainerStyle={[
         $contentContainerStyle,
-        { paddingTop: actualTop },
+        { paddingTop: actualTop, paddingBottom: bottom },
       ]}
     >
       <Animated.View style={$content_content}>
@@ -85,7 +87,7 @@ const $container: ViewStyle = {
 };
 
 const $contentContainerStyle: ViewStyle = {
-  height: "100%",
+  paddingBottom: 16,
   flexGrow: 1,
 };
 

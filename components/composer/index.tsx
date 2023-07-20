@@ -56,6 +56,7 @@ function ComposerComponent(
         containerStyle={$containerStyle}
         onLoadEnd={onLoadEnd}
         styleWithCSS
+        textZoom={100}
       />
     </>
   );
@@ -73,8 +74,8 @@ const $rootStyle = {
 };
 
 const $editorStyle = {
-  contentCSSText: `font-family: sans-serif; font-size: 16px; background: white; padding: 16px;`,
-  cssText: `font-family: sans-serif;background: white;color: rgb(0,0,0);`,
+  contentCSSText: `font-family: 'Red Hat Text', sans-serif;font-size: 16px; background: white; padding: 16px;`,
+  cssText: `font-family: 'Red Hat Text', sans-serif;background: white;`,
   initialCSSText: `${FontFamilyStylesheet}`,
   backgroundColor: theme.colors.background,
   color: "#000",

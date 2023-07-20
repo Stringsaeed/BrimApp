@@ -35,7 +35,7 @@ export default function NoteListItemView({
     return (
       <Animated.View style={styles.rightAction}>
         <RectButton style={styles.rightActionButton} onPress={onRemove}>
-          <Trash color="white" />
+          <Trash color={theme.colors.onDanger} />
         </RectButton>
       </Animated.View>
     );
@@ -48,9 +48,9 @@ export default function NoteListItemView({
       <Animated.View style={styles.leftAction}>
         <RectButton style={styles.leftActionButton} onPress={toggleArchive}>
           {item.is_archived ? (
-            <ArrowUUpLeft color="white" />
+            <ArrowUUpLeft color={theme.colors.onWarning} />
           ) : (
-            <ArchiveBox color="white" />
+            <ArchiveBox color={theme.colors.onWarning} />
           )}
         </RectButton>
       </Animated.View>

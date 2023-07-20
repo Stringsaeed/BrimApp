@@ -10,6 +10,8 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import { Pressable, View, ViewStyle } from "react-native";
 
+import { theme } from "themes";
+
 interface NoteHeaderRightProps {
   onPressLock?: () => void;
   isPrivate?: boolean | null | undefined;
@@ -34,21 +36,23 @@ export default function NoteHeaderRight({
       <View style={containerStyle}>
         {isEligible && (
           <Pressable onPress={onPressLock} accessibilityRole="button">
-            <Lock color={isPrivate ? "#000000" : "#71787F"} />
+            <Lock
+              color={isPrivate ? theme.colors.text : theme.colors.disabledText}
+            />
           </Pressable>
         )}
         <Pressable onPress={onPressArchive} accessibilityRole="button">
-          <ArchiveBox color="black" />
+          <ArchiveBox color={theme.colors.text} />
         </Pressable>
         <Pressable onPress={onPressTrash} accessibilityRole="button">
-          <TrashSimple color="black" />
+          <TrashSimple color={theme.colors.text} />
         </Pressable>
         <View style={dividerStyle} />
         <Pressable onPress={onPressPlus} accessibilityRole="button">
-          <Plus color="black" />
+          <Plus color={theme.colors.text} />
         </Pressable>
         <Pressable onPress={onPressProfile} accessibilityRole="button">
-          <User color="black" />
+          <User color={theme.colors.text} />
         </Pressable>
       </View>
     );

@@ -571,6 +571,8 @@ PODS:
     - React-jsi (= 0.71.8)
     - React-logger (= 0.71.8)
     - React-perflogger (= 0.71.8)
+  - RichTextEditor (1.0.0):
+    - ExpoModulesCore
   - RNFBAnalytics (18.0.0):
     - Firebase/Analytics (= 10.10.0)
     - React-Core
@@ -689,6 +691,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RichTextEditor (from `../modules/rich-text-editor/ios`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -836,6 +839,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RichTextEditor:
+    :path: "../modules/rich-text-editor/ios"
   RNFBAnalytics:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
@@ -934,6 +939,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 43ffd976a25f6057a7cf95ea3648ba4e00287f89
   React-runtimeexecutor: 7c51ae9d4b3e9608a2366e39ccaa606aa551b9ed
   ReactCommon: 9957c7530467adbdf4a4a1476d636bd00b2e4dd8
+  RichTextEditor: 1c896385b451d5e8abaacb778d7b7f7659908c75
   RNFBAnalytics: 525293b9845d27f00e6609b90bb4b76da8e4a292
   RNFBApp: 7da45c10070789f5e4337a5534139976e8d74e0a
   RNFBAuth: ac09be3e7b19c53b1e4b86a6d328f75705445178
