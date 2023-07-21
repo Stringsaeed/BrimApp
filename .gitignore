@@ -78,3 +78,7 @@ dist/
 # @end expo-cli
 
 .eslintcache
+
+# native
+ios/
+android/
