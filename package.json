@@ -47,6 +47,7 @@
     "html-entities": "^2.3.3",
     "lodash.debounce": "^4.0.8",
     "lodash.uniqby": "^4.7.0",
+    "moti": "^0.25.3",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
