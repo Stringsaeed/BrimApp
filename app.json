@@ -15,7 +15,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./config/GoogleService-Info.plist",
+      "googleServicesFile": "./src/config/GoogleService-Info.plist",
       "bundleIdentifier": "com.stringsaeed.brim"
     },
     "android": {
@@ -24,7 +24,7 @@
         "backgroundColor": "#F7F6E4"
       },
       "package": "com.stringsaeed.brim",
-      "googleServicesFile": "./config/google-services.json",
+      "googleServicesFile": "./src/config/google-services.json",
       "versionCode": 9
     },
     "plugins": [

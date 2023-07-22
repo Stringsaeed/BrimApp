@@ -90,7 +90,7 @@ export function useDatabaseValue<T = unknown | null, R = T>(
         ref.off("value");
       };
     },
-    [ref]
+    [options?.toArray, ref]
   );
 
   return useSubscription<T, Error, R>(

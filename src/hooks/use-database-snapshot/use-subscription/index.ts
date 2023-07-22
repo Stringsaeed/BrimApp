@@ -1,3 +1,4 @@
+/* eslint-disable promise/prefer-await-to-then */
 /*
  * Copyright (c) 2016-present Invertase Limited & Contributors
  *
