@@ -1,6 +1,6 @@
 import auth from "@react-native-firebase/auth";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useReducer } from "react";
 import {
   StyleSheet,
   View,
@@ -21,7 +21,6 @@ import {
   Spacing,
 } from "components";
 import { useAuth } from "contexts";
-import { useAnimatedToggle } from "hooks";
 import { combineStyles, theme } from "themes";
 
 export default function AccountInfoScreen() {
@@ -68,8 +67,7 @@ export default function AccountInfoScreen() {
 
 function AddEmailBanner() {
   const { user } = useAuth();
-
-  const [showAddEmail, toggleShowAddEmail] = useAnimatedToggle(!!user?.email);
+  const [isVisible, toggle] = useReducer((s) => !s, !user?.email);
 
   const { handleSubmit, handleChange, handleBlur, isValid, values, dirty } =
     useFormik({
@@ -84,14 +82,12 @@ function AddEmailBanner() {
 
   const buttonDisabled = !isValid || !dirty;
 
-  if (user?.email) return null;
-
   return (
     <Banner
+      isVisible={isVisible}
       color={color}
       label="Link your email"
-      shownValue={showAddEmail}
-      onClose={toggleShowAddEmail}
+      onClose={toggle}
     >
       <Input
         placeholder="Email Address"
