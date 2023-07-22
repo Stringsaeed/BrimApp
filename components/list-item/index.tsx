@@ -1,5 +1,5 @@
-import { Link } from "expo-router";
-import React, { ComponentProps, useMemo } from "react";
+import { Link, LinkProps } from "expo-router";
+import React, { useMemo } from "react";
 import {
   StyleProp,
   StyleSheet,
@@ -12,7 +12,7 @@ import Spacing from "components/spacing";
 import { Body, Subheadline } from "components/typography";
 import { theme } from "themes";
 
-interface ListItemProps extends ComponentProps<typeof Link> {
+interface ListItemProps extends LinkProps<string> {
   left?: React.ReactNode;
   right?: React.ReactNode;
   title?: string;
