@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#F7F6E4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./config/GoogleService-Info.plist",
@@ -53,6 +51,10 @@
       "eas": {
         "projectId": "e630d577-becd-41a6-ad64-226cac9be574"
       }
+    },
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
     }
   }
 }
