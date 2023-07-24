@@ -1,3 +1,4 @@
+import { MotiView } from "moti";
 import { Plus, User } from "phosphor-react-native";
 import React from "react";
 import { Pressable } from "react-native";
@@ -17,11 +18,30 @@ export default function DashboardHeaderRight({
   onPressCreate,
 }: DashboardHeaderRightProps) {
   return (
-    <Row gap={8}>
+    <Row gap={8} center>
       <OtherMenu />
-      <Pressable accessibilityRole="button" onPress={onPressCreate}>
-        <Plus color={theme.colors.text} />
-      </Pressable>
+      <MotiView
+        from={{
+          opacity: 0,
+          scale: 0.2,
+        }}
+        transition={{ type: "spring" }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
+        <Pressable
+          accessibilityRole="button"
+          style={{
+            backgroundColor: theme.colors.primary,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 20,
+            padding: 6,
+          }}
+          onPress={onPressCreate}
+        >
+          <Plus color={theme.colors.onPrimary} size={16} weight="bold" />
+        </Pressable>
+      </MotiView>
       <Pressable accessibilityRole="button" onPress={onPressProfile}>
         <User color={theme.colors.text} />
       </Pressable>

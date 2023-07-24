@@ -16,8 +16,10 @@ export const Auth = {
   sendPhoneOTP: (phoneNumber: string) => {
     return auth().signInWithPhoneNumber(phoneNumber);
   },
-  signOut: () => auth().signOut(),
+  updateEmail: (email: string) =>
+    auth().currentUser?.verifyBeforeUpdateEmail(email),
   currentUser: auth().currentUser,
+  signOut: () => auth().signOut(),
 };
 
 export type FirebaseAuthUser = FirebaseAuthTypes.User;

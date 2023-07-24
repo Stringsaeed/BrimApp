@@ -1,10 +1,11 @@
-import { AnimatePresence, MotiView, useDynamicAnimation } from "moti";
 import { X } from "phosphor-react-native";
 import React from "react";
-import { LayoutChangeEvent, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
 
+import Row from "components/row";
 import Spacing from "components/spacing";
-import { Subheadline } from "components/typography";
+import { Title3 } from "components/typography";
 import { ColorProp, getColorValue } from "themes";
 
 import styles from "./styles";
@@ -24,40 +25,27 @@ export default function Banner({
   label,
 }: BannerProps) {
   const bg = getColorValue(color);
-  const animation = useDynamicAnimation(() => ({ minHeight: 100 }));
 
-  const onLayout = ({ nativeEvent }: LayoutChangeEvent) => {
-    // @ts-expect-error
-    animation.animateTo({
-      ...animation.current,
-      height: nativeEvent.layout.height,
-    });
-  };
+  if (!isVisible) return <></>;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <MotiView
-          onLayout={onLayout}
-          style={[styles.container, { backgroundColor: bg }]}
-          state={animation}
-        >
-          {!!label && (
-            <>
-              <Subheadline>{label}</Subheadline>
-              <Spacing size={2} />
-            </>
-          )}
-          {children}
-          <TouchableOpacity
-            onPress={onClose}
-            accessibilityRole="button"
-            style={styles.xIcon}
-          >
-            <X size={20} />
-          </TouchableOpacity>
-        </MotiView>
-      )}
-    </AnimatePresence>
+    <Animated.View
+      exiting={FadeOutUp}
+      entering={FadeInDown}
+      style={[styles.container, { backgroundColor: bg }]}
+    >
+      <Row center spaceBetween>
+        {!!label && (
+          <>
+            <Title3>{label}</Title3>
+          </>
+        )}
+        <TouchableOpacity onPress={onClose} accessibilityRole="button">
+          <X size={20} />
+        </TouchableOpacity>
+      </Row>
+      <Spacing size={4} />
+      {children}
+    </Animated.View>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { ViewProps } from "react-native";
 import Animated, {
   AnimateProps,
+  Layout,
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
@@ -17,11 +18,15 @@ export default function AnimatedKeyboardView({
 }: Props) {
   const { height } = useAnimatedKeyboard();
   const stylez = useAnimatedStyle(
-    () => ({
-      paddingBottom: height.value + offset,
-    }),
+    () => ({ paddingBottom: height.value + offset }),
     [height, offset]
   );
 
-  return <Animated.View style={[stylez, style]} {...props} />;
+  return (
+    <Animated.View
+      layout={Layout.springify()}
+      style={[stylez, style]}
+      {...props}
+    />
+  );
 }

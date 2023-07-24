@@ -21,7 +21,14 @@ export default function LoginPage() {
         textAlignVertical="center"
         onChangeText={setPhoneNumber}
       />
-      <Button disabled={!phoneNumber} label="Continue" onPress={handleSubmit} />
+      <Button
+        disabled={!phoneNumber}
+        variantStyle="Filled"
+        size="Large"
+        onPress={handleSubmit}
+      >
+        <Button.Label>Continue</Button.Label>
+      </Button>
     </>
   );
 }

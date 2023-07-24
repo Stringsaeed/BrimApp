@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
@@ -21,46 +22,57 @@ export default function Layout() {
     <QueryProvider>
       <AuthProvider>
         <NotesProvider>
-          <ThemeProvider value={theme.navigation}>
-            <Stack
-              screenOptions={{
-                headerTitleStyle: theme.textVariants.Headline,
-                headerTintColor: theme.colors.text,
-                headerBackTitleVisible: false,
-              }}
-            >
-              <Stack.Screen
-                name="(user)/profile"
-                options={{ title: "Profile" }}
-              />
-              <Stack.Screen
-                name="(user)/account-info"
-                options={{ title: "Account Information" }}
-              />
-              <Stack.Screen
-                name="auth"
-                options={{
-                  headerBackground: () => null,
-                  headerTransparent: true,
-                  headerShown: false,
+          <BottomSheetModalProvider>
+            <ThemeProvider value={theme.navigation}>
+              <Stack
+                screenOptions={{
+                  headerTitleStyle: theme.textVariants.Headline,
+                  headerTintColor: theme.colors.text,
+                  headerBackTitleVisible: false,
+                  headerBackTitle: "",
                 }}
-              />
-              <Stack.Screen name="notes/[id]" options={{ title: "" }} />
-              <Stack.Screen
-                name="notes/archive"
-                options={{
-                  headerBackground:
-                    Platform.OS !== "ios"
-                      ? ArchivedHeaderBackground
-                      : undefined,
-                  headerBlurEffect: "light",
-                  headerTransparent: true,
-                  title: "Archived",
-                  headerShown: true,
-                }}
-              />
-            </Stack>
-          </ThemeProvider>
+              >
+                <Stack.Screen
+                  name="(user)/profile"
+                  options={{
+                    headerBackTitleVisible: false,
+                    headerBackTitle: "",
+                    title: "Profile",
+                  }}
+                />
+                <Stack.Screen
+                  name="(user)/account-info"
+                  options={{
+                    headerBackTitleVisible: false,
+                    title: "Account Information",
+                    headerBackTitle: "",
+                  }}
+                />
+                <Stack.Screen
+                  name="auth"
+                  options={{
+                    headerBackground: () => null,
+                    headerTransparent: true,
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen name="notes/[id]" options={{ title: "" }} />
+                <Stack.Screen
+                  name="notes/archive"
+                  options={{
+                    headerBackground:
+                      Platform.OS !== "ios"
+                        ? ArchivedHeaderBackground
+                        : undefined,
+                    headerBlurEffect: "light",
+                    headerTransparent: true,
+                    title: "Archived",
+                    headerShown: true,
+                  }}
+                />
+              </Stack>
+            </ThemeProvider>
+          </BottomSheetModalProvider>
         </NotesProvider>
       </AuthProvider>
     </QueryProvider>

@@ -20,7 +20,14 @@ export default function VerifyPage() {
         value={code}
         onChangeText={setCode}
       />
-      <Button label="Login" onPress={handleVerify} />
+      <Button
+        disabled={!code}
+        variantStyle="Filled"
+        size="Large"
+        onPress={handleVerify}
+      >
+        <Button.Label>Login</Button.Label>
+      </Button>
     </>
   );
 }

@@ -1,12 +1,9 @@
 import { ViewStyle } from "react-native";
 
+import { theme } from "themes";
 import { textVariants } from "themes/typography";
 
-type Props = {
-  style: "Borderless" | "BezeledGray" | "Bezeled" | "Filled";
-  size: "Small" | "Medium" | "Large";
-  iconOnly?: boolean;
-};
+import { VariantsProps } from "./types";
 
 const baseStyle: ViewStyle = {
   justifyContent: "center",
@@ -34,7 +31,7 @@ const medium = {
 
 const large = {
   container: {
-    borderRadius: 40,
+    borderRadius: 12,
     height: 50,
     gap: 4,
   },
@@ -53,11 +50,17 @@ const borderless = {
   container: {
     backgroundColor: "transparent",
   },
+  text: {
+    color: theme.colors.dark,
+  },
 };
 
 const bezeledGray = {
   container: {
     backgroundColor: "#7676801F",
+  },
+  text: {
+    color: theme.colors.dark,
   },
 };
 
@@ -65,11 +68,17 @@ const bezeled = {
   container: {
     backgroundColor: "#FFFFFF1F",
   },
+  text: {
+    color: theme.colors.dark,
+  },
 };
 
 const filled = {
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: theme.colors.primary,
+  },
+  text: {
+    color: theme.colors.light,
   },
 };
 
@@ -81,11 +90,11 @@ const byStyle = {
 };
 
 export default function getButtonStyle({
-  style = "Borderless",
+  variantStyle = "Borderless",
   size = "Medium",
-}: Props) {
+}: VariantsProps) {
   const { container: containerSize, text: textSize } = bySize[size];
-  const { container: containerStyle } = byStyle[style];
+  const { container: containerStyle, text: textStyle } = byStyle[variantStyle];
 
   return {
     container: {
@@ -95,6 +104,7 @@ export default function getButtonStyle({
     },
     text: {
       ...textSize,
+      ...textStyle,
     },
   };
 }

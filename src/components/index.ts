@@ -20,3 +20,6 @@ export { default as ArchivedNotesHeader } from "./archived-notes-header";
 export { default as ListItem } from "./list-item";
 export { default as Banner } from "./banner";
 export { default as PairedInputButton } from "./paired-input-button";
+export { default as AddEmailBanner } from "./add-email-banner";
+export { default as AccountInfoContainer } from "./account-info-container";
+export { default as BottomSheet } from "./bottom-sheet";

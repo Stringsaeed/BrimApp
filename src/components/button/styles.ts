@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { theme } from "themes";
-
 export default StyleSheet.create({
   button: {
     justifyContent: "center",
@@ -13,9 +11,6 @@ export default StyleSheet.create({
   },
   label: {
     textTransform: "capitalize",
-    textAlign: "center",
-    ...theme.textVariants.Body,
-    fontFamily: theme.fonts.bold,
   },
   lg: { borderRadius: 12, height: 56 },
   disabled: {
