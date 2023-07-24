@@ -1,7 +1,8 @@
-import auth from "@react-native-firebase/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
+
+import { Auth } from "services";
 
 interface VerifyPhoneNumberInput {
   verificationId: string;
@@ -9,13 +10,7 @@ interface VerifyPhoneNumberInput {
 }
 
 async function verifyPhoneNumber(input: VerifyPhoneNumberInput) {
-  const credential = auth.PhoneAuthProvider.credential(
-    input.verificationId,
-    input.code
-  );
-
-  await auth().signInWithCredential(credential);
-  return true;
+  await Auth.verifyOTP(input.code, input.verificationId);
 }
 
 export default function useVerifyPhoneNumberMutation() {

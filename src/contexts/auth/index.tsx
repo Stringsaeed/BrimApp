@@ -1,12 +1,13 @@
 import { useRouter, useSegments } from "expo-router";
 import React from "react";
 
-import { Auth, FirebaseAuthUser } from "config";
+import { Auth } from "services";
+import { AuthUser } from "types";
 
 type AuthContext =
   | {
       isAuthenticated: true;
-      user: FirebaseAuthUser;
+      user: AuthUser;
     }
   | {
       isAuthenticated: false;
@@ -40,7 +41,7 @@ function useProtectedRoute(user?: AuthContext["user"]) {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<FirebaseAuthUser | null>(
+  const [user, setUser] = React.useState<AuthUser | null>(
     () => Auth.currentUser
   );
   const isAuthenticated = !!user;

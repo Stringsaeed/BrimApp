@@ -15,6 +15,7 @@ export default function useCreateEmptyNoteMutation() {
       user: user?.uid ?? null,
       is_archived: false,
       is_private: false,
+      is_trashed: false,
       updated_at: now,
       created_at: now,
       is_draft: true,

@@ -7,8 +7,8 @@ import Banner from "components/banner";
 import Button from "components/button";
 import Input from "components/input";
 import Spacing from "components/spacing";
-import { Auth } from "config";
 import { useAuth } from "contexts";
+import { Auth } from "services";
 
 const emailFieldSchema = z.string().email();
 const formSchema = z.object({
