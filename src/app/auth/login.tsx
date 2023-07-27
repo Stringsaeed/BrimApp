@@ -1,28 +1,55 @@
 import React from "react";
+import { View, ViewStyle } from "react-native";
 
-import { Button, Input, Headline } from "components";
+import {
+  Button,
+  Input,
+  LargeTitle,
+  Spacer,
+  Row,
+  CountryBottomSheet,
+} from "components";
 import { useLoginMutation } from "hooks";
 
 export default function LoginPage() {
-  const { setPhoneNumber, handleSubmit, phoneNumber } = useLoginMutation();
+  const {
+    handleOnRegionChange,
+    isSubmitDisabled,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    values,
+  } = useLoginMutation();
 
   return (
     <>
-      <Headline>What&apos;s your phone number</Headline>
-      <Input
-        textAlign="center"
-        textContentType="telephoneNumber"
-        autoComplete="tel"
-        keyboardType="phone-pad"
-        placeholder="Phone Number"
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={phoneNumber}
-        textAlignVertical="center"
-        onChangeText={setPhoneNumber}
-      />
+      <LargeTitle emphasized>What&apos;s your phone number</LargeTitle>
+      <Row gap={8}>
+        <CountryBottomSheet
+          region={values.country}
+          onRegionChange={handleOnRegionChange}
+        />
+        <View style={inputContainer}>
+          <Input
+            textAlign="center"
+            textContentType="telephoneNumber"
+            autoComplete="tel"
+            keyboardType="phone-pad"
+            placeholder="Phone Number"
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={values.phoneNumber}
+            textAlignVertical="center"
+            onChangeText={handleChange("phoneNumber")}
+            onBlur={handleBlur("phoneNumber")}
+          />
+        </View>
+      </Row>
+
+      <Spacer />
+
       <Button
-        disabled={!phoneNumber}
+        disabled={isSubmitDisabled}
         variantStyle="Filled"
         size="Large"
         onPress={handleSubmit}
@@ -32,3 +59,7 @@ export default function LoginPage() {
     </>
   );
 }
+
+const inputContainer: ViewStyle = {
+  flex: 1,
+};

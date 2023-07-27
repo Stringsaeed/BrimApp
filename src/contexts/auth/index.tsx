@@ -24,11 +24,23 @@ export function useAuth() {
   return context;
 }
 
+function useFirstRender() {
+  const ref = React.useRef(true);
+
+  React.useEffect(() => {
+    ref.current = false;
+  }, []);
+
+  return ref.current;
+}
+
 function useProtectedRoute(user?: AuthContext["user"]) {
   const segments = useSegments();
   const router = useRouter();
+  const isFirstRender = useFirstRender();
 
   React.useEffect(() => {
+    if (isFirstRender) return;
     const isProtectedRoute = segments[0] === "auth";
 
     if (!isProtectedRoute && !user) {
@@ -36,8 +48,7 @@ function useProtectedRoute(user?: AuthContext["user"]) {
     } else if (user && isProtectedRoute) {
       router.replace("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, segments]);
+  }, [user, segments, router, isFirstRender]);
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

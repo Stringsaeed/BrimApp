@@ -23,3 +23,5 @@ export { default as PairedInputButton } from "./paired-input-button";
 export { default as AddEmailBanner } from "./add-email-banner";
 export { default as AccountInfoContainer } from "./account-info-container";
 export { default as BottomSheet } from "./bottom-sheet";
+export { default as PairedInputs } from "./paired-inputs";
+export { default as CountryBottomSheet } from "./country-bottom-sheet";

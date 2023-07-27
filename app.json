@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#F7F6E4"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./assets/GoogleService-Info.plist",
@@ -45,7 +47,8 @@
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ],
     "extra": {
       "eas": {
