@@ -20,6 +20,7 @@ export default function NotePage() {
   const { id } = useLocalSearchParams();
   const onCreateEmptyNote = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
+
   const onNavigateProfile = useNavigateProfile();
   const { notes } = useNotesContext();
   const note = notes.find((note) => note.id === id);

@@ -68,6 +68,19 @@ export default function Layout() {
                       headerShown: true,
                     }}
                   />
+                  <Stack.Screen
+                    name="notes/trash"
+                    options={{
+                      headerBackground:
+                        Platform.OS !== "ios"
+                          ? ArchivedHeaderBackground
+                          : undefined,
+                      headerBlurEffect: "light",
+                      headerTransparent: true,
+                      headerShown: true,
+                      title: "Trash",
+                    }}
+                  />
                 </Stack>
               </ThemeProvider>
             </BottomSheetModalProvider>

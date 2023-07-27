@@ -19,6 +19,10 @@ export default function OtherMenu() {
     router.push("/notes/archive");
   };
 
+  const onPressTrash = () => {
+    router.push("/notes/trash");
+  };
+
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
@@ -37,6 +41,19 @@ export default function OtherMenu() {
           />
 
           <DropdownMenuItemTitle>Archive</DropdownMenuItemTitle>
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={onPressTrash} key="trashed">
+          <DropdownMenuItemIcon
+            ios={{
+              weight: "semibold",
+              scale: "medium",
+              name: "trash",
+              pointSize: 5,
+            }}
+            androidIconName="trashed"
+          />
+
+          <DropdownMenuItemTitle>Trash</DropdownMenuItemTitle>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuRoot>

@@ -10,7 +10,9 @@ import {
 
 export default function NotesPage() {
   const { notes } = useNotesContext();
-  const filteredNotes = notes.filter((note) => note.is_archived !== true);
+  const filteredNotes = notes.filter(
+    (note) => ![note.is_archived, note.is_trashed].some((x) => x)
+  );
 
   const onPressCreate = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// current
 export const noteSchema = z.object({
   is_archived: z.boolean().nullish().optional().default(false),
   is_private: z.boolean().nullish().optional().default(false),
@@ -12,6 +13,18 @@ export const noteSchema = z.object({
   note: z.string(),
   id: z.string(),
 });
+
+// what we need
+// export const newNoteSchema = z.object({
+//   status: z.enum(["draft", "archived", "trashed", "published"]),
+//   is_private: z.boolean().nullish().optional().default(false),
+//   created_at: z.string().nullish(),
+//   updated_at: z.string().nullish(),
+//   title: z.string().optional(),
+//   user: z.string().nullish(),
+//   note: z.string(),
+//   id: z.string(),
+// });
 
 export const notesSchema = z.array(noteSchema);
 
