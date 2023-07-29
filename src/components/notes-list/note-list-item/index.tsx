@@ -1,3 +1,4 @@
+import { Text } from "dripsy";
 import { ArchiveBox, ArrowUUpLeft, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
@@ -5,7 +6,7 @@ import { RectButton, Swipeable } from "react-native-gesture-handler";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 
 import Spacing from "components/spacing";
-import { Body, Caption1 } from "components/typography";
+import { Caption1 } from "components/typography";
 import { theme } from "themes";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
@@ -78,9 +79,16 @@ export default function NoteListItemView({
       >
         <RectButton style={styles.container} onPress={onPress}>
           <View style={styles.content}>
-            <Body color={item.title ? "text" : "disabled"} numberOfLines={1}>
+            <Text
+              sx={{
+                fontWeight: item.title ? "500" : "normal",
+                color: item.title ? "text" : "disabled",
+                fontSize: "$3",
+              }}
+              numberOfLines={1}
+            >
               {item.title || "Draft"}
-            </Body>
+            </Text>
             <Spacing size={0.5} />
             <Caption1 numberOfLines={1}>{content}</Caption1>
           </View>
