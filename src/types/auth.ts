@@ -50,6 +50,7 @@ export interface IAuthService {
   onAuthStateChanged: (callback: (user: AuthUser | null) => void) => void;
   sendPhoneOTP: (phoneNumber: string) => Promise<ConfirmationResult>;
   updateEmail: (email: string) => void;
+  getCurrentUser: () => AuthUser | null;
   currentUser: AuthUser | null;
   signOut: () => Promise<void>;
 }

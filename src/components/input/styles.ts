@@ -14,6 +14,7 @@ export default StyleSheet.create({
     paddingTop: 16,
     borderWidth: 1,
     width: "100%",
+    height: 56,
     ...theme.textVariants.Body,
   },
 });

@@ -15,6 +15,8 @@ async function signInWithPhoneNumber(phoneNumber: string) {
     const confirmation = await Auth.sendPhoneOTP(phoneNumber);
     return confirmation;
   } catch (error) {
+    console.log(error);
+
     throw new Error("Invalid phone number");
   }
 }
@@ -40,8 +42,8 @@ export default function useSignInWithPhoneNumberMutation() {
   const initialCountryCodeValue = useMemo(() => {
     const locals = getLocales();
     if (!locals.length) return "US";
-    const local = locals[0];
-    const { regionCode } = local;
+    const lastLocal = locals[locals.length - 1];
+    const { regionCode } = lastLocal;
     if (!regionCode) return "US";
     return regionCode;
   }, []);

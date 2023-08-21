@@ -11,31 +11,22 @@ import { IAuthService } from "types";
 
 auth.languageCode = "en";
 
-// @ts-expect-error
-window.recaptchaVerifier = new RecaptchaVerifier(
-  "recaptcha-container",
-  {},
-  auth
-);
-
 export const Auth: IAuthService = {
+  verifyOTP: async (code, verificationId) => {
+    if (typeof verificationId !== "string") return;
+    const credential = PhoneAuthProvider.credential(verificationId, code);
+    await signInWithCredential(auth, credential);
+    return;
+  },
   sendPhoneOTP: (phoneNumber) => {
     if (__DEV__) auth.settings.appVerificationDisabledForTesting = true;
 
     return signInWithPhoneNumber(
       auth,
       phoneNumber,
-      // @ts-expect-error
+      // @ts-ignore
       window.recaptchaVerifier
     );
-  },
-  verifyOTP: async (code, verificationId) => {
-    if (typeof verificationId !== "string") return;
-
-    const credential = PhoneAuthProvider.credential(verificationId, code);
-
-    await signInWithCredential(auth, credential);
-    return;
   },
   updateEmail: async (email) => {
     if (!auth.currentUser) return;
@@ -44,6 +35,7 @@ export const Auth: IAuthService = {
   onAuthStateChanged: (callback) => {
     return onAuthStateChanged(auth, callback);
   },
-  signOut: () => auth.signOut(),
+  getCurrentUser: () => auth.currentUser,
   currentUser: auth.currentUser,
+  signOut: () => auth.signOut(),
 };

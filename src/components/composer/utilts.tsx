@@ -1,16 +1,16 @@
+import { FormatType } from "@ankipro/react-native-rich-text/src";
 import {
-  Code,
-  Link,
+  // Code,
+  // Link,
   ListBullets,
   ListNumbers,
   TextBolder,
   TextItalic,
   TextStrikethrough,
   TextUnderline,
-  LineSegment,
+  // LineSegment,
 } from "phosphor-react-native";
 import React from "react";
-import { actions } from "react-native-pell-rich-editor";
 
 interface ToolbarIconMapper {
   [key: string]: (props: { tintColor: string }) => JSX.Element;
@@ -18,23 +18,23 @@ interface ToolbarIconMapper {
 
 export function getToolbarIconMapper(): ToolbarIconMapper {
   return {
-    [actions.setStrikethrough]: ({ tintColor }) => (
+    [FormatType.strike]: ({ tintColor }) => (
       <TextStrikethrough color={tintColor} />
     ),
-    [actions.insertOrderedList]: ({ tintColor }) => (
-      <ListNumbers color={tintColor} />
-    ),
-    [actions.insertBulletsList]: ({ tintColor }) => (
-      <ListBullets color={tintColor} />
-    ),
-    [actions.setUnderline]: ({ tintColor }) => (
+    [FormatType.underline]: ({ tintColor }) => (
       <TextUnderline color={tintColor} />
     ),
-    [actions.setItalic]: ({ tintColor }) => <TextItalic color={tintColor} />,
-    [actions.setBold]: ({ tintColor }) => <TextBolder color={tintColor} />,
-    [actions.line]: ({ tintColor }) => <LineSegment color={tintColor} />,
-    [actions.insertLink]: ({ tintColor }) => <Link color={tintColor} />,
-    [actions.code]: ({ tintColor }) => <Code color={tintColor} />,
+    [FormatType.orderedList]: ({ tintColor }) => (
+      <ListNumbers color={tintColor} />
+    ),
+    [FormatType.bulletList]: ({ tintColor }) => (
+      <ListBullets color={tintColor} />
+    ),
+    [FormatType.italic]: ({ tintColor }) => <TextItalic color={tintColor} />,
+    [FormatType.bold]: ({ tintColor }) => <TextBolder color={tintColor} />,
+    // [FormatType.]: ({ tintColor }) => <LineSegment color={tintColor} />,
+    // [FormatType]: ({ tintColor }) => <Link color={tintColor} />,
+    // [actions.code]: ({ tintColor }) => <Code color={tintColor} />,
   };
 }
 

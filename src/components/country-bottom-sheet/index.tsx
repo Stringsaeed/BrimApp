@@ -1,18 +1,10 @@
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
-import React, { useCallback, useMemo } from "react";
-import { ViewStyle } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useCallback, useMemo, useState } from "react";
+import { Modal, Platform, ViewStyle } from "react-native";
 
-import BottomSheet from "components/bottom-sheet";
-import Divider from "components/divider";
+import CountryListPicker from "components/country-list-picker";
 import PressableScale from "components/pressable-scale";
 import { Body } from "components/typography";
 import { getCallingCode, getFlagEmoji } from "utils";
-
-import { CountryPickerProvider } from "./context";
-import countryList, { CountryDataType } from "./data";
-import CountryPickerItem from "./item";
 
 interface CountryBottomSheetProps {
   region: string;
@@ -23,28 +15,21 @@ export default function CountryBottomSheet({
   onRegionChange,
   region,
 }: CountryBottomSheetProps) {
-  const ref = React.useRef<BottomSheetModal>(null);
-  const countryCode = useMemo(() => getCallingCode(region), [region]);
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const countryCode = useMemo(() => getCallingCode(region), [region]);
   const countryFlag = useMemo(() => getFlagEmoji(region), [region]);
 
   const handleOnPress = useCallback(() => {
-    ref.current?.present();
+    setModalVisible(true);
   }, []);
 
   const handleOnChange = useCallback(
     (item: string) => {
       onRegionChange(item);
-      ref.current?.dismiss();
+      setModalVisible(false);
     },
     [onRegionChange]
-  );
-
-  const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<CountryDataType>) => {
-      return <CountryPickerItem item={item} />;
-    },
-    []
   );
 
   return (
@@ -54,17 +39,19 @@ export default function CountryBottomSheet({
           {countryFlag} +{countryCode}
         </Body>
       </PressableScale>
-      <BottomSheet ref={ref} snapPoints={["100%"]} title="Select Country">
-        <CountryPickerProvider value={region} onChange={handleOnChange}>
-          <FlashList
-            data={countryList}
-            renderItem={renderItem}
-            estimatedItemSize={60}
-            ItemSeparatorComponent={() => <Divider />}
-            renderScrollComponent={ScrollView}
-          />
-        </CountryPickerProvider>
-      </BottomSheet>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType="slide"
+        transparent={Platform.OS === "web"}
+        statusBarTranslucent={Platform.OS === "web"}
+      >
+        <CountryListPicker
+          onClose={() => setModalVisible(false)}
+          region={region}
+          onRegionChange={handleOnChange}
+        />
+      </Modal>
     </>
   );
 }
@@ -78,7 +65,7 @@ const countryFlagButton: ViewStyle = {
   width: undefined,
   borderRadius: 16,
   flex: undefined,
-  height: "auto",
   borderWidth: 1,
   padding: 16,
+  height: 56,
 };

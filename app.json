@@ -6,15 +6,13 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#F7F6E4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./assets/GoogleService-Info.plist",
@@ -28,6 +26,9 @@
       "package": "com.stringsaeed.brim",
       "googleServicesFile": "./assets/google-services.json",
       "versionCode": 21
+    },
+    "web": {
+      "bundler": "metro"
     },
     "plugins": [
       "@react-native-firebase/app",

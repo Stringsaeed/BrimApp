@@ -1,7 +1,7 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import React, { Fragment, useCallback } from "react";
 import { ListRenderItemInfo, ViewStyle } from "react-native";
-import Animated, { FadeIn, FadeOutLeft } from "react-native-reanimated";
+import Animated, { Layout } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Divider from "components/divider";
@@ -66,15 +66,17 @@ export default function NotesList({ onPressNote }: NotesListProps) {
 
   return (
     <Animated.ScrollView
-      entering={FadeIn}
-      exiting={FadeOutLeft}
       style={$container}
+      layout={Layout.springify().damping(1).stiffness(100)}
       contentContainerStyle={[
         $contentContainerStyle,
         { paddingTop: actualTop, paddingBottom: bottom },
       ]}
     >
-      <Animated.View style={$content_content}>
+      <Animated.View
+        layout={Layout.springify().damping(1).stiffness(100)}
+        style={$content_content}
+      >
         {notes.map((note, index) => renderItem({ item: note, index }))}
       </Animated.View>
     </Animated.ScrollView>

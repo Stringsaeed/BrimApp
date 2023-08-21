@@ -17,11 +17,12 @@ export function useButtonContext() {
 }
 
 export function ButtonProvider(props: ButtonProps) {
-  const { children, ...restProps } = props;
+  const { children, iconOnly, ...restProps } = props;
 
   const buttonStyle = getButtonStyle({
     variantStyle: props.variantStyle,
     size: props.size,
+    iconOnly,
   });
 
   const contextValue = useMemo(

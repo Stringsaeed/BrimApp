@@ -1,7 +1,7 @@
-import database from "@react-native-firebase/database";
 import { useMutation } from "@tanstack/react-query";
 import * as LocalAuthentication from "expo-local-authentication";
 
+import { NoteService } from "services";
 import { Note } from "types";
 
 async function toggleNotePrivacy({ note }: { note: Note }) {
@@ -11,7 +11,9 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
       isPrivate = false;
     } else {
       const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Please we need this",
         disableDeviceFallback: true,
+        cancelLabel: "cancel",
       });
       if (!result.success) {
         throw new Error("Authentication failed");
@@ -21,9 +23,7 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
     if (isPrivate === note.is_private) {
       return isPrivate;
     }
-    await database().ref(`/notes/${note.user!}/${note.id!}`).update({
-      is_private: isPrivate,
-    });
+    await NoteService.update(note.id!, { is_private: isPrivate });
     return isPrivate;
   } catch (e) {
     return false;

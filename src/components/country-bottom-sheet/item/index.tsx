@@ -27,7 +27,7 @@ export default function CountryPickerItem({ item }: CountryPickerItemProps) {
     return {
       opacity: sharedValue.value === item.code ? 1 : 0,
     };
-  }, [sharedValue.value]);
+  }, [sharedValue.value, item.code]);
 
   return (
     <PressableScale onPress={handleChange}>

@@ -10,7 +10,7 @@ export const Auth: IAuthService = {
     return;
   },
   sendPhoneOTP: (phoneNumber) => {
-    if (__DEV__) auth().settings.appVerificationDisabledForTesting = true;
+    auth().settings.appVerificationDisabledForTesting = __DEV__;
     return auth().signInWithPhoneNumber(phoneNumber);
   },
   onAuthStateChanged: (callback) => {
@@ -18,6 +18,7 @@ export const Auth: IAuthService = {
   },
   updateEmail: (email: string) =>
     auth().currentUser?.verifyBeforeUpdateEmail(email),
+  getCurrentUser: () => auth().currentUser,
   currentUser: auth().currentUser,
   signOut: () => auth().signOut(),
 };

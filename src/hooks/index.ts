@@ -16,3 +16,4 @@ export { default as useNavigateNote } from "./use-navigate-note";
 export { default as useCreateEmptyNoteMutation } from "./use-create-empty-note-mutation";
 export { default as useNavigateProfile } from "./use-navigate-profile";
 export { default as useAnimatedToggle } from "./use-animated-toggle";
+export { default as useRecaptchaVerifier } from "./use-recaptcha-verifier";

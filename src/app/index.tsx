@@ -19,13 +19,11 @@ export default function NotesPage() {
   const onPressProfile = useNavigateProfile();
 
   return (
-    <>
+    <NotesListProvider notes={filteredNotes}>
       <DashboardHeader {...{ onPressProfile, onPressCreate }} />
       <ScreenContainer withoutBeautifulPadding type="fixed">
-        <NotesListProvider notes={filteredNotes}>
-          <NotesList onPressNote={onNavigateNote} />
-        </NotesListProvider>
+        <NotesList onPressNote={onNavigateNote} />
       </ScreenContainer>
-    </>
+    </NotesListProvider>
   );
 }

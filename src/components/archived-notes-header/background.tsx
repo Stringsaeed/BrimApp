@@ -6,12 +6,7 @@ import BlurView from "components/blur-view";
 export default function ArchivedNotesHeaderBackground() {
   return (
     <View style={styles.headerContainer}>
-      <BlurView
-        autoUpdate
-        blurAmount={10}
-        blurType="light"
-        style={StyleSheet.absoluteFill}
-      />
+      <BlurView intensity={10} tint="light" style={StyleSheet.absoluteFill} />
     </View>
   );
 }

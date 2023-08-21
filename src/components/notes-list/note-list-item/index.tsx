@@ -1,5 +1,5 @@
 import { Text } from "dripsy";
-import { ArchiveBox, ArrowUUpLeft, Trash } from "phosphor-react-native";
+import { ArchiveBox, ArrowUUpLeft, Lock, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
@@ -92,7 +92,7 @@ export default function NoteListItemView({
             <Spacing size={0.5} />
             <Caption1 numberOfLines={1}>{content}</Caption1>
           </View>
-          {/* <ArrowRight color="black" /> */}
+          {item.is_private && <Lock color="black" />}
         </RectButton>
       </Swipeable>
     </Animated.View>

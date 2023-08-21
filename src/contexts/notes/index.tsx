@@ -1,4 +1,3 @@
-import database from "@react-native-firebase/database";
 import React, {
   ReactNode,
   createContext,
@@ -7,8 +6,8 @@ import React, {
   useEffect,
 } from "react";
 
-import { useAuth } from "contexts/auth";
 import { useNotesQuery } from "hooks";
+import { NoteService } from "services";
 import { Note } from "types";
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
@@ -20,14 +19,9 @@ export interface NotesContextType {
 export const NotesProvider = ({ children }: { children: ReactNode }) => {
   const { data = [] } = useNotesQuery();
 
-  const { user } = useAuth();
-
-  const removeNote = useCallback(
-    async (id: string) => {
-      await database().ref(`/notes/${user?.uid}/${id}`).remove();
-    },
-    [user?.uid]
-  );
+  const removeNote = useCallback(async (id: string) => {
+    await NoteService.delete(id);
+  }, []);
 
   const syncNotes = useCallback(async () => {
     const toRemoved = data

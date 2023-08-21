@@ -1,11 +1,17 @@
 export const fonts = {
   semiBoldItalic: "PrimarySemiBoldItalic",
+  secondarySemiBold: "SecondarySemiBold",
   mediumItalic: "PrimaryMediumItalic",
+  secondaryMedium: "SecondaryMedium",
   lightItalic: "PrimaryLightItalic",
+  secondaryLight: "SecondaryLight",
   boldItalic: "PrimaryBoldItalic",
+  secondaryBold: "SecondaryBold",
   regularItalic: "PrimaryItalic",
   semiBold: "PrimarySemiBold",
   medium: "PrimaryMedium",
+  // ---- heading ---
+  secondary: "Secondary",
   light: "PrimaryLight",
   bold: "PrimaryBold",
   regular: "Primary",

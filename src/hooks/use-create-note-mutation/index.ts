@@ -1,10 +1,10 @@
-import database from "@react-native-firebase/database";
 import { useMutation } from "@tanstack/react-query";
 
+import { NoteService } from "services";
 import { Note } from "types";
 
 async function createNote(input: Omit<Note, "id">) {
-  return await database().ref(`/notes/${input.user}`).push(input);
+  return await NoteService.create(input);
 }
 
 export default function useCreateNoteMutation() {

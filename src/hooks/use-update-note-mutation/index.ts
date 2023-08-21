@@ -1,6 +1,6 @@
-import database from "@react-native-firebase/database";
 import { useMutation } from "@tanstack/react-query";
 
+import { NoteService } from "services";
 import { Note, RequiredNotNull } from "types";
 
 type RequiredInput = RequiredNotNull<Required<Pick<Note, "id" | "user">>>;
@@ -12,15 +12,13 @@ type OptionalInput = Partial<
 export type UpdateNoteMutationInput = RequiredInput & OptionalInput;
 
 async function updateNote(input: UpdateNoteMutationInput) {
-  const { user, id, ...note } = input;
+  const { id, ...note } = input;
   const now = new Date().toISOString();
-  await database()
-    .ref(`/notes/${user}/${id}`)
-    .update({
-      ...note,
-      updated_at: now,
-      is_draft: false,
-    });
+  await NoteService.update(id, {
+    ...note,
+    updated_at: now,
+    is_draft: false,
+  });
 }
 
 export default function useUpdateNoteMutation() {

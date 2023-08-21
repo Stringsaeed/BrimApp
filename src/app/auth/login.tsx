@@ -1,15 +1,17 @@
+import { Text } from "dripsy";
+import { View } from "moti";
 import React from "react";
-import { View, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 
 import {
   Button,
   Input,
-  LargeTitle,
   Spacer,
-  Row,
   CountryBottomSheet,
+  Row,
+  AnimatedKeyboardView,
 } from "components";
-import { useLoginMutation } from "hooks";
+import { useLoginMutation, useRecaptchaVerifier } from "hooks";
 
 export default function LoginPage() {
   const {
@@ -21,9 +23,14 @@ export default function LoginPage() {
     values,
   } = useLoginMutation();
 
+  useRecaptchaVerifier();
+
   return (
-    <>
-      <LargeTitle emphasized>What&apos;s your phone number</LargeTitle>
+    <AnimatedKeyboardView offset={40}>
+      <Text sx={{ fontSize: "$4" }}>
+        Welcome to <Text sx={{ fontWeight: "700" }}>Brim</Text>
+      </Text>
+
       <Row gap={8}>
         <CountryBottomSheet
           region={values.country}
@@ -42,6 +49,9 @@ export default function LoginPage() {
             textAlignVertical="center"
             onChangeText={handleChange("phoneNumber")}
             onBlur={handleBlur("phoneNumber")}
+            style={{
+              fontVariant: ["tabular-nums"],
+            }}
           />
         </View>
       </Row>
@@ -56,7 +66,8 @@ export default function LoginPage() {
       >
         <Button.Label>Continue</Button.Label>
       </Button>
-    </>
+      <View nativeID="sign-in-button" />
+    </AnimatedKeyboardView>
   );
 }
 

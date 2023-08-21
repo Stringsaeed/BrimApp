@@ -1,8 +1,8 @@
+import { RefRichTextEditor } from "@ankipro/react-native-rich-text/src";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
 import React from "react";
 import { View, ViewStyle } from "react-native";
-import { RichEditor } from "react-native-pell-rich-editor";
 
 import { AutoSave, Composer, NoteHeaderRight } from "components";
 import { useNotesContext } from "contexts";
@@ -28,7 +28,7 @@ export default function NotePage() {
 
   const notePrivacyMutation = useNotePrivacyMutation();
 
-  const richTextRef = React.useRef<RichEditor>(null);
+  const richTextRef = React.useRef<RefRichTextEditor>(null);
 
   const togglePrivacy = async () => {
     if (!note) return;
@@ -58,9 +58,9 @@ export default function NotePage() {
           onTitleChange={config.handleChange("title")}
           title={config.values.title}
           onLoadEnd={() => {
-            if (note?.note) richTextRef.current?.insertHTML(note.note);
+            if (note?.note) richTextRef.current?.setContent?.(note.note);
 
-            richTextRef.current?.focusContentEditor();
+            richTextRef.current?.focus();
           }}
         />
       </View>

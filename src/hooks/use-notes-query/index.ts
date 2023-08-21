@@ -1,23 +1,16 @@
-import database from "@react-native-firebase/database";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
-import { useAuth } from "contexts/auth";
-import { useDatabaseSnapshot } from "hooks/use-database-snapshot";
-import { getNotesFromSnapshot } from "utils";
+import { NoteService } from "services";
+import { Note } from "types";
 
 export default function useNotesQuery() {
-  const { user } = useAuth();
-  const { data: snapshot } = useDatabaseSnapshot(
-    ["notes"],
-    database().ref(`/notes/${user?.uid}`),
-    { subscribe: true }
-  );
+  const [data, setData] = useState<Note[]>([]);
 
-  const data = useMemo(() => {
-    if (!snapshot) return [];
-    if (!user?.uid) return [];
-    return getNotesFromSnapshot(snapshot);
-  }, [snapshot, user?.uid]);
+  useEffect(() => {
+    return NoteService.listenForChanges((notes) => {
+      setData(notes);
+    });
+  }, []);
 
   return { data };
 }

@@ -1,5 +1,12 @@
 import { Stack } from "expo-router";
 import React from "react";
+import {
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from "react-native-reanimated";
+
+import { useNotesList } from "contexts";
 
 import DashboardHeaderRight from "./right";
 
@@ -12,11 +19,28 @@ export default function DashboardHeader({
   onPressProfile,
   onPressCreate,
 }: Props) {
+  const { emptyScreenTranslateY: translateY } = useNotesList();
+  const stylez = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: interpolate(
+            translateY.value,
+            [0, 100],
+            [1, 1.3],
+            Extrapolate.CLAMP
+          ),
+        },
+      ],
+    };
+  }, []);
+
   function renderHeaderRight() {
     return (
       <DashboardHeaderRight
         onPressProfile={onPressProfile}
         onPressCreate={onPressCreate}
+        createAnimatedStyle={stylez}
       />
     );
   }

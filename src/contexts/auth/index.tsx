@@ -48,12 +48,13 @@ function useProtectedRoute(user?: AuthContext["user"]) {
     } else if (user && isProtectedRoute) {
       router.replace("/");
     }
-  }, [user, segments, router, isFirstRender]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, segments, isFirstRender]);
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<AuthUser | null>(
-    () => Auth.currentUser
+  const [user, setUser] = React.useState<AuthUser | null>(() =>
+    Auth.getCurrentUser()
   );
   const isAuthenticated = !!user;
 

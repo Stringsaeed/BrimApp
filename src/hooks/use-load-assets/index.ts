@@ -2,40 +2,42 @@
 /* eslint-disable promise/catch-or-return */
 import {
   useFonts,
-  RedHatText_400Regular,
-  RedHatText_400Regular_Italic,
-  RedHatText_500Medium,
-  RedHatText_500Medium_Italic,
-  RedHatText_600SemiBold,
-  RedHatText_600SemiBold_Italic,
-  RedHatText_700Bold,
-  RedHatText_700Bold_Italic,
-  RedHatText_300Light,
-  RedHatText_300Light_Italic,
-} from "@expo-google-fonts/red-hat-text";
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+  Inter_600SemiBold,
+  Inter_300Light,
+} from "@expo-google-fonts/inter";
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
 import { fonts } from "themes";
 
+preventAutoHideAsync();
+
 export default function useLoadAssets() {
   const [splashScreenHidden, setSplashScreenHidden] = useState(false);
   const [loaded] = useFonts({
-    [fonts.semiBoldItalic]: RedHatText_600SemiBold_Italic,
-    [fonts.regularItalic]: RedHatText_400Regular_Italic,
-    [fonts.mediumItalic]: RedHatText_500Medium_Italic,
-    [fonts.lightItalic]: RedHatText_300Light_Italic,
-    [fonts.boldItalic]: RedHatText_700Bold_Italic,
-    [fonts.semiBold]: RedHatText_600SemiBold,
-    [fonts.regular]: RedHatText_400Regular,
-    [fonts.medium]: RedHatText_500Medium,
-    [fonts.light]: RedHatText_300Light,
-    [fonts.bold]: RedHatText_700Bold,
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    [fonts.secondarySemiBold]: Inter_600SemiBold,
+    [fonts.semiBoldItalic]: Inter_600SemiBold,
+    [fonts.secondaryMedium]: Inter_500Medium,
+    [fonts.regularItalic]: Inter_400Regular,
+    [fonts.mediumItalic]: Inter_500Medium,
+    [fonts.secondaryBold]: Inter_700Bold,
+    [fonts.semiBold]: Inter_600SemiBold,
+    [fonts.secondary]: Inter_400Regular,
+    [fonts.lightItalic]: Inter_300Light,
+    [fonts.regular]: Inter_400Regular,
+    [fonts.boldItalic]: Inter_700Bold,
+    [fonts.medium]: Inter_500Medium,
+    [fonts.light]: Inter_300Light,
+    [fonts.bold]: Inter_700Bold,
   });
 
   useEffect(() => {
     (async () => {
-      await preventAutoHideAsync();
       if (!loaded) return;
       if (splashScreenHidden) return;
       await hideAsync();

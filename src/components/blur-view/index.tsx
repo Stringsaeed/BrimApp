@@ -1,3 +1,1 @@
-import { BlurView } from "@react-native-community/blur";
-
-export default BlurView;
+export { default } from "./blur";
