@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 import React, { useReducer } from "react";
+import { Input, Button } from "tamagui";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 
 import Banner from "components/banner";
-import Button from "components/button";
-import Input from "components/input";
 import Spacing from "components/spacing";
 import { useAuth } from "contexts";
 import { Auth } from "services";
@@ -48,8 +47,13 @@ export default function AddEmailBanner() {
         onBlur={handleBlur("email")}
       />
       <Spacing size={2} />
-      <Button disabled={buttonDisabled} onPress={handleSubmit}>
-        <Button.Label>Submit</Button.Label>
+      <Button
+        size="$5"
+        bg="$pink6"
+        disabled={buttonDisabled}
+        onPress={() => handleSubmit()}
+      >
+        <Button.Text>Submit</Button.Text>
       </Button>
     </Banner>
   );

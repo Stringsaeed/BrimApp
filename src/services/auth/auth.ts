@@ -6,6 +6,9 @@ export const Auth: IAuthService = {
   sendPhoneOTP: async () => {
     return { verificationId: null };
   },
+  getCurrentUser: () => {
+    return null;
+  },
   onAuthStateChanged: NOOP,
   updateEmail: NOOP,
   currentUser: null,

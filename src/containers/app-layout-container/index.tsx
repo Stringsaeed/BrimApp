@@ -1,38 +1,59 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { ThemeProvider } from "@react-navigation/native";
-import { DripsyProvider } from "dripsy";
+import {
+  ThemeProvider,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useMemo } from "react";
+import { useColorScheme } from "react-native";
 import { TamaguiProvider } from "tamagui";
 
 import { tamaguiConfig } from "config";
 import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
 import { useLoadAssets } from "hooks";
-import { theme, dripsyTheme } from "themes";
 
 export default function AppLayoutContainer({ children }: PropsWithChildren) {
   const loaded = useLoadAssets();
+  const colorScheme = useColorScheme() ?? "dark";
+  const navigationTheme = useMemo(
+    () =>
+      colorScheme === "dark"
+        ? DarkTheme
+        : {
+            ...DefaultTheme,
+            colors: {
+              ...DefaultTheme.colors,
+              background: "#fff",
+            },
+          },
+    [colorScheme]
+  );
 
   if (!loaded) {
     return null;
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <DripsyProvider theme={dripsyTheme}>
+    <TamaguiProvider
+      defaultTheme={colorScheme ?? "dark"}
+      config={tamaguiConfig}
+    >
+      <ThemeProvider value={navigationTheme}>
         <QueryProvider>
           <AuthProvider>
             <NotesProvider>
               <BottomSheetModalProvider>
-                <StatusBar backgroundColor="#fff" translucent />
-                <ThemeProvider value={theme.navigation}>
-                  {children}
-                </ThemeProvider>
+                <StatusBar
+                  style={colorScheme === "dark" ? "light" : "dark"}
+                  translucent
+                />
+                {children}
               </BottomSheetModalProvider>
             </NotesProvider>
           </AuthProvider>
         </QueryProvider>
-      </DripsyProvider>
+      </ThemeProvider>
     </TamaguiProvider>
   );
 }

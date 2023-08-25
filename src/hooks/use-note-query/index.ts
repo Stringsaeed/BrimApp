@@ -1,7 +1,8 @@
+import { useRoute } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { usePathname } from "expo-router";
 
 import { useAuth } from "contexts/auth";
+import { RootStackScreenProps } from "routers";
 import { NoteService } from "services";
 
 async function fetchNote(id: string) {
@@ -9,8 +10,8 @@ async function fetchNote(id: string) {
 }
 
 export default function useNoteQuery() {
-  const pathname = usePathname();
-  const noteId = pathname.split("/")[2];
+  const route = useRoute<RootStackScreenProps<"Note">["route"]>();
+  const noteId = route.params.id;
   const { user } = useAuth();
   const userId = user?.uid;
 

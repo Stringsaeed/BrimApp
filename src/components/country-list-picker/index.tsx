@@ -1,8 +1,8 @@
 import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
 import React, { useCallback, useMemo, useState } from "react";
+import { Separator, View, YGroup } from "tamagui";
 
 import CountryPickerItem from "components/country-picker-item";
-import Divider from "components/divider";
 import { CountryPickerProvider } from "contexts";
 import { CountryDataType } from "types";
 
@@ -47,12 +47,15 @@ export default function CountryListPicker({
         close={onClose}
         onSearchSubmit={(value) => setSearch(value)}
       />
-      <FlashList
-        data={data}
-        renderItem={renderItem}
-        estimatedItemSize={60}
-        ItemSeparatorComponent={() => <Divider />}
-      />
+      <YGroup flex={1} separator={<Separator />}>
+        <View flex={1}>
+          <FlashList
+            data={data}
+            renderItem={renderItem}
+            estimatedItemSize={60}
+          />
+        </View>
+      </YGroup>
     </CountryPickerProvider>
   );
 }

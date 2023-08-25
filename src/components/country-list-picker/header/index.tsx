@@ -1,11 +1,7 @@
-import { Text, TextInput, View } from "dripsy";
 import { ArrowLeft, X, MagnifyingGlass } from "phosphor-react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import Button from "components/button";
-import { theme } from "themes";
+import { Button, XStack, Input } from "tamagui";
 
 type Props = {
   title?: string;
@@ -17,10 +13,8 @@ type Props = {
 export default function CountryListPickerHeader({
   onSearchSubmit,
   close,
-  title,
 }: Props) {
   const { top } = useSafeAreaInsets();
-  const isDark = useColorScheme() === "dark";
   const [showSearch, setShowSearch] = useState(true);
   const searchDebounceTimeout = useRef<any>(null);
 
@@ -32,9 +26,6 @@ export default function CountryListPickerHeader({
       onSearchSubmit(text);
     }, 40);
   };
-  const onPressTitle = () => {
-    setShowSearch(true);
-  };
   useEffect(() => {
     if (!showSearch) {
       onSearchSubmit("");
@@ -42,62 +33,42 @@ export default function CountryListPickerHeader({
   }, [showSearch, onSearchSubmit]);
 
   return (
-    <View variant="layout.header" sx={{ marginTop: top }}>
-      <View variant="layout.header.side">
-        <Button
-          onPress={close}
-          variantStyle="Borderless"
-          size="Medium"
-          iconOnly
-          style={{
-            backgroundColor: theme.colors.light,
-            height: 48,
-            width: 48,
-          }}
-        >
-          <ArrowLeft size={24} color={isDark ? "#FFF" : "#000"} />
-        </Button>
-      </View>
-
-      <View variant="layout.flex">
-        {showSearch ? (
-          <TextInput
-            accessibilityLabel="Text input field"
-            sx={{ fontWeight: "500", fontSize: "$3" }}
-            placeholder="Search"
-            autoFocus
-            autoComplete="country"
-            textContentType="countryName"
-            onChangeText={handleSearch}
-          />
-        ) : (
-          <Text
-            onPress={onPressTitle}
-            sx={{
-              fontWeight: "bold",
-              fontSize: "$3",
-              px: "$4",
-              py: "$3",
-            }}
-          >
-            {title}
-          </Text>
-        )}
-      </View>
-      <View variant="layout.header.side">
-        <Button
-          onPress={() => setShowSearch(!showSearch)}
-          variantStyle="Borderless"
-          size="Medium"
-          iconOnly
-        >
-          {showSearch ? (
-            <X size={24} color={isDark ? "#FFF" : "#000"} />
+    <XStack mt={top} px="$4" gap="$2" alignItems="center">
+      <Button
+        onPress={close}
+        accessibilityRole="button"
+        size="$4"
+        aspectRatio={1}
+        borderRadius="$12"
+        icon={({ color, size }) => <ArrowLeft size={size} color={color} />}
+      />
+      {!!showSearch && (
+        <Input
+          flex={1}
+          accessibilityLabel="Text input field"
+          fontWeight="500"
+          fontSize="$4"
+          placeholder="Search"
+          autoFocus
+          autoComplete="country"
+          textContentType="countryName"
+          onChangeText={handleSearch}
+        />
+      )}
+      <Button
+        onPress={() => setShowSearch(!showSearch)}
+        accessibilityRole="button"
+        size="$4"
+        aspectRatio={1}
+        borderRadius="$12"
+        icon={({ color, size }) =>
+          showSearch ? (
+            <X size={size} color={color} />
           ) : (
-            <MagnifyingGlass size={24} color={isDark ? "#FFF" : "#000"} />
-          )}
-        </Button>
-      </View>
-    </View>
+            <MagnifyingGlass size={size} color={color} />
+          )
+        }
+      />
+    </XStack>
   );
 }

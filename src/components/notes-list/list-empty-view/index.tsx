@@ -1,8 +1,7 @@
 import * as Haptics from "expo-haptics";
-import { LinearGradient } from "expo-linear-gradient";
 import { Plus } from "phosphor-react-native";
 import React, { useCallback } from "react";
-import { Platform, StyleSheet, View, ViewStyle } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   FadeIn,
@@ -12,12 +11,14 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import { Paragraph, YStack } from "tamagui";
+import { LinearGradient } from "tamagui/linear-gradient";
 
 import Spacing from "components/spacing";
-import { Body } from "components/typography";
 import { useNotesList } from "contexts";
 import { useCreateEmptyNoteMutation } from "hooks";
-import { theme } from "themes";
+
+const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 export default function ListEmptyView() {
   const { emptyScreenTranslateY: translateY } = useNotesList();
@@ -57,40 +58,27 @@ export default function ListEmptyView() {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={$emptyContainer}>
+      <AnimatedYStack flex={1} justifyContent="flex-end">
         <LinearGradient
           style={StyleSheet.absoluteFill}
-          colors={[
-            theme.colors.background,
-            theme.colors.background,
-            theme.colors.primary,
-          ]}
+          colors={["$background", "$background", "$pink6"]}
         />
-        <Animated.View
+        <AnimatedYStack
           entering={FadeIn}
           exiting={FadeOut}
-          style={[$emptyContainer, stylez]}
+          justifyContent="flex-end"
+          flex={1}
+          style={stylez}
         >
-          <View style={$emptyContent}>
-            <Body>No Notes?</Body>
+          <YStack justifyContent="center" alignItems="center" pb="$7">
+            <Paragraph>No Notes?</Paragraph>
             <Spacing />
-            <Body>
+            <Paragraph>
               Click the <Plus size={18} /> button to create your first note!
-            </Body>
-          </View>
-        </Animated.View>
-      </Animated.View>
+            </Paragraph>
+          </YStack>
+        </AnimatedYStack>
+      </AnimatedYStack>
     </GestureDetector>
   );
 }
-
-const $emptyContainer: ViewStyle = {
-  justifyContent: "flex-end",
-  flex: 1,
-};
-
-const $emptyContent: ViewStyle = {
-  justifyContent: "center",
-  alignItems: "center",
-  paddingBottom: 40,
-};

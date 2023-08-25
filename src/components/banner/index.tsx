@@ -2,10 +2,10 @@ import { X } from "phosphor-react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
+import { H4 } from "tamagui";
 
 import Row from "components/row";
 import Spacing from "components/spacing";
-import { Title3 } from "components/typography";
 import { ColorProp, getColorValue } from "themes";
 
 import styles from "./styles";
@@ -37,7 +37,7 @@ export default function Banner({
       <Row center spaceBetween>
         {!!label && (
           <>
-            <Title3>{label}</Title3>
+            <H4>{label}</H4>
           </>
         )}
         <TouchableOpacity onPress={onClose} accessibilityRole="button">

@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { Separator, YGroup, ListItem } from "tamagui";
 
-import { AccountInfoContainer, AddEmailBanner, ListItem } from "components";
+import { AccountInfoContainer } from "components";
 import { useAuth } from "contexts";
 
 export default function AccountInfoScreen() {
@@ -9,32 +9,25 @@ export default function AccountInfoScreen() {
 
   return (
     <AccountInfoContainer>
-      <AddEmailBanner />
-      <View>
-        <ListItem
-          isFirst
-          href="/"
-          size="lg"
-          disabled
-          title="Display Name"
-          subtitle={user?.displayName ?? ""}
-        />
-        <ListItem
-          href="/"
-          disabled
-          size="lg"
-          title="Email"
-          subtitle={user?.email ?? ""}
-        />
-        <ListItem
-          isLast
-          href="/"
-          disabled
-          size="lg"
-          title="Phone Number"
-          subtitle={user?.phoneNumber ?? ""}
-        />
-      </View>
+      <YGroup bordered separator={<Separator />}>
+        <YGroup.Item>
+          <ListItem
+            href="/"
+            title="Display Name"
+            subTitle={user?.displayName ?? ""}
+          />
+        </YGroup.Item>
+        <YGroup.Item>
+          <ListItem href="/" title="Email" subTitle={user?.email ?? ""} />
+        </YGroup.Item>
+        <YGroup.Item>
+          <ListItem
+            href="/"
+            title="Phone Number"
+            subTitle={user?.phoneNumber ?? ""}
+          />
+        </YGroup.Item>
+      </YGroup>
     </AccountInfoContainer>
   );
 }

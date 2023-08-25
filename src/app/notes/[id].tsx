@@ -1,8 +1,9 @@
-import { RefRichTextEditor } from "@ankipro/react-native-rich-text/src";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FormikProvider } from "formik";
 import React from "react";
-import { View, ViewStyle } from "react-native";
+import { TextInput } from "react-native";
+import { YStack } from "tamagui";
 
 import { AutoSave, Composer, NoteHeaderRight } from "components";
 import { useNotesContext } from "contexts";
@@ -13,11 +14,14 @@ import {
   useNoteForm,
   useNotePrivacyMutation,
 } from "hooks";
-import { theme } from "themes";
+import { RootStackScreenProps } from "routers";
 
 export default function NotePage() {
-  const router = useRouter();
-  const { id } = useLocalSearchParams();
+  const navigation = useNavigation();
+  const {
+    params: { id },
+  } = useRoute<RootStackScreenProps<"Note">["route"]>();
+  const headerHeight = useHeaderHeight();
   const onCreateEmptyNote = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
 
@@ -28,7 +32,7 @@ export default function NotePage() {
 
   const notePrivacyMutation = useNotePrivacyMutation();
 
-  const richTextRef = React.useRef<RefRichTextEditor>(null);
+  const richTextRef = React.useRef<TextInput>(null);
 
   const togglePrivacy = async () => {
     if (!note) return;
@@ -38,7 +42,7 @@ export default function NotePage() {
   const handleDelete = async () => {
     if (!note) return;
     await deleteNoteMutation.mutate(note);
-    router.back();
+    navigation.goBack();
   };
 
   return (
@@ -50,25 +54,15 @@ export default function NotePage() {
         onPressPlus={onCreateEmptyNote}
         onPressProfile={onNavigateProfile}
       />
-      <View style={container}>
+      <YStack pt={headerHeight} flex={1} bg="$background">
         <AutoSave />
         <Composer
           ref={richTextRef}
           onUserInput={config.handleChange("note")}
           onTitleChange={config.handleChange("title")}
           title={config.values.title}
-          onLoadEnd={() => {
-            if (note?.note) richTextRef.current?.setContent?.(note.note);
-
-            richTextRef.current?.focus();
-          }}
         />
-      </View>
+      </YStack>
     </FormikProvider>
   );
 }
-
-const container: ViewStyle = {
-  backgroundColor: theme.colors.background,
-  flex: 1,
-};

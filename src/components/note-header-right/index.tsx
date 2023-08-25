@@ -1,5 +1,5 @@
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import * as LocalAuthentication from "expo-local-authentication";
-import { Stack } from "expo-router";
 import {
   ArchiveBox,
   Lock,
@@ -8,9 +8,8 @@ import {
   User,
 } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { Pressable, View, ViewStyle } from "react-native";
-
-import { theme } from "themes";
+import { Pressable } from "react-native";
+import { Separator, XStack, useTheme } from "tamagui";
 
 interface NoteHeaderRightProps {
   onPressLock?: () => void;
@@ -30,33 +29,36 @@ export default function NoteHeaderRight({
   onPressLock,
 }: NoteHeaderRightProps) {
   const [isEligible, setIsEligible] = useState(false);
+  const theme = useTheme();
+  const text = theme.color.get();
+  const disabledText = theme.gray7.get();
+  const navigation = useNavigation();
 
   const headerRight = useCallback(() => {
     return (
-      <View style={containerStyle}>
+      <XStack gap={8}>
         {isEligible && (
           <Pressable onPress={onPressLock} accessibilityRole="button">
-            <Lock
-              color={isPrivate ? theme.colors.text : theme.colors.disabledText}
-            />
+            <Lock color={isPrivate ? text : disabledText} />
           </Pressable>
         )}
         <Pressable onPress={onPressArchive} accessibilityRole="button">
-          <ArchiveBox color={theme.colors.text} />
+          <ArchiveBox color={text} />
         </Pressable>
         <Pressable onPress={onPressTrash} accessibilityRole="button">
-          <TrashSimple color={theme.colors.text} />
+          <TrashSimple color={text} />
         </Pressable>
-        <View style={dividerStyle} />
+        <Separator vertical />
         <Pressable onPress={onPressPlus} accessibilityRole="button">
-          <Plus color={theme.colors.text} />
+          <Plus color={text} />
         </Pressable>
         <Pressable onPress={onPressProfile} accessibilityRole="button">
-          <User color={theme.colors.text} />
+          <User color={text} />
         </Pressable>
-      </View>
+      </XStack>
     );
   }, [
+    disabledText,
     isEligible,
     isPrivate,
     onPressArchive,
@@ -64,6 +66,7 @@ export default function NoteHeaderRight({
     onPressPlus,
     onPressProfile,
     onPressTrash,
+    text,
   ]);
 
   useEffect(() => {
@@ -75,12 +78,13 @@ export default function NoteHeaderRight({
     })();
   }, []);
 
-  return <Stack.Screen options={{ headerRight }} />;
-}
+  useFocusEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerRight,
+      });
+    }, [])
+  );
 
-const dividerStyle = { backgroundColor: "#71787F", height: 16, width: 1 };
-const containerStyle: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 8,
-};
+  return null;
+}

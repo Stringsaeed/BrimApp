@@ -1,15 +1,12 @@
-import { useHeaderHeight } from "@react-navigation/elements";
-import React, { Fragment, useCallback } from "react";
+import React, { useCallback } from "react";
 import { ListRenderItemInfo, ViewStyle } from "react-native";
-import Animated, { Layout } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Animated from "react-native-reanimated";
+import { Separator, YGroup } from "tamagui";
 
-import Divider from "components/divider";
+import PullToAction from "components/pull-to-action";
 import { useNotesList } from "contexts";
-import { theme } from "themes";
 import { Note } from "types";
 
-import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
 
 interface NotesListProps {
@@ -17,9 +14,6 @@ interface NotesListProps {
 }
 
 export default function NotesList({ onPressNote }: NotesListProps) {
-  const { bottom } = useSafeAreaInsets();
-  const headerHeight = useHeaderHeight();
-  const actualTop = headerHeight + 16;
   const { unarchiveNote, archiveNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
@@ -41,56 +35,40 @@ export default function NotesList({ onPressNote }: NotesListProps) {
   );
 
   const renderItem = useCallback(
-    ({ index, item }: Omit<ListRenderItemInfo<Note>, "separators">) => {
+    ({ item }: Omit<ListRenderItemInfo<Note>, "separators">) => {
       const onRemove = () => handleRemove(item);
       const toggleArchive = () => handleToggleArchive(item);
       const onPress = () => onPressNote(item);
 
       return (
-        <Fragment key={item.id}>
-          <NoteListItemView
-            key={item.id}
-            item={item}
-            onPress={onPress}
-            onRemove={onRemove}
-            toggleArchive={toggleArchive}
-          />
-          {index < notes.length - 1 && <Divider />}
-        </Fragment>
+        <NoteListItemView
+          key={item.id}
+          item={item}
+          onPress={onPress}
+          onRemove={onRemove}
+          toggleArchive={toggleArchive}
+        />
       );
     },
-    [handleToggleArchive, handleRemove, notes.length, onPressNote]
+    [handleToggleArchive, handleRemove, onPressNote]
   );
 
-  if (!notes.length) return <ListEmptyView />;
+  // if (!notes.length) return <ListEmptyView />;
 
   return (
-    <Animated.ScrollView
-      style={$container}
-      layout={Layout.springify().damping(1).stiffness(100)}
-      contentContainerStyle={[
-        $contentContainerStyle,
-        { paddingTop: actualTop, paddingBottom: bottom },
-      ]}
-    >
-      <Animated.View
-        layout={Layout.springify().damping(1).stiffness(100)}
-        style={$content_content}
-      >
-        {notes.map((note, index) => renderItem({ item: note, index }))}
+    <PullToAction>
+      <Animated.View style={$content_content}>
+        <YGroup
+          bordered
+          separator={<Separator />}
+          marginHorizontal="$4"
+          overflow="hidden"
+        >
+          {notes.map((note, index) => renderItem({ item: note, index }))}
+        </YGroup>
       </Animated.View>
-    </Animated.ScrollView>
+    </PullToAction>
   );
 }
-
-const $container: ViewStyle = {
-  backgroundColor: theme.colors.background,
-  flex: 1,
-};
-
-const $contentContainerStyle: ViewStyle = {
-  paddingBottom: 16,
-  flexGrow: 1,
-};
 
 const $content_content: ViewStyle = { minHeight: "100%", flex: 1 };

@@ -1,10 +1,9 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Modal, Platform, ViewStyle } from "react-native";
+import { Modal, Platform } from "react-native";
+import { Button, Circle, Image } from "tamagui";
 
 import CountryListPicker from "components/country-list-picker";
-import PressableScale from "components/pressable-scale";
-import { Body } from "components/typography";
-import { getCallingCode, getFlagEmoji } from "utils";
+import { getCallingCode } from "utils";
 
 interface CountryBottomSheetProps {
   region: string;
@@ -18,7 +17,7 @@ export default function CountryBottomSheet({
   const [modalVisible, setModalVisible] = useState(false);
 
   const countryCode = useMemo(() => getCallingCode(region), [region]);
-  const countryFlag = useMemo(() => getFlagEmoji(region), [region]);
+  // const countryFlag = useMemo(() => getFlagEmoji(region), [region]);
 
   const handleOnPress = useCallback(() => {
     setModalVisible(true);
@@ -34,11 +33,27 @@ export default function CountryBottomSheet({
 
   return (
     <>
-      <PressableScale onPress={handleOnPress} style={countryFlagButton}>
-        <Body>
-          {countryFlag} +{countryCode}
-        </Body>
-      </PressableScale>
+      <Button
+        size="$5"
+        bg="$gray1"
+        borderWidth={1}
+        onPress={handleOnPress}
+        icon={({ color, size }) => (
+          <Circle overflow="hidden" size={size} bg={color}>
+            <Image
+              tintColor={color}
+              accessibilityIgnoresInvertColors
+              width={size}
+              height={size}
+              source={{
+                uri: `https://flagcdn.com/w40/${region.toLowerCase()}.png`,
+              }}
+            />
+          </Circle>
+        )}
+      >
+        <Button.Text>+{countryCode}</Button.Text>
+      </Button>
       <Modal
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
@@ -55,17 +70,3 @@ export default function CountryBottomSheet({
     </>
   );
 }
-
-const countryFlagButton: ViewStyle = {
-  backgroundColor: "#eaeaea",
-  justifyContent: "center",
-  alignSelf: "flex-start",
-  borderColor: "#eaeaea",
-  alignItems: "center",
-  width: undefined,
-  borderRadius: 16,
-  flex: undefined,
-  borderWidth: 1,
-  padding: 16,
-  height: 56,
-};

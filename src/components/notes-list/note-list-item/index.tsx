@@ -1,12 +1,10 @@
-import { Text } from "dripsy";
 import { ArchiveBox, ArrowUUpLeft, Lock, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { ListItem, YGroup } from "tamagui";
 
-import Spacing from "components/spacing";
-import { Caption1 } from "components/typography";
 import { theme } from "themes";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
@@ -72,44 +70,36 @@ export default function NoteListItemView({
       entering={FadeIn}
       layout={Layout.springify().duration(1000)}
     >
-      <Swipeable
-        onSwipeableWillOpen={onSwipeableWillOpen}
-        renderRightActions={renderRightActions}
-        renderLeftActions={renderLeftActions}
-      >
-        <RectButton style={styles.container} onPress={onPress}>
-          <View style={styles.content}>
-            <Text
-              sx={{
-                fontWeight: item.title ? "500" : "normal",
-                color: item.title ? "text" : "disabled",
-                fontSize: "$3",
-              }}
-              numberOfLines={1}
-            >
-              {item.title || "Draft"}
-            </Text>
-            <Spacing size={0.5} />
-            <Caption1 numberOfLines={1}>{content}</Caption1>
-          </View>
-          {item.is_private && <Lock color="black" />}
-        </RectButton>
-      </Swipeable>
+      <YGroup.Item>
+        <Swipeable
+          onSwipeableWillOpen={onSwipeableWillOpen}
+          renderRightActions={renderRightActions}
+          renderLeftActions={renderLeftActions}
+        >
+          <ListItem
+            iconAfter={item.is_private ? <Lock color="black" /> : null}
+            onPress={onPress}
+            hoverTheme
+            pressTheme
+            title={
+              <ListItem.Text
+                fontWeight={item.title ? "500" : "normal"}
+                color={item.title ? "$blue11" : "$pink4"}
+                fontsize="$5"
+                numberOfLines={1}
+              >
+                {item.title || "Draft"}
+              </ListItem.Text>
+            }
+            subTitle={content}
+          />
+        </Swipeable>
+      </YGroup.Item>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.colors.background,
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    alignItems: "center",
-    flexDirection: "row",
-    overflow: "hidden",
-    paddingVertical: 8,
-    borderRadius: 8,
-  },
   leftActionButton: {
     backgroundColor: theme.colors.warning,
     justifyContent: "center",
@@ -134,9 +124,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.danger,
     overflow: "hidden",
     borderRadius: 8,
-    flex: 1,
-  },
-  content: {
     flex: 1,
   },
 });

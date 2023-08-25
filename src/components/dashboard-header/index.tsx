@@ -1,10 +1,12 @@
-import { Stack } from "expo-router";
-import React from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React, { useCallback } from "react";
 import {
   useAnimatedStyle,
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
+import { BlurEffectTypes } from "react-native-screens";
+import { useThemeName } from "tamagui";
 
 import { useNotesList } from "contexts";
 
@@ -19,6 +21,8 @@ export default function DashboardHeader({
   onPressProfile,
   onPressCreate,
 }: Props) {
+  const navigation = useNavigation();
+  const themeName = useThemeName();
   const { emptyScreenTranslateY: translateY } = useNotesList();
   const stylez = useAnimatedStyle(() => {
     return {
@@ -45,17 +49,17 @@ export default function DashboardHeader({
     );
   }
 
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          headerRight: renderHeaderRight,
-          headerBlurEffect: "light",
-          headerTransparent: true,
-          headerShown: true,
-          title: "",
-        }}
-      />
-    </>
+  useFocusEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerBlurEffect: themeName as BlurEffectTypes,
+        headerRight: renderHeaderRight,
+        headerTransparent: true,
+        headerShown: true,
+        title: "",
+      });
+    }, [])
   );
+
+  return null;
 }

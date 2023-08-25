@@ -1,18 +1,26 @@
-import { Stack } from "expo-router";
-import React from "react";
-import { Platform } from "react-native";
+// import { Stack } from "expo-router";
+// import React from "react";
+// import { Platform } from "react-native";
+// import { BlurEffectTypes } from "react-native-screens";
+// import { useTheme, useThemeName } from "tamagui";
 
-import { ArchivedNotesHeaderBackground } from "components";
+// import { ArchivedNotesHeaderBackground } from "components";
 
-const ArchivedHeaderBackground = () => <ArchivedNotesHeaderBackground />;
+// const ArchivedHeaderBackground = () => <ArchivedNotesHeaderBackground />;
 
 export default function MainNavigation() {
-  return (
-    <Stack
+  // const themeName = useThemeName();
+  // const theme = useTheme();
+  // const text = theme.color.get();
+
+  return null;
+}
+
+/**
+ *  <Stack
       screenOptions={{
-        // headerTitleStyle: theme.textVariants.Headline,
-        // headerTintColor: theme.colors.text,
         headerBackTitleVisible: false,
+        headerTintColor: text,
         headerBackTitle: "",
       }}
     >
@@ -33,20 +41,26 @@ export default function MainNavigation() {
         }}
       />
       <Stack.Screen
-        name="auth"
+        name="(auth)"
         options={{
-          headerBackground: () => null,
-          headerTransparent: true,
           headerShown: false,
         }}
       />
-      <Stack.Screen name="notes/[id]" options={{ title: "" }} />
+      <Stack.Screen
+        name="notes/[id]"
+        options={{
+          headerBlurEffect: themeName as BlurEffectTypes,
+          headerTransparent: true,
+          headerShown: true,
+          title: "",
+        }}
+      />
       <Stack.Screen
         name="notes/archive"
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedHeaderBackground : undefined,
-          headerBlurEffect: "light",
+          headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           title: "Archived",
           headerShown: true,
@@ -57,12 +71,11 @@ export default function MainNavigation() {
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedHeaderBackground : undefined,
-          headerBlurEffect: "light",
+          headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           headerShown: true,
           title: "Trash",
         }}
       />
     </Stack>
-  );
-}
+ */

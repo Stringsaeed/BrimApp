@@ -5,7 +5,13 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "developmentClient": false,
+      "autoIncrement": true,
+      "env": {
+        "TAMAGUI_TARGET": "native"
+      },
+      "channel": "preview"
     },
     "production": {
       "android": {

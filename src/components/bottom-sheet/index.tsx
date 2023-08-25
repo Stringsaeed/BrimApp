@@ -30,26 +30,6 @@ const BottomSheet = (
     [title]
   );
 
-  //   const renderFooter = useCallback(
-  //     (props: BottomSheetFooterProps) => {
-  //       if (!submitLabel) {
-  //         return null;
-  //       }
-  //       return (
-  //         <BottomSheetFooter
-  //           {...props}
-  //           bottomInset={bottom}
-  //           style={{ paddingHorizontal: 16 }}
-  //         >
-  //           <Button color="black" onPress={onSubmit}>
-  //             {submitLabel}
-  //           </Button>
-  //         </BottomSheetFooter>
-  //       );
-  //     },
-  //     [submitLabel, onSubmit]
-  //   );
-
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => <BlurBackdrop {...props} />,
     []
@@ -60,8 +40,6 @@ const BottomSheet = (
       {...props}
       ref={ref}
       topInset={top}
-      //   footerComponent={renderFooter}
-      //   backgroundStyle={}
       handleComponent={renderHandle}
       backdropComponent={renderBackdrop}
     >

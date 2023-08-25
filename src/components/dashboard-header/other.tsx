@@ -1,6 +1,7 @@
-import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import { List } from "phosphor-react-native";
 import React from "react";
+import { useTheme } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -9,24 +10,26 @@ import {
   DropdownMenuItemTitle,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-  theme,
 } from "themes";
 
 export default function OtherMenu() {
-  const router = useRouter();
+  const navigation = useNavigation();
+
+  const theme = useTheme();
+  const text = theme.color.get();
 
   const onPressArchive = () => {
-    router.push("/notes/archive");
+    navigation.navigate("Archive");
   };
 
   const onPressTrash = () => {
-    router.push("/notes/trash");
+    navigation.navigate("Trash");
   };
 
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <List color={theme.colors.text} />
+        <List color={text} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={onPressArchive} key="archive">

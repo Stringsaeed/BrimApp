@@ -4,23 +4,23 @@ import {
 } from "@gorhom/bottom-sheet";
 import React from "react";
 import { StyleSheet } from "react-native";
-
-import { Subheadline } from "components/typography";
-import { theme } from "themes";
+import { H6, useTheme } from "tamagui";
 
 export default function Handle({
   title,
   ...props
 }: BottomSheetHandleProps & { title?: string }) {
+  const theme = useTheme();
+  const foregroundColor = theme.color.get();
   return (
     <BottomSheetHandle
       {...props}
       indicatorStyle={styles.indicator}
-      style={styles.container}
+      style={[styles.container, { borderBottomColor: foregroundColor }]}
     >
-      <Subheadline align="center" emphasized>
+      <H6 textAlign="center" fontStyle="italic">
         {title}
-      </Subheadline>
+      </H6>
     </BottomSheetHandle>
   );
 }
@@ -28,7 +28,6 @@ export default function Handle({
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.text,
     borderTopStartRadius: 200,
     paddingBottom: 16,
     paddingTop: 12,

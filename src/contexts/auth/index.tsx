@@ -1,4 +1,3 @@
-import { useRouter, useSegments } from "expo-router";
 import React from "react";
 
 import { Auth } from "services";
@@ -24,33 +23,24 @@ export function useAuth() {
   return context;
 }
 
-function useFirstRender() {
-  const ref = React.useRef(true);
+// function useProtectedRoute(user?: AuthContext["user"]) {
+//   const router = useRouter();
+//   const segments = useSegments();
+//   const navigationState = useRootNavigationState();
 
-  React.useEffect(() => {
-    ref.current = false;
-  }, []);
+//   React.useEffect(() => {
+//     if (!navigationState.key) return;
 
-  return ref.current;
-}
+//     const isProtectedRoute = segments[0] === "(auth)";
 
-function useProtectedRoute(user?: AuthContext["user"]) {
-  const segments = useSegments();
-  const router = useRouter();
-  const isFirstRender = useFirstRender();
-
-  React.useEffect(() => {
-    if (isFirstRender) return;
-    const isProtectedRoute = segments[0] === "auth";
-
-    if (!isProtectedRoute && !user) {
-      router.replace("/auth/login");
-    } else if (user && isProtectedRoute) {
-      router.replace("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, segments, isFirstRender]);
-}
+//     if (!isProtectedRoute && !user) {
+//       router.replace("/login");
+//     } else if (user && isProtectedRoute) {
+//       router.replace("/");
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [user, segments, navigationState.key]);
+// }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<AuthUser | null>(() =>
@@ -58,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const isAuthenticated = !!user;
 
-  useProtectedRoute(user);
+  // useProtectedRoute(user);
 
   const listener = React.useCallback(() => {
     Auth.onAuthStateChanged((user) => {

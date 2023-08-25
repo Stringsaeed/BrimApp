@@ -1,6 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { getLocales } from "expo-localization";
-import { useRouter } from "expo-router";
 import { useFormik } from "formik";
 import { useCallback, useMemo } from "react";
 import { z } from "zod";
@@ -28,14 +28,11 @@ type Schema = z.infer<typeof schema>;
 const validationSchema = toFormikValidationSchema(schema);
 
 export default function useSignInWithPhoneNumberMutation() {
-  const router = useRouter();
+  const router = useNavigation();
   const signInWithPhoneNumberMutation = useMutation(signInWithPhoneNumber, {
     onSuccess({ verificationId }) {
       if (!verificationId) throw new Error("Invalid verificationId");
-      router.push({
-        params: { verificationId },
-        pathname: "/auth/verify",
-      });
+      router.navigate("verify", { verificationId });
     },
     onError() {},
   });

@@ -17,3 +17,5 @@ export { default as useCreateEmptyNoteMutation } from "./use-create-empty-note-m
 export { default as useNavigateProfile } from "./use-navigate-profile";
 export { default as useAnimatedToggle } from "./use-animated-toggle";
 export { default as useRecaptchaVerifier } from "./use-recaptcha-verifier";
+export { default as useHaptic } from "./use-haptic";
+export { default as useHapticCallback } from "./use-haptic-callback";

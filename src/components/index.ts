@@ -1,12 +1,9 @@
-export { default as Input } from "./input";
-export { default as Button } from "./button";
 export { default as Spacing } from "./spacing";
 export { default as NotesList } from "./notes-list";
 export { default as Composer } from "./composer";
 export { default as AutoSave } from "./auto-save";
 export { default as NoteHeaderRight } from "./note-header-right";
 export { default as Divider } from "./divider";
-export * from "./typography";
 export { default as ScreenContainer } from "./screen-container";
 export { default as AnimatedKeyboardView } from "./animated-keyboard-view";
 export { default as BlurView } from "./blur-view";

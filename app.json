@@ -12,11 +12,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#F7F6E4"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./assets/GoogleService-Info.plist",
-      "bundleIdentifier": "com.stringsaeed.brim"
+      "bundleIdentifier": "com.stringsaeed.brim",
+      "userInterfaceStyle": "automatic"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +28,8 @@
       },
       "package": "com.stringsaeed.brim",
       "googleServicesFile": "./assets/google-services.json",
-      "versionCode": 21
+      "versionCode": 23,
+      "userInterfaceStyle": "automatic"
     },
     "web": {
       "bundler": "metro"
@@ -48,7 +52,6 @@
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
       ],
-      "expo-router",
       "expo-localization"
     ],
     "extra": {
@@ -57,7 +60,6 @@
       }
     },
     "experiments": {
-      "typedRoutes": true,
       "tsconfigPaths": true
     },
     "jsEngine": "hermes"

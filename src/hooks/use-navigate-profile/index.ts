@@ -1,9 +1,9 @@
-import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 export default function useNavigateProfile() {
-  const router = useRouter();
+  const router = useNavigation();
   const onPressProfile = () => {
-    router.push("/profile");
+    router.navigate("Profile");
   };
 
   return onPressProfile;

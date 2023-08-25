@@ -1,17 +1,18 @@
-import { useSx } from "dripsy";
 import { View } from "moti";
-import React from "react";
-import { ViewProps } from "react-native";
+import React, { ComponentProps } from "react";
 import Animated, {
   useAnimatedKeyboard,
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { YStack, getTokenValue } from "tamagui";
 
 import Spacer from "components/spacer";
 
-type Props = ViewProps & {
+const AnimatedYStack = Animated.createAnimatedComponent(YStack);
+
+type Props = Omit<ComponentProps<typeof AnimatedYStack>, "key"> & {
   offset?: number;
 };
 
@@ -37,53 +38,36 @@ const wrapWithAnimatedView = (child: React.ReactNode, idx: number) => {
   );
 };
 
-export default function AnimatedKeyboardView({
-  offset = 0,
-  children,
-  ...props
-}: Props) {
-  const sx = useSx();
+export default function AnimatedKeyboardView({ children, ...props }: Props) {
   const { bottom, top } = useSafeAreaInsets();
+  const token$5Value = getTokenValue("$5", "space");
+  const token$3and5Value = getTokenValue("$3.5", "size");
   const { height } = useAnimatedKeyboard();
   const stylez = useAnimatedStyle(
     () => ({
-      paddingBottom: withTiming(height.value && height.value + offset),
+      paddingBottom: withTiming(
+        height.value ? height.value : Math.max(bottom, token$3and5Value)
+      ),
     }),
-    [height, offset]
+    [height, bottom]
   );
 
   return (
-    <Animated.View
+    <AnimatedYStack
       {...props}
-      style={[
-        sx({
-          bg: "white",
-          flex: 1,
-        }),
-        stylez,
-      ]}
+      pt={top + token$5Value}
+      gap={24}
+      px="$3.5"
+      bg="$colorTransparent"
+      flex={1}
+      style={stylez}
     >
-      <Animated.ScrollView
-        style={sx({ flex: 1 })}
-        contentContainerStyle={sx({
-          paddingBottom: Math.max(bottom, 40),
-          paddingTop: top + 16,
-          bg: "$background",
-          flexGrow: 1,
-          pb: "$4",
-          px: "$3",
-          gap: 24,
-        })}
-      >
-        {React.Children.toArray(children).map((child, idx) => {
-          if (React.isValidElement(child) && child.type !== Spacer) {
-            return wrapWithAnimatedView(child, idx);
-          }
-          console.log("i'm spacer");
-
-          return child;
-        })}
-      </Animated.ScrollView>
-    </Animated.View>
+      {React.Children.toArray(children).map((child, idx) => {
+        if (React.isValidElement(child) && child.type !== Spacer) {
+          return wrapWithAnimatedView(child, idx);
+        }
+        return child;
+      })}
+    </AnimatedYStack>
   );
 }

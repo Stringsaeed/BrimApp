@@ -1,15 +1,9 @@
-import React, { useMemo } from "react";
-import {
-  ScrollView,
-  ScrollViewProps,
-  StyleSheet,
-  View,
-  ViewProps,
-} from "react-native";
+import React from "react";
+import { ScrollViewProps, View, ViewProps } from "react-native";
+import { ScrollView } from "tamagui";
 
 import AnimatedKeyboardView from "components/animated-keyboard-view";
 import { useScreenContainerContentStyle } from "hooks";
-import { theme } from "themes";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
@@ -45,11 +39,7 @@ function FixedScreen({
     centered,
   });
 
-  const containerStyle = useMemo(() => {
-    return StyleSheet.flatten([styles.flex, styles.background, contentStyle]);
-  }, [contentStyle]);
-
-  return <Wrapper {...restProps} style={containerStyle} />;
+  return <Wrapper {...restProps} flex={1} style={contentStyle} />;
 }
 
 function ScrollScreen({
@@ -63,10 +53,6 @@ function ScrollScreen({
   ...restProps
 }: Props<"scroll">) {
   const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
-  const containerStyle = useMemo(
-    () => StyleSheet.flatten([styles.flex, styles.background, overrideStyle]),
-    [overrideStyle]
-  );
 
   const contentStyle = useScreenContainerContentStyle({
     overrideStyle: overrideContentStyle,
@@ -77,10 +63,10 @@ function ScrollScreen({
   });
 
   return (
-    <Wrapper style={styles.flex}>
+    <Wrapper flex={1}>
       <ScrollView
         {...restProps}
-        style={containerStyle}
+        style={overrideStyle}
         contentContainerStyle={contentStyle}
       />
     </Wrapper>
@@ -101,12 +87,3 @@ export default function ScreenContainer<T extends "scroll" | "fixed">({
 
   return null;
 }
-
-const styles = StyleSheet.create({
-  background: {
-    backgroundColor: theme.colors.background,
-  },
-  flex: {
-    flex: 1,
-  },
-});

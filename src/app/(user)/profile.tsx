@@ -1,11 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { Button, YGroup, ListItem, Separator } from "tamagui";
 
-import { Button, ListItem, ScreenContainer, Spacer } from "components";
+import { ScreenContainer, Spacer } from "components";
 import { useSignOutMutation } from "hooks";
 
 export default function Profile() {
   const signOutMutation = useSignOutMutation();
+  const navigation = useNavigation();
 
   return (
     <ScreenContainer
@@ -13,16 +16,25 @@ export default function Profile() {
       handleSafeArea="bottom"
       type="fixed"
     >
-      <ListItem href="/account-info" isFirst title="Account Information" />
-      <ListItem href="/account-info" title="Notifications Settings" />
-      <ListItem href="/account-info" isLast title="Preferences" />
+      <YGroup bordered separator={<Separator />}>
+        <YGroup.Item>
+          <ListItem
+            onPress={() => {
+              navigation.navigate("AccountInfo");
+            }}
+            title="Account Information"
+          />
+        </YGroup.Item>
+        <YGroup.Item>
+          <ListItem title="Notifications Settings" />
+        </YGroup.Item>
+        <YGroup.Item>
+          <ListItem title="Preferences" />
+        </YGroup.Item>
+      </YGroup>
       <Spacer />
-      <Button
-        variantStyle="Filled"
-        size="Large"
-        onPress={signOutMutation.mutate}
-      >
-        <Button.Label>Sign out</Button.Label>
+      <Button bg="$pink6" size="$5" onPress={() => signOutMutation.mutate()}>
+        <Button.Text>Sign out</Button.Text>
       </Button>
     </ScreenContainer>
   );
