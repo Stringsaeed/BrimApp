@@ -5,8 +5,6 @@ import {
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
-import { BlurEffectTypes } from "react-native-screens";
-import { useThemeName } from "tamagui";
 
 import { useNotesList } from "contexts";
 
@@ -22,7 +20,6 @@ export default function DashboardHeader({
   onPressCreate,
 }: Props) {
   const navigation = useNavigation();
-  const themeName = useThemeName();
   const { emptyScreenTranslateY: translateY } = useNotesList();
   const stylez = useAnimatedStyle(() => {
     return {
@@ -39,7 +36,7 @@ export default function DashboardHeader({
     };
   }, []);
 
-  function renderHeaderRight() {
+  const headerRight = useCallback(() => {
     return (
       <DashboardHeaderRight
         onPressProfile={onPressProfile}
@@ -47,18 +44,12 @@ export default function DashboardHeader({
         createAnimatedStyle={stylez}
       />
     );
-  }
+  }, [onPressCreate, onPressProfile, stylez]);
 
   useFocusEffect(
     useCallback(() => {
-      navigation.setOptions({
-        headerBlurEffect: themeName as BlurEffectTypes,
-        headerRight: renderHeaderRight,
-        headerTransparent: true,
-        headerShown: true,
-        title: "",
-      });
-    }, [])
+      navigation.setOptions({ headerRight });
+    }, [navigation, headerRight])
   );
 
   return null;

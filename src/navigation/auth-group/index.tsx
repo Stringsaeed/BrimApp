@@ -1,16 +1,21 @@
+import { ParamListBase } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
-import { RootStackParamList } from "routers";
-import { LoginScreen, VerifyScreen } from "screens";
+import LoginPage from "app/(auth)/login";
+import VerifyPage from "app/(auth)/verify";
 
-export default function createAuthGroup(
-  creator: ReturnType<typeof createNativeStackNavigator<RootStackParamList>>
+export default function createAuthGroup<
+  ParamsList extends ParamListBase,
+  ThemeName extends "light" | "dark" | (string & {})
+>(
+  creator: ReturnType<typeof createNativeStackNavigator<ParamsList>>,
+  _: ThemeName
 ) {
   return (
     <creator.Group screenOptions={{ headerShown: false }}>
-      <creator.Screen name="login" component={LoginScreen} />
-      <creator.Screen name="verify" component={VerifyScreen} />
+      <creator.Screen name="login" component={LoginPage} />
+      <creator.Screen name="verify" component={VerifyPage} />
     </creator.Group>
   );
 }

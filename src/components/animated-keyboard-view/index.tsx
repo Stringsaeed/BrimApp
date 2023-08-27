@@ -54,13 +54,13 @@ export default function AnimatedKeyboardView({ children, ...props }: Props) {
 
   return (
     <AnimatedYStack
-      {...props}
       pt={top + token$5Value}
       gap={24}
       px="$3.5"
       bg="$colorTransparent"
       flex={1}
       style={stylez}
+      {...props}
     >
       {React.Children.toArray(children).map((child, idx) => {
         if (React.isValidElement(child) && child.type !== Spacer) {

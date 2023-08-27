@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import { List } from "phosphor-react-native";
+import { DotsThree } from "phosphor-react-native";
 import React from "react";
 import { Button } from "tamagui";
 
@@ -12,36 +11,34 @@ import {
   DropdownMenuTrigger,
 } from "themes";
 
-export default function OtherMenu() {
-  const navigation = useNavigation();
+import LockNoteDropDownItem from "./lock-note-drop-down-item";
 
-  const onPressArchive = () => {
-    navigation.navigate("Archive");
-  };
-
-  const onPressTrash = () => {
-    navigation.navigate("Trash");
-  };
-
+interface NotePageHeaderMenuProps {
+  onPressArchive?: () => void;
+  onPressTrash?: () => void;
+  isPrivate?: boolean | null | undefined;
+  onPressLock?: () => void;
+}
+export default function NotePageHeaderMenu({
+  onPressArchive,
+  onPressTrash,
+  onPressLock,
+  isPrivate,
+}: NotePageHeaderMenuProps) {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <Button
-          animation="quick"
-          // eslint-disable-next-line react-native/no-inline-styles
-          enterStyle={{ opacity: 0, scale: 0.2 }}
-          size="$3.5"
-          borderRadius="$12"
-          aspectRatio={1}
-          borderWidth={0}
+          size="$3"
           bg="$backgroundTransparent"
-          scaleIcon={1.4}
+          scaleIcon={2}
           icon={({ color, size }) => (
-            <List color={color} size={size} weight="bold" />
+            <DotsThree weight="bold" color={color} size={size} />
           )}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <LockNoteDropDownItem onPressLock={onPressLock} isPrivate={isPrivate} />
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
           <DropdownMenuItemIcon
             ios={{
@@ -52,10 +49,9 @@ export default function OtherMenu() {
             }}
             androidIconName="archive_box"
           />
-
           <DropdownMenuItemTitle>Archive</DropdownMenuItemTitle>
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={onPressTrash} key="trashed">
+        <DropdownMenuItem onSelect={onPressTrash} key="trash">
           <DropdownMenuItemIcon
             ios={{
               weight: "semibold",
@@ -63,9 +59,8 @@ export default function OtherMenu() {
               name: "trash",
               pointSize: 5,
             }}
-            androidIconName="trashed"
+            androidIconName="trash_simple"
           />
-
           <DropdownMenuItemTitle>Trash</DropdownMenuItemTitle>
         </DropdownMenuItem>
       </DropdownMenuContent>

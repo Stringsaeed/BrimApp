@@ -7,6 +7,7 @@ import PullToAction from "components/pull-to-action";
 import { useNotesList } from "contexts";
 import { Note } from "types";
 
+import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
 
 interface NotesListProps {
@@ -53,7 +54,7 @@ export default function NotesList({ onPressNote }: NotesListProps) {
     [handleToggleArchive, handleRemove, onPressNote]
   );
 
-  // if (!notes.length) return <ListEmptyView />;
+  if (!notes.length) return <ListEmptyView />;
 
   return (
     <PullToAction>

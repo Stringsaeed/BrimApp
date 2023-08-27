@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Modal, Platform } from "react-native";
+import { Modal, Platform, StyleSheet } from "react-native";
 import { Button, Circle, Image } from "tamagui";
 
 import CountryListPicker from "components/country-list-picker";
@@ -39,12 +39,12 @@ export default function CountryBottomSheet({
         borderWidth={1}
         onPress={handleOnPress}
         icon={({ color, size }) => (
-          <Circle overflow="hidden" size={size} bg={color}>
+          <Circle size={size} overflow="hidden" bg={color}>
             <Image
+              accessible={Platform.OS !== "web"}
               tintColor={color}
               accessibilityIgnoresInvertColors
-              width={size}
-              height={size}
+              style={StyleSheet.absoluteFill}
               source={{
                 uri: `https://flagcdn.com/w40/${region.toLowerCase()}.png`,
               }}

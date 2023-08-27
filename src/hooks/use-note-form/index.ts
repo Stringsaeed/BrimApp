@@ -33,6 +33,7 @@ export default function useNoteForm(note: Note) {
 
   const config = useFormik<NoteFormValues>({
     initialValues: { title: note?.title ?? "", note: note?.note ?? "" },
+    enableReinitialize: true,
     onSubmit,
   });
 

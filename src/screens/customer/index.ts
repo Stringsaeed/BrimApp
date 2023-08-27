@@ -1,2 +1,2 @@
-export { default as LoginScreen } from "./login";
-export { default as VerifyScreen } from "./verify";
+export { default as LoginView } from "./login";
+export { default as VerifyView } from "./verify";

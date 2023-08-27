@@ -10,11 +10,10 @@ interface AutoSaveFormikProps {
 export default function AutoSaveFormik({
   debounceMs = 1000,
 }: AutoSaveFormikProps) {
-  const { isSubmitting, submitCount, submitForm, values, dirty } =
-    useFormikContext<{
-      note: string;
-      title: string;
-    }>();
+  const { submitForm, values, dirty } = useFormikContext<{
+    note: string;
+    title: string;
+  }>();
 
   const navigation = useNavigation();
 
@@ -31,13 +30,9 @@ export default function AutoSaveFormik({
   useFocusEffect(
     useCallback(() => {
       navigation.setOptions({
-        title: isSubmitting
-          ? "Saving..."
-          : submitCount > 0
-          ? `Saved (${submitCount})`
-          : "",
+        title: `${values.title.slice(0, 20)}${dirty ? "*" : ""}`,
       });
-    }, [isSubmitting, navigation, submitCount])
+    }, [dirty, navigation, values.title])
   );
 
   return null;

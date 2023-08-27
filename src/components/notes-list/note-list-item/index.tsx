@@ -85,7 +85,7 @@ export default function NoteListItemView({
               <ListItem.Text
                 fontWeight={item.title ? "500" : "normal"}
                 color={item.title ? "$blue11" : "$pink4"}
-                fontsize="$5"
+                fontSize="$5"
                 numberOfLines={1}
               >
                 {item.title || "Draft"}

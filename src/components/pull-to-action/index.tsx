@@ -1,18 +1,21 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Plus } from "phosphor-react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   Easing,
   Extrapolation,
   interpolate,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, XStack } from "tamagui";
+
+import { useCreateEmptyNoteMutation, useHaptic } from "hooks";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
@@ -25,14 +28,37 @@ export default function PullToAction({ children }: PullToActionProps) {
   const { bottom } = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
+  const createEmptyNoteMutation = useCreateEmptyNoteMutation();
 
   const translateValue = useSharedValue(0);
+  const selectionActive = useSharedValue(0);
   const scrollViewGesture = Gesture.Native();
+  const hapticFeedback = useHaptic();
+  const handleAdd = useCallback(async () => {
+    hapticFeedback?.();
+    await createEmptyNoteMutation();
+  }, [createEmptyNoteMutation, hapticFeedback]);
+
   const panGesture = Gesture.Pan()
     .onChange((event) => {
       translateValue.value = event.translationY > 0 ? event.translationY : 0;
+      const activatePullToAction = interpolate(
+        translateValue.value,
+        [0, 80],
+        [0, 180],
+        Extrapolation.CLAMP
+      );
+      if (activatePullToAction === 180) {
+        selectionActive.value = 1;
+      } else {
+        selectionActive.value = 0;
+      }
     })
     .onEnd(() => {
+      if (selectionActive.value) {
+        runOnJS(handleAdd)();
+      }
+      selectionActive.value = 0;
       translateValue.value = withTiming(0, {
         easing: Easing.linear,
         duration: 350,
@@ -51,15 +77,15 @@ export default function PullToAction({ children }: PullToActionProps) {
         {
           rotate: `${interpolate(
             translateValue.value,
-            [0, 80],
-            [-30, 0],
+            [0, 50],
+            [90, 0],
             Extrapolation.CLAMP
           )}deg`,
         },
         {
           scale: interpolate(
             translateValue.value,
-            [0, 80],
+            [0, 50],
             [0.9, 1],
             Extrapolation.CLAMP
           ),
@@ -67,7 +93,7 @@ export default function PullToAction({ children }: PullToActionProps) {
       ],
       opacity: interpolate(
         translateValue.value,
-        [40, 70],
+        [20, 40],
         [0, 1],
         Extrapolation.CLAMP
       ),
@@ -106,13 +132,6 @@ export default function PullToAction({ children }: PullToActionProps) {
     </GestureDetector>
   );
 }
-/*
-flex={1}
-        pb="$4"
-        contentContainerStyle={[
-          $contentContainerStyle,
-          { paddingTop: actualTop, paddingBottom: bottom },
-        ]}*/
 
 const styles = StyleSheet.create({
   content: {

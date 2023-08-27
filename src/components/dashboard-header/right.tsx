@@ -1,10 +1,8 @@
 import { Plus, User } from "phosphor-react-native";
 import React from "react";
-import { Pressable, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
-import { Button, useTheme } from "tamagui";
-
-import Row from "components/row";
+import { Button, XStack, useTheme } from "tamagui";
 
 import OtherMenu from "./other";
 
@@ -21,23 +19,36 @@ export default function DashboardHeaderRight({
   const theme = useTheme();
   const text = theme.color.get();
   return (
-    <Row gap={8} center>
+    <XStack gap="$1" alignItems="center">
       <OtherMenu />
       <Button
         animation="quick"
         // eslint-disable-next-line react-native/no-inline-styles
         enterStyle={{ opacity: 0, scale: 0.2 }}
-        size="$2"
+        size="$3.5"
         aspectRatio={1}
         borderRadius="$12"
         borderWidth={0}
         bg="$pink6"
+        scaleIcon={1.4}
         onPress={onPressCreate}
         icon={({ size }) => <Plus color={text} size={size} weight="bold" />}
       />
-      <Pressable accessibilityRole="button" onPress={onPressProfile}>
-        <User color={text} />
-      </Pressable>
-    </Row>
+      <Button
+        animation="quick"
+        // eslint-disable-next-line react-native/no-inline-styles
+        enterStyle={{ opacity: 0, scale: 0.2 }}
+        size="$3.5"
+        borderRadius="$12"
+        aspectRatio={1}
+        borderWidth={0}
+        bg="$backgroundTransparent"
+        scaleIcon={1.4}
+        onPress={onPressProfile}
+        icon={({ color, size }) => (
+          <User color={color} size={size} weight="bold" />
+        )}
+      />
+    </XStack>
   );
 }
