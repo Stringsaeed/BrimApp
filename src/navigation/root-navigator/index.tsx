@@ -23,7 +23,7 @@ export default function RootNavigator() {
       screenOptions={{
         headerTitle(props) {
           return (
-            <SizableText size="$6" color={props.tintColor}>
+            <SizableText size="$5" color={props.tintColor}>
               {props.children}
             </SizableText>
           );

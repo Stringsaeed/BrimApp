@@ -7,10 +7,11 @@ interface ComposerComponentProps {
   onLoadEnd?: () => void;
   onTitleChange: (title: string) => void;
   title: string;
+  note: string;
 }
 
 function ComposerComponent(
-  { onTitleChange, onUserInput, title }: ComposerComponentProps,
+  { onTitleChange, onUserInput, title, note }: ComposerComponentProps,
   ref: ForwardedRef<TextInput>
 ) {
   return (
@@ -28,6 +29,7 @@ function ComposerComponent(
       <TextArea
         accessibilityLabel="Text input field"
         ref={ref}
+        value={note}
         onChangeText={onUserInput}
         style={$containerStyle}
       />

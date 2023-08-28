@@ -17,15 +17,20 @@ export default function useNoteForm(note: Note) {
       values: NoteFormValues,
       { setSubmitting }: FormikHelpers<NoteFormValues>
     ) => {
+      console.log("submitting", note, values);
       if (!note) return;
       setSubmitting(true);
-      await updateNoteMutation.mutate({
-        title: values.title,
-        note: values.note,
-        user: note.user!,
-        is_draft: false,
-        id: note.id,
-      });
+      try {
+        await updateNoteMutation.mutate({
+          title: values.title,
+          note: values.note,
+          user: note.user!,
+          is_draft: false,
+          id: note.id,
+        });
+      } catch (e) {
+        console.error(e);
+      }
       setSubmitting(false);
     },
     [note, updateNoteMutation]
@@ -33,7 +38,7 @@ export default function useNoteForm(note: Note) {
 
   const config = useFormik<NoteFormValues>({
     initialValues: { title: note?.title ?? "", note: note?.note ?? "" },
-    enableReinitialize: true,
+    enableReinitialize: false,
     onSubmit,
   });
 

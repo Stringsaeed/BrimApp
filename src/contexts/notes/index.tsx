@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 
 import { useNotesQuery } from "hooks";
@@ -40,8 +41,10 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     syncNotes();
   }, [syncNotes]);
 
+  const contextValue = useMemo(() => ({ notes: data }), [data]);
+
   return (
-    <NotesContext.Provider value={{ notes: data }}>
+    <NotesContext.Provider value={contextValue}>
       {children}
     </NotesContext.Provider>
   );

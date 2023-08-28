@@ -12,10 +12,14 @@ import NoteListItemView from "./note-list-item";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
+  pullToActionEnabled?: boolean;
 }
 
-export default function NotesList({ onPressNote }: NotesListProps) {
-  const { unarchiveNote, archiveNote, deleteNote, notes } = useNotesList();
+export default function NotesList({
+  pullToActionEnabled,
+  onPressNote,
+}: NotesListProps) {
+  const { restoreNote, archiveNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
     (item: Note) => {
@@ -24,21 +28,26 @@ export default function NotesList({ onPressNote }: NotesListProps) {
     [deleteNote]
   );
 
-  const handleToggleArchive = useCallback(
+  const handleLeftAction = useCallback(
     (item: Note) => {
-      if (item.is_archived) {
-        unarchiveNote(item.id);
+      const toRestore =
+        item.is_archived ||
+        item.is_trashed ||
+        ["trashed", "archived"].includes(item.status);
+
+      if (toRestore) {
+        restoreNote(item.id);
       } else {
         archiveNote(item.id);
       }
     },
-    [archiveNote, unarchiveNote]
+    [archiveNote, restoreNote]
   );
 
   const renderItem = useCallback(
     ({ item }: Omit<ListRenderItemInfo<Note>, "separators">) => {
       const onRemove = () => handleRemove(item);
-      const toggleArchive = () => handleToggleArchive(item);
+      const onLeftAction = () => handleLeftAction(item);
       const onPress = () => onPressNote(item);
 
       return (
@@ -47,17 +56,17 @@ export default function NotesList({ onPressNote }: NotesListProps) {
           item={item}
           onPress={onPress}
           onRemove={onRemove}
-          toggleArchive={toggleArchive}
+          onLeftAction={onLeftAction}
         />
       );
     },
-    [handleToggleArchive, handleRemove, onPressNote]
+    [handleLeftAction, handleRemove, onPressNote]
   );
 
   if (!notes.length) return <ListEmptyView />;
 
   return (
-    <PullToAction>
+    <PullToAction enabled={pullToActionEnabled}>
       <Animated.View style={$content_content}>
         <YGroup
           bordered

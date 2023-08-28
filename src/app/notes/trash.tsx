@@ -6,7 +6,9 @@ import { useNavigateNote } from "hooks";
 
 export default function TrashedNotes() {
   const { notes } = useNotesContext();
-  const data = notes.filter((note) => note.is_trashed);
+  const data = notes.filter(
+    (note) => note.is_trashed || note.status === "trashed"
+  );
 
   const onNavigateNote = useNavigateNote();
 
@@ -17,7 +19,7 @@ export default function TrashedNotes() {
       type="fixed"
     >
       <NotesListProvider notes={data}>
-        <NotesList onPressNote={onNavigateNote} />
+        <NotesList pullToActionEnabled={false} onPressNote={onNavigateNote} />
       </NotesListProvider>
     </ScreenContainer>
   );

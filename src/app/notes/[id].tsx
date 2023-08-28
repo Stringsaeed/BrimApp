@@ -55,8 +55,9 @@ export default function NotePage() {
         onPressProfile={onNavigateProfile}
       />
       <YStack pt={headerHeight} flex={1} bg="$background">
-        <AutoSave />
+        <AutoSave id={id} />
         <Composer
+          note={config.values.note}
           ref={richTextRef}
           onUserInput={config.handleChange("note")}
           onTitleChange={config.handleChange("title")}

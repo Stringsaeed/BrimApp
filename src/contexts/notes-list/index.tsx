@@ -17,6 +17,7 @@ type NotesListContext = {
   deleteNote: (note: Note) => void;
   archiveNote: (id: string) => void;
   unarchiveNote: (id: string) => void;
+  restoreNote: (id: string) => void;
   emptyScreenTranslateY: Animated.SharedValue<number>;
 };
 
@@ -113,11 +114,40 @@ export const NotesListProvider = ({
     [getNote, updateNoteMutation]
   );
 
+  const restoreNote = useCallback(
+    (id: string) => {
+      const { user, ...restNote } = getNote(id);
+      const restorable =
+        restNote.is_archived ||
+        restNote.is_trashed ||
+        ["trashed", "archived"].includes(restNote.status);
+
+      if (!restorable) {
+        return;
+      }
+
+      if (!user) {
+        return;
+      }
+
+      updateNoteMutation.mutate({
+        ...restNote,
+        status: "published",
+        is_archived: false,
+        is_trashed: false,
+        user,
+        id,
+      });
+    },
+    [getNote, updateNoteMutation]
+  );
+
   const contextValue = useMemo<NotesListContext>(
     () => ({
       emptyScreenTranslateY,
       unarchiveNote,
       archiveNote,
+      restoreNote,
       updateNote,
       deleteNote,
       addNote,
@@ -125,14 +155,15 @@ export const NotesListProvider = ({
       notes,
     }),
     [
-      addNote,
+      emptyScreenTranslateY,
+      unarchiveNote,
       archiveNote,
+      restoreNote,
+      updateNote,
       deleteNote,
+      addNote,
       getNote,
       notes,
-      unarchiveNote,
-      updateNote,
-      emptyScreenTranslateY,
     ]
   );
 

@@ -22,9 +22,13 @@ const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
 interface PullToActionProps {
   children: React.ReactNode;
+  enabled?: boolean;
 }
 
-export default function PullToAction({ children }: PullToActionProps) {
+export default function PullToAction({
+  enabled = true,
+  children,
+}: PullToActionProps) {
   const { bottom } = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const actualTop = headerHeight + 16;
@@ -63,7 +67,8 @@ export default function PullToAction({ children }: PullToActionProps) {
         easing: Easing.linear,
         duration: 350,
       });
-    });
+    })
+    .enabled(enabled);
 
   const animatedViewStyle = useAnimatedStyle(() => {
     return {
