@@ -2,12 +2,14 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "TAMAGUI_TARGET": "native"
+      }
     },
     "preview": {
       "distribution": "internal",
       "developmentClient": false,
-      "autoIncrement": true,
       "env": {
         "TAMAGUI_TARGET": "native"
       },
@@ -17,7 +19,9 @@
       "android": {
         "buildType": "app-bundle"
       },
-      "autoIncrement": true,
+      "env": {
+        "TAMAGUI_TARGET": "native"
+      },
       "distribution": "internal"
     }
   }

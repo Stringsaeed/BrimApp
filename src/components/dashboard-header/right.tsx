@@ -20,7 +20,7 @@ export default function DashboardHeaderRight({
   const text = theme.color.get();
   return (
     <XStack gap="$1" alignItems="center">
-      <OtherMenu />
+      <OtherMenu color={text} />
       <Button
         animation="quick"
         // eslint-disable-next-line react-native/no-inline-styles
@@ -45,9 +45,7 @@ export default function DashboardHeaderRight({
         bg="$backgroundTransparent"
         scaleIcon={1.4}
         onPress={onPressProfile}
-        icon={({ color, size }) => (
-          <User color={color} size={size} weight="bold" />
-        )}
+        icon={({ size }) => <User color={text} size={size} weight="bold" />}
       />
     </XStack>
   );

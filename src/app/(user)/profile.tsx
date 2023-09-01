@@ -26,10 +26,10 @@ export default function Profile() {
           />
         </YGroup.Item>
         <YGroup.Item>
-          <ListItem title="Notifications Settings" />
+          <ListItem title="Notifications Settings" disabled />
         </YGroup.Item>
         <YGroup.Item>
-          <ListItem title="Preferences" />
+          <ListItem title="Preferences" disabled />
         </YGroup.Item>
       </YGroup>
       <Spacer />

@@ -38,7 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile: "./assets/GoogleService-Info.plist",
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
-      supportsTablet: true,
+      supportsTablet: false,
     },
     splash: {
       image: "./assets/splash.png",
@@ -50,6 +50,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
     },
+    updates: {
+      url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
+    },
+    runtimeVersion: {
+      policy: "appVersion",
+    },
     experiments: {
       tsconfigPaths: true,
     },
@@ -60,6 +66,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     assetBundlePatterns: ["**/*"],
     icon: "./assets/icon.png",
     orientation: "portrait",
+    owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
     slug: "BrimApp",

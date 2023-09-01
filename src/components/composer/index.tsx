@@ -19,6 +19,7 @@ function ComposerComponent(
       <Input
         px="$4"
         py="$2"
+        fontSize="$7"
         borderWidth={0}
         borderBottomWidth={1}
         accessibilityLabel="Text input field"
@@ -27,6 +28,11 @@ function ComposerComponent(
         onChangeText={onTitleChange}
       />
       <TextArea
+        px="$4"
+        py="$2"
+        fontSize={16}
+        lineHeight={24}
+        borderWidth={0}
         accessibilityLabel="Text input field"
         ref={ref}
         value={note}

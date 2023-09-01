@@ -17,7 +17,6 @@ export default function useNoteForm(note: Note) {
       values: NoteFormValues,
       { setSubmitting }: FormikHelpers<NoteFormValues>
     ) => {
-      console.log("submitting", note, values);
       if (!note) return;
       setSubmitting(true);
       try {

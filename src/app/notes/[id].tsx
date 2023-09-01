@@ -2,10 +2,10 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FormikProvider } from "formik";
 import React from "react";
-import { TextInput } from "react-native";
+import { KeyboardAvoidingView, TextInput } from "react-native";
 import { YStack } from "tamagui";
 
-import { AutoSave, Composer, NoteHeaderRight } from "components";
+import { AutoSave, Composer, NoteHeaderRight, NoteToolbox } from "components";
 import { useNotesContext } from "contexts";
 import {
   useCreateEmptyNoteMutation,
@@ -63,6 +63,9 @@ export default function NotePage() {
           onTitleChange={config.handleChange("title")}
           title={config.values.title}
         />
+        <KeyboardAvoidingView behavior="position">
+          <NoteToolbox />
+        </KeyboardAvoidingView>
       </YStack>
     </FormikProvider>
   );

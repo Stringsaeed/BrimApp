@@ -1,6 +1,6 @@
 import { DotsThree } from "phosphor-react-native";
 import React from "react";
-import { Button } from "tamagui";
+import { Button, useTheme } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -25,6 +25,9 @@ export default function NotePageHeaderMenu({
   onPressLock,
   isPrivate,
 }: NotePageHeaderMenuProps) {
+  const theme = useTheme();
+  const text = theme.color.get();
+
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
@@ -32,8 +35,8 @@ export default function NotePageHeaderMenu({
           size="$3"
           bg="$backgroundTransparent"
           scaleIcon={2}
-          icon={({ color, size }) => (
-            <DotsThree weight="bold" color={color} size={size} />
+          icon={({ size }) => (
+            <DotsThree weight="bold" color={text} size={size} />
           )}
         />
       </DropdownMenuTrigger>

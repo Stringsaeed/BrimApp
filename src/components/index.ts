@@ -21,3 +21,4 @@ export { default as CountryListPicker } from "./country-list-picker";
 export { default as TipTapEditor } from "./tiptap-editor";
 export { default as AuthLayout } from "./auth-layout";
 export { default as PhoneInput } from "./phone-input";
+export { default as NoteToolbox } from "./note-toolbox";

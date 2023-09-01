@@ -13,12 +13,10 @@ export default function ArchiveNotesPage() {
   if (!data) return null;
 
   return (
-    <>
-      <ScreenContainer withoutBeautifulPadding type="fixed">
-        <NotesListProvider notes={data}>
-          <NotesList onPressNote={onNavigateNote} />
-        </NotesListProvider>
-      </ScreenContainer>
-    </>
+    <ScreenContainer withoutBeautifulPadding type="fixed">
+      <NotesListProvider notes={data}>
+        <NotesList onPressNote={onNavigateNote} />
+      </NotesListProvider>
+    </ScreenContainer>
   );
 }

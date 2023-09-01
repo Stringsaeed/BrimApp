@@ -16,7 +16,7 @@ export default function AuthLayout({
   return (
     <View flex={1}>
       <LinearGradient
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, { flex: 1 }]}
         colors={["$background", "$background", "$pink6"]}
       />
       <BlurView

@@ -1,5 +1,9 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import { HeaderTitleProps } from "@react-navigation/elements";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from "@react-navigation/native-stack";
+import React, { useMemo } from "react";
 import { SizableText, useTheme, useThemeName } from "tamagui";
 
 import { useAuth } from "contexts";
@@ -8,6 +12,14 @@ import createAuthGroup from "navigation/auth-group";
 import { RootStackParamList } from "routers";
 
 const RootNavigatorCreator = createNativeStackNavigator<RootStackParamList>();
+
+function headerTitle(props: HeaderTitleProps) {
+  return (
+    <SizableText size="$5" color={props.tintColor}>
+      {props.children}
+    </SizableText>
+  );
+}
 
 export default function RootNavigator() {
   const { user } = useAuth();
@@ -18,21 +30,21 @@ export default function RootNavigator() {
   const theme = useTheme();
   const foregroundColor = theme.color.get();
 
+  const screenOptions = useMemo<NativeStackNavigationOptions>(
+    () => ({
+      // statusBarStyle: themeName === "dark" ? "light" : "dark",
+      headerTintColor: foregroundColor,
+      statusBarColor: "transparent",
+      headerBackTitleVisible: false,
+      statusBarTranslucent: true,
+      headerBackTitle: "",
+      headerTitle,
+    }),
+    [foregroundColor]
+  );
+
   return (
-    <RootNavigatorCreator.Navigator
-      screenOptions={{
-        headerTitle(props) {
-          return (
-            <SizableText size="$5" color={props.tintColor}>
-              {props.children}
-            </SizableText>
-          );
-        },
-        headerTintColor: foregroundColor,
-        headerBackTitleVisible: false,
-        headerBackTitle: "",
-      }}
-    >
+    <RootNavigatorCreator.Navigator screenOptions={screenOptions}>
       {renderer}
     </RootNavigatorCreator.Navigator>
   );

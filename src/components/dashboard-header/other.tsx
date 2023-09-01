@@ -12,7 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "themes";
 
-export default function OtherMenu() {
+interface OtherMenuProps {
+  color?: string;
+}
+
+export default function OtherMenu({ color }: OtherMenuProps) {
   const navigation = useNavigation();
 
   const onPressArchive = () => {
@@ -36,9 +40,7 @@ export default function OtherMenu() {
           borderWidth={0}
           bg="$backgroundTransparent"
           scaleIcon={1.4}
-          icon={({ color, size }) => (
-            <List color={color} size={size} weight="bold" />
-          )}
+          icon={({ size }) => <List color={color} size={size} weight="bold" />}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
