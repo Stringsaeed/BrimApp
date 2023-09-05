@@ -60,6 +60,7 @@ export default function CountryBottomSheet({
         animationType="slide"
         transparent={Platform.OS === "web"}
         statusBarTranslucent={Platform.OS === "web"}
+        onDismiss={() => setModalVisible(false)}
       >
         <CountryListPicker
           onClose={() => setModalVisible(false)}

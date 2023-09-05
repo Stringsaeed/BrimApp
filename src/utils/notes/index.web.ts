@@ -1,6 +1,6 @@
-import { DataSnapshot } from "firebase/database";
+import type { DataSnapshot } from "firebase/database";
 
-import { Note, notesSchema } from "types";
+import { type Note, notesSchema } from "types";
 
 export function getNotesFromSnapshot(snapshot: DataSnapshot | null): Note[] {
   if (!snapshot) return [];

@@ -6,24 +6,19 @@ import { View, useThemeName } from "tamagui";
 
 import AnimatedKeyboardView from "components/animated-keyboard-view";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { AuthLayoutProps } from "./types";
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
   const themeName = useThemeName();
 
   return (
     <View flex={1}>
       <LinearGradient
-        style={[StyleSheet.absoluteFill, { flex: 1 }]}
+        flex={1}
+        style={StyleSheet.absoluteFill}
         colors={["$background", "$background", "$pink6"]}
       />
-      <BlurView
-        style={StyleSheet.absoluteFill}
-        intensity={10}
-        tint={themeName as BlurTint}
-      />
+      <BlurView intensity={10} tint={themeName as BlurTint} />
       <AnimatedKeyboardView offset={40}>{children}</AnimatedKeyboardView>
     </View>
   );

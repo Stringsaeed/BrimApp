@@ -16,6 +16,15 @@ export default function VerifyView({
 }: VerifyViewProps) {
   return (
     <AuthLayout>
+      <View
+        bg="$red1"
+        pos="absolute"
+        flex={1}
+        bottom={0}
+        left={0}
+        right={0}
+        top={0}
+      />
       <Heading>Please verify the code</Heading>
       <Input
         size="$5"

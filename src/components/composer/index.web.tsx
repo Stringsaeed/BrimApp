@@ -1,54 +1,46 @@
 import { useEditor, EditorContent } from "@tiptap/react";
-import React, { ForwardedRef } from "react";
-import { TextInput } from "react-native";
-import { XStack, View, Input } from "tamagui";
+import React, { ForwardedRef, useImperativeHandle } from "react";
 
-// import { getToolbarIconMapper } from "./utilts";
-
-interface ComposerComponentProps {
-  onUserInput: (input: string) => void;
-  onLoadEnd: () => void;
-  onTitleChange: (title: string) => void;
-  title: string;
-}
+import { ComposerComponentProps, ComposerRef } from "./types";
+import useNoteComposer from "./use-note-composer";
 
 function ComposerComponent(
-  { onTitleChange, onUserInput, title }: ComposerComponentProps,
-  ref: ForwardedRef<TextInput>
+  { onLoadEnd }: ComposerComponentProps,
+  ref: ForwardedRef<ComposerRef>
 ) {
+  const { onChangeText, onBlur, value } = useNoteComposer();
+
   const editor = useEditor({
     onUpdate({ editor: editorProp }) {
       const json = editorProp.getJSON();
-      onUserInput(JSON.stringify(json));
+      onChangeText(JSON.stringify(json));
     },
-
-    content: "write you note here",
-    editorProps: {},
-    injectCSS: true,
+    onCreate() {
+      onLoadEnd?.();
+    },
     autofocus: true,
+    injectCSS: true,
+    editorProps: {},
     editable: true,
+    content: value,
+    onBlur,
   });
 
-  return (
-    <XStack flex={1}>
-      <View flex={1} />
-      <View width="100%" maxWidth={400}>
-        <Input
-          ref={ref}
-          px="$4"
-          py="$2"
-          borderWidth={0}
-          borderBottomWidth={1}
-          accessibilityLabel="Text input field"
-          placeholder="Wanna title your note? 😒"
-          value={title}
-          onChangeText={onTitleChange}
-        />
-        <EditorContent editor={editor} />
-      </View>
-      <View flex={1} />
-    </XStack>
-  );
+  useImperativeHandle(ref, () => {
+    return {
+      isFocused() {
+        return !!editor?.isFocused;
+      },
+      focus() {
+        editor?.chain().focus().run();
+      },
+      blur() {
+        editor?.chain().blur().run();
+      },
+    };
+  });
+
+  return <EditorContent editor={editor} />;
 }
 
 const Composer = React.forwardRef(ComposerComponent);

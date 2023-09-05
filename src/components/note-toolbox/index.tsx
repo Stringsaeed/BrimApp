@@ -7,7 +7,10 @@ import { Button, Sheet, Spinner } from "tamagui";
 import { NoteFormValues } from "hooks/use-note-form";
 import huggingFaceAI from "services/ai";
 
-export default function NoteToolbox() {
+interface Props {
+  onOpen?: () => void;
+}
+export default function NoteToolbox({ onOpen }: Props) {
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
   const fixGrammarMutation = useMutation(
     (text: string) => huggingFaceAI("fixGrammar", text),
@@ -24,7 +27,10 @@ export default function NoteToolbox() {
   };
 
   const handleOpenSheet = () => {
-    setIsSheetOpen(true);
+    onOpen?.();
+    requestAnimationFrame(() => {
+      setIsSheetOpen(true);
+    });
   };
 
   return (

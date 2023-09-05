@@ -1,4 +1,3 @@
-import { View } from "moti";
 import React, { ComponentProps } from "react";
 import Animated, {
   useAnimatedKeyboard,
@@ -8,34 +7,10 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { YStack, getTokenValue } from "tamagui";
 
-import Spacer from "components/spacer";
-
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 type Props = Omit<ComponentProps<typeof AnimatedYStack>, "key"> & {
   offset?: number;
-};
-
-const from = {
-  transform: [{ translateY: -20 }],
-  opacity: 0,
-};
-const animate = {
-  transform: [{ translateY: 0 }],
-  opacity: 1,
-};
-
-const wrapWithAnimatedView = (child: React.ReactNode, idx: number) => {
-  return (
-    <View
-      key={idx}
-      transition={{ type: "spring" }}
-      from={from}
-      animate={animate}
-    >
-      {child}
-    </View>
-  );
 };
 
 export default function AnimatedKeyboardView({ children, ...props }: Props) {
@@ -62,12 +37,7 @@ export default function AnimatedKeyboardView({ children, ...props }: Props) {
       style={stylez}
       {...props}
     >
-      {React.Children.toArray(children).map((child, idx) => {
-        if (React.isValidElement(child) && child.type !== Spacer) {
-          return wrapWithAnimatedView(child, idx);
-        }
-        return child;
-      })}
+      {children}
     </AnimatedYStack>
   );
 }

@@ -32,11 +32,8 @@ export default function RootNavigator() {
 
   const screenOptions = useMemo<NativeStackNavigationOptions>(
     () => ({
-      // statusBarStyle: themeName === "dark" ? "light" : "dark",
       headerTintColor: foregroundColor,
-      statusBarColor: "transparent",
       headerBackTitleVisible: false,
-      statusBarTranslucent: true,
       headerBackTitle: "",
       headerTitle,
     }),

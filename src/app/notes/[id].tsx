@@ -2,10 +2,21 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FormikProvider } from "formik";
 import React from "react";
-import { KeyboardAvoidingView, TextInput } from "react-native";
+import { Keyboard, TextInput } from "react-native";
+import Animated, {
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 import { YStack } from "tamagui";
 
-import { AutoSave, Composer, NoteHeaderRight, NoteToolbox } from "components";
+import {
+  AutoSave,
+  Composer,
+  NoteHeaderRight,
+  NoteTitleInput,
+  NoteToolbox,
+} from "components";
+import { ComposerRef } from "components/composer/types";
 import { useNotesContext } from "contexts";
 import {
   useCreateEmptyNoteMutation,
@@ -24,6 +35,14 @@ export default function NotePage() {
   const headerHeight = useHeaderHeight();
   const onCreateEmptyNote = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
+  const { height } = useAnimatedKeyboard();
+  const stylez = useAnimatedStyle(
+    () => ({
+      paddingBottom: height.value,
+      flex: 1,
+    }),
+    [height]
+  );
 
   const onNavigateProfile = useNavigateProfile();
   const { notes } = useNotesContext();
@@ -32,7 +51,8 @@ export default function NotePage() {
 
   const notePrivacyMutation = useNotePrivacyMutation();
 
-  const richTextRef = React.useRef<TextInput>(null);
+  const titleInputRef = React.useRef<TextInput>(null);
+  const richTextRef = React.useRef<ComposerRef>(null);
 
   const togglePrivacy = async () => {
     if (!note) return;
@@ -45,6 +65,20 @@ export default function NotePage() {
     navigation.goBack();
   };
 
+  const onToolboxSheetOpen = () => {
+    if (!richTextRef.current || !titleInputRef.current) {
+      return Keyboard.dismiss();
+    }
+
+    if (richTextRef.current.isFocused()) {
+      richTextRef.current?.blur();
+    }
+
+    if (titleInputRef.current.isFocused()) {
+      titleInputRef.current?.blur();
+    }
+  };
+
   return (
     <FormikProvider value={config}>
       <NoteHeaderRight
@@ -54,19 +88,14 @@ export default function NotePage() {
         onPressPlus={onCreateEmptyNote}
         onPressProfile={onNavigateProfile}
       />
-      <YStack pt={headerHeight} flex={1} bg="$background">
-        <AutoSave id={id} />
-        <Composer
-          note={config.values.note}
-          ref={richTextRef}
-          onUserInput={config.handleChange("note")}
-          onTitleChange={config.handleChange("title")}
-          title={config.values.title}
-        />
-        <KeyboardAvoidingView behavior="position">
-          <NoteToolbox />
-        </KeyboardAvoidingView>
-      </YStack>
+      <Animated.View style={stylez}>
+        <YStack pt={headerHeight} flex={1} bg="$background">
+          <AutoSave id={id} />
+          <NoteTitleInput ref={titleInputRef} />
+          <Composer ref={richTextRef} />
+          <NoteToolbox onOpen={onToolboxSheetOpen} />
+        </YStack>
+      </Animated.View>
     </FormikProvider>
   );
 }

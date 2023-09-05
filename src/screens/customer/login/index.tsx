@@ -1,17 +1,9 @@
 import React from "react";
-import { Control } from "react-hook-form";
 import { Heading, Text, Button, View } from "tamagui";
 
 import { Spacer, AuthLayout, PhoneInput } from "components";
 
-interface LoginViewProps {
-  isSubmitDisabled: boolean;
-  onSubmit: () => void;
-  control: Control<{
-    phoneNumber: string;
-    country: string;
-  }>;
-}
+import { LoginViewProps } from "./types";
 
 export default function LoginView({
   isSubmitDisabled,
