@@ -12,11 +12,15 @@ export default function Handle({
 }: BottomSheetHandleProps & { title?: string }) {
   const theme = useTheme();
   const foregroundColor = theme.color.get();
+  const bgColor = theme.background.get();
   return (
     <BottomSheetHandle
       {...props}
       indicatorStyle={styles.indicator}
-      style={[styles.container, { borderBottomColor: foregroundColor }]}
+      style={[
+        styles.container,
+        { borderBottomColor: foregroundColor, backgroundColor: bgColor },
+      ]}
     >
       <H6 textAlign="center" fontStyle="italic">
         {title}
@@ -28,7 +32,7 @@ export default function Handle({
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderTopStartRadius: 200,
+
     paddingBottom: 16,
     paddingTop: 12,
   },

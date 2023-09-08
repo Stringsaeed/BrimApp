@@ -10,7 +10,7 @@ import NotePage from "app/notes/[id]";
 import ArchiveNotesPage from "app/notes/archive";
 import TrashedNotes from "app/notes/trash";
 import { ArchivedNotesHeaderBackground } from "components";
-import { DashboardScreen } from "screens";
+import { DashboardScreen, PreferencesView } from "screens";
 
 export default function createAppGroup<
   ParamsList extends ParamListBase,
@@ -80,6 +80,15 @@ export default function createAppGroup<
         options={{
           headerBackTitleVisible: false,
           title: "Account Information",
+          headerBackTitle: "",
+        }}
+      />
+      <creator.Screen
+        name="Preferences"
+        component={PreferencesView}
+        options={{
+          headerBackTitleVisible: false,
+          title: "Preferences",
           headerBackTitle: "",
         }}
       />

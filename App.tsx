@@ -5,7 +5,7 @@ import { enableFreeze } from "react-native-screens";
 import { AppContainer } from "containers";
 import { useLoadAssets } from "hooks";
 
-enableFreeze(true);
+enableFreeze(false);
 
 export default function App() {
   const isLoaded = useLoadAssets();

@@ -44,6 +44,17 @@ const config = createTamagui({
     sm: { maxWidth: 800 },
     xs: { maxWidth: 660 },
   }),
+  themes: {
+    ...themes,
+    light: {
+      ...themes.light,
+      primary: "#000000",
+    },
+    dark: {
+      ...themes.dark,
+      primary: "#ffffff",
+    },
+  },
   fonts: {
     heading: headingFont,
     body: bodyFont,
@@ -51,10 +62,9 @@ const config = createTamagui({
   shouldAddPrefersColorThemes: false,
   themeClassNameOnRoot: false,
   defaultTheme: "dark",
-  shorthands,
   animations,
+  shorthands,
   tokens,
-  themes,
 });
 export type AppConfig = typeof config;
 declare module "tamagui" {

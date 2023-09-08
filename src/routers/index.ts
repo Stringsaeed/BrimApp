@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Trash: undefined;
   Profile: undefined;
   AccountInfo: undefined;
+  Preferences: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

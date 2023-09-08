@@ -20,3 +20,4 @@ export { default as useRecaptchaVerifier } from "./use-recaptcha-verifier";
 export { default as useHaptic } from "./use-haptic";
 export { default as useHapticCallback } from "./use-haptic-callback";
 export { default as useLoginForm } from "./use-login-form";
+export { default as useUserTheme } from "./use-user-theme";

@@ -29,12 +29,17 @@ export default function Profile() {
           <ListItem title="Notifications Settings" disabled />
         </YGroup.Item>
         <YGroup.Item>
-          <ListItem title="Preferences" disabled />
+          <ListItem
+            title="Preferences"
+            onPress={() => {
+              navigation.navigate("Preferences");
+            }}
+          />
         </YGroup.Item>
       </YGroup>
       <Spacer />
-      <Button bg="$pink6" size="$5" onPress={() => signOutMutation.mutate()}>
-        <Button.Text>Sign out</Button.Text>
+      <Button bg="indigo" size="$5" onPress={() => signOutMutation.mutate()}>
+        <Button.Text color="$background">Sign out</Button.Text>
       </Button>
     </ScreenContainer>
   );

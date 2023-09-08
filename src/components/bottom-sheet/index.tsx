@@ -1,4 +1,5 @@
 import {
+  BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetHandleProps,
   BottomSheetModal,
@@ -6,8 +7,8 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { ForwardedRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTheme } from "tamagui";
 
-import BlurBackdrop from "./blur-backdrop";
 import Handle from "./handle";
 
 interface Props extends BottomSheetProps {
@@ -23,6 +24,8 @@ const BottomSheet = (
 ) => {
   const { top } = useSafeAreaInsets();
 
+  const theme = useTheme();
+
   const renderHandle = useCallback(
     (props: BottomSheetHandleProps) => {
       return <Handle title={title} {...props} />;
@@ -31,7 +34,13 @@ const BottomSheet = (
   );
 
   const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => <BlurBackdrop {...props} />,
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    ),
     []
   );
 
@@ -40,6 +49,7 @@ const BottomSheet = (
       {...props}
       ref={ref}
       topInset={top}
+      backgroundStyle={{ backgroundColor: theme.background.get() }}
       handleComponent={renderHandle}
       backdropComponent={renderBackdrop}
     >
