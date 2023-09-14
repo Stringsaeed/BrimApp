@@ -35,9 +35,11 @@ export default function CountryBottomSheet({
     <>
       <Button
         size="$5"
-        bg="$gray1"
+        bg="$backgroundTransparent"
         borderWidth={1}
+        borderColor="$gray5"
         onPress={handleOnPress}
+        scaleIcon={1.4}
         icon={({ color, size }) => (
           <Circle size={size} overflow="hidden" bg={color}>
             <Image

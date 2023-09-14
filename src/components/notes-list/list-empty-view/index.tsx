@@ -61,7 +61,7 @@ export default function ListEmptyView() {
       <AnimatedYStack flex={1} justifyContent="flex-end">
         <LinearGradient
           style={StyleSheet.absoluteFill}
-          colors={["$background", "$background", "$pink6"]}
+          colors={["$background", "$background", "$accent"]}
         />
         <AnimatedYStack
           entering={FadeIn}

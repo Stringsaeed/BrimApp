@@ -2,7 +2,7 @@ const tamagui = [
   "@tamagui/babel-plugin",
   {
     disableExtraction: process.env.NODE_ENV === "development",
-    config: "./src/config/tamagui.config.ts",
+    config: "./src/themes/theme.ts",
     components: ["tamagui"],
     logTimings: true,
   },
@@ -17,10 +17,13 @@ const inlineEnv = [
 
 const reanimated = "react-native-reanimated/plugin";
 
+const productionPlugins =
+  process.env.NODE_ENV === "production" ? [tamagui] : [];
+
 module.exports = function (api) {
   api.cache(true);
   return {
-    plugins: [tamagui, inlineEnv, reanimated],
+    plugins: [inlineEnv, ...productionPlugins, reanimated],
     presets: ["babel-preset-expo"],
   };
 };

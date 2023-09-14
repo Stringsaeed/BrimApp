@@ -6,3 +6,4 @@ export const DropdownMenuContent = DropdownMenu.Content;
 export const DropdownMenuItem = DropdownMenu.Item;
 export const DropdownMenuItemTitle = DropdownMenu.ItemTitle;
 export const DropdownMenuItemIcon = DropdownMenu.ItemIcon;
+export const DropdownMenuCheckboxItem = DropdownMenu.CheckboxItem;

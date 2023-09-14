@@ -1,4 +1,2 @@
-export { default as theme } from "./theme";
-export type { ColorProp } from "./types";
-export * from "./utils";
+export { default as themeConfig } from "./theme";
 export * from "./dropdown";

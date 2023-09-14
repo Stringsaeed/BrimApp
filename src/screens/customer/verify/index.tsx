@@ -40,14 +40,16 @@ export default function VerifyView({
       />
       <Spacer />
       <Button
-        borderColor="$pink12"
-        bg="$pink6"
+        borderColor="$accent"
+        bg="$accent"
         size="$5"
+        width="100%"
         opacity={!code ? 0.5 : 1}
         disabled={!code}
         onPress={onSubmit}
+        textProps={{ color: "$background" }}
       >
-        <Button.Text>Login</Button.Text>
+        Login
       </Button>
       <View />
     </AuthLayout>

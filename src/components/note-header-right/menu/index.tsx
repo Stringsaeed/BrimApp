@@ -1,6 +1,6 @@
-import { DotsThree } from "phosphor-react-native";
+import { MoreHorizontal } from "@tamagui/lucide-icons";
 import React from "react";
-import { Button, useTheme } from "tamagui";
+import { Button } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -25,18 +25,15 @@ export default function NotePageHeaderMenu({
   onPressLock,
   isPrivate,
 }: NotePageHeaderMenuProps) {
-  const theme = useTheme();
-  const text = theme.color.get();
-
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <Button
-          size="$3"
+          // size="$3"
           bg="$backgroundTransparent"
           scaleIcon={2}
-          icon={({ size }) => (
-            <DotsThree weight="bold" color={text} size={size} />
+          icon={({ color, size }) => (
+            <MoreHorizontal color={color} size={size} />
           )}
         />
       </DropdownMenuTrigger>

@@ -89,7 +89,11 @@ export default function NotePage() {
         onPressProfile={onNavigateProfile}
       />
       <Animated.View style={stylez}>
-        <YStack pt={headerHeight} flex={1} bg="$background">
+        <YStack
+          backgroundColor="$background"
+          paddingTop={headerHeight}
+          flex={1}
+        >
           <AutoSave id={id} />
           <NoteTitleInput ref={titleInputRef} />
           <Composer ref={richTextRef} />

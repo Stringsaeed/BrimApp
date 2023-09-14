@@ -1,37 +1,30 @@
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
-  BottomSheetHandleProps,
   BottomSheetModal,
   BottomSheetProps,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import React, { ForwardedRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useTheme } from "tamagui";
+import { Stack, useTheme } from "tamagui";
 
-import Handle from "./handle";
-
-interface Props extends BottomSheetProps {
+interface Props extends Partial<BottomSheetProps> {
   title?: string;
+  children: React.ReactNode;
 }
 
-// TODO: add footer component
-
 // component
-const BottomSheet = (
-  { children, title, ...props }: Props,
+const BottomSheetComponent = (
+  { children, ...props }: Props,
   ref: ForwardedRef<BottomSheetModal>
 ) => {
-  const { top } = useSafeAreaInsets();
-
+  const { bottom, top } = useSafeAreaInsets();
   const theme = useTheme();
 
-  const renderHandle = useCallback(
-    (props: BottomSheetHandleProps) => {
-      return <Handle title={title} {...props} />;
-    },
-    [title]
-  );
+  const renderHandle = useCallback(() => {
+    return null;
+  }, []);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -46,17 +39,30 @@ const BottomSheet = (
 
   return (
     <BottomSheetModal
+      enablePanDownToClose
+      enableDynamicSizing
       {...props}
       ref={ref}
       topInset={top}
-      backgroundStyle={{ backgroundColor: theme.background.get() }}
+      backgroundStyle={{ backgroundColor: theme.backgroundTransparent.get() }}
       handleComponent={renderHandle}
       backdropComponent={renderBackdrop}
     >
-      {children}
+      <BottomSheetView>
+        <Stack
+          bg="$background"
+          p="$4"
+          borderTopRightRadius="$5"
+          borderTopLeftRadius="$5"
+          pb={bottom}
+        >
+          {children}
+        </Stack>
+      </BottomSheetView>
     </BottomSheetModal>
   );
 };
 
 // forward ref
-export default React.forwardRef(BottomSheet);
+const BottomSheet = React.forwardRef(BottomSheetComponent);
+export default BottomSheet;

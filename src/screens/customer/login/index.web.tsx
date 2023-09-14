@@ -25,7 +25,7 @@ export default function LoginView({
       <Card.Footer>
         <View maxWidth={400} px="$3.5" flex={1}>
           <Button
-            bg="$pink6"
+            bg="$accent"
             size="$5"
             width="100%"
             opacity={isSubmitDisabled ? 0.5 : 1}

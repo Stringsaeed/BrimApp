@@ -1,4 +1,7 @@
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
+import { match } from "ts-pattern";
+
+export type HuggingFaceAIType = "fixGrammar" | "rephraseSentences";
 
 const huggingFaceApi = axios.create({
   headers: {
@@ -18,14 +21,20 @@ async function fixGrammarAPI(text: string) {
   return response.data[0].generated_text;
 }
 
-export default async function huggingFaceAI(_: "fixGrammar", text: string) {
-  try {
-    return fixGrammarAPI(text);
-  } catch (err) {
-    if (isAxiosError(err)) {
-      console.log(err.response?.data);
+async function rephraseSentencesAPI(text: string) {
+  const response = await huggingFaceApi.post<[{ generated_text: string }]>(
+    `/unikei/t5-base-split-and-rephrase`,
+    {
+      inputs: text,
     }
+  );
 
-    throw err;
-  }
+  return response.data[0].generated_text;
+}
+
+export default function huggingFaceAI(type: HuggingFaceAIType, text: string) {
+  return match(type)
+    .with("fixGrammar", () => fixGrammarAPI(text))
+    .with("rephraseSentences", () => rephraseSentencesAPI(text))
+    .exhaustive();
 }

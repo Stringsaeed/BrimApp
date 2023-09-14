@@ -17,8 +17,8 @@ function NoteTitleInputComponent(
   return (
     <Input
       ref={ref}
-      px="$4"
-      py="$2"
+      paddingHorizontal="$4"
+      paddingVertical={0}
       borderWidth={0}
       borderBottomWidth={1}
       accessibilityLabel="Text input field"
@@ -27,6 +27,11 @@ function NoteTitleInputComponent(
       onChangeText={handleChange("title")}
       onBlur={handleBlur("title")}
       textAlignVertical="center"
+      fontSize="$8"
+      lineHeight={undefined}
+      // height={undefined}
+      // minHeight="$10"
+      // height="auto"
       {...props}
     />
   );

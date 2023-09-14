@@ -18,15 +18,16 @@ export default function LoginView({
       <PhoneInput control={control} />
       <Spacer />
       <Button
-        borderColor="$pink12"
-        bg="$pink6"
+        borderColor="$accent"
+        bg="$accent"
         size="$5"
         width="100%"
         opacity={isSubmitDisabled ? 0.5 : 1}
         disabled={isSubmitDisabled}
         onPress={onSubmit}
+        textProps={{ color: "$background" }}
       >
-        <Button.Text>Continue</Button.Text>
+        Continue
       </Button>
       <View />
     </AuthLayout>

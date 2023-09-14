@@ -19,7 +19,7 @@ export default function AuthLayout({ children, heading }: AuthLayoutProps) {
       <LinearGradient
         flex={1}
         style={StyleSheet.absoluteFill}
-        colors={["$background", "$pink6"]}
+        colors={["$background", "$accent"]}
         start={[0, 0.5]}
         end={[1.25, 0.5]}
       />

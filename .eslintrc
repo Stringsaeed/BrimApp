@@ -58,6 +58,13 @@
         "jest": true,
         "jest/globals": true
       }
+    },
+    {
+      "files": ["theme.ts"],
+      "rules": {
+        "import/no-default-export": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ]
 }

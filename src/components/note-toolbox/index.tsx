@@ -1,35 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
-import { MagicWand, Sparkle } from "phosphor-react-native";
-import React, { Fragment } from "react";
-import { Button, Sheet, Spinner } from "tamagui";
+import React, { Fragment, useRef } from "react";
+import { Button, Spinner } from "tamagui";
 
+import BottomSheet from "components/bottom-sheet";
+import { useFixGrammarMutation } from "hooks";
 import { NoteFormValues } from "hooks/use-note-form";
-import huggingFaceAI from "services/ai";
 
 interface Props {
   onOpen?: () => void;
 }
 export default function NoteToolbox({ onOpen }: Props) {
-  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
-  const fixGrammarMutation = useMutation(
-    (text: string) => huggingFaceAI("fixGrammar", text),
-    {
-      onSuccess(data) {
-        setFieldValue("note", data);
-      },
-    }
-  );
+  const ref = useRef<BottomSheetModal>(null);
+  const fixGrammarMutation = useFixGrammarMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
 
-  const handleFixGrammar = () => {
-    fixGrammarMutation.mutate(values.note);
+  const handleFixGrammar = async () => {
+    const data = await fixGrammarMutation.mutateAsync(values.note);
+    setFieldValue("note", data);
   };
 
   const handleOpenSheet = () => {
     onOpen?.();
     requestAnimationFrame(() => {
-      setIsSheetOpen(true);
+      ref.current?.present();
     });
   };
 
@@ -40,55 +35,47 @@ export default function NoteToolbox({ onOpen }: Props) {
         bottom={60}
         right={20}
         borderRadius="$radius.12"
-        backgroundColor="$pink10"
-        scaleIcon={2.2}
-        icon={({ color, size }) => <MagicWand color={color} size={size} />}
+        bg="$accent"
+        scaleIcon={2}
+        icon={({ size }) => <Wand2 color="$background" size={size} />}
         aspectRatio={1}
         width={60}
         height={60}
         onPress={handleOpenSheet}
-        shadowColor="$pink10"
-        shadowOffset={{ height: 10, width: 0 }}
-        shadowOpacity={0.5}
-        shadowRadius={20}
-        elevationAndroid={2}
+        elevate
       />
-      <Sheet
-        dismissOnSnapToBottom
-        open={isSheetOpen}
-        onOpenChange={setIsSheetOpen}
-        animation="bouncy"
-        snapPoints={[25, 50]}
-      >
-        <Sheet.Overlay
-          animation="lazy"
-          enterStyle={{ opacity: 0 }}
-          exitStyle={{ opacity: 0 }}
-        />
-        <Sheet.Handle />
-        <Sheet.Frame flex={1} padding="$4">
-          <Button
-            size="$6"
-            onPress={handleFixGrammar}
-            bg="$blue10"
-            shadowColor="$pink10"
-            shadowOffset={{ height: 10, width: 0 }}
-            shadowOpacity={0.5}
-            shadowRadius={20}
-            elevationAndroid={2}
-            scaleIcon={1.5}
-            icon={({ color, size }) =>
-              fixGrammarMutation.isLoading ? (
-                <Spinner color={color} />
-              ) : (
-                <Sparkle size={size} color={color} />
-              )
-            }
-          >
+      <BottomSheet ref={ref}>
+        <Button
+          mb="$4"
+          size="$6"
+          onPress={handleFixGrammar}
+          bg="$accent"
+          elevate
+        >
+          <Button.Icon scaleIcon={1.5}>
+            {fixGrammarMutation.isLoading ? (
+              <Spinner color="$background" />
+            ) : (
+              <Sparkles size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
             Fix Grammar With AI
-          </Button>
-        </Sheet.Frame>
-      </Sheet>
+          </Button.Text>
+        </Button>
+        <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
+          <Button.Icon scaleIcon={1.5}>
+            {fixGrammarMutation.isLoading ? (
+              <Spinner color="$background" />
+            ) : (
+              <Sparkles size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
+            Rephrase With AI
+          </Button.Text>
+        </Button>
+      </BottomSheet>
     </Fragment>
   );
 }

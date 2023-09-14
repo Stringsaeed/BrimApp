@@ -38,7 +38,7 @@ export default function Profile() {
         </YGroup.Item>
       </YGroup>
       <Spacer />
-      <Button bg="indigo" size="$5" onPress={() => signOutMutation.mutate()}>
+      <Button bg="$accent" size="$5" onPress={() => signOutMutation.mutate()}>
         <Button.Text color="$background">Sign out</Button.Text>
       </Button>
     </ScreenContainer>

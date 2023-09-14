@@ -35,7 +35,6 @@ export default function createAppGroup<
         name="Note"
         component={NotePage}
         options={{
-          headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           headerShown: true,
           title: "",

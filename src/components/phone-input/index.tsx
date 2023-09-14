@@ -41,9 +41,8 @@ export default function PhoneInput({ control }: Props) {
               textAlignVertical="center"
               onChangeText={onChange}
               onBlur={onBlur}
-              style={{
-                fontVariant: ["tabular-nums"],
-              }}
+              fontVariant={["tabular-nums"]}
+              maxLength={15}
             />
           )}
         />

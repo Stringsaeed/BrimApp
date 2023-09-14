@@ -1,16 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-
-import { theme } from "themes";
+import { StyleSheet } from "react-native";
+import { View } from "tamagui";
 
 export default function Divider() {
-  return <View style={styles.divider} />;
+  return (
+    <View
+      borderBottomColor="$accent"
+      borderBottomWidth={StyleSheet.hairlineWidth}
+      alignSelf="stretch"
+    />
+  );
 }
-
-const styles = StyleSheet.create({
-  divider: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.info,
-    alignSelf: "stretch",
-  },
-});
