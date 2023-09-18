@@ -25,7 +25,6 @@ export default function createAppGroup<
         name="Dashboard"
         component={DashboardScreen}
         options={{
-          headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           headerShown: true,
           title: "",

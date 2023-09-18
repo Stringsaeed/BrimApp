@@ -33,7 +33,7 @@ export default function NotePage() {
     params: { id },
   } = useRoute<RootStackScreenProps<"Note">["route"]>();
   const headerHeight = useHeaderHeight();
-  const onCreateEmptyNote = useCreateEmptyNoteMutation();
+  const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
   const { height } = useAnimatedKeyboard();
   const stylez = useAnimatedStyle(
@@ -85,16 +85,16 @@ export default function NotePage() {
         onPressLock={togglePrivacy}
         onPressTrash={handleDelete}
         isPrivate={note?.is_private}
-        onPressPlus={onCreateEmptyNote}
+        onPressPlus={createEmptyNoteMutation.mutate}
         onPressProfile={onNavigateProfile}
       />
+      <AutoSave id={id} />
       <Animated.View style={stylez}>
         <YStack
           backgroundColor="$background"
           paddingTop={headerHeight}
           flex={1}
         >
-          <AutoSave id={id} />
           <NoteTitleInput ref={titleInputRef} />
           <Composer ref={richTextRef} />
           <NoteToolbox onOpen={onToolboxSheetOpen} />

@@ -1,5 +1,4 @@
 import {
-  BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetProps,
@@ -8,6 +7,8 @@ import {
 import React, { ForwardedRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, useTheme } from "tamagui";
+
+import AccentBackdrop from "./accent-backdrop";
 
 interface Props extends Partial<BottomSheetProps> {
   title?: string;
@@ -27,13 +28,7 @@ const BottomSheetComponent = (
   }, []);
 
   const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop
-        {...props}
-        disappearsOnIndex={-1}
-        appearsOnIndex={0}
-      />
-    ),
+    (props: BottomSheetBackdropProps) => <AccentBackdrop {...props} />,
     []
   );
 
@@ -44,7 +39,9 @@ const BottomSheetComponent = (
       {...props}
       ref={ref}
       topInset={top}
-      backgroundStyle={{ backgroundColor: theme.backgroundTransparent.get() }}
+      backgroundStyle={{
+        backgroundColor: theme.backgroundTransparent.get(),
+      }}
       handleComponent={renderHandle}
       backdropComponent={renderBackdrop}
     >
@@ -54,6 +51,11 @@ const BottomSheetComponent = (
           p="$4"
           borderTopRightRadius="$5"
           borderTopLeftRadius="$5"
+          shadowColor="$accent"
+          shadowOffset={{ height: -2, width: 0 }}
+          shadowOpacity={0.1}
+          shadowRadius={4}
+          elevationAndroid={4}
           pb={bottom}
         >
           {children}

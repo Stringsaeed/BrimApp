@@ -6,7 +6,7 @@ import {
   Extrapolate,
 } from "react-native-reanimated";
 
-import { useNotesList } from "contexts";
+import { usePullToActionContext } from "contexts";
 
 import DashboardHeaderRight from "./right";
 
@@ -20,7 +20,8 @@ export default function DashboardHeader({
   onPressCreate,
 }: Props) {
   const navigation = useNavigation();
-  const { emptyScreenTranslateY: translateY } = useNotesList();
+  const { translateY } = usePullToActionContext();
+  // const { emptyScreenTranslateY } = useNotesList();
   const stylez = useAnimatedStyle(() => {
     return {
       transform: [

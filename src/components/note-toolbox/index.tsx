@@ -5,7 +5,7 @@ import React, { Fragment, useRef } from "react";
 import { Button, Spinner } from "tamagui";
 
 import BottomSheet from "components/bottom-sheet";
-import { useFixGrammarMutation } from "hooks";
+import { useFixGrammarMutation, useRephraseSentenceMutation } from "hooks";
 import { NoteFormValues } from "hooks/use-note-form";
 
 interface Props {
@@ -14,11 +14,17 @@ interface Props {
 export default function NoteToolbox({ onOpen }: Props) {
   const ref = useRef<BottomSheetModal>(null);
   const fixGrammarMutation = useFixGrammarMutation();
+  const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
 
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
     setFieldValue("note", data);
+  };
+
+  const handleRephraseSentence = async () => {
+    const response = await rephraseSentenceMutation.mutateAsync(values.note);
+    console.log(response);
   };
 
   const handleOpenSheet = () => {
@@ -63,9 +69,9 @@ export default function NoteToolbox({ onOpen }: Props) {
             Fix Grammar With AI
           </Button.Text>
         </Button>
-        <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
+        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
           <Button.Icon scaleIcon={1.5}>
-            {fixGrammarMutation.isLoading ? (
+            {rephraseSentenceMutation.isLoading ? (
               <Spinner color="$background" />
             ) : (
               <Sparkles size="$2" color="$background" />

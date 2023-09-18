@@ -1,6 +1,5 @@
 import { createAnimations } from "@tamagui/animations-moti";
 import { createInterFont } from "@tamagui/font-inter";
-import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { themes, tokens } from "@tamagui/themes";
 import { createTamagui } from "tamagui";
@@ -28,31 +27,19 @@ const animations = createAnimations({
 const headingFont = createInterFont();
 const bodyFont = createInterFont();
 const config = createTamagui({
-  media: createMedia({
-    pointerCoarse: { pointer: "coarse" },
-    hoverNone: { hover: "none" },
-    gtLg: { minWidth: 1280 + 1 },
-    gtMd: { minWidth: 1020 + 1 },
-    gtSm: { minWidth: 800 + 1 },
-    gtXs: { minWidth: 660 + 1 },
-    short: { maxHeight: 820 },
-    tall: { minHeight: 820 },
-    xxl: { maxWidth: 1600 },
-    xl: { maxWidth: 1420 },
-    lg: { maxWidth: 1280 },
-    md: { maxWidth: 1020 },
-    sm: { maxWidth: 800 },
-    xs: { maxWidth: 660 },
-  }),
   themes: {
     ...themes,
     light: {
       ...themes.light,
-      accent: "#005b74",
+      backgroundTransparent: "#ffffff00",
+      accent: themes.light.blue10,
+      background: "#ffffff",
     },
     dark: {
       ...themes.dark,
-      accent: "#0093a7",
+      backgroundTransparent: "#00000000",
+      accent: themes.dark.blue10,
+      background: "#000000",
     },
   },
   fonts: {

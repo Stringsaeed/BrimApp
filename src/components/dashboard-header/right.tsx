@@ -13,19 +13,22 @@ interface DashboardHeaderRightProps {
 }
 
 export default function DashboardHeaderRight({
+  createAnimatedStyle,
   onPressProfile,
   onPressCreate,
 }: DashboardHeaderRightProps) {
   return (
     <XStack gap="$2" alignItems="center">
       <OtherMenu />
-      <Button
-        circular
-        bg="$backgroundTransparent"
-        scaleIcon={1.7}
-        onPress={onPressCreate}
-        icon={Plus}
-      />
+      <Animated.View style={createAnimatedStyle}>
+        <Button
+          circular
+          bg="$backgroundTransparent"
+          scaleIcon={1.7}
+          onPress={onPressCreate}
+          icon={Plus}
+        />
+      </Animated.View>
       <Button
         circular
         bg="$backgroundTransparent"

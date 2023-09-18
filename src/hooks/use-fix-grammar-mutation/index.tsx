@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 
-import huggingFaceAI from "services/ai";
+import { fixGrammarAPI } from "services/ai";
 
 export default function useFixGrammarMutation() {
-  return useMutation((text: string) => huggingFaceAI("fixGrammar", text));
+  return useMutation(fixGrammarAPI, {
+    retry: 3,
+  });
 }

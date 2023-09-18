@@ -20,19 +20,21 @@ function NoteTitleInputComponent(
       paddingHorizontal="$4"
       paddingVertical={0}
       borderWidth={0}
-      borderBottomWidth={1}
       accessibilityLabel="Text input field"
       placeholder="Wanna title your note? 😒"
       value={values.title}
       onChangeText={handleChange("title")}
       onBlur={handleBlur("title")}
       textAlignVertical="center"
-      fontSize="$8"
+      fontSize="$6"
       lineHeight={undefined}
       // height={undefined}
       // minHeight="$10"
       // height="auto"
       {...props}
+      bg="$background"
+      backgroundColor="$background"
+      color="$gray12"
     />
   );
 }

@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-import Animated, { useSharedValue } from "react-native-reanimated";
 
 import {
   useCreateNoteMutation,
@@ -18,7 +17,6 @@ type NotesListContext = {
   archiveNote: (id: string) => void;
   unarchiveNote: (id: string) => void;
   restoreNote: (id: string) => void;
-  emptyScreenTranslateY: Animated.SharedValue<number>;
 };
 
 type NotesListProviderProps = PropsWithChildren<{
@@ -35,7 +33,6 @@ export const NotesListProvider = ({
   children,
   notes,
 }: NotesListProviderProps) => {
-  const emptyScreenTranslateY = useSharedValue(0);
   const createNoteMutation = useCreateNoteMutation();
   const updateNoteMutation = useUpdateNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
@@ -144,7 +141,6 @@ export const NotesListProvider = ({
 
   const contextValue = useMemo<NotesListContext>(
     () => ({
-      emptyScreenTranslateY,
       unarchiveNote,
       archiveNote,
       restoreNote,
@@ -155,7 +151,6 @@ export const NotesListProvider = ({
       notes,
     }),
     [
-      emptyScreenTranslateY,
       unarchiveNote,
       archiveNote,
       restoreNote,

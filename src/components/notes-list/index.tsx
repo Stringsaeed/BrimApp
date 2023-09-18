@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { ListRenderItemInfo, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
-import { Separator, YGroup } from "tamagui";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Separator, Stack, YGroup } from "tamagui";
 
 import PullToAction from "components/pull-to-action";
 import { useNotesList } from "contexts";
@@ -19,6 +20,7 @@ export default function NotesList({
   pullToActionEnabled,
   onPressNote,
 }: NotesListProps) {
+  const { bottom } = useSafeAreaInsets();
   const { restoreNote, archiveNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
@@ -63,20 +65,24 @@ export default function NotesList({
     [handleLeftAction, handleRemove, onPressNote]
   );
 
-  if (!notes.length) return <ListEmptyView />;
-
   return (
     <PullToAction enabled={pullToActionEnabled}>
-      <Animated.View style={$content_content}>
-        <YGroup
-          bordered
-          separator={<Separator />}
-          marginHorizontal="$4"
-          overflow="hidden"
-        >
-          {notes.map((note, index) => renderItem({ item: note, index }))}
-        </YGroup>
-      </Animated.View>
+      {notes.length ? (
+        <Animated.View style={$content_content}>
+          <YGroup
+            bordered
+            separator={<Separator />}
+            marginHorizontal="$4"
+            overflow="hidden"
+          >
+            {notes.map((note, index) => renderItem({ item: note, index }))}
+          </YGroup>
+        </Animated.View>
+      ) : (
+        <Stack flex={1} marginBottom={-bottom}>
+          <ListEmptyView />
+        </Stack>
+      )}
     </PullToAction>
   );
 }

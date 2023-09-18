@@ -10,6 +10,12 @@ export default function Profile() {
   const signOutMutation = useSignOutMutation();
   const navigation = useNavigation();
 
+  function navigateToFactory(name: "AccountInfo" | "Preferences") {
+    return function navigateTo() {
+      navigation.navigate<"AccountInfo" | "Preferences">(name);
+    };
+  }
+
   return (
     <ScreenContainer
       style={styles.container}
@@ -19,9 +25,7 @@ export default function Profile() {
       <YGroup bordered separator={<Separator />}>
         <YGroup.Item>
           <ListItem
-            onPress={() => {
-              navigation.navigate("AccountInfo");
-            }}
+            onPress={navigateToFactory("AccountInfo")}
             title="Account Information"
           />
         </YGroup.Item>
@@ -31,15 +35,20 @@ export default function Profile() {
         <YGroup.Item>
           <ListItem
             title="Preferences"
-            onPress={() => {
-              navigation.navigate("Preferences");
-            }}
+            onPress={navigateToFactory("Preferences")}
           />
         </YGroup.Item>
       </YGroup>
       <Spacer />
-      <Button bg="$accent" size="$5" onPress={() => signOutMutation.mutate()}>
-        <Button.Text color="$background">Sign out</Button.Text>
+      <Button
+        width="100%"
+        bg="$accent"
+        // size="$5"
+        color="$background"
+        borderRadius="$12"
+        onPress={() => signOutMutation.mutate()}
+      >
+        Sign out
       </Button>
     </ScreenContainer>
   );

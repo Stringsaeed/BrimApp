@@ -29,8 +29,7 @@ export default function NotePageHeaderMenu({
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <Button
-          // size="$3"
-          bg="$backgroundTransparent"
+          backgroundColor="transparent"
           scaleIcon={2}
           icon={({ color, size }) => (
             <MoreHorizontal color={color} size={size} />

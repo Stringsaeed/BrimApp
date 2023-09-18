@@ -5,7 +5,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
-import { AuthProvider, NotesProvider, QueryProvider } from "contexts";
+import {
+  AuthProvider,
+  NotesProvider,
+  PullToActionProvider,
+  QueryProvider,
+} from "contexts";
 import { useUserTheme } from "hooks";
 import { AppNavigator } from "navigation";
 import { themeConfig } from "themes";
@@ -23,9 +28,11 @@ export default function AppContainer() {
             <GestureHandlerRootView style={styles.rootView}>
               <SafeAreaProvider>
                 <BottomSheetModalProvider>
-                  <NavigationProvider>
-                    <AppNavigator />
-                  </NavigationProvider>
+                  <PullToActionProvider>
+                    <NavigationProvider>
+                      <AppNavigator />
+                    </NavigationProvider>
+                  </PullToActionProvider>
                 </BottomSheetModalProvider>
               </SafeAreaProvider>
             </GestureHandlerRootView>

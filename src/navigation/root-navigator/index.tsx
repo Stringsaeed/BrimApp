@@ -34,6 +34,7 @@ export default function RootNavigator() {
     () => ({
       headerTintColor: foregroundColor,
       headerBackTitleVisible: false,
+      headerShadowVisible: false,
       headerBackTitle: "",
       headerTitle,
     }),
