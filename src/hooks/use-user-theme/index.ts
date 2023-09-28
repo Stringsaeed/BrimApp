@@ -15,6 +15,15 @@ const getTheme = (value: string, systemTheme: NonNullable<ColorSchemeName>) => {
   return value === "system" ? systemTheme : value === "dark" ? "dark" : "light";
 };
 
+function syncNativeTheme(themeName: UserThemeValue) {
+  if (themeName === "system") {
+    Appearance.setColorScheme(null);
+    return;
+  }
+
+  Appearance.setColorScheme(themeName);
+}
+
 export default function useUserTheme() {
   const system = useColorScheme() ?? "light";
   const [userTheme = system, setUserTheme] = useMMKVString(
@@ -37,11 +46,6 @@ export default function useUserTheme() {
 
   const onChange = (value: UserThemeValue) => {
     setUserTheme(value);
-    if (value === "system") {
-      return;
-    }
-
-    Appearance.setColorScheme(value);
   };
 
   useEffect(() => {
@@ -51,6 +55,10 @@ export default function useUserTheme() {
   useEffect(() => {
     StatusBar.setBarStyle(theme === "dark" ? "light-content" : "dark-content");
   }, [theme]);
+
+  useEffect(() => {
+    syncNativeTheme(themeName);
+  }, [themeName]);
 
   return {
     themeName,

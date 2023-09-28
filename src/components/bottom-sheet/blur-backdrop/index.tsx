@@ -1,10 +1,16 @@
-import { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
+import { BottomSheetBackdropProps, useBottomSheet } from "@gorhom/bottom-sheet";
 import { BlurView } from "expo-blur";
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet } from "react-native";
+import {
+  TapGestureHandler,
+  TapGestureHandlerGestureEvent,
+} from "react-native-gesture-handler";
 import Animated, {
   Extrapolate,
   interpolate,
+  runOnJS,
+  useAnimatedGestureHandler,
   useAnimatedProps,
   useAnimatedStyle,
 } from "react-native-reanimated";
@@ -15,6 +21,11 @@ export default function BlurBackdrop({
   animatedIndex,
   style,
 }: BottomSheetBackdropProps) {
+  const { close } = useBottomSheet();
+
+  const handleOnPress = useCallback(() => {
+    close();
+  }, [close]);
   const containerAnimatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
       animatedIndex.value,
@@ -34,14 +45,26 @@ export default function BlurBackdrop({
     };
   });
 
+  const gestureHandler =
+    useAnimatedGestureHandler<TapGestureHandlerGestureEvent>(
+      {
+        onFinish: () => {
+          runOnJS(handleOnPress)();
+        },
+      },
+      [handleOnPress]
+    );
+
   return (
-    <Animated.View style={[style, containerAnimatedStyle]}>
-      <AnimatedBlurView
-        tint="light"
-        animatedProps={animatedProps}
-        style={[style, StyleSheet.absoluteFill, blurViewStyle]}
-      />
-    </Animated.View>
+    <TapGestureHandler onGestureEvent={gestureHandler}>
+      <Animated.View style={[style, containerAnimatedStyle]}>
+        <AnimatedBlurView
+          tint="light"
+          animatedProps={animatedProps}
+          style={[style, StyleSheet.absoluteFill, blurViewStyle]}
+        />
+      </Animated.View>
+    </TapGestureHandler>
   );
 }
 

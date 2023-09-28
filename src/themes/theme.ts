@@ -32,13 +32,13 @@ const config = createTamagui({
     light: {
       ...themes.light,
       backgroundTransparent: "#ffffff00",
-      accent: themes.light.blue10,
+      accent: themes.light.pink10,
       background: "#ffffff",
     },
     dark: {
       ...themes.dark,
       backgroundTransparent: "#00000000",
-      accent: themes.dark.blue10,
+      accent: themes.dark.pink10,
       background: "#000000",
     },
   },

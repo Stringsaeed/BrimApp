@@ -31,9 +31,9 @@ export default function PullToAction({
   const selectionActive = useSharedValue(0);
   const scrollViewGesture = Gesture.Native();
   const hapticFeedback = useHaptic();
-  const handleAdd = useCallback(async () => {
+  const handleAdd = useCallback(() => {
     hapticFeedback?.();
-    await createEmptyNoteMutation();
+    createEmptyNoteMutation.mutate();
   }, [createEmptyNoteMutation, hapticFeedback]);
 
   const panGesture = Gesture.Pan()

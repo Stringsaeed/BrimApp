@@ -1,5 +1,5 @@
 export { default as Spacing } from "./spacing";
-export { default as NotesList } from "./notes-list";
+export { default as NotesList } from "./notes-list/_INDEX";
 export { default as Composer } from "./composer";
 export { default as AutoSave } from "./auto-save";
 export { default as NoteHeaderRight } from "./note-header-right";

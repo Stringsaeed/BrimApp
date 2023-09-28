@@ -1,6 +1,5 @@
 import { MoreHorizontal } from "@tamagui/lucide-icons";
 import React from "react";
-import { Button } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -28,13 +27,7 @@ export default function NotePageHeaderMenu({
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <Button
-          backgroundColor="transparent"
-          scaleIcon={2}
-          icon={({ color, size }) => (
-            <MoreHorizontal color={color} size={size} />
-          )}
-        />
+        <MoreHorizontal />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <LockNoteDropDownItem onPressLock={onPressLock} isPrivate={isPrivate} />
@@ -44,7 +37,6 @@ export default function NotePageHeaderMenu({
               name: "archivebox",
               weight: "semibold",
               scale: "medium",
-              pointSize: 5,
             }}
             androidIconName="archive_box"
           />
@@ -56,7 +48,6 @@ export default function NotePageHeaderMenu({
               weight: "semibold",
               scale: "medium",
               name: "trash",
-              pointSize: 5,
             }}
             androidIconName="trash_simple"
           />

@@ -26,8 +26,8 @@ export default function createAppGroup<
         component={DashboardScreen}
         options={{
           headerTransparent: true,
+          title: "Dashboard",
           headerShown: true,
-          title: "",
         }}
       />
       <creator.Screen

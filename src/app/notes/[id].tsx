@@ -1,5 +1,6 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { format, parseISO } from "date-fns";
 import { FormikProvider } from "formik";
 import React from "react";
 import { Keyboard, TextInput } from "react-native";
@@ -7,7 +8,7 @@ import Animated, {
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { YStack } from "tamagui";
+import { Separator, SizableText, YStack } from "tamagui";
 
 import {
   AutoSave,
@@ -88,14 +89,18 @@ export default function NotePage() {
         onPressPlus={createEmptyNoteMutation.mutate}
         onPressProfile={onNavigateProfile}
       />
-      <AutoSave id={id} />
+      <AutoSave />
       <Animated.View style={stylez}>
         <YStack
           backgroundColor="$background"
           paddingTop={headerHeight}
           flex={1}
         >
+          <SizableText textAlign="center" size="$1">
+            {note?.updated_at && format(parseISO(note?.updated_at), "PP")}
+          </SizableText>
           <NoteTitleInput ref={titleInputRef} />
+          <Separator />
           <Composer ref={richTextRef} />
           <NoteToolbox onOpen={onToolboxSheetOpen} />
         </YStack>

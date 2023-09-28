@@ -2,7 +2,8 @@ import { ArchiveBox, ArrowUUpLeft, Lock, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
 import { Swipeable } from "react-native-gesture-handler";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { ListItem, YGroup, useTheme } from "tamagui";
+import { ListItem, useTheme } from "tamagui";
+import { YGroup } from "tamagui";
 
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
@@ -81,6 +82,7 @@ export default function NoteListItemView({
     <Animated.View exiting={FadeOut} entering={FadeIn}>
       <YGroup.Item>
         <Swipeable
+          enabled={false}
           onSwipeableWillOpen={onSwipeableWillOpen}
           renderRightActions={renderRightActions}
           renderLeftActions={renderLeftActions}

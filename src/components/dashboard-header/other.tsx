@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { AlignJustify } from "@tamagui/lucide-icons";
 import React from "react";
-import { Button } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -26,21 +25,15 @@ export default function OtherMenu() {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <Button
-          circular
-          bg="$backgroundTransparent"
-          scaleIcon={1.4}
-          icon={AlignJustify}
-        />
+        <AlignJustify />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
           <DropdownMenuItemIcon
             ios={{
-              name: "archivebox",
               weight: "semibold",
+              name: "archivebox",
               scale: "medium",
-              pointSize: 5,
             }}
             androidIconName="archive_box"
           />
@@ -53,7 +46,6 @@ export default function OtherMenu() {
               weight: "semibold",
               scale: "medium",
               name: "trash",
-              pointSize: 5,
             }}
             androidIconName="trashed"
           />

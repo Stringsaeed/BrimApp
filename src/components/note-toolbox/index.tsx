@@ -19,6 +19,8 @@ export default function NoteToolbox({ onOpen }: Props) {
 
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
+    console.log(data);
+
     setFieldValue("note", data);
   };
 

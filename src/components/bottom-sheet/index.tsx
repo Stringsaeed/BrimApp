@@ -8,7 +8,7 @@ import React, { ForwardedRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, useTheme } from "tamagui";
 
-import AccentBackdrop from "./accent-backdrop";
+import BlurBackdrop from "./blur-backdrop";
 
 interface Props extends Partial<BottomSheetProps> {
   title?: string;
@@ -28,7 +28,7 @@ const BottomSheetComponent = (
   }, []);
 
   const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => <AccentBackdrop {...props} />,
+    (props: BottomSheetBackdropProps) => <BlurBackdrop {...props} />,
     []
   );
 
