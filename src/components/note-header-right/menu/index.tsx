@@ -1,5 +1,5 @@
-import { MoreHorizontal } from "@tamagui/lucide-icons";
 import React from "react";
+import { SizableText } from "tamagui";
 
 import {
   DropdownMenuContent,
@@ -27,7 +27,7 @@ export default function NotePageHeaderMenu({
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <MoreHorizontal />
+        <SizableText color="$accent">Move</SizableText>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <LockNoteDropDownItem onPressLock={onPressLock} isPrivate={isPrivate} />

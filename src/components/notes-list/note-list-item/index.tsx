@@ -82,7 +82,6 @@ export default function NoteListItemView({
     <Animated.View exiting={FadeOut} entering={FadeIn}>
       <YGroup.Item>
         <Swipeable
-          enabled={false}
           onSwipeableWillOpen={onSwipeableWillOpen}
           renderRightActions={renderRightActions}
           renderLeftActions={renderLeftActions}

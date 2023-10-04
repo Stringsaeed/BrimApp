@@ -28,7 +28,7 @@ import {
 } from "hooks";
 import { RootStackScreenProps } from "routers";
 
-export default function NotePage() {
+export default function NoteView() {
   const navigation = useNavigation();
   const {
     params: { id },

@@ -6,11 +6,8 @@ import { BlurEffectTypes } from "react-native-screens";
 
 import AccountInfoScreen from "app/(user)/account-info";
 import Profile from "app/(user)/profile";
-import NotePage from "app/notes/[id]";
-import ArchiveNotesPage from "app/notes/archive";
-import TrashedNotes from "app/notes/trash";
 import { ArchivedNotesHeaderBackground } from "components";
-import { DashboardScreen, PreferencesView } from "screens";
+import { DashboardScreen, Notes, PreferencesView } from "screens";
 
 export default function createAppGroup<
   ParamsList extends ParamListBase,
@@ -26,13 +23,13 @@ export default function createAppGroup<
         component={DashboardScreen}
         options={{
           headerTransparent: true,
-          title: "Dashboard",
           headerShown: true,
+          title: "",
         }}
       />
       <creator.Screen
         name="Note"
-        component={NotePage}
+        component={Notes.Note}
         options={{
           headerTransparent: true,
           headerShown: true,
@@ -41,7 +38,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Archive"
-        component={ArchiveNotesPage}
+        component={Notes.Archived}
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,
@@ -53,7 +50,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Trash"
-        component={TrashedNotes}
+        component={Notes.Trashed}
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,

@@ -11,7 +11,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         "expo-build-properties",
         {
           ios: {
-            deploymentTarget: "13.0",
+            deploymentTarget: "14.0",
             useFrameworks: "static",
           },
         },

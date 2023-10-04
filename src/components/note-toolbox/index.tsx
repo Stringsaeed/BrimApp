@@ -1,5 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
+import { Archive, Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
 import React, { Fragment, useRef } from "react";
 import { Button, Spinner } from "tamagui";
@@ -53,13 +53,7 @@ export default function NoteToolbox({ onOpen }: Props) {
         elevate
       />
       <BottomSheet ref={ref}>
-        <Button
-          mb="$4"
-          size="$6"
-          onPress={handleFixGrammar}
-          bg="$accent"
-          elevate
-        >
+        <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
           <Button.Icon scaleIcon={1.5}>
             {fixGrammarMutation.isLoading ? (
               <Spinner color="$background" />
@@ -81,6 +75,30 @@ export default function NoteToolbox({ onOpen }: Props) {
           </Button.Icon>
           <Button.Text size="$6" color="$background">
             Rephrase With AI
+          </Button.Text>
+        </Button>
+        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
+          <Button.Icon scaleIcon={1.5}>
+            {rephraseSentenceMutation.isLoading ? (
+              <Spinner color="$background" />
+            ) : (
+              <Archive size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
+            Move to archive
+          </Button.Text>
+        </Button>
+        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
+          <Button.Icon scaleIcon={1.5}>
+            {rephraseSentenceMutation.isLoading ? (
+              <Spinner color="$background" />
+            ) : (
+              <Archive size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
+            Move to trash
           </Button.Text>
         </Button>
       </BottomSheet>

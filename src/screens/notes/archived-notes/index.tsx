@@ -4,22 +4,18 @@ import { NotesList, ScreenContainer } from "components";
 import { NotesListProvider, useNotesContext } from "contexts";
 import { useNavigateNote } from "hooks";
 
-export default function TrashedNotes() {
+export default function ArchivedNotesView() {
   const { notes } = useNotesContext();
-  const data = notes.filter(
-    (note) => note.is_trashed || note.status === "trashed"
-  );
+  const data = notes.filter((note) => note.is_archived);
 
   const onNavigateNote = useNavigateNote();
 
+  if (!data) return null;
+
   return (
-    <ScreenContainer
-      handleHeaderHeight={false}
-      withoutBeautifulPadding
-      type="fixed"
-    >
+    <ScreenContainer withoutBeautifulPadding type="fixed">
       <NotesListProvider notes={data}>
-        <NotesList pullToActionEnabled={false} onPressNote={onNavigateNote} />
+        <NotesList onPressNote={onNavigateNote} />
       </NotesListProvider>
     </ScreenContainer>
   );
