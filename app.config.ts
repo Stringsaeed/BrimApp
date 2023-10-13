@@ -5,8 +5,16 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ...config,
     plugins: [
       "@react-native-firebase/app",
-      "@react-native-firebase/dynamic-links",
       "@react-native-firebase/auth",
+      [
+        "expo-build-properties",
+        {
+          ios: {
+            deploymentTarget: "14.0",
+            useFrameworks: "static",
+          },
+        },
+      ],
       [
         "expo-local-authentication",
         {
