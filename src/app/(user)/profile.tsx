@@ -5,14 +5,15 @@ import { Button, YGroup, ListItem, Separator } from "tamagui";
 
 import { ScreenContainer, Spacer } from "components";
 import { useSignOutMutation } from "hooks";
+import { Routes } from "routers";
 
 export default function Profile() {
   const signOutMutation = useSignOutMutation();
   const navigation = useNavigation();
 
-  function navigateToFactory(name: "AccountInfo" | "Preferences") {
+  function navigateToFactory(name: Routes.AccountInfo | Routes.Preferences) {
     return function navigateTo() {
-      navigation.navigate<"AccountInfo" | "Preferences">(name);
+      navigation.navigate(name);
     };
   }
 
@@ -25,7 +26,7 @@ export default function Profile() {
       <YGroup bordered separator={<Separator />}>
         <YGroup.Item>
           <ListItem
-            onPress={navigateToFactory("AccountInfo")}
+            onPress={navigateToFactory(Routes.AccountInfo)}
             title="Account Information"
           />
         </YGroup.Item>
@@ -35,7 +36,7 @@ export default function Profile() {
         <YGroup.Item>
           <ListItem
             title="Preferences"
-            onPress={navigateToFactory("Preferences")}
+            onPress={navigateToFactory(Routes.Preferences)}
           />
         </YGroup.Item>
       </YGroup>

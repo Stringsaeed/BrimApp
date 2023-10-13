@@ -15,7 +15,7 @@ import {
   useNavigateNote,
   useNavigateProfile,
 } from "hooks";
-import { RootStackScreenProps } from "routers";
+import { RootStackScreenProps, Routes } from "routers";
 
 export default function DashboardScreen() {
   const [searchText, setSearchText] = React.useState("");
@@ -32,7 +32,7 @@ export default function DashboardScreen() {
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
   const navigation =
-    useNavigation<RootStackScreenProps<"Dashboard">["navigation"]>();
+    useNavigation<RootStackScreenProps<Routes.Dashboard>["navigation"]>();
 
   const handleTextChange = (
     event: NativeSyntheticEvent<TextInputFocusEventData>

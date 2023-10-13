@@ -1,15 +1,27 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+export enum Routes {
+  Login = "login",
+  Verify = "verify",
+  Dashboard = "Dashboard",
+  Note = "Note",
+  Archive = "Archive",
+  Trash = "Trash",
+  Profile = "Profile",
+  AccountInfo = "AccountInfo",
+  Preferences = "Preferences",
+}
+
 export type RootStackParamList = {
-  login: undefined;
-  verify: { verificationId: string };
-  Dashboard: undefined;
-  Note: { id: string };
-  Archive: undefined;
-  Trash: undefined;
-  Profile: undefined;
-  AccountInfo: undefined;
-  Preferences: undefined;
+  [Routes.Login]: undefined;
+  [Routes.Verify]: { verificationId: string };
+  [Routes.Dashboard]: undefined;
+  [Routes.Note]: { id: string };
+  [Routes.Archive]: undefined;
+  [Routes.Trash]: undefined;
+  [Routes.Profile]: undefined;
+  [Routes.AccountInfo]: undefined;
+  [Routes.Preferences]: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

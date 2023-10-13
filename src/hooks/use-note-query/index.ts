@@ -2,7 +2,7 @@ import { useRoute } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAuth } from "contexts/auth";
-import { RootStackScreenProps } from "routers";
+import { RootStackScreenProps, Routes } from "routers";
 import { NoteService } from "services";
 
 async function fetchNote(id: string) {
@@ -10,7 +10,7 @@ async function fetchNote(id: string) {
 }
 
 export default function useNoteQuery() {
-  const route = useRoute<RootStackScreenProps<"Note">["route"]>();
+  const route = useRoute<RootStackScreenProps<Routes.Note>["route"]>();
   const noteId = route.params.id;
   const { user } = useAuth();
   const userId = user?.uid;

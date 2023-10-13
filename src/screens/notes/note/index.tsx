@@ -26,13 +26,13 @@ import {
   useNoteForm,
   useNotePrivacyMutation,
 } from "hooks";
-import { RootStackScreenProps } from "routers";
+import { RootStackScreenProps, Routes } from "routers";
 
 export default function NoteView() {
   const navigation = useNavigation();
   const {
     params: { id },
-  } = useRoute<RootStackScreenProps<"Note">["route"]>();
+  } = useRoute<RootStackScreenProps<Routes.Note>["route"]>();
   const headerHeight = useHeaderHeight();
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();

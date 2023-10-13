@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { authenticateAsync } from "expo-local-authentication";
 
+import { Routes } from "routers";
 import { Note } from "types";
 
 export default function useNavigateNote() {
@@ -15,7 +16,7 @@ export default function useNavigateNote() {
       }
     }
 
-    router.navigate("Note", { id: note.id });
+    router.navigate(Routes.Note, { id: note.id });
   };
 
   return onNavigateNote;

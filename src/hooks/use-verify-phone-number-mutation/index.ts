@@ -2,7 +2,7 @@ import { useRoute } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 
-import { RootStackScreenProps } from "routers";
+import { RootStackScreenProps, Routes } from "routers";
 import { Auth } from "services";
 
 interface VerifyPhoneNumberInput {
@@ -18,7 +18,7 @@ export default function useVerifyPhoneNumberMutation() {
   const [code, setCode] = useState("");
   const {
     params: { verificationId },
-  } = useRoute<RootStackScreenProps<"verify">["route"]>();
+  } = useRoute<RootStackScreenProps<Routes.Verify>["route"]>();
 
   const verifyPhoneNumberMutation = useMutation(verifyPhoneNumber);
 

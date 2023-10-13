@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AlignJustify } from "@tamagui/lucide-icons";
 import React from "react";
 
+import { Routes } from "routers";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -15,11 +16,11 @@ export default function OtherMenu() {
   const navigation = useNavigation();
 
   const onPressArchive = () => {
-    navigation.navigate("Archive");
+    navigation.navigate(Routes.Archive);
   };
 
   const onPressTrash = () => {
-    navigation.navigate("Trash");
+    navigation.navigate(Routes.Trash);
   };
 
   return (

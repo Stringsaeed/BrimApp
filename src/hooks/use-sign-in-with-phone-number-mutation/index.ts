@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 
+import { Routes } from "routers";
 import { Auth } from "services";
 
 export async function signInWithPhoneNumber(phoneNumber: string) {
@@ -17,7 +18,7 @@ export default function useSignInWithPhoneNumberMutation() {
   return useMutation(signInWithPhoneNumber, {
     onSuccess({ verificationId }) {
       if (!verificationId) throw new Error("Invalid verificationId");
-      router.navigate("verify", { verificationId });
+      router.navigate(Routes.Verify, { verificationId });
     },
     onError() {},
   });
