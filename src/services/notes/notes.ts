@@ -4,7 +4,7 @@ import { Auth } from "services/auth";
 import { Note, noteSchema, notesSchema } from "types";
 
 export const NoteService = {
-  listenForChanges: (callback: (snapshot: Note[]) => void) => {
+  listenForChanges: (callback: (notes: Note[]) => void) => {
     const userId = Auth.getCurrentUser()?.uid;
     if (!userId) {
       return () => {};
