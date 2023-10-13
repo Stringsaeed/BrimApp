@@ -1,11 +1,11 @@
-import ArchivedNotesView from "./archived-notes";
-import NoteView from "./note";
-import TrashedNotesView from "./trashed-notes";
+import Archived from "./ArchivedNotes";
+import Note from "./Note";
+import Trashed from "./TrashedNotes";
 
-const Notes = {
-  Archived: ArchivedNotesView,
-  Trashed: TrashedNotesView,
-  Note: NoteView,
+const NotesScreen = {
+  Archived,
+  Trashed,
+  Note,
 };
 
-export default Notes;
+export default NotesScreen;

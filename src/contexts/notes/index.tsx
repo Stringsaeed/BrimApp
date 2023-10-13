@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 
-import { useNotesQuery } from "hooks";
+import useNotesQuery from "hooks/use-notes-query";
 import { NoteService } from "services";
 import { Note } from "types";
 

@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { Button, YGroup, ListItem, Separator } from "tamagui";
 
 import { ScreenContainer, Spacer } from "components";
 import { useSignOutMutation } from "hooks";
 import { Routes } from "routers";
+
+import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
   const signOutMutation = useSignOutMutation();
@@ -54,7 +55,3 @@ export default function Profile() {
     </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { paddingTop: 24 },
-});

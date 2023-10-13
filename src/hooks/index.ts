@@ -23,3 +23,5 @@ export { default as useLoginForm } from "./use-login-form";
 export { default as useUserTheme } from "./use-user-theme";
 export { default as useFixGrammarMutation } from "./use-fix-grammar-mutation";
 export { default as useRephraseSentenceMutation } from "./use-rephrase-sentence-mutation";
+export { default as useSearchableNotes } from "./use-searchable-notes";
+export { default as useFilterNotes } from "./use-filter-notes";

@@ -2,14 +2,11 @@ import React from "react";
 import { Heading, Text, Button, View } from "tamagui";
 
 import { Spacer, AuthLayout, PhoneInput } from "components";
+import { useLoginForm } from "hooks";
 
-import { LoginViewProps } from "./types";
+export default function LoginScreen() {
+  const { isSubmitDisabled, onSubmit, control } = useLoginForm();
 
-export default function LoginView({
-  isSubmitDisabled,
-  onSubmit,
-  control,
-}: LoginViewProps) {
   return (
     <AuthLayout>
       <Heading>

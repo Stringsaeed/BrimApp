@@ -4,10 +4,8 @@ import React from "react";
 import { Platform } from "react-native";
 import { BlurEffectTypes } from "react-native-screens";
 
-import AccountInfoScreen from "app/(user)/account-info";
-import Profile from "app/(user)/profile";
 import { ArchivedNotesHeaderBackground } from "components";
-import { DashboardScreen, Notes, PreferencesView } from "screens";
+import { DashboardScreen, NotesScreens, UserScreens } from "screens";
 
 export default function createAppGroup<
   ParamsList extends ParamListBase,
@@ -29,7 +27,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Note"
-        component={Notes.Note}
+        component={NotesScreens.Note}
         options={{
           headerTransparent: true,
           headerShown: true,
@@ -38,7 +36,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Archive"
-        component={Notes.Archived}
+        component={NotesScreens.Archived}
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,
@@ -50,7 +48,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Trash"
-        component={Notes.Trashed}
+        component={NotesScreens.Trashed}
         options={{
           headerBackground:
             Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,
@@ -62,7 +60,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Profile"
-        component={Profile}
+        component={UserScreens.Profile}
         options={{
           headerBackTitleVisible: false,
           headerBackTitle: "",
@@ -71,7 +69,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="AccountInfo"
-        component={AccountInfoScreen}
+        component={UserScreens.AccountInfo}
         options={{
           headerBackTitleVisible: false,
           title: "Account Information",
@@ -80,7 +78,7 @@ export default function createAppGroup<
       />
       <creator.Screen
         name="Preferences"
-        component={PreferencesView}
+        component={UserScreens.Preferences}
         options={{
           headerBackTitleVisible: false,
           title: "Preferences",

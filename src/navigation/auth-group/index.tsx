@@ -2,8 +2,7 @@ import { ParamListBase } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
-import LoginPage from "app/(auth)/login";
-import VerifyPage from "app/(auth)/verify";
+import { AuthScreens } from "screens";
 
 export default function createAuthGroup<
   ParamsList extends ParamListBase,
@@ -14,8 +13,8 @@ export default function createAuthGroup<
 ) {
   return (
     <creator.Group screenOptions={{ headerShown: false }}>
-      <creator.Screen name="login" component={LoginPage} />
-      <creator.Screen name="verify" component={VerifyPage} />
+      <creator.Screen name="login" component={AuthScreens.Login} />
+      <creator.Screen name="verify" component={AuthScreens.Verify} />
     </creator.Group>
   );
 }

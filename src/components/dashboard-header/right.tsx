@@ -1,15 +1,14 @@
 import { Plus, User } from "@tamagui/lucide-icons";
 import React from "react";
-import { ViewStyle } from "react-native";
-import Animated from "react-native-reanimated";
 import { XGroup } from "tamagui";
+
+import PressableScale from "components/pressable-scale";
 
 import OtherMenu from "./other";
 
 interface DashboardHeaderRightProps {
   onPressCreate: () => void;
   onPressProfile: () => void;
-  createAnimatedStyle?: Animated.AnimateStyle<ViewStyle>;
 }
 
 export default function DashboardHeaderRight({
@@ -22,10 +21,14 @@ export default function DashboardHeaderRight({
         <OtherMenu />
       </XGroup.Item>
       <XGroup.Item>
-        <Plus onPress={onPressCreate} />
+        <PressableScale activeScale={0.9} onPress={onPressCreate}>
+          <Plus />
+        </PressableScale>
       </XGroup.Item>
       <XGroup.Item>
-        <User onPress={onPressProfile} />
+        <PressableScale activeScale={0.9} onPress={onPressProfile}>
+          <User />
+        </PressableScale>
       </XGroup.Item>
     </XGroup>
   );

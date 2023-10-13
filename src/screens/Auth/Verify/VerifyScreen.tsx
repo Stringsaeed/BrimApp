@@ -2,18 +2,15 @@ import React from "react";
 import { Input, Button, Heading, View } from "tamagui";
 
 import { Spacer, AuthLayout } from "components";
+import { useVerifyPhoneNumberMutation } from "hooks";
 
-interface VerifyViewProps {
-  code: string;
-  onCodeChangeText: (code: string) => void;
-  onSubmit: () => void;
-}
+export default function VerifyView() {
+  const {
+    setCode: onCodeChangeText,
+    handleVerify: onSubmit,
+    code,
+  } = useVerifyPhoneNumberMutation();
 
-export default function VerifyView({
-  onCodeChangeText,
-  onSubmit,
-  code,
-}: VerifyViewProps) {
   return (
     <AuthLayout>
       <View

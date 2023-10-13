@@ -34,6 +34,7 @@ export default function PressableScale({
       )}
       accessibilityRole="button"
       disabled={disabled}
+      transition={{ type: "spring" }}
       {...props}
     >
       {children}

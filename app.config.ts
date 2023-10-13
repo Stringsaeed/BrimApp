@@ -22,6 +22,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
       "expo-localization",
+      "sentry-expo",
     ],
     android: {
       adaptiveIcon: {
@@ -32,6 +33,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
       versionCode: 24,
+    },
+    hooks: {
+      postPublish: [
+        {
+          config: {
+            organization: process.env.SENTRY_ORG,
+            project: process.env.SENTRY_PROJECT,
+          },
+          file: "sentry-expo/upload-sourcemaps",
+        },
+      ],
     },
     ios: {
       googleServicesFile: "./assets/GoogleService-Info.plist",

@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AlignJustify } from "@tamagui/lucide-icons";
 import React from "react";
 
+import PressableScale from "components/pressable-scale";
 import { Routes } from "routers";
 import {
   DropdownMenuContent,
@@ -26,7 +27,9 @@ export default function OtherMenu() {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <AlignJustify />
+        <PressableScale activeScale={0.9}>
+          <AlignJustify />
+        </PressableScale>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
