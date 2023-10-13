@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android", "web"],
-  "ios": {
-    "modules": ["NativeComposerModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.nativecomposer.NativeComposerModule"]
-  }
-}
