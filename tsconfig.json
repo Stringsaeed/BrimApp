@@ -4,34 +4,16 @@
     "strict": true,
     "baseUrl": "./src/",
     "paths": {
-      "components": [
-        "./components"
-      ],
-      "contexts": [
-        "./contexts"
-      ],
-      "stores": [
-        "./stores"
-      ],
-      "config": [
-        "./config"
-      ],
-      "utils": [
-        "./utils"
-      ],
-      "hooks": [
-        "./hooks"
-      ],
-      "types": [
-        "./types"
-      ],
-      "test": [
-        "./test"
-      ]
+      "components": ["./components"],
+      "containers": ["./containers"],
+      "contexts": ["./contexts"],
+      "stores": ["./stores"],
+      "config": ["./config"],
+      "utils": ["./utils"],
+      "hooks": ["./hooks"],
+      "types": ["./types"],
+      "test": ["./test"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
