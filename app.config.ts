@@ -8,15 +8,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       "@react-native-firebase/dynamic-links",
       "@react-native-firebase/auth",
       [
-        "expo-build-properties",
-        {
-          ios: {
-            deploymentTarget: "14.0",
-            useFrameworks: "static",
-          },
-        },
-      ],
-      [
         "expo-local-authentication",
         {
           faceIDPermission: "Allow $(PRODUCT_NAME) to use Face ID.",
