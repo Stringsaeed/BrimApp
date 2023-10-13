@@ -1,0 +1,4 @@
+{
+  "suppress_recrawl_warnings": true,
+  "prefer_split_fsevents_watcher": true
+}
