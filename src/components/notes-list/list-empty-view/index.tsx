@@ -6,6 +6,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Paragraph, YStack } from "tamagui";
 
 import Spacing from "components/spacing";
@@ -14,6 +15,7 @@ import { usePullToActionContext } from "contexts";
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 export default function ListEmptyView() {
+  const { bottom } = useSafeAreaInsets();
   const { translateY } = usePullToActionContext();
 
   const stylez = useAnimatedStyle(() => {
@@ -29,6 +31,7 @@ export default function ListEmptyView() {
       justifyContent="center"
       flex={1}
       style={stylez}
+      marginBottom={-bottom}
     >
       <YStack justifyContent="center" alignItems="center" pb="$7">
         <Paragraph>No Notes?</Paragraph>

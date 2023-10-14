@@ -1,8 +1,10 @@
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
+import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 import {
   useCreateNoteMutation,
   useDeleteNoteMutation,
+  useSearchableNotes,
   useUpdateNoteMutation,
 } from "hooks";
 import { UpdateNoteMutationInput } from "hooks/use-update-note-mutation";
@@ -17,11 +19,16 @@ type NotesListContext = {
   archiveNote: (id: string) => void;
   unarchiveNote: (id: string) => void;
   restoreNote: (id: string) => void;
+  onSearchValueChange?: (
+    event: NativeSyntheticEvent<TextInputChangeEventData>
+  ) => void;
+  searchValue?: string;
+  isSearchBarVisible?: boolean;
 };
 
-type NotesListProviderProps = PropsWithChildren<{
-  notes: Note[];
-}>;
+type NotesListProviderProps = PropsWithChildren<
+  Pick<NotesListContext, "notes">
+>;
 
 const notesListContext = React.createContext<NotesListContext | undefined>(
   undefined
@@ -30,9 +37,12 @@ const notesListContext = React.createContext<NotesListContext | undefined>(
 const { Provider } = notesListContext;
 
 export const NotesListProvider = ({
+  notes: unSearchedNotes,
   children,
-  notes,
 }: NotesListProviderProps) => {
+  const isSearchBarVisible = unSearchedNotes.length > 0;
+  const [notes, { onSearchValueChange, searchValue }] =
+    useSearchableNotes(unSearchedNotes);
   const createNoteMutation = useCreateNoteMutation();
   const updateNoteMutation = useUpdateNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
@@ -141,9 +151,12 @@ export const NotesListProvider = ({
 
   const contextValue = useMemo<NotesListContext>(
     () => ({
+      onSearchValueChange,
+      isSearchBarVisible,
       unarchiveNote,
       archiveNote,
       restoreNote,
+      searchValue,
       updateNote,
       deleteNote,
       addNote,
@@ -151,9 +164,12 @@ export const NotesListProvider = ({
       notes,
     }),
     [
+      onSearchValueChange,
+      isSearchBarVisible,
       unarchiveNote,
       archiveNote,
       restoreNote,
+      searchValue,
       updateNote,
       deleteNote,
       addNote,

@@ -7,16 +7,13 @@ import {
   useFilterNotes,
   useNavigateNote,
   useNavigateProfile,
-  useSearchableNotes,
 } from "hooks";
 
 export default function DashboardScreen() {
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
-  const mainNotes = useFilterNotes(useFilterNotes.filterTypes.Main);
-  const [notes, { onSearchValueChange, searchValue }] =
-    useSearchableNotes(mainNotes);
+  const notes = useFilterNotes(useFilterNotes.filterTypes.Main);
 
   return (
     <NotesListProvider notes={notes}>
@@ -25,11 +22,7 @@ export default function DashboardScreen() {
         onPressProfile={onPressProfile}
       />
       <ScreenContainer withoutBeautifulPadding handleHeaderHeight type="fixed">
-        <NotesList
-          onSearchValueChange={onSearchValueChange}
-          onPressNote={onNavigateNote}
-          searchValue={searchValue}
-        />
+        <NotesList onPressNote={onNavigateNote} />
       </ScreenContainer>
     </NotesListProvider>
   );

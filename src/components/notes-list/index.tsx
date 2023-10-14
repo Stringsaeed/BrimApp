@@ -1,35 +1,20 @@
-import { Search } from "@tamagui/lucide-icons";
 import React, { Fragment, useCallback } from "react";
-import {
-  ListRenderItemInfo,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-} from "react-native";
+import { ListRenderItemInfo } from "react-native";
 import Animated from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Input, Separator, Stack, XStack, YGroup } from "tamagui";
+import { Separator, YGroup } from "tamagui";
 
 import { useNotesList } from "contexts";
 import { Note } from "types";
 
 import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
+import NoteListSearchBar from "./note-list-search-bar";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
-  pullToActionEnabled?: boolean;
-  onSearchValueChange?: (
-    event: NativeSyntheticEvent<TextInputChangeEventData>
-  ) => void;
-  searchValue?: string;
 }
 
-export default function NoteList({
-  onSearchValueChange,
-  onPressNote,
-  searchValue,
-}: NotesListProps) {
-  const { bottom } = useSafeAreaInsets();
+export default function NoteList({ onPressNote }: NotesListProps) {
   const { restoreNote, archiveNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
@@ -74,40 +59,19 @@ export default function NoteList({
     [handleLeftAction, handleRemove, onPressNote]
   );
 
+  const shouldShowEmptyView = notes.length === 0;
+
   return (
     <Fragment>
-      {onSearchValueChange && (
-        <XStack
-          px="$4"
-          borderRadius="$12"
-          mx="$4"
-          mb="$4"
-          backgroundColor="$gray3"
-          ai="center"
-        >
-          <Search size="$size.1" />
-          <Input
-            flex={1}
-            borderWidth={0}
-            backgroundColor="$gray3"
-            onChange={onSearchValueChange}
-            value={searchValue}
-            placeholder="Search notes"
-            size="$3"
-          />
-        </XStack>
-      )}
-      <Animated.ScrollView contentInsetAdjustmentBehavior="automatic">
-        {notes.length ? (
+      <NoteListSearchBar />
+      {shouldShowEmptyView && <ListEmptyView />}
+      {!shouldShowEmptyView && (
+        <Animated.ScrollView contentInsetAdjustmentBehavior="automatic">
           <YGroup ov="hidden" separator={<Separator />} mx="$4" bordered>
             {notes.map((note, index) => renderItem({ item: note, index }))}
           </YGroup>
-        ) : (
-          <Stack flex={1} marginBottom={-bottom}>
-            <ListEmptyView />
-          </Stack>
-        )}
-      </Animated.ScrollView>
+        </Animated.ScrollView>
+      )}
     </Fragment>
   );
 }
