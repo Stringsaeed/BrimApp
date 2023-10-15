@@ -45,7 +45,7 @@ export default function Profile() {
       <Button
         width="100%"
         bg="$accent"
-        // size="$5"
+        size="$5"
         color="$background"
         borderRadius="$12"
         onPress={() => signOutMutation.mutate()}

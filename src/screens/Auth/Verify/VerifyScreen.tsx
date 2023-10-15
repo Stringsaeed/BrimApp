@@ -13,15 +13,6 @@ export default function VerifyView() {
 
   return (
     <AuthLayout>
-      <View
-        bg="$red1"
-        pos="absolute"
-        flex={1}
-        bottom={0}
-        left={0}
-        right={0}
-        top={0}
-      />
       <Heading>Please verify the code</Heading>
       <Input
         size="$5"
@@ -37,14 +28,14 @@ export default function VerifyView() {
       />
       <Spacer />
       <Button
-        borderColor="$accent"
+        width="100%"
         bg="$accent"
         size="$5"
-        width="100%"
+        color="$background"
+        borderRadius="$12"
         opacity={!code ? 0.5 : 1}
         disabled={!code}
         onPress={onSubmit}
-        textProps={{ color: "$background" }}
       >
         Login
       </Button>

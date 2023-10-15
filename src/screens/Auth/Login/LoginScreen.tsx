@@ -15,14 +15,14 @@ export default function LoginScreen() {
       <PhoneInput control={control} />
       <Spacer />
       <Button
-        borderColor="$accent"
+        width="100%"
         bg="$accent"
         size="$5"
-        width="100%"
+        color="$background"
+        borderRadius="$12"
         opacity={isSubmitDisabled ? 0.5 : 1}
         disabled={isSubmitDisabled}
         onPress={onSubmit}
-        textProps={{ color: "$background" }}
       >
         Continue
       </Button>
