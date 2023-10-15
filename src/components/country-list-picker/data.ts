@@ -620,12 +620,6 @@ const countryList: Array<CountryDataType> = [
     code: "IM",
   },
   {
-    dial_code: "+972",
-    name: "Israel",
-    emoji: "🇮🇱",
-    code: "IL",
-  },
-  {
     dial_code: "+39",
     emoji: "🇮🇹",
     name: "Italy",
