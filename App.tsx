@@ -4,10 +4,11 @@ import { enableFreeze } from "react-native-screens";
 
 import { AppContainer } from "containers";
 import { useLoadAssets } from "hooks";
+import { Sentry } from "services";
 
 enableFreeze(false);
 
-export default function App() {
+function App() {
   const isLoaded = useLoadAssets();
 
   if (!isLoaded) {
@@ -16,3 +17,5 @@ export default function App() {
 
   return <AppContainer />;
 }
+
+export default Sentry.Native.wrap(App);
