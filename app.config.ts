@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
-      versionCode: 24,
+      versionCode: 30,
     },
     hooks: {
       postPublish: [

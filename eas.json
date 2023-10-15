@@ -8,10 +8,14 @@
       }
     },
     "preview": {
+      "android": {
+        "buildType": "apk"
+      },
       "distribution": "internal",
       "developmentClient": false,
       "env": {
-        "TAMAGUI_TARGET": "native"
+        "TAMAGUI_TARGET": "native",
+        "GOOGLE_SERVICES_INFO_PLIST": "./assets/GoogleService-Info.plist"
       },
       "channel": "preview"
     },
@@ -20,9 +24,10 @@
         "buildType": "apk"
       },
       "env": {
-        "TAMAGUI_TARGET": "native"
+        "TAMAGUI_TARGET": "native",
+        "GOOGLE_SERVICES_INFO_PLIST": "./assets/GoogleService-Info.plist"
       },
-      "distribution": "internal",
+      "distribution": "store",
       "channel": "production"
     }
   }
