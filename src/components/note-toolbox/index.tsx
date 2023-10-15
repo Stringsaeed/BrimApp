@@ -2,7 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Archive, Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
 import React, { Fragment, useRef } from "react";
-import { Button, Spinner } from "tamagui";
+import { Button, Spacer, Spinner } from "tamagui";
 
 import BottomSheet from "components/bottom-sheet";
 import { useFixGrammarMutation, useRephraseSentenceMutation } from "hooks";
@@ -19,14 +19,14 @@ export default function NoteToolbox({ onOpen }: Props) {
 
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
-    console.log(data);
 
     setFieldValue("note", data);
   };
 
   const handleRephraseSentence = async () => {
-    const response = await rephraseSentenceMutation.mutateAsync(values.note);
-    console.log(response);
+    const data = await rephraseSentenceMutation.mutateAsync(values.note);
+
+    setFieldValue("note", data);
   };
 
   const handleOpenSheet = () => {
@@ -65,6 +65,7 @@ export default function NoteToolbox({ onOpen }: Props) {
             Fix Grammar With AI
           </Button.Text>
         </Button>
+        <Spacer />
         <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
           <Button.Icon scaleIcon={1.5}>
             {rephraseSentenceMutation.isLoading ? (
@@ -75,30 +76,6 @@ export default function NoteToolbox({ onOpen }: Props) {
           </Button.Icon>
           <Button.Text size="$6" color="$background">
             Rephrase With AI
-          </Button.Text>
-        </Button>
-        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
-          <Button.Icon scaleIcon={1.5}>
-            {rephraseSentenceMutation.isLoading ? (
-              <Spinner color="$background" />
-            ) : (
-              <Archive size="$2" color="$background" />
-            )}
-          </Button.Icon>
-          <Button.Text size="$6" color="$background">
-            Move to archive
-          </Button.Text>
-        </Button>
-        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
-          <Button.Icon scaleIcon={1.5}>
-            {rephraseSentenceMutation.isLoading ? (
-              <Spinner color="$background" />
-            ) : (
-              <Archive size="$2" color="$background" />
-            )}
-          </Button.Icon>
-          <Button.Text size="$6" color="$background">
-            Move to trash
           </Button.Text>
         </Button>
       </BottomSheet>
