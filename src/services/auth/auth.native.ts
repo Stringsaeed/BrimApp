@@ -1,12 +1,17 @@
 import auth from "@react-native-firebase/auth";
 
+import { Analytics } from "services/analytics";
 import { IAuthService } from "types";
 
 export const Auth: IAuthService = {
   verifyOTP: async (code, verificationId) => {
-    await auth().signInWithCredential(
+    const credentials = await auth().signInWithCredential(
       auth.PhoneAuthProvider.credential(verificationId, code)
     );
+
+    if (credentials.user) {
+      Analytics.identify(credentials.user);
+    }
     return;
   },
   sendPhoneOTP: (phoneNumber) => {
