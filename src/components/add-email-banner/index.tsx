@@ -57,7 +57,8 @@ export default function AddEmailBanner() {
           size="$3"
           bg="$accent"
           disabled={buttonDisabled}
-          onPress={() => handleSubmit()}
+          // @ts-expect-error
+          onPress={handleSubmit}
         >
           <Button.Text color="$background">Submit</Button.Text>
         </Button>

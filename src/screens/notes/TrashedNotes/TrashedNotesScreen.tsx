@@ -2,23 +2,16 @@ import React from "react";
 
 import { NotesList, ScreenContainer } from "components";
 import { NotesListProvider } from "contexts";
-import { useFilterNotes, useNavigateNote, useSearchableNotes } from "hooks";
+import { useFilterNotes, useNavigateNote } from "hooks";
 
 export default function TrashedNotesScreen() {
-  const trashedNotes = useFilterNotes(useFilterNotes.filterTypes.Trashed);
-  const [notes, { onSearchValueChange, searchValue }] =
-    useSearchableNotes(trashedNotes);
-
+  const notes = useFilterNotes(useFilterNotes.filterTypes.Trashed);
   const onNavigateNote = useNavigateNote();
 
   return (
     <ScreenContainer withoutBeautifulPadding handleHeaderHeight type="fixed">
       <NotesListProvider notes={notes}>
-        <NotesList
-          onSearchValueChange={onSearchValueChange}
-          onPressNote={onNavigateNote}
-          searchValue={searchValue}
-        />
+        <NotesList onPressNote={onNavigateNote} />
       </NotesListProvider>
     </ScreenContainer>
   );
