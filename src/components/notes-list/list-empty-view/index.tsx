@@ -1,4 +1,4 @@
-import { Plus } from "phosphor-react-native";
+import { Plus } from "@tamagui/lucide-icons";
 import React from "react";
 import Animated, {
   FadeIn,
