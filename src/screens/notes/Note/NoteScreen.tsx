@@ -62,7 +62,7 @@ export default function NoteView() {
 
   const handleDelete = async () => {
     if (!note) return;
-    await deleteNoteMutation.mutate(note);
+    await deleteNoteMutation.mutateAsync(note);
     navigation.goBack();
   };
 
