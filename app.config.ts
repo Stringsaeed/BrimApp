@@ -29,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#F7F6E4",
       },
-      googleServicesFile: "./assets/google-services.json",
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
       versionCode: 24,
@@ -46,7 +46,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ],
     },
     ios: {
-      googleServicesFile: "./assets/GoogleService-Info.plist",
+      googleServicesFile: process.env.GOOGLE_SERVICES_INFO_PLIST,
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
       supportsTablet: false,
