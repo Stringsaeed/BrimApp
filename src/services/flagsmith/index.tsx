@@ -22,7 +22,7 @@ export function FeatureFlagsProvider({
     <FlagsmithProvider
       flagsmith={flagsmith}
       options={{
-        enableLogs: true,
+        enableLogs: __DEV__,
         cacheFlags: true,
         environmentID,
         AsyncStorage,
