@@ -15,6 +15,7 @@ import {
 import { useUserTheme } from "hooks";
 import { AppNavigator } from "navigation";
 // import { Analytics } from "services";
+import { FeatureFlagsProvider } from "services";
 import { themeConfig } from "themes";
 
 import NavigationProvider from "./navigation-provider";
@@ -23,27 +24,29 @@ export default function AppContainer() {
   const { theme } = useUserTheme();
 
   return (
-    <TamaguiProvider defaultTheme={theme} config={themeConfig}>
-      <QueryProvider>
-        <AuthProvider>
-          <NotesProvider>
-            <GestureHandlerRootView style={styles.rootView}>
-              <SafeAreaProvider>
-                <BottomSheetModalProvider>
-                  <PullToActionProvider>
-                    <NavigationProvider>
-                      {/* <PostHogProvider autocapture client={Analytics.postHug}> */}
-                      <AppNavigator />
-                      {/* </PostHogProvider> */}
-                    </NavigationProvider>
-                  </PullToActionProvider>
-                </BottomSheetModalProvider>
-              </SafeAreaProvider>
-            </GestureHandlerRootView>
-          </NotesProvider>
-        </AuthProvider>
-      </QueryProvider>
-    </TamaguiProvider>
+    <FeatureFlagsProvider>
+      <TamaguiProvider defaultTheme={theme} config={themeConfig}>
+        <QueryProvider>
+          <AuthProvider>
+            <NotesProvider>
+              <GestureHandlerRootView style={styles.rootView}>
+                <SafeAreaProvider>
+                  <BottomSheetModalProvider>
+                    <PullToActionProvider>
+                      <NavigationProvider>
+                        {/* <PostHogProvider autocapture client={Analytics.postHug}> */}
+                        <AppNavigator />
+                        {/* </PostHogProvider> */}
+                      </NavigationProvider>
+                    </PullToActionProvider>
+                  </BottomSheetModalProvider>
+                </SafeAreaProvider>
+              </GestureHandlerRootView>
+            </NotesProvider>
+          </AuthProvider>
+        </QueryProvider>
+      </TamaguiProvider>
+    </FeatureFlagsProvider>
   );
 }
 

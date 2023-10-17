@@ -1,20 +1,21 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
-import { useFeatureFlag } from "posthog-react-native";
+// import { useFeatureFlag } from "posthog-react-native";
 import React, { Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
 
 import BottomSheet from "components/bottom-sheet";
 import { useFixGrammarMutation, useRephraseSentenceMutation } from "hooks";
 import { NoteFormValues } from "hooks/use-note-form";
+import { useFeatureFlag } from "services";
 
 interface Props {
   onOpen?: () => void;
 }
 export default function NoteToolbox({ onOpen }: Props) {
   const ref = useRef<BottomSheetModal>(null);
-  const rephraseWithAIEnabled = useFeatureFlag("rephrase_with_ai");
+  const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
@@ -32,7 +33,7 @@ export default function NoteToolbox({ onOpen }: Props) {
   };
 
   const handleOpenSheet = () => {
-    if (rephraseWithAIEnabled) {
+    if (rephraseWithAIFlag.enabled) {
       onOpen?.();
       requestAnimationFrame(() => {
         ref.current?.present();
@@ -64,7 +65,7 @@ export default function NoteToolbox({ onOpen }: Props) {
         onPress={handleOpenSheet}
         elevate
       />
-      {!!rephraseWithAIEnabled && (
+      {!!rephraseWithAIFlag.enabled && (
         <BottomSheet ref={ref}>
           <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
             <Button.Icon scaleIcon={1.5}>
