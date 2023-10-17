@@ -1,6 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Archive, Sparkles, Wand2 } from "@tamagui/lucide-icons";
+import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
+import { useFeatureFlag } from "posthog-react-native";
 import React, { Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
 
@@ -13,6 +14,7 @@ interface Props {
 }
 export default function NoteToolbox({ onOpen }: Props) {
   const ref = useRef<BottomSheetModal>(null);
+  const rephraseWithAIEnabled = useFeatureFlag("rephrase_with_ai");
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
@@ -30,10 +32,14 @@ export default function NoteToolbox({ onOpen }: Props) {
   };
 
   const handleOpenSheet = () => {
-    onOpen?.();
-    requestAnimationFrame(() => {
-      ref.current?.present();
-    });
+    if (rephraseWithAIEnabled) {
+      onOpen?.();
+      requestAnimationFrame(() => {
+        ref.current?.present();
+      });
+    } else {
+      handleFixGrammar();
+    }
   };
 
   return (
@@ -45,40 +51,53 @@ export default function NoteToolbox({ onOpen }: Props) {
         borderRadius="$radius.12"
         bg="$accent"
         scaleIcon={2}
-        icon={({ size }) => <Wand2 color="$background" size={size} />}
+        icon={({ color, size }) =>
+          fixGrammarMutation.isLoading ? (
+            <Spinner color={color} />
+          ) : (
+            <Wand2 color="$background" size={size} />
+          )
+        }
         aspectRatio={1}
         width={60}
         height={60}
         onPress={handleOpenSheet}
         elevate
       />
-      <BottomSheet ref={ref}>
-        <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
-          <Button.Icon scaleIcon={1.5}>
-            {fixGrammarMutation.isLoading ? (
-              <Spinner color="$background" />
-            ) : (
-              <Sparkles size="$2" color="$background" />
-            )}
-          </Button.Icon>
-          <Button.Text size="$6" color="$background">
-            Fix Grammar With AI
-          </Button.Text>
-        </Button>
-        <Spacer />
-        <Button size="$6" onPress={handleRephraseSentence} bg="$accent" elevate>
-          <Button.Icon scaleIcon={1.5}>
-            {rephraseSentenceMutation.isLoading ? (
-              <Spinner color="$background" />
-            ) : (
-              <Sparkles size="$2" color="$background" />
-            )}
-          </Button.Icon>
-          <Button.Text size="$6" color="$background">
-            Rephrase With AI
-          </Button.Text>
-        </Button>
-      </BottomSheet>
+      {!!rephraseWithAIEnabled && (
+        <BottomSheet ref={ref}>
+          <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
+            <Button.Icon scaleIcon={1.5}>
+              {fixGrammarMutation.isLoading ? (
+                <Spinner color="$background" />
+              ) : (
+                <Sparkles size="$2" color="$background" />
+              )}
+            </Button.Icon>
+            <Button.Text size="$6" color="$background">
+              Fix Grammar With AI
+            </Button.Text>
+          </Button>
+          <Spacer />
+          <Button
+            size="$6"
+            onPress={handleRephraseSentence}
+            bg="$accent"
+            elevate
+          >
+            <Button.Icon scaleIcon={1.5}>
+              {rephraseSentenceMutation.isLoading ? (
+                <Spinner color="$background" />
+              ) : (
+                <Sparkles size="$2" color="$background" />
+              )}
+            </Button.Icon>
+            <Button.Text size="$6" color="$background">
+              Rephrase With AI
+            </Button.Text>
+          </Button>
+        </BottomSheet>
+      )}
     </Fragment>
   );
 }

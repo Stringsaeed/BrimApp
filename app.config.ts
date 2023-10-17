@@ -29,10 +29,19 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#F7F6E4",
       },
-      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
+      googleServicesFile:
+        process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
       versionCode: 30,
+    },
+    ios: {
+      googleServicesFile:
+        process.env.GOOGLE_SERVICES_INFO_PLIST ??
+        "./assets/GoogleService-Info.plist",
+      bundleIdentifier: "com.stringsaeed.brim",
+      userInterfaceStyle: "automatic",
+      supportsTablet: false,
     },
     hooks: {
       postPublish: [
@@ -45,12 +54,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
     },
-    ios: {
-      googleServicesFile: process.env.GOOGLE_SERVICES_INFO_PLIST,
-      bundleIdentifier: "com.stringsaeed.brim",
-      userInterfaceStyle: "automatic",
-      supportsTablet: false,
-    },
     splash: {
       image: "./assets/splash.png",
       backgroundColor: "#F7F6E4",
@@ -60,6 +63,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       eas: {
         projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
+    },
+    androidStatusBar: {
+      backgroundColor: "#F7F6E400",
+      translucent: true,
     },
     updates: {
       url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",

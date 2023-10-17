@@ -1,10 +1,8 @@
 import { ParamListBase } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { Platform } from "react-native";
 import { BlurEffectTypes } from "react-native-screens";
 
-import { ArchivedNotesHeaderBackground } from "components";
 import { DashboardScreen, NotesScreens, UserScreens } from "screens";
 
 export default function createAppGroup<
@@ -38,8 +36,6 @@ export default function createAppGroup<
         name="Archive"
         component={NotesScreens.Archived}
         options={{
-          headerBackground:
-            Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,
           headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           title: "Archived",
@@ -50,8 +46,6 @@ export default function createAppGroup<
         name="Trash"
         component={NotesScreens.Trashed}
         options={{
-          headerBackground:
-            Platform.OS !== "ios" ? ArchivedNotesHeaderBackground : undefined,
           headerBlurEffect: themeName as BlurEffectTypes,
           headerTransparent: true,
           headerShown: true,

@@ -5,7 +5,8 @@
       "distribution": "internal",
       "env": {
         "TAMAGUI_TARGET": "native"
-      }
+      },
+      "channel": "development"
     },
     "preview": {
       "android": {

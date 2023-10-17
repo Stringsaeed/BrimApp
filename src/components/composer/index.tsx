@@ -47,6 +47,7 @@ function ComposerComponent(
       bg="$backgroundTransparent"
       borderRadius="$0"
       flex={1}
+      textAlignVertical="top"
       borderWidth="$0"
     />
   );

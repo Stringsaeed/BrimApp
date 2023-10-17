@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 
 import { Routes } from "routers";
-import { Auth, Sentry } from "services";
+import { Auth } from "services";
 
 export async function signInWithPhoneNumber(phoneNumber: string) {
   try {
@@ -20,8 +20,8 @@ export default function useSignInWithPhoneNumberMutation() {
       if (!verificationId) throw new Error("Invalid verificationId");
       router.navigate(Routes.Verify, { verificationId });
     },
-    onError(e) {
-      Sentry.Native.captureException(e);
+    onError() {
+      // Sentry.Native.captureException(e);
     },
   });
 }

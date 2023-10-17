@@ -9,14 +9,12 @@ import { useAuth } from "contexts";
 import { Auth } from "services";
 
 const emailFieldSchema = z.string().email();
-const formSchema = z.object({
-  email: emailFieldSchema,
-});
+const formSchema = z.object({ email: emailFieldSchema });
 const validationSchema = toFormikValidationSchema(formSchema);
 
 export default function AddEmailBanner() {
   const { user } = useAuth();
-  const [isVisible, toggle] = useReducer((s) => !s, !!user?.email);
+  const [isHidden, toggle] = useReducer((s) => !s, true);
 
   const { handleSubmit, handleChange, handleBlur, isValid, values, dirty } =
     useFormik({
@@ -27,7 +25,8 @@ export default function AddEmailBanner() {
 
   const buttonDisabled = !isValid || !dirty;
 
-  if (!isVisible) return null;
+  const shouldHideCard = user?.email && user?.emailVerified && isHidden;
+  if (shouldHideCard) return null;
 
   return (
     <Card padded elevate space animation="lazy" enterStyle={{ opacity: 0 }}>
