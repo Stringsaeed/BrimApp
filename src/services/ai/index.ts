@@ -13,6 +13,7 @@ export async function fixGrammarAPI(text: string) {
   const response = await huggingFaceApi.post<[{ generated_text: string }]>(
     `/vennify/t5-base-grammar-correction`,
     {
+      wait_for_model: true,
       inputs: text,
     }
   );

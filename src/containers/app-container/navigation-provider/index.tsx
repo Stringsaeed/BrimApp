@@ -4,11 +4,10 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from "@react-navigation/native";
-import { PostHogProvider } from "posthog-react-native";
 import React, { PropsWithChildren } from "react";
 import { useTheme, useThemeName } from "tamagui";
 
-import { Analytics, routingInstrumentation } from "services";
+import { routingInstrumentation } from "services";
 
 export default function NavigationProvider({ children }: PropsWithChildren) {
   const navigationRef = useNavigationContainerRef();
@@ -36,9 +35,7 @@ export default function NavigationProvider({ children }: PropsWithChildren) {
       onReady={onReady}
       theme={navigationTheme}
     >
-      <PostHogProvider client={Analytics.postHug} autocapture>
-        {children}
-      </PostHogProvider>
+      {children}
     </NavigationContainer>
   );
 }
