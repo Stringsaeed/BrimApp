@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Auth } from "services";
+import { Analytics, Auth } from "services";
 
 async function signOut() {
+  await Analytics.signOut();
   await Auth.signOut();
 }
 
