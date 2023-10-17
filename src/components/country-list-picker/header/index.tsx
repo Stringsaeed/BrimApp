@@ -1,7 +1,7 @@
-import { ArrowLeft, X, MagnifyingGlass } from "phosphor-react-native";
+import { Search, X, ArrowLeft } from "@tamagui/lucide-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button, XStack, Input, View, useTheme } from "tamagui";
+import { Button, XStack, Input, View } from "tamagui";
 
 type Props = {
   title?: string;
@@ -17,8 +17,6 @@ export default function CountryListPickerHeader({
   const { top } = useSafeAreaInsets();
   const [showSearch, setShowSearch] = useState(true);
   const searchDebounceTimeout = useRef<any>(null);
-  const theme = useTheme();
-  const foregroundColor = theme.color.get();
 
   const handleSearch = (text: string) => {
     if (searchDebounceTimeout.current) {
@@ -43,7 +41,7 @@ export default function CountryListPickerHeader({
         aspectRatio={1}
         borderRadius="$12"
         scaleIcon={1.3}
-        icon={({ size }) => <ArrowLeft size={size} color={foregroundColor} />}
+        icon={({ color, size }) => <ArrowLeft size={size} color={color} />}
       />
       <View flex={1}>
         {!!showSearch && (
@@ -56,6 +54,7 @@ export default function CountryListPickerHeader({
             autoComplete="country"
             textContentType="countryName"
             onChangeText={handleSearch}
+            borderRadius="$12"
           />
         )}
       </View>
@@ -66,11 +65,11 @@ export default function CountryListPickerHeader({
         aspectRatio={1}
         borderRadius="$12"
         scaleIcon={1.3}
-        icon={({ size }) =>
+        icon={({ color, size }) =>
           showSearch ? (
-            <X size={size} color={foregroundColor} />
+            <X size={size} color={color} />
           ) : (
-            <MagnifyingGlass size={size} color={foregroundColor} />
+            <Search size={size} color={color} />
           )
         }
       />

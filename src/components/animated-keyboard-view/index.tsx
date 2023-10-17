@@ -11,9 +11,14 @@ const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 type Props = Omit<ComponentProps<typeof AnimatedYStack>, "key"> & {
   offset?: number;
+  handleTopSafeArea?: boolean;
 };
 
-export default function AnimatedKeyboardView({ children, ...props }: Props) {
+export default function AnimatedKeyboardView({
+  handleTopSafeArea = true,
+  children,
+  ...props
+}: Props) {
   const { bottom, top } = useSafeAreaInsets();
   const token$5Value = getTokenValue("$5", "space");
   const token$3and5Value = getTokenValue("$3.5", "size");
@@ -29,7 +34,7 @@ export default function AnimatedKeyboardView({ children, ...props }: Props) {
 
   return (
     <AnimatedYStack
-      pt={top + token$5Value}
+      pt={(handleTopSafeArea ? top : 0) + token$5Value}
       gap={24}
       px="$3.5"
       bg="$colorTransparent"

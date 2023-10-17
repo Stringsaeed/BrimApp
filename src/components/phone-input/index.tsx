@@ -31,6 +31,7 @@ export default function PhoneInput({ control }: Props) {
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               size="$5"
+              borderRadius="$12"
               textContentType="telephoneNumber"
               autoComplete="tel"
               keyboardType="phone-pad"

@@ -40,6 +40,7 @@ export default function CountryBottomSheet({
         borderColor="$gray5"
         onPress={handleOnPress}
         scaleIcon={1.4}
+        borderRadius="$12"
         icon={({ color, size }) => (
           <Circle size={size} overflow="hidden" bg={color}>
             <Image

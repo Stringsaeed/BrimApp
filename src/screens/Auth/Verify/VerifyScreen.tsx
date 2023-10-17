@@ -12,10 +12,10 @@ export default function VerifyView() {
   } = useVerifyPhoneNumberMutation();
 
   return (
-    <AuthLayout>
+    <AuthLayout handleTopSafeArea={false}>
       <Heading>Please verify the code</Heading>
       <Input
-        size="$5"
+        borderRadius="$12"
         textContentType="oneTimeCode"
         autoComplete="sms-otp"
         keyboardType="number-pad"

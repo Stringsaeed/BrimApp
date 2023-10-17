@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export enum Routes {
-  Login = "login",
-  Verify = "verify",
+  Login = "Login",
+  Verify = "Verify",
   Dashboard = "Dashboard",
   Note = "Note",
   Archive = "Archive",
