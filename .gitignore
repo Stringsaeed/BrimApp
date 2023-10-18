@@ -88,3 +88,5 @@ dist/
 .env
 assets/GoogleService-Info.plist
 assets/google-services.json
+
+tamagui.config.json
