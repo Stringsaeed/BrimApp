@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import * as LocalAuthentication from "expo-local-authentication";
 
-import { NoteService } from "services";
+import { NoteService, Sentry } from "services";
 import { Note } from "types";
 
 async function toggleNotePrivacy({ note }: { note: Note }) {
@@ -26,6 +26,7 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
     await NoteService.update(note.id!, { is_private: isPrivate });
     return isPrivate;
   } catch (e) {
+    Sentry.Native.captureException(e);
     return false;
   }
 }
