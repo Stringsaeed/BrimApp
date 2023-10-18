@@ -22,7 +22,7 @@
     },
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle"
       },
       "env": {
         "TAMAGUI_TARGET": "native",
@@ -30,6 +30,19 @@
       },
       "distribution": "store",
       "channel": "production"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "mohameddiabaya@gmail.com",
+        "ascAppId": "6469449253",
+        "appleTeamId": "V3HN8HXZYK"
+      },
+      "android": {
+        "track": "internal",
+        "releaseStatus": "draft"
+      }
     }
   }
 }
