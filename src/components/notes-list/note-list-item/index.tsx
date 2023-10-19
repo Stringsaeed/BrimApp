@@ -3,7 +3,6 @@ import React, { useCallback, useMemo } from "react";
 import { Swipeable } from "react-native-gesture-handler";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { ListItem, useTheme } from "tamagui";
-import { YGroup } from "tamagui";
 
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
@@ -80,31 +79,29 @@ export default function NoteListItemView({
 
   return (
     <Animated.View exiting={FadeOut} entering={FadeIn}>
-      <YGroup.Item>
-        <Swipeable
-          onSwipeableWillOpen={onSwipeableWillOpen}
-          renderRightActions={renderRightActions}
-          renderLeftActions={renderLeftActions}
-        >
-          <ListItem
-            iconAfter={item.is_private ? <Lock color="black" /> : null}
-            onPress={onPress}
-            hoverTheme
-            pressTheme
-            title={
-              <ListItem.Text
-                fontWeight={item.title ? "500" : "normal"}
-                color={item.title ? "$accent" : "$grey6"}
-                fontSize="$5"
-                numberOfLines={1}
-              >
-                {item.title || "Draft"}
-              </ListItem.Text>
-            }
-            subTitle={content}
-          />
-        </Swipeable>
-      </YGroup.Item>
+      <Swipeable
+        onSwipeableWillOpen={onSwipeableWillOpen}
+        renderRightActions={renderRightActions}
+        renderLeftActions={renderLeftActions}
+      >
+        <ListItem
+          iconAfter={item.is_private ? <Lock color="black" /> : null}
+          onPress={onPress}
+          hoverTheme
+          pressTheme
+          title={
+            <ListItem.Text
+              fontWeight={item.title ? "500" : "normal"}
+              color={item.title ? "$accent" : "$grey6"}
+              fontSize="$5"
+              numberOfLines={1}
+            >
+              {item.title || "Draft"}
+            </ListItem.Text>
+          }
+          subTitle={content}
+        />
+      </Swipeable>
     </Animated.View>
   );
 }

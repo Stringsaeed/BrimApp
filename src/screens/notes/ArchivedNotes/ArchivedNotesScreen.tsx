@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NotesList, ScreenContainer } from "components";
+import { NotesList } from "components";
 import { NotesListProvider } from "contexts";
 import { useFilterNotes, useNavigateNote } from "hooks";
 
@@ -10,10 +10,8 @@ export default function ArchivedNotesScreen() {
   const onNavigateNote = useNavigateNote();
 
   return (
-    <ScreenContainer handleHeaderHeight withoutBeautifulPadding type="fixed">
-      <NotesListProvider notes={notes}>
-        <NotesList onPressNote={onNavigateNote} />
-      </NotesListProvider>
-    </ScreenContainer>
+    <NotesListProvider notes={notes}>
+      <NotesList onPressNote={onNavigateNote} />
+    </NotesListProvider>
   );
 }

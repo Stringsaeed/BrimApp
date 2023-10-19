@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Button, Heading, View } from "tamagui";
+import { Input, Button, Heading, View, Spinner } from "tamagui";
 
 import { Spacer, AuthLayout } from "components";
 import { useVerifyPhoneNumberMutation } from "hooks";
@@ -8,6 +8,7 @@ export default function VerifyView() {
   const {
     setCode: onCodeChangeText,
     handleVerify: onSubmit,
+    isLoading,
     code,
   } = useVerifyPhoneNumberMutation();
 
@@ -25,6 +26,7 @@ export default function VerifyView() {
         maxLength={6}
         value={code}
         onChangeText={onCodeChangeText}
+        onSubmitEditing={onSubmit}
       />
       <Spacer />
       <Button
@@ -34,8 +36,9 @@ export default function VerifyView() {
         color="$background"
         borderRadius="$12"
         opacity={!code ? 0.5 : 1}
-        disabled={!code}
+        disabled={!code || isLoading}
         onPress={onSubmit}
+        icon={isLoading ? <Spinner /> : undefined}
       >
         Login
       </Button>

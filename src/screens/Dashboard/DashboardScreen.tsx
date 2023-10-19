@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DashboardHeader, NotesList, ScreenContainer } from "components";
+import { DashboardHeader, NotesList } from "components";
 import { NotesListProvider } from "contexts";
 import {
   useCreateEmptyNoteMutation,
@@ -21,9 +21,7 @@ export default function DashboardScreen() {
         onPressCreate={createEmptyNoteMutation.mutate}
         onPressProfile={onPressProfile}
       />
-      <ScreenContainer withoutBeautifulPadding handleHeaderHeight type="fixed">
-        <NotesList onPressNote={onNavigateNote} />
-      </ScreenContainer>
+      <NotesList onPressNote={onNavigateNote} />
     </NotesListProvider>
   );
 }

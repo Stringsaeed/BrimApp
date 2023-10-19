@@ -1,7 +1,6 @@
-import React, { Fragment, useCallback } from "react";
+import React, { useCallback } from "react";
 import { ListRenderItemInfo } from "react-native";
 import Animated from "react-native-reanimated";
-import { Separator, YGroup } from "tamagui";
 
 import { useNotesList } from "contexts";
 import { Note } from "types";
@@ -9,6 +8,7 @@ import { Note } from "types";
 import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
 import NoteListSearchBar from "./note-list-search-bar";
+import styles from "./styles";
 
 interface NotesListProps {
   onPressNote: (note: Note) => void;
@@ -59,19 +59,14 @@ export default function NoteList({ onPressNote }: NotesListProps) {
     [handleLeftAction, handleRemove, onPressNote]
   );
 
-  const shouldShowEmptyView = notes.length === 0;
-
   return (
-    <Fragment>
-      <NoteListSearchBar />
-      {shouldShowEmptyView && <ListEmptyView />}
-      {!shouldShowEmptyView && (
-        <Animated.ScrollView contentInsetAdjustmentBehavior="automatic">
-          <YGroup ov="hidden" separator={<Separator />} mx="$4" bordered>
-            {notes.map((note, index) => renderItem({ item: note, index }))}
-          </YGroup>
-        </Animated.ScrollView>
-      )}
-    </Fragment>
+    <Animated.FlatList
+      data={notes}
+      ListHeaderComponent={NoteListSearchBar}
+      renderItem={renderItem}
+      style={styles.list}
+      contentContainerStyle={styles.content}
+      ListEmptyComponent={ListEmptyView}
+    />
   );
 }

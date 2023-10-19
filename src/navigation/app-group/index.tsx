@@ -1,8 +1,8 @@
 import { ParamListBase } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { BlurEffectTypes } from "react-native-screens";
 
+import { Routes } from "routers";
 import { DashboardScreen, NotesScreens, UserScreens } from "screens";
 
 export default function createAppGroup<
@@ -10,74 +10,54 @@ export default function createAppGroup<
   ThemeName extends "light" | "dark" | (string & {})
 >(
   creator: ReturnType<typeof createNativeStackNavigator<ParamsList>>,
-  themeName: ThemeName
+  _: ThemeName
 ) {
   return (
-    <creator.Group>
+    <creator.Group
+      screenOptions={{
+        headerBackTitleVisible: false,
+        headerBackTitle: "",
+        headerShown: true,
+      }}
+    >
       <creator.Screen
-        name="Dashboard"
+        name={Routes.Dashboard}
         component={DashboardScreen}
-        options={{
-          headerTransparent: true,
-          headerShown: true,
-          title: "",
-        }}
+        options={{ title: "" }}
       />
       <creator.Screen
-        name="Note"
+        name={Routes.Note}
         component={NotesScreens.Note}
-        options={{
-          headerTransparent: true,
-          headerShown: true,
-          title: "",
-        }}
+        options={{ headerTransparent: true, title: "" }}
       />
       <creator.Screen
-        name="Archive"
+        name={Routes.Archive}
         component={NotesScreens.Archived}
         options={{
-          headerBlurEffect: themeName as BlurEffectTypes,
-          headerTransparent: true,
           title: "Archived",
-          headerShown: true,
         }}
       />
       <creator.Screen
-        name="Trash"
+        name={Routes.Trash}
         component={NotesScreens.Trashed}
         options={{
-          headerBlurEffect: themeName as BlurEffectTypes,
-          headerTransparent: true,
-          headerShown: true,
           title: "Trash",
         }}
       />
       <creator.Screen
-        name="Profile"
+        name={Routes.Profile}
         component={UserScreens.Profile}
-        options={{
-          headerBackTitleVisible: false,
-          headerBackTitle: "",
-          title: "Profile",
-        }}
+        options={{ title: "Profile" }}
       />
       <creator.Screen
-        name="AccountInfo"
+        name={Routes.AccountInfo}
         component={UserScreens.AccountInfo}
-        options={{
-          headerBackTitleVisible: false,
-          title: "Account Information",
-          headerBackTitle: "",
-        }}
+        options={{ title: "Account Information" }}
       />
       <creator.Screen
-        name="Preferences"
+        name={Routes.Preferences}
         component={UserScreens.Preferences}
-        options={{
-          headerBackTitleVisible: false,
-          title: "Preferences",
-          headerBackTitle: "",
-        }}
+        options={{ title: "Preferences" }}
       />
     </creator.Group>
   );

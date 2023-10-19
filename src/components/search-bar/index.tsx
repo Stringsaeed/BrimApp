@@ -11,8 +11,7 @@ function SearchBarComponent(
     <XStack
       px="$4"
       borderRadius="$12"
-      mx="$4"
-      mb="$4"
+      m="$4"
       backgroundColor="$gray3"
       ai="center"
     >

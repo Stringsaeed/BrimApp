@@ -33,7 +33,7 @@ export default function CountryListPickerHeader({
   }, [showSearch, onSearchSubmit]);
 
   return (
-    <XStack mt={top} px="$4" gap="$2" alignItems="center">
+    <XStack mt={top} pb="$2" px="$4" gap="$2" alignItems="center">
       <Button
         onPress={close}
         accessibilityRole="button"
