@@ -14,14 +14,16 @@ function SearchBarComponent(
       m="$4"
       backgroundColor="$gray3"
       ai="center"
+      height={36}
     >
-      <Search size="$size.1" />
+      <Search size="$size.1" color="$gray9" />
       <Input
         ref={ref}
         flex={1}
         borderWidth={0}
         backgroundColor="$gray3"
         placeholder="Search notes"
+        placeholderTextColor="$gray9"
         size="$3"
         {...props}
       />

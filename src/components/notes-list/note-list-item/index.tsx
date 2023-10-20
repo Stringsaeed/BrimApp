@@ -1,13 +1,15 @@
+import { CheckCircle2, Circle } from "@tamagui/lucide-icons";
 import { ArchiveBox, ArrowUUpLeft, Lock, Trash } from "phosphor-react-native";
 import React, { useCallback, useMemo } from "react";
-import { Swipeable } from "react-native-gesture-handler";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { Gesture } from "react-native-gesture-handler";
 import { ListItem, useTheme } from "tamagui";
 
+import { useNotesList } from "contexts";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
 
 import NoteListItemAction from "./action";
+import NoteListItemContainer from "./container";
 
 export interface NoteListItemProps {
   item: Note;
@@ -22,6 +24,7 @@ export default function NoteListItemView({
   onPress,
   item,
 }: NoteListItemProps) {
+  const { multiSelectMode, selectedNotes, onNoteSelect } = useNotesList();
   const theme = useTheme();
   const foregroundColor = theme.background.get();
   const content = useMemo(() => {
@@ -77,31 +80,55 @@ export default function NoteListItemView({
     }
   };
 
+  const listItemTitle = (
+    <ListItem.Text
+      fontWeight={item.title ? "500" : "normal"}
+      color={item.title ? "$accent" : "$grey6"}
+      fontSize="$5"
+      numberOfLines={1}
+    >
+      {item.title || "Draft"}
+    </ListItem.Text>
+  );
+
+  const listItemIcon = multiSelectMode ? (
+    selectedNotes.includes(item.id) ? (
+      <CheckCircle2 size={24} color="$accent" />
+    ) : (
+      <Circle size={24} color="$gray6" />
+    )
+  ) : null;
+
+  const tapGesture = Gesture.Tap()
+    .onEnd(() => {
+      if (multiSelectMode) return onNoteSelect(item.id);
+      onPress();
+    })
+    .runOnJS(true);
+  const longPressGesture = Gesture.LongPress()
+    .onStart(() => {
+      onNoteSelect(item.id);
+    })
+    .runOnJS(true);
+
+  const gesture = Gesture.Exclusive(tapGesture, longPressGesture);
+
   return (
-    <Animated.View exiting={FadeOut} entering={FadeIn}>
-      <Swipeable
-        onSwipeableWillOpen={onSwipeableWillOpen}
-        renderRightActions={renderRightActions}
-        renderLeftActions={renderLeftActions}
-      >
-        <ListItem
-          iconAfter={item.is_private ? <Lock color="black" /> : null}
-          onPress={onPress}
-          hoverTheme
-          pressTheme
-          title={
-            <ListItem.Text
-              fontWeight={item.title ? "500" : "normal"}
-              color={item.title ? "$accent" : "$grey6"}
-              fontSize="$5"
-              numberOfLines={1}
-            >
-              {item.title || "Draft"}
-            </ListItem.Text>
-          }
-          subTitle={content}
-        />
-      </Swipeable>
-    </Animated.View>
+    <NoteListItemContainer
+      gesture={gesture}
+      onSwipeableWillOpen={onSwipeableWillOpen}
+      renderLeftActions={renderLeftActions}
+      renderRightActions={renderRightActions}
+      enabled={!multiSelectMode}
+    >
+      <ListItem
+        icon={listItemIcon}
+        iconAfter={item.is_private ? <Lock color="black" /> : null}
+        hoverTheme={false}
+        pressTheme={false}
+        subTitle={content}
+        title={listItemTitle}
+      />
+    </NoteListItemContainer>
   );
 }

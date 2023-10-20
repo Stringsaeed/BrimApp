@@ -1,12 +1,13 @@
 import React, { useCallback } from "react";
 import { ListRenderItemInfo } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, { Layout } from "react-native-reanimated";
 
 import { useNotesList } from "contexts";
 import { Note } from "types";
 
 import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";
+import NoteListMultiselectMenu from "./note-list-multiselect-menu";
 import NoteListSearchBar from "./note-list-search-bar";
 import styles from "./styles";
 
@@ -15,7 +16,7 @@ interface NotesListProps {
 }
 
 export default function NoteList({ onPressNote }: NotesListProps) {
-  const { restoreNote, archiveNote, deleteNote, notes } = useNotesList();
+  const { archiveNote, restoreNote, deleteNote, notes } = useNotesList();
 
   const handleRemove = useCallback(
     (item: Note) => {
@@ -60,13 +61,16 @@ export default function NoteList({ onPressNote }: NotesListProps) {
   );
 
   return (
-    <Animated.FlatList
-      data={notes}
-      ListHeaderComponent={NoteListSearchBar}
-      renderItem={renderItem}
-      style={styles.list}
-      contentContainerStyle={styles.content}
-      ListEmptyComponent={ListEmptyView}
-    />
+    <Animated.View layout={Layout.springify()} style={styles.list}>
+      <Animated.FlatList
+        data={notes}
+        ListHeaderComponent={NoteListSearchBar}
+        renderItem={renderItem}
+        style={styles.list}
+        contentContainerStyle={styles.content}
+        ListEmptyComponent={ListEmptyView}
+      />
+      <NoteListMultiselectMenu />
+    </Animated.View>
   );
 }

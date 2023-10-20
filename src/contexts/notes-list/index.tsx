@@ -24,6 +24,10 @@ type NotesListContext = {
   ) => void;
   searchValue?: string;
   isSearchBarVisible?: boolean;
+  selectedNotes: Note["id"][];
+  onNoteSelect: (id: Note["id"]) => void;
+  multiSelectMode?: boolean;
+  toggleMultiSelectMode?: () => void;
 };
 
 type NotesListProviderProps = PropsWithChildren<
@@ -40,6 +44,8 @@ export const NotesListProvider = ({
   notes: unSearchedNotes,
   children,
 }: NotesListProviderProps) => {
+  const [multiSelectMode, setMultiSelectMode] = React.useState(false);
+  const [selectedNotes, setSelectedNote] = React.useState<Note["id"][]>([]);
   const isSearchBarVisible = unSearchedNotes.length > 0;
   const [notes, { onSearchValueChange, searchValue }] =
     useSearchableNotes(unSearchedNotes);
@@ -149,31 +155,66 @@ export const NotesListProvider = ({
     [getNote, updateNoteMutation]
   );
 
+  const onNoteSelect = useCallback(
+    (id: Note["id"]) => {
+      if (!multiSelectMode) {
+        setSelectedNote([id]);
+        setMultiSelectMode(true);
+        return;
+      }
+      if (selectedNotes.includes(id)) {
+        setSelectedNote((prev) => prev.filter((noteId) => noteId !== id));
+      } else {
+        setSelectedNote((prev) => [...prev, id]);
+      }
+    },
+    [multiSelectMode, selectedNotes]
+  );
+
+  const toggleMultiSelectMode = useCallback(() => {
+    setMultiSelectMode((prevValue) => {
+      const newValue = !prevValue;
+      if (newValue) {
+        setSelectedNote([]);
+      }
+
+      return newValue;
+    });
+  }, []);
+
   const contextValue = useMemo<NotesListContext>(
     () => ({
+      toggleMultiSelectMode,
       onSearchValueChange,
       isSearchBarVisible,
+      multiSelectMode,
+      selectedNotes,
       unarchiveNote,
-      archiveNote,
-      restoreNote,
+      onNoteSelect,
       searchValue,
-      updateNote,
+      restoreNote,
+      archiveNote,
       deleteNote,
-      addNote,
+      updateNote,
       getNote,
+      addNote,
       notes,
     }),
     [
+      toggleMultiSelectMode,
       onSearchValueChange,
       isSearchBarVisible,
+      multiSelectMode,
+      selectedNotes,
       unarchiveNote,
-      archiveNote,
-      restoreNote,
+      onNoteSelect,
       searchValue,
-      updateNote,
+      restoreNote,
+      archiveNote,
       deleteNote,
-      addNote,
+      updateNote,
       getNote,
+      addNote,
       notes,
     ]
   );
