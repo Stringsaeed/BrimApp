@@ -1,17 +1,20 @@
 import useHaptic, { FeedbackType } from "hooks/use-haptic";
 
+interface UseHapticCallbackOptions {
+  shouldWait?: boolean;
+  triggerWhen?: "before" | "after";
+  feedbackType?: FeedbackType;
+}
+
 export default function useHapticCallback<T extends (...args: any[]) => any>(
   callback: T,
-  {
+  options?: UseHapticCallbackOptions
+) {
+  const {
     feedbackType = "selection",
     triggerWhen = "before",
     shouldWait = true,
-  }: {
-    shouldWait?: boolean;
-    triggerWhen?: "before" | "after";
-    feedbackType?: FeedbackType;
-  }
-) {
+  } = options || {};
   const hapticFeedback = useHaptic(feedbackType);
   async function injectFeedback() {
     return shouldWait ? await hapticFeedback?.() : hapticFeedback?.();

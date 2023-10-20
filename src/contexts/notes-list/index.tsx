@@ -4,6 +4,7 @@ import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import {
   useCreateNoteMutation,
   useDeleteNoteMutation,
+  useHaptic,
   useSearchableNotes,
   useUpdateNoteMutation,
 } from "hooks";
@@ -52,6 +53,7 @@ export const NotesListProvider = ({
   const createNoteMutation = useCreateNoteMutation();
   const updateNoteMutation = useUpdateNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
+  const haptic = useHaptic();
 
   const getNote = useCallback(
     (id: string) => {
@@ -157,6 +159,7 @@ export const NotesListProvider = ({
 
   const onNoteSelect = useCallback(
     (id: Note["id"]) => {
+      haptic?.();
       if (!multiSelectMode) {
         setSelectedNote([id]);
         setMultiSelectMode(true);
@@ -168,7 +171,7 @@ export const NotesListProvider = ({
         setSelectedNote((prev) => [...prev, id]);
       }
     },
-    [multiSelectMode, selectedNotes]
+    [haptic, multiSelectMode, selectedNotes]
   );
 
   const toggleMultiSelectMode = useCallback(() => {

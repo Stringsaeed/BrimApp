@@ -6,16 +6,46 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button, SizableText, Spacer, View, XGroup, XStack } from "tamagui";
 
 import { useNotesList } from "contexts";
+import { useHapticCallback } from "hooks";
 
 export default function NoteListMultiselectMenu() {
   const { bottom } = useSafeAreaInsets();
-  const { toggleMultiSelectMode, multiSelectMode, selectedNotes } =
-    useNotesList();
+  const {
+    toggleMultiSelectMode,
+    multiSelectMode,
+    selectedNotes,
+    deleteNote,
+    notes,
+  } = useNotesList();
 
   // TODO: Implement this
   const notImplementedFn = () => {
     Alert.alert("Not implemented");
   };
+
+  const onTrash = useHapticCallback(
+    () => {
+      selectedNotes
+        .map((selectedNoteId) =>
+          notes.find((note) => note.id === selectedNoteId)
+        )
+        .filter((note) => note)
+        .forEach((note) => {
+          if (!note) {
+            return;
+          }
+          deleteNote?.(note);
+        });
+    },
+    { feedbackType: "success" }
+  );
+
+  const onClose = useHapticCallback(
+    () => {
+      toggleMultiSelectMode?.();
+    },
+    { feedbackType: "medium" }
+  );
 
   if (!multiSelectMode) {
     return <></>;
@@ -39,11 +69,11 @@ export default function NoteListMultiselectMenu() {
             <Button onPress={notImplementedFn} icon={Archive} circular />
           </XGroup.Item>
           <XGroup.Item>
-            <Button onPress={notImplementedFn} icon={Trash2} circular />
+            <Button onPress={onTrash} icon={Trash2} circular />
           </XGroup.Item>
           <View height="100%" bg="$color" borderLeftWidth={1} />
           <XGroup.Item>
-            <Button icon={X} circular onPress={toggleMultiSelectMode} />
+            <Button icon={X} circular onPress={onClose} />
           </XGroup.Item>
         </XGroup>
       </XStack>
