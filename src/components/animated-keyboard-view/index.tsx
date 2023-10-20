@@ -21,7 +21,7 @@ export default function AnimatedKeyboardView({
 }: Props) {
   const { bottom, top } = useSafeAreaInsets();
   const token$5Value = getTokenValue("$5", "space");
-  const token$3and5Value = getTokenValue("$3.5", "size");
+  const token$3and5Value = getTokenValue("$3.5", "space");
   const { height } = useAnimatedKeyboard();
   const stylez = useAnimatedStyle(
     () => ({
