@@ -1,6 +1,8 @@
 import { vexo } from "vexo-analytics";
 
-const apiKey = process.env.EXPO_PUBLIC_VEXO_ANALYTICS_API_KEY;
+import { config } from "config";
+
+const apiKey = config.vexoAnalyticsApiKey;
 
 export const Vexo = {
   init: () => {

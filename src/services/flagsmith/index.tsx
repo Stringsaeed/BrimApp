@@ -6,9 +6,10 @@ import {
 import React from "react";
 import flagsmith from "react-native-flagsmith";
 
+import { config } from "config";
 import { AsyncStorage } from "services/storage";
 
-const environmentID = process.env.EXPO_PUBLIC_FLAGSMITH_ENVIRONMENT_ID;
+const environmentID = config.flagsmithEnvironmentId;
 
 export function FeatureFlagsProvider({
   children,

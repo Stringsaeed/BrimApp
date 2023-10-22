@@ -1,10 +1,12 @@
 import axios from "axios";
 
+import { config } from "config";
+
 export type HuggingFaceAIType = "fixGrammar" | "rephraseSentences";
 
 const huggingFaceApi = axios.create({
   headers: {
-    Authorization: `Bearer ${process.env.EXPO_PUBLIC_HUGGING_FACE_API_KEY}`,
+    Authorization: `Bearer ${config.huggingFaceApiKey}`,
   },
   baseURL: "https://api-inference.huggingface.co/models",
 });

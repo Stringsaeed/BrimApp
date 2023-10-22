@@ -1,5 +1,7 @@
 import * as Sentry from "sentry-expo";
 
+import { config } from "config";
+
 const routingInstrumentation =
   new Sentry.Native.ReactNavigationInstrumentation();
 
@@ -9,7 +11,7 @@ Sentry.Native.init({
       routingInstrumentation,
     }),
   ],
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  dsn: config.sentryDsn,
   debug: false,
 });
 
