@@ -22,7 +22,7 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk"
       },
       "env": {
         "TAMAGUI_TARGET": "native",
