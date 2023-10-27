@@ -10,14 +10,13 @@ export default function useDeleteNoteMutation() {
 
   const onTrash = useCallback(
     async (input: Note) => {
-      if (input.is_trashed || input.status === "trashed") {
+      if (input.status === "trashed") {
         return await NoteService.delete(input.id);
       }
 
       await updateNoteMutation.mutateAsync({
+        user_id: input.user_id!,
         status: "trashed",
-        user: input.user!,
-        is_trashed: true,
         id: input.id!,
       });
     },

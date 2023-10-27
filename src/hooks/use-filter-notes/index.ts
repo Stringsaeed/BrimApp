@@ -9,10 +9,9 @@ export enum FilterType {
   Trashed,
 }
 
-const isArchived = (note: Note) =>
-  note.is_archived || note.status === "archived";
+const isArchived = (note: Note) => note.status === "archived";
 
-const isTrashed = (note: Note) => note.is_trashed || note.status === "trashed";
+const isTrashed = (note: Note) => note.status === "trashed";
 
 function getFilterFunction(type: FilterType) {
   switch (type) {

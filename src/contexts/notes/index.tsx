@@ -27,7 +27,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
   const syncNotes = useCallback(async () => {
     const toRemoved = data
       .map((note) => {
-        if (note.is_draft) return;
+        if (note.status === "draft") return;
         if (note.note) return;
         if (note.title) return;
         return removeNote(note.id);

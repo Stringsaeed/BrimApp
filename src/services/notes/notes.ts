@@ -9,7 +9,7 @@ export const NoteService = {
     if (!userId) {
       return () => {};
     }
-    const ref = database().ref(`/notes/${userId}`);
+    const ref = database().ref(`/notes/${userId}`).orderByChild("updated_at");
     ref.on("value", (snapshot) => {
       const snapshotValue = snapshot.val();
       if (!snapshotValue) {
@@ -26,7 +26,7 @@ export const NoteService = {
         return undefined;
       });
 
-      const notes = notesSchema.parse(data);
+      const notes = notesSchema.parse(data).reverse();
       callback(notes);
     });
     return () => ref.off("value");
@@ -43,18 +43,20 @@ export const NoteService = {
       user: userId,
     });
   },
+  delete: async (id: string) => {
+    const userId = Auth.getCurrentUser()?.uid;
+    if (!userId) throw new Error("User not found");
+    await database().ref(`/notes/${userId}/${id}`).update({
+      deleted_at: new Date().getTime(),
+    });
+  },
   update: async (id: string, input: Partial<Note>) => {
     const userId = Auth.getCurrentUser()?.uid;
     if (!userId) throw new Error("User not found");
     await database().ref(`/notes/${userId}/${id}`).update(input);
   },
-  delete: async (id: string) => {
-    const userId = Auth.getCurrentUser()?.uid;
-    if (!userId) throw new Error("User not found");
-    await database().ref(`/notes/${userId}/${id}`).remove();
-  },
   create: async (input: Omit<Note, "id">) => {
-    const ref = await database().ref(`/notes/${input.user}`).push(input);
+    const ref = await database().ref(`/notes/${input.user_id}`).push(input);
     return await NoteService.get(ref.key ?? "");
   },
 };

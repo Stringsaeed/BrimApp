@@ -46,10 +46,7 @@ export default function NoteListItemView({
   const renderLeftActions = useCallback(() => {
     if (!onLeftAction) return null;
 
-    const isRestorable =
-      item.is_archived ||
-      item.is_trashed ||
-      ["archived", "trashed"].includes(item.status);
+    const isRestorable = ["archived", "trashed"].includes(item.status);
 
     return (
       <NoteListItemAction
@@ -64,13 +61,7 @@ export default function NoteListItemView({
         )}
       </NoteListItemAction>
     );
-  }, [
-    foregroundColor,
-    item.is_archived,
-    item.is_trashed,
-    item.status,
-    onLeftAction,
-  ]);
+  }, [foregroundColor, item.status, onLeftAction]);
 
   const onSwipeableWillOpen = (direction: "left" | "right") => {
     if (direction === "left") {
@@ -83,7 +74,7 @@ export default function NoteListItemView({
   const listItemTitle = (
     <ListItem.Text
       fontWeight={item.title ? "500" : "normal"}
-      color={item.title ? "$accent" : "$grey6"}
+      color={item.title ? "$accent" : "$gray7"}
       fontSize="$5"
       numberOfLines={1}
     >

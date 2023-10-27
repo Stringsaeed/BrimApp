@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { NoteService } from "services";
 import { Note, RequiredNotNull } from "types";
 
-type RequiredInput = RequiredNotNull<Required<Pick<Note, "id" | "user">>>;
+type RequiredInput = RequiredNotNull<Required<Pick<Note, "id" | "user_id">>>;
 
 type OptionalInput = Partial<
-  Omit<Note, "id" | "user" | "updated_at" | "created_at">
+  Omit<Note, "id" | "user_id" | "updated_at" | "created_at">
 >;
 
 export type UpdateNoteMutationInput = RequiredInput & OptionalInput;
@@ -16,8 +16,8 @@ async function updateNote(input: UpdateNoteMutationInput) {
   const now = new Date().toISOString();
   await NoteService.update(id, {
     ...note,
+    status: input.status === "draft" ? "published" : input.status,
     updated_at: now,
-    is_draft: false,
   });
 }
 

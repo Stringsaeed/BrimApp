@@ -5,15 +5,13 @@ export const noteSchema = z.object({
   status: z
     .enum(["draft", "archived", "trashed", "published"])
     .default("published"),
-  is_archived: z.boolean().nullish().optional().default(false),
-  is_trashed: z.boolean().nullish().optional().default(false),
-  is_private: z.boolean().nullish().optional().default(false),
-  updated_at: z.string().nullish(),
-  created_at: z.string().nullish(),
-  is_draft: z.boolean().nullish(),
+  is_private: z.boolean().optional().default(false),
+  deleted_at: z.string().optional(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
+  user_id: z.string().optional(),
   title: z.string().optional(),
-  user: z.string().nullish(),
-  note: z.string(),
+  note: z.string().optional(),
   id: z.string(),
 });
 

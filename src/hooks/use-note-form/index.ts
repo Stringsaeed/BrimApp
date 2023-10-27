@@ -22,10 +22,10 @@ export default function useNoteForm(note: Note) {
       setSubmitting(true);
       try {
         await updateNoteMutation.mutate({
+          status: note.status === "draft" ? "published" : note.status,
+          user_id: note.user_id!,
           title: values.title,
           note: values.note,
-          user: note.user!,
-          is_draft: false,
           id: note.id,
         });
       } catch (e) {
