@@ -2,18 +2,9 @@ import z from "zod";
 
 const envSchema = z.object({
   flagsmithEnvironmentId: z.string(),
-  clerkPublishableKey: z.string(),
   vexoAnalyticsApiKey: z.string(),
   webFirebaseApiKey: z.string(),
   huggingFaceApiKey: z.string(),
-  sentryAuthToken: z.string(),
-  supabaseAnonKey: z.string(),
-  sentryProject: z.string(),
-  postHugApiKey: z.string(),
-  supabaseUrl: z.string(),
-  postHugHost: z.string(),
-  authToken: z.string(),
-  sentryOrg: z.string(),
   sentryDsn: z.string(),
 });
 
@@ -27,11 +18,7 @@ const unsafeConfig = {
   postHugApiKey: process.env.EXPO_PUBLIC_POST_HUG_API_KEY,
   postHugHost: process.env.EXPO_PUBLIC_POST_HUG_HOST,
   supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,
-  sentryAuthToken: process.env.SENTRY_AUTH_TOKEN,
   sentryDsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  sentryProject: process.env.SENTRY_PROJECT,
-  sentryOrg: process.env.SENTRY_ORG,
-  authToken: process.env.AUTH_TOKEN,
 };
 
 export const config = envSchema.parse(unsafeConfig);
