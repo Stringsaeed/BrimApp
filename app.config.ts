@@ -34,7 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
-      versionCode: 34,
+      versionCode: 35,
     },
     ios: {
       googleServicesFile:
@@ -43,7 +43,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
       supportsTablet: false,
-      buildNumber: "34",
+      buildNumber: "35",
     },
     hooks: {
       postPublish: [
