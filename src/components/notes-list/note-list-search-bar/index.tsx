@@ -33,6 +33,7 @@ export default function NoteListSearchBar() {
   const onCloseSearch = () => {
     inputRef.current?.blur();
     onSearchValueChange?.("");
+    onBlur();
   };
 
   const onFocus = () => {
