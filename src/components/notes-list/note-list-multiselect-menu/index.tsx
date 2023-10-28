@@ -1,13 +1,25 @@
-import { Archive, X, Trash2 } from "@tamagui/lucide-icons";
+import {
+  Archive,
+  X,
+  Trash2,
+  CircleDot,
+  Circle,
+  CircleDotDashed,
+} from "@tamagui/lucide-icons";
 import React from "react";
 import { Alert } from "react-native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  FadeIn,
+  FadeOut,
+  Layout,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   Button,
-  Circle,
   SizableText,
   Spacer,
+  Stack,
   View,
   XGroup,
   XStack,
@@ -22,6 +34,7 @@ export default function NoteListMultiselectMenu() {
     toggleMultiSelectMode,
     multiSelectMode,
     selectedNotes,
+    onNoteSelect,
     deleteNote,
     notes,
   } = useNotesList();
@@ -55,6 +68,57 @@ export default function NoteListMultiselectMenu() {
     { feedbackType: "medium" }
   );
 
+  const noOfSelectedNotes = selectedNotes.length;
+  const noOfNotes = notes.length;
+
+  const renderSelectedIndicatorIcon = () => {
+    const shared = {
+      size: 24,
+    };
+    switch (true) {
+      case noOfSelectedNotes === 0:
+        return (
+          <Animated.View entering={FadeIn} exiting={FadeOut}>
+            <Circle {...shared} color="$gray6" />
+          </Animated.View>
+        );
+      case noOfSelectedNotes === noOfNotes:
+        return (
+          <Animated.View entering={FadeIn} exiting={FadeOut}>
+            <CircleDot {...shared} color="$accent" />
+          </Animated.View>
+        );
+      default:
+        return (
+          <Animated.View entering={FadeIn} exiting={FadeOut}>
+            <CircleDotDashed {...shared} color="$gray10" />
+          </Animated.View>
+        );
+    }
+  };
+
+  const handleSelectAll = () => {
+    const selectedNotesIds = new Array(...selectedNotes.map((n) => n));
+
+    if (noOfSelectedNotes === 0) {
+      return notes.forEach((note) => {
+        onNoteSelect?.(note.id);
+      });
+    }
+
+    if (noOfSelectedNotes === noOfNotes) {
+      return selectedNotesIds.forEach((noteId) => {
+        onNoteSelect?.(noteId);
+      });
+    }
+
+    notes
+      .filter((note) => !selectedNotesIds.includes(note.id))
+      .forEach((note) => {
+        onNoteSelect?.(note.id);
+      });
+  };
+
   if (!multiSelectMode) {
     return <></>;
   }
@@ -69,7 +133,12 @@ export default function NoteListMultiselectMenu() {
         borderColor="$gray4"
         alignItems="center"
       >
-        <Circle size="$2" bg="$gray4" />
+        <Stack onPress={handleSelectAll}>
+          <Animated.View layout={Layout.easing(Easing.inOut(Easing.ease))}>
+            {renderSelectedIndicatorIcon()}
+          </Animated.View>
+        </Stack>
+        <Spacer size="$2" />
         <SizableText>{selectedNotes.length} Selected</SizableText>
         <Spacer flex={1} />
         <XGroup>
