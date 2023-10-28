@@ -4,6 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     plugins: [
+      "./plugins/withFirebaseAppCheck.js",
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       [

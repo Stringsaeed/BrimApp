@@ -46,7 +46,13 @@
   },
   "overrides": [
     {
-      "files": ["*.stories.tsx", "test/**", "*.config.js", "*.config.ts"],
+      "files": [
+        "*.stories.tsx",
+        "test/**",
+        "*.config.js",
+        "*.config.ts",
+        "plugins/**"
+      ],
       "rules": {
         "import/no-default-export": "off",
         "import/no-extraneous-dependencies": "off"
