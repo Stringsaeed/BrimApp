@@ -3,7 +3,15 @@ import React from "react";
 import { Alert } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button, SizableText, Spacer, View, XGroup, XStack } from "tamagui";
+import {
+  Button,
+  Circle,
+  SizableText,
+  Spacer,
+  View,
+  XGroup,
+  XStack,
+} from "tamagui";
 
 import { useNotesList } from "contexts";
 import { useHapticCallback } from "hooks";
@@ -60,10 +68,10 @@ export default function NoteListMultiselectMenu() {
         borderTopWidth={1}
         borderColor="$gray4"
         alignItems="center"
-        justifyContent="space-between"
       >
+        <Circle size="$2" bg="$gray4" />
         <SizableText>{selectedNotes.length} Selected</SizableText>
-        <Spacer />
+        <Spacer flex={1} />
         <XGroup>
           <XGroup.Item>
             <Button onPress={notImplementedFn} icon={Archive} circular />

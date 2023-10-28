@@ -11,10 +11,10 @@ function SearchBarComponent(
     <XStack
       px="$4"
       borderRadius="$12"
-      m="$4"
       backgroundColor="$gray3"
       ai="center"
       height={36}
+      f={1}
     >
       <Search size="$size.1" color="$gray9" />
       <Input

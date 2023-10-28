@@ -1,5 +1,6 @@
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import parseISO from "date-fns/parseISO";
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 import {
   useCreateNoteMutation,
@@ -13,6 +14,10 @@ import { Note } from "types";
 
 type NotesListContext = {
   notes: Note[];
+  sections: {
+    title: string;
+    data: Note[];
+  }[];
   getNote: (id: string) => Note;
   addNote: (note: Omit<Note, "id">) => void;
   updateNote: (note: UpdateNoteMutationInput) => void;
@@ -20,9 +25,7 @@ type NotesListContext = {
   archiveNote: (id: string) => void;
   unarchiveNote: (id: string) => void;
   restoreNote: (id: string) => void;
-  onSearchValueChange?: (
-    event: NativeSyntheticEvent<TextInputChangeEventData>
-  ) => void;
+  onSearchValueChange?: (value: string) => void;
   searchValue?: string;
   isSearchBarVisible?: boolean;
   selectedNotes: Note["id"][];
@@ -41,6 +44,9 @@ const notesListContext = React.createContext<NotesListContext | undefined>(
 
 const { Provider } = notesListContext;
 
+const getDateTitle = (date: string) =>
+  formatDistanceToNowStrict(parseISO(date), { addSuffix: true });
+
 export const NotesListProvider = ({
   notes: unSearchedNotes,
   children,
@@ -50,6 +56,23 @@ export const NotesListProvider = ({
   const isSearchBarVisible = unSearchedNotes.length > 0;
   const [notes, { onSearchValueChange, searchValue }] =
     useSearchableNotes(unSearchedNotes);
+  const sections = useMemo(() => {
+    // group the notes by date and convert them to an array title and data
+    const groupedNotes = notes.reduce((acc, note) => {
+      const date = getDateTitle(note.updated_at!);
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(note);
+      return acc;
+    }, {} as Record<string, Note[]>);
+
+    return Object.entries(groupedNotes).map(([title, data]) => ({
+      title,
+      data,
+    }));
+  }, [notes]);
+
   const createNoteMutation = useCreateNoteMutation();
   const updateNoteMutation = useUpdateNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
@@ -89,19 +112,19 @@ export const NotesListProvider = ({
 
   const archiveNote = useCallback(
     (id: string) => {
-      const { user, ...restNote } = getNote(id);
-      if (restNote.is_archived) {
+      const { user_id, ...restNote } = getNote(id);
+      if (restNote.status === "archived") {
         return;
       }
 
-      if (!user) {
+      if (!user_id) {
         return;
       }
 
       updateNoteMutation.mutate({
         ...restNote,
-        is_archived: true,
-        user,
+        status: "archived",
+        user_id,
         id,
       });
     },
@@ -110,19 +133,19 @@ export const NotesListProvider = ({
 
   const unarchiveNote = useCallback(
     (id: string) => {
-      const { user, ...restNote } = getNote(id);
-      if (!restNote.is_archived) {
+      const { user_id, ...restNote } = getNote(id);
+      if (restNote.status !== "archived") {
         return;
       }
 
-      if (!user) {
+      if (!user_id) {
         return;
       }
 
       updateNoteMutation.mutate({
         ...restNote,
-        is_archived: false,
-        user,
+        status: "published",
+        user_id,
         id,
       });
     },
@@ -131,26 +154,21 @@ export const NotesListProvider = ({
 
   const restoreNote = useCallback(
     (id: string) => {
-      const { user, ...restNote } = getNote(id);
-      const restorable =
-        restNote.is_archived ||
-        restNote.is_trashed ||
-        ["trashed", "archived"].includes(restNote.status);
+      const { user_id, ...restNote } = getNote(id);
+      const restorable = ["trashed", "archived"].includes(restNote.status);
 
       if (!restorable) {
         return;
       }
 
-      if (!user) {
+      if (!user_id) {
         return;
       }
 
       updateNoteMutation.mutate({
         ...restNote,
         status: "published",
-        is_archived: false,
-        is_trashed: false,
-        user,
+        user_id,
         id,
       });
     },
@@ -199,6 +217,7 @@ export const NotesListProvider = ({
       archiveNote,
       deleteNote,
       updateNote,
+      sections,
       getNote,
       addNote,
       notes,
@@ -216,6 +235,7 @@ export const NotesListProvider = ({
       archiveNote,
       deleteNote,
       updateNote,
+      sections,
       getNote,
       addNote,
       notes,

@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
-import { ListRenderItemInfo } from "react-native";
+import { SectionList, SectionListRenderItemInfo } from "react-native";
 import Animated, { Layout } from "react-native-reanimated";
+import { SizableText } from "tamagui";
 
 import { useNotesList } from "contexts";
 import { Note } from "types";
@@ -15,8 +16,10 @@ interface NotesListProps {
   onPressNote: (note: Note) => void;
 }
 
+const AnimatedSectionList = Animated.createAnimatedComponent(SectionList<Note>);
+
 export default function NoteList({ onPressNote }: NotesListProps) {
-  const { archiveNote, restoreNote, deleteNote, notes } = useNotesList();
+  const { archiveNote, restoreNote, deleteNote, sections } = useNotesList();
 
   const handleRemove = useCallback(
     (item: Note) => {
@@ -27,10 +30,7 @@ export default function NoteList({ onPressNote }: NotesListProps) {
 
   const handleLeftAction = useCallback(
     (item: Note) => {
-      const toRestore =
-        item.is_archived ||
-        item.is_trashed ||
-        ["trashed", "archived"].includes(item.status);
+      const toRestore = ["trashed", "archived"].includes(item.status);
 
       if (toRestore) {
         restoreNote(item.id);
@@ -42,7 +42,7 @@ export default function NoteList({ onPressNote }: NotesListProps) {
   );
 
   const renderItem = useCallback(
-    ({ item }: Omit<ListRenderItemInfo<Note>, "separators">) => {
+    ({ item }: Omit<SectionListRenderItemInfo<Note>, "separators">) => {
       const onRemove = () => handleRemove(item);
       const onLeftAction = () => handleLeftAction(item);
       const onPress = () => onPressNote(item);
@@ -62,13 +62,21 @@ export default function NoteList({ onPressNote }: NotesListProps) {
 
   return (
     <Animated.View layout={Layout.springify()} style={styles.list}>
-      <Animated.FlatList
-        data={notes}
+      <AnimatedSectionList
+        sections={sections}
         ListHeaderComponent={NoteListSearchBar}
         renderItem={renderItem}
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="handled"
         style={styles.list}
         contentContainerStyle={styles.content}
         ListEmptyComponent={ListEmptyView}
+        stickySectionHeadersEnabled={false}
+        renderSectionHeader={({ section: { title } }) => (
+          <SizableText textAlign="center" theme="alt1" size="$3">
+            {title}
+          </SizableText>
+        )}
       />
       <NoteListMultiselectMenu />
     </Animated.View>
