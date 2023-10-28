@@ -62,7 +62,7 @@
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
-    "expo-updates": "~0.18.16",
+    "expo-updates": "~0.18.17",
     "firebase": "^9.22.1",
     "flagsmith": "^3.20.0",
     "formik": "^2.4.1",
