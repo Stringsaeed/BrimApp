@@ -1,5 +1,4 @@
 import auth from "@react-native-firebase/auth";
-import { Platform } from "react-native";
 
 import { Analytics } from "services/analytics";
 import { IAuthService } from "types";
@@ -17,7 +16,6 @@ export const Auth: IAuthService = {
   },
   sendPhoneOTP: (phoneNumber) => {
     auth().settings.appVerificationDisabledForTesting = __DEV__;
-    auth().settings.forceRecaptchaFlowForTesting = Platform.OS === "android";
     return auth().signInWithPhoneNumber(phoneNumber);
   },
   onAuthStateChanged: (callback) => {
