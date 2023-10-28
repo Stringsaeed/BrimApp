@@ -11,6 +11,7 @@ Sentry.Native.init({
       routingInstrumentation,
     }),
   ],
+  environment: config.environment,
   dsn: config.sentryDsn,
   debug: false,
 });

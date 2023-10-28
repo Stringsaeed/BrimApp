@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { NoteService } from "services";
+import { NoteService, Sentry } from "services";
 import { Note, RequiredNotNull } from "types";
 
 type RequiredInput = RequiredNotNull<Required<Pick<Note, "id" | "user_id">>>;
@@ -22,5 +22,11 @@ async function updateNote(input: UpdateNoteMutationInput) {
 }
 
 export default function useUpdateNoteMutation() {
-  return useMutation(updateNote);
+  return useMutation(updateNote, {
+    onError(error, variables, context) {
+      Sentry.Native.captureException(error, {
+        extra: { variables, context },
+      });
+    },
+  });
 }
