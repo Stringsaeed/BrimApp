@@ -10,7 +10,7 @@ import {
   useUpdateNoteMutation,
 } from "hooks";
 import { UpdateNoteMutationInput } from "hooks/use-update-note-mutation";
-import { Note } from "types";
+import { Note, DateType } from "types";
 
 type NotesListContext = {
   notes: Note[];
@@ -44,8 +44,15 @@ const notesListContext = React.createContext<NotesListContext | undefined>(
 
 const { Provider } = notesListContext;
 
-const getDateTitle = (date: string) =>
-  formatDistanceToNowStrict(parseISO(date), { addSuffix: true });
+const getDateTitle = (date: DateType) => {
+  if (!date) return "";
+  return formatDistanceToNowStrict(
+    typeof date === "string" ? parseISO(date) : date,
+    {
+      addSuffix: true,
+    }
+  );
+};
 
 export const NotesListProvider = ({
   notes: unSearchedNotes,

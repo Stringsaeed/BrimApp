@@ -1,6 +1,5 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { format, parseISO } from "date-fns";
 import { FormikProvider } from "formik";
 import React from "react";
 import { Keyboard, TextInput } from "react-native";
@@ -8,11 +7,12 @@ import Animated, {
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { Separator, SizableText, YStack } from "tamagui";
+import { Separator, YStack } from "tamagui";
 
 import {
   AutoSave,
   Composer,
+  DateText,
   NoteHeaderRight,
   NoteTitleInput,
   NoteToolbox,
@@ -96,9 +96,7 @@ export default function NoteView() {
           paddingTop={headerHeight}
           flex={1}
         >
-          <SizableText textAlign="center" size="$1">
-            {note?.updated_at && format(parseISO(note?.updated_at), "PP")}
-          </SizableText>
+          <DateText date={note?.updated_at} />
           <NoteTitleInput ref={titleInputRef} />
           <Separator />
           <Composer ref={richTextRef} />

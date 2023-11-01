@@ -22,3 +22,4 @@ export { default as PhoneInput } from "./phone-input";
 export { default as NoteToolbox } from "./note-toolbox";
 export { default as NoteTitleInput } from "./note-title-input";
 export { default as SelectThemeListItem } from "./select-theme-list-item";
+export { default as DateText } from "./date-text";
