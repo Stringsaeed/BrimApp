@@ -24,6 +24,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ],
       "expo-localization",
       "sentry-expo",
+      "expo-notifications",
     ],
     android: {
       adaptiveIcon: {
@@ -36,13 +37,22 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       package: "com.stringsaeed.brim",
       versionCode: 35,
     },
+    extra: {
+      eas: {
+        androidFirebaseAppCheckDebugToken:
+          process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_ANDROID,
+        iOSfirebaseAppCheckDebugToken:
+          process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_IOS,
+        projectId: "e630d577-becd-41a6-ad64-226cac9be574",
+      },
+    },
     ios: {
       googleServicesFile:
         process.env.GOOGLE_SERVICES_INFO_PLIST ??
         "./assets/GoogleService-Info.plist",
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
-      supportsTablet: false,
+      supportsTablet: true,
       buildNumber: "35",
     },
     hooks: {
@@ -61,17 +71,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       backgroundColor: "#F7F6E4",
       resizeMode: "contain",
     },
-    extra: {
-      eas: {
-        projectId: "e630d577-becd-41a6-ad64-226cac9be574",
-      },
+    updates: {
+      url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
     },
     androidStatusBar: {
       backgroundColor: "#F7F6E400",
       translucent: true,
-    },
-    updates: {
-      url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
     },
     runtimeVersion: {
       policy: "appVersion",
@@ -89,8 +94,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
-    slug: "BrimApp",
     name: "BrimApp",
+    slug: "BrimApp",
     scheme: "brim",
   };
 };

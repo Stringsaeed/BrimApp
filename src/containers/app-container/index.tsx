@@ -12,7 +12,7 @@ import {
   PullToActionProvider,
   QueryProvider,
 } from "contexts";
-import { useUserTheme } from "hooks";
+import { useAppCheck, useHandleNotifications, useUserTheme } from "hooks";
 import { AppNavigator } from "navigation";
 // import { Analytics } from "services";
 import { FeatureFlagsProvider } from "services";
@@ -21,6 +21,8 @@ import { themeConfig } from "themes";
 import NavigationProvider from "./navigation-provider";
 
 export default function AppContainer() {
+  useAppCheck();
+  useHandleNotifications();
   const { theme } = useUserTheme();
 
   return (

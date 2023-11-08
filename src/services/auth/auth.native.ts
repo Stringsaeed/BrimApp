@@ -15,7 +15,9 @@ export const Auth: IAuthService = {
     return;
   },
   sendPhoneOTP: (phoneNumber) => {
-    auth().settings.appVerificationDisabledForTesting = __DEV__;
+    if (__DEV__) {
+      auth().settings.appVerificationDisabledForTesting = false;
+    }
     return auth().signInWithPhoneNumber(phoneNumber);
   },
   onAuthStateChanged: (callback) => {
