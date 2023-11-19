@@ -11,6 +11,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         "expo-build-properties",
         {
           ios: {
+            extraPods: [
+              {
+                path: "../node_modules/@nozbe/simdjson",
+                configurations: ["Debug", "Release"],
+                modular_headers: true,
+                name: "simdjson",
+              },
+            ],
             deploymentTarget: "14.0",
             useFrameworks: "static",
           },

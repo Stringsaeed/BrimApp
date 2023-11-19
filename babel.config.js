@@ -1,29 +1,34 @@
-const tamagui = [
-  "@tamagui/babel-plugin",
-  {
-    disableExtraction: process.env.NODE_ENV === "development",
-    config: "./src/themes/theme.ts",
-    components: ["tamagui"],
-    logTimings: true,
-  },
-];
+const isProd = process.env.NODE_ENV === "production";
+const plugins = [];
 
-const inlineEnv = [
+if (isProd) {
+  plugins.push([
+    "@tamagui/babel-plugin",
+    {
+      disableExtraction: process.env.NODE_ENV === "development",
+      config: "./src/themes/theme.ts",
+      components: ["tamagui"],
+      logTimings: true,
+    },
+  ]);
+}
+
+plugins.push([
   "transform-inline-environment-variables",
   {
     include: ["TAMAGUI_TARGET", "EXPO_ROUTER_APP_ROOT"],
   },
-];
+]);
 
-const reanimated = "react-native-reanimated/plugin";
+plugins.push(["@babel/plugin-proposal-decorators", { legacy: true }]);
 
-const productionPlugins =
-  process.env.NODE_ENV === "production" ? [tamagui] : [];
+plugins.push("react-native-reanimated/plugin");
 
+/** @type {import("@babel/core").ConfigFunction} */
 module.exports = function (api) {
   api.cache(true);
   return {
-    plugins: [inlineEnv, ...productionPlugins, reanimated],
     presets: ["babel-preset-expo"],
+    plugins,
   };
 };

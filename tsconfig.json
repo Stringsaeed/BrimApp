@@ -13,7 +13,9 @@
       "hooks": ["./hooks"],
       "types": ["./types"],
       "test": ["./test"]
-    }
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }
