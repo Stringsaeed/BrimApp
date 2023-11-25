@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
+import { InteractionManager } from "react-native";
 
 import useNotesQuery from "hooks/use-notes-query";
 import { NoteService } from "services";
@@ -24,17 +25,23 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     await NoteService.delete(id);
   }, []);
 
-  const syncNotes = useCallback(async () => {
-    const toRemoved = data
-      .map((note) => {
-        if (note.status === "draft") return;
-        if (note.note) return;
-        if (note.title) return;
-        return removeNote(note.id);
-      })
-      .filter(Boolean);
+  const syncNotes = useCallback(() => {
+    InteractionManager.runAfterInteractions(async () => {
+      const toRemoved = data
+        .map(async (note) => {
+          if (
+            note.deleted_at ||
+            note.status === "draft" ||
+            note.note ||
+            note.title
+          )
+            return;
+          return await removeNote(note.id);
+        })
+        .filter(Boolean);
 
-    await Promise.all(toRemoved);
+      await Promise.all(toRemoved);
+    });
   }, [data, removeNote]);
 
   useEffect(() => {
