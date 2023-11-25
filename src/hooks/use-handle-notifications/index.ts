@@ -48,10 +48,6 @@ async function registerForPushNotificationsAsync() {
   //   return;
   // }
   await messaging().requestPermission();
-  const apnsToken = await messaging().getAPNSToken();
-  console.log(apnsToken);
-  const _firebaseToken = await messaging().getToken();
-  console.log(_firebaseToken);
 
   return token?.data;
 }
@@ -61,16 +57,12 @@ export default function useHandleNotifications() {
   const responseListener = useRef<Subscription>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => {
-      console.log(token);
-    });
+    registerForPushNotificationsAsync().then(() => {});
     notificationListener.current =
       Notifications.addNotificationReceivedListener(() => {});
 
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
+      Notifications.addNotificationResponseReceivedListener(() => {});
 
     return () => {
       if (notificationListener.current) {

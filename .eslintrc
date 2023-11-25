@@ -42,7 +42,8 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "no-console": "error"
   },
   "overrides": [
     {
