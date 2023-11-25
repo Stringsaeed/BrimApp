@@ -1,10 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.fontFamily": "Jetbrains Mono",
-  "editor.fontWeight": "400",
   "editor.fontSize": 16,
   "editor.lineHeight": 18,
-  "editor.letterSpacing": -0.3333,
   "apc.activityBar": {
     "position": "bottom",
     "hideSettings": true,
