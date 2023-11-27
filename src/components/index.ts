@@ -11,7 +11,6 @@ export { default as Row } from "./row";
 export { default as DashboardHeader } from "./dashboard-header";
 export { default as ArchivedNotesHeaderBackground } from "./archived-notes-header/background";
 export { default as ListItem } from "./list-item";
-export { default as AddEmailBanner } from "./add-email-banner";
 export { default as AccountInfoContainer } from "./account-info-container";
 export { default as BottomSheet } from "./bottom-sheet";
 export { default as CountryBottomSheet } from "./country-bottom-sheet";
