@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Modal, Platform, StyleSheet } from "react-native";
-import { Button, Circle, Image } from "tamagui";
+import { Modal, Platform, StyleSheet, Image } from "react-native";
+import { Button, Circle } from "tamagui";
 
 import CountryListPicker from "components/country-list-picker";
 import { getCallingCode } from "utils";
