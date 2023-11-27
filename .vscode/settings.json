@@ -1,7 +1,5 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.fontSize": 16,
-  "editor.lineHeight": 18,
   "apc.activityBar": {
     "position": "bottom",
     "hideSettings": true,
