@@ -20,11 +20,16 @@ export const Auth: IAuthService = {
     }
     return auth().signInWithPhoneNumber(phoneNumber);
   },
+  updateEmail: (email: string) =>
+    auth()
+      .currentUser?.verifyBeforeUpdateEmail(email)
+      .finally(() => {
+        auth().currentUser?.reload();
+      }),
   onAuthStateChanged: (callback) => {
     return auth().onAuthStateChanged(callback);
   },
-  updateEmail: (email: string) =>
-    auth().currentUser?.verifyBeforeUpdateEmail(email),
+  updateProfile: async (profile) => auth().currentUser?.updateProfile(profile),
   getCurrentUser: () => auth().currentUser,
   currentUser: auth().currentUser,
   signOut: () => auth().signOut(),

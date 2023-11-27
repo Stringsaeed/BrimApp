@@ -45,6 +45,8 @@ export interface ConfirmationResult {
   verificationId: string | null;
 }
 
+export type UserProfile = Partial<Pick<AuthUser, "displayName" | "photoURL">>;
+
 export interface IAuthService {
   verifyOTP: (code: string, verificationId: string) => Promise<void>;
   onAuthStateChanged: (callback: (user: AuthUser | null) => void) => void;
@@ -53,4 +55,5 @@ export interface IAuthService {
   getCurrentUser: () => AuthUser | null;
   currentUser: AuthUser | null;
   signOut: () => Promise<void>;
+  updateProfile: (profile: UserProfile) => Promise<void>;
 }

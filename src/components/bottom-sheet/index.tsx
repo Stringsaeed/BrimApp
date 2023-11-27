@@ -34,9 +34,12 @@ const BottomSheetComponent = (
 
   return (
     <BottomSheetModal
-      enablePanDownToClose
-      enableDynamicSizing
+      enablePanDownToClose={true}
+      enableDynamicSizing={true}
+      detached={true}
+      bottomInset={bottom + 32}
       {...props}
+      style={[props.style, { marginHorizontal: 16, borderRadius: 20 }]}
       ref={ref}
       topInset={top}
       backgroundStyle={{
@@ -49,14 +52,12 @@ const BottomSheetComponent = (
         <Stack
           bg="$background"
           p="$4"
-          borderTopRightRadius="$5"
-          borderTopLeftRadius="$5"
           shadowColor="$accent"
           shadowOffset={{ height: -2, width: 0 }}
           shadowOpacity={0.1}
           shadowRadius={4}
           elevationAndroid={4}
-          pb={bottom}
+          borderRadius={20}
         >
           {children}
         </Stack>

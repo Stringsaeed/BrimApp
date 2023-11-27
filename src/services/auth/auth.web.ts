@@ -4,6 +4,7 @@ import {
   signInWithCredential,
   signInWithPhoneNumber,
   verifyBeforeUpdateEmail,
+  updateProfile,
 } from "firebase/auth";
 
 import { auth } from "config";
@@ -32,10 +33,14 @@ export const Auth: IAuthService = {
     if (!auth.currentUser) return;
     verifyBeforeUpdateEmail(auth.currentUser, email);
   },
+  async updateProfile(profile) {
+    if (!auth.currentUser) return;
+    return updateProfile(auth.currentUser, profile);
+  },
   onAuthStateChanged: (callback) => {
     return onAuthStateChanged(auth, callback);
   },
   getCurrentUser: () => auth.currentUser,
-  currentUser: auth.currentUser,
   signOut: () => auth.signOut(),
+  currentUser: auth.currentUser,
 };
