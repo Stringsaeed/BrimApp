@@ -2,6 +2,9 @@ import { useMMKVString } from "react-native-mmkv";
 
 import { storage } from "services";
 
+/**
+ * @internal
+ */
 export default function useUserAccent() {
   const [userAccent = "pink", setUserAccent] = useMMKVString(
     "user.accent",

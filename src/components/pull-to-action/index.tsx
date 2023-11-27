@@ -18,6 +18,9 @@ interface PullToActionProps {
   enabled?: boolean;
 }
 
+/**
+ * @beta
+ */
 export default function PullToAction({
   enabled = true,
   children,

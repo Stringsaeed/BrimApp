@@ -1,7 +1,6 @@
 export { default as Spacing } from "./spacing";
 export { default as NotesList } from "./notes-list";
 export { default as Composer } from "./composer";
-export { default as AutoSave } from "./auto-save";
 export { default as NoteHeaderRight } from "./note-header-right";
 export { default as Divider } from "./divider";
 export { default as ScreenContainer } from "./screen-container";
@@ -23,3 +22,5 @@ export { default as NoteToolbox } from "./note-toolbox";
 export { default as NoteTitleInput } from "./note-title-input";
 export { default as SelectThemeListItem } from "./select-theme-list-item";
 export { default as DateText } from "./date-text";
+export { default as UpdateAccountSheet } from "./update-account-sheet";
+export { default as FieldError } from "./field-error";
