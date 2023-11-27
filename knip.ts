@@ -2,7 +2,7 @@ import type { KnipConfig } from "knip";
 
 const config: KnipConfig = {
   project: ["src/**/*.ts", "src/**/*.tsx"],
-  entry: ["src/app/index.tsx"],
+  entry: ["./App.tsx"],
 };
 
 export default config;
