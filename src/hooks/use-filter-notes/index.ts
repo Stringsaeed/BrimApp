@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import { useNotesContext } from "contexts/notes";
 import { Note } from "types";
 
@@ -29,10 +27,8 @@ function getFilterFunction(type: FilterType) {
 function useFilterNotes(filterType: FilterType = FilterType.Main) {
   const { notes } = useNotesContext();
 
-  return useMemo(() => {
-    const filterFunction = getFilterFunction(filterType);
-    return notes.filter(filterFunction);
-  }, [filterType, notes]);
+  const filterFunction = getFilterFunction(filterType);
+  return notes.filter(filterFunction);
 }
 
 useFilterNotes.filterTypes = FilterType;

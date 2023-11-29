@@ -119,44 +119,16 @@ export const NotesListProvider = ({
 
   const archiveNote = useCallback(
     (id: string) => {
-      const { user_id, ...restNote } = getNote(id);
-      if (restNote.status === "archived") {
-        return;
-      }
-
-      if (!user_id) {
-        return;
-      }
-
-      updateNoteMutation.mutate({
-        ...restNote,
-        status: "archived",
-        user_id,
-        id,
-      });
+      updateNoteMutation.mutate({ status: "archived", id });
     },
-    [getNote, updateNoteMutation]
+    [updateNoteMutation]
   );
 
   const unarchiveNote = useCallback(
     (id: string) => {
-      const { user_id, ...restNote } = getNote(id);
-      if (restNote.status !== "archived") {
-        return;
-      }
-
-      if (!user_id) {
-        return;
-      }
-
-      updateNoteMutation.mutate({
-        ...restNote,
-        status: "published",
-        user_id,
-        id,
-      });
+      updateNoteMutation.mutate({ status: "published", id });
     },
-    [getNote, updateNoteMutation]
+    [updateNoteMutation]
   );
 
   const restoreNote = useCallback(
@@ -175,7 +147,6 @@ export const NotesListProvider = ({
       updateNoteMutation.mutate({
         ...restNote,
         status: "published",
-        user_id,
         id,
       });
     },
