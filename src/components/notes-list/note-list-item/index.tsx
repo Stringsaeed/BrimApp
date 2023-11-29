@@ -114,7 +114,7 @@ export default function NoteListItemView({
     >
       <ListItem
         icon={listItemIcon}
-        iconAfter={item.is_private ? <Lock color="black" /> : null}
+        iconAfter={item.is_private ? <Lock /> : null}
         hoverTheme={false}
         pressTheme={false}
         subTitle={content}
