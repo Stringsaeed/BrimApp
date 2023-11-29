@@ -10,7 +10,7 @@ import Animated, {
 import { Separator, YStack } from "tamagui";
 
 import {
-  AutoSave,
+  NoteAutoSave,
   Composer,
   DateText,
   NoteHeaderRight,
@@ -89,7 +89,7 @@ export default function NoteView() {
         onPressPlus={createEmptyNoteMutation.mutate}
         onPressProfile={onNavigateProfile}
       />
-      <AutoSave />
+      <NoteAutoSave />
       <Animated.View style={stylez}>
         <YStack
           backgroundColor="$background"
