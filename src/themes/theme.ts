@@ -1,31 +1,10 @@
-import { createAnimations } from "@tamagui/animations-moti";
-import { createInterFont } from "@tamagui/font-inter";
 import { shorthands } from "@tamagui/shorthands";
 import { themes, tokens } from "@tamagui/themes";
 import { createTamagui } from "tamagui";
 
-const animations = createAnimations({
-  bouncy: {
-    stiffness: 100,
-    type: "spring",
-    damping: 10,
-    mass: 0.9,
-  },
-  quick: {
-    stiffness: 250,
-    type: "spring",
-    damping: 20,
-    mass: 1.2,
-  },
-  lazy: {
-    type: "spring",
-    stiffness: 60,
-    damping: 20,
-  },
-});
+import { animations } from "./animations";
+import { bodyFont, headingFont } from "./fonts";
 
-const headingFont = createInterFont();
-const bodyFont = createInterFont();
 const config = createTamagui({
   themes: {
     ...themes,
@@ -48,8 +27,8 @@ const config = createTamagui({
   },
   shouldAddPrefersColorThemes: false,
   themeClassNameOnRoot: false,
+  animations: animations,
   defaultTheme: "dark",
-  animations,
   shorthands,
   tokens,
 });
