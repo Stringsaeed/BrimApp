@@ -1,10 +1,11 @@
-import { BottomSheetModal, BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { ForwardedRef, Fragment } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, Form, Label } from "tamagui";
 import { z } from "zod";
 
 import BottomSheet from "components/bottom-sheet";
+import BottomSheetInput from "components/bottom-sheet-input";
 import FieldError from "components/field-error";
 import { Auth } from "services";
 
@@ -53,7 +54,7 @@ function UpdateAccountSheetComponent(
               render={({ fieldState: { error }, field }) => (
                 <Fragment>
                   <Label htmlFor="displayName">Display Name</Label>
-                  <BottomSheetTextInput
+                  <BottomSheetInput
                     id="displayName"
                     autoComplete="name"
                     textContentType="name"
@@ -62,15 +63,6 @@ function UpdateAccountSheetComponent(
                     value={field.value}
                     onChangeText={field.onChange}
                     onBlur={field.onBlur}
-                    style={{
-                      borderColor: "white",
-                      borderRadius: 12,
-                      borderWidth: 1,
-                      // fontSize: 16,
-                      color: "white",
-                      padding: 16,
-                      // height: 48,
-                    }}
                   />
                   <FieldError message={error?.message} />
                 </Fragment>
@@ -85,7 +77,7 @@ function UpdateAccountSheetComponent(
               render={({ fieldState: { error }, field }) => (
                 <Fragment>
                   <Label htmlFor="email">Display Name</Label>
-                  <BottomSheetTextInput
+                  <BottomSheetInput
                     id="email"
                     autoComplete="email"
                     textContentType="emailAddress"
@@ -94,14 +86,6 @@ function UpdateAccountSheetComponent(
                     value={field.value}
                     onChangeText={field.onChange}
                     onBlur={field.onBlur}
-                    style={{
-                      borderColor: "white",
-                      borderRadius: 12,
-                      borderWidth: 1,
-                      // fontSize: 16,
-                      padding: 16,
-                      // height: 48,
-                    }}
                   />
                   <FieldError message={error?.message} />
                 </Fragment>
