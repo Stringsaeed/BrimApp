@@ -43,7 +43,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
-      versionCode: 35,
+      versionCode: 40,
     },
     extra: {
       eas: {
@@ -61,7 +61,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
       supportsTablet: true,
-      buildNumber: "35",
+      buildNumber: "40",
     },
     hooks: {
       postPublish: [
