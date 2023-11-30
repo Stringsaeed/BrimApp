@@ -1,5 +1,11 @@
-import { CheckCircle2, Circle } from "@tamagui/lucide-icons";
-import { ArchiveBox, ArrowUUpLeft, Lock, Trash } from "phosphor-react-native";
+import {
+  CheckCircle2,
+  Circle,
+  Trash2,
+  Lock,
+  Archive,
+  ArchiveRestore,
+} from "@tamagui/lucide-icons";
 import React, { useCallback, useMemo } from "react";
 import { Gesture } from "react-native-gesture-handler";
 import { ListItem, useTheme } from "tamagui";
@@ -38,7 +44,7 @@ export default function NoteListItemView({
     if (!onRemove) return null;
     return (
       <NoteListItemAction bg="$red10" onPress={onRemove} variant="right">
-        <Trash color={foregroundColor} />
+        <Trash2 size={24} color={foregroundColor} />
       </NoteListItemAction>
     );
   }, [foregroundColor, onRemove]);
@@ -55,9 +61,9 @@ export default function NoteListItemView({
         variant="left"
       >
         {isRestorable ? (
-          <ArrowUUpLeft color={foregroundColor} />
+          <ArchiveRestore size={24} color={foregroundColor} />
         ) : (
-          <ArchiveBox color={foregroundColor} />
+          <Archive size={24} color={foregroundColor} />
         )}
       </NoteListItemAction>
     );
