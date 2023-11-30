@@ -1,4 +1,4 @@
-import { Check } from "phosphor-react-native";
+import { Check } from "@tamagui/lucide-icons";
 import React, { useCallback } from "react";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { ListItem, SizableText } from "tamagui";
