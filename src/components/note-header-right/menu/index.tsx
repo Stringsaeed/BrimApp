@@ -1,6 +1,7 @@
 import React from "react";
 import { SizableText } from "tamagui";
 
+import { useIsLocalAuthenticationEligible } from "hooks";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -9,8 +10,6 @@ import {
   DropdownMenuRoot,
   DropdownMenuTrigger,
 } from "themes";
-
-import LockNoteDropDownItem from "./lock-note-drop-down-item";
 
 interface NotePageHeaderMenuProps {
   onPressArchive?: () => void;
@@ -24,13 +23,28 @@ export default function NotePageHeaderMenu({
   onPressLock,
   isPrivate,
 }: NotePageHeaderMenuProps) {
+  const isEligible = useIsLocalAuthenticationEligible();
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <SizableText color="$accent">Move</SizableText>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <LockNoteDropDownItem onPressLock={onPressLock} isPrivate={isPrivate} />
+        {isEligible && (
+          <DropdownMenuItem onSelect={onPressLock} key="lock-note">
+            <DropdownMenuItemIcon
+              ios={{
+                name: isPrivate ? "lock.open" : "lock",
+                weight: "semibold",
+                scale: "medium",
+              }}
+              androidIconName="archive_box"
+            />
+            <DropdownMenuItemTitle>
+              {isPrivate ? "Unlock" : "Lock"}
+            </DropdownMenuItemTitle>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
           <DropdownMenuItemIcon
             ios={{

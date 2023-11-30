@@ -27,3 +27,4 @@ export { default as useSearchableNotes } from "./use-searchable-notes";
 export { default as useFilterNotes } from "./use-filter-notes";
 export { default as useAppCheck } from "./use-app-check";
 export { default as useHandleNotifications } from "./use-handle-notifications";
+export { default as useIsLocalAuthenticationEligible } from "./use-is-local-authentication-eligible";
