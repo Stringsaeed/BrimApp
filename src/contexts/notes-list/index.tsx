@@ -18,7 +18,6 @@ type NotesListContext = {
     title: string;
     data: Note[];
   }[];
-  getNote: (id: string) => Note;
   addNote: (note: Omit<Note, "id">) => void;
   updateNote: (note: UpdateNoteMutationInput) => void;
   deleteNote: (note: Note) => void;
@@ -85,17 +84,6 @@ export const NotesListProvider = ({
   const deleteNoteMutation = useDeleteNoteMutation();
   const haptic = useHaptic();
 
-  const getNote = useCallback(
-    (id: string) => {
-      const note = notes.find((note) => note.id === id);
-      if (!note) {
-        throw new Error(`Note with id ${id} not found`);
-      }
-      return note;
-    },
-    [notes]
-  );
-
   const addNote = useCallback(
     (note: Omit<Note, "id">) => {
       createNoteMutation.mutate(note);
@@ -133,24 +121,12 @@ export const NotesListProvider = ({
 
   const restoreNote = useCallback(
     (id: string) => {
-      const { user_id, ...restNote } = getNote(id);
-      const restorable = ["trashed", "archived"].includes(restNote.status);
-
-      if (!restorable) {
-        return;
-      }
-
-      if (!user_id) {
-        return;
-      }
-
       updateNoteMutation.mutate({
-        ...restNote,
         status: "published",
         id,
       });
     },
-    [getNote, updateNoteMutation]
+    [updateNoteMutation]
   );
 
   const onNoteSelect = useCallback(
@@ -196,7 +172,6 @@ export const NotesListProvider = ({
       deleteNote,
       updateNote,
       sections,
-      getNote,
       addNote,
       notes,
     }),
@@ -214,7 +189,6 @@ export const NotesListProvider = ({
       deleteNote,
       updateNote,
       sections,
-      getNote,
       addNote,
       notes,
     ]
