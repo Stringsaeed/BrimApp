@@ -30,24 +30,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       "sentry-expo",
       "expo-notifications",
     ],
-    android: {
-      adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#F7F6E4",
-      },
-      // googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
-      userInterfaceStyle: "automatic",
-      package: "com.stringsaeed.brim",
-      versionCode: 41,
-    },
-    ios: {
-      // googleServicesFile: process.env.GOOGLE_SERVICES_INFO_PLIST ?? "./assets/GoogleService-Info.plist",
-      config: { usesNonExemptEncryption: false },
-      bundleIdentifier: "com.stringsaeed.brim",
-      userInterfaceStyle: "automatic",
-      supportsTablet: true,
-      buildNumber: "41",
-    },
     hooks: {
       postPublish: [
         {
@@ -59,6 +41,22 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
     },
+    android: {
+      adaptiveIcon: {
+        foregroundImage: "./assets/adaptive-icon.png",
+        backgroundColor: "#F7F6E4",
+      },
+      userInterfaceStyle: "automatic",
+      package: "com.stringsaeed.brim",
+      versionCode: 42,
+    },
+    ios: {
+      config: { usesNonExemptEncryption: false },
+      bundleIdentifier: "com.stringsaeed.brim",
+      userInterfaceStyle: "automatic",
+      supportsTablet: true,
+      buildNumber: "42",
+    },
     splash: {
       image: "./assets/splash.png",
       backgroundColor: "#F7F6E4",
@@ -69,12 +67,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
     },
-    updates: {
-      url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
-    },
     androidStatusBar: {
       backgroundColor: "#F7F6E400",
       translucent: true,
+    },
+    updates: {
+      url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
     },
     runtimeVersion: {
       policy: "appVersion",
@@ -92,8 +90,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
-    name: "BrimApp",
     slug: "BrimApp",
+    name: "BrimApp",
     scheme: "brim",
   };
 };
