@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { NoteModel } from "models";
+
 import { dateSchema } from "./date";
 
 const statusSchema = z.enum(["draft", "archived", "trashed", "published"]);
@@ -17,5 +19,5 @@ export const noteSchema = z.object({
 });
 
 export const notesSchema = z.array(noteSchema);
-
-export type Note = z.infer<typeof noteSchema>;
+export type NoteSchema = z.infer<typeof noteSchema>;
+export type Note = NoteModel;

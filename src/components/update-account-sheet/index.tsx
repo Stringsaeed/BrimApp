@@ -7,7 +7,7 @@ import { z } from "zod";
 import BottomSheet from "components/bottom-sheet";
 import BottomSheetInput from "components/bottom-sheet-input";
 import FieldError from "components/field-error";
-import { Auth } from "services";
+// import { Auth } from "services";
 
 const updateAccountSchema = z.union([
   z.object({
@@ -35,11 +35,11 @@ function UpdateAccountSheetComponent(
 
   const onSubmit = handleSubmit((data) => {
     if ("displayName" in data) {
-      Auth.updateProfile({
-        displayName: data.displayName,
-      });
+      // Auth.updateProfile({
+      //   displayName: data.displayName,
+      // });
     } else if ("email" in data) {
-      Auth.updateEmail(data.email);
+      // Auth.updateEmail(data.email);
     }
   });
 

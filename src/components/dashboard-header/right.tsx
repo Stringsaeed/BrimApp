@@ -1,4 +1,4 @@
-import { Plus, User } from "@tamagui/lucide-icons";
+import { Plus, Settings } from "@tamagui/lucide-icons";
 import React from "react";
 import { XGroup } from "tamagui";
 
@@ -27,7 +27,7 @@ export default function DashboardHeaderRight({
       </XGroup.Item>
       <XGroup.Item>
         <PressableScale activeScale={0.9} onPress={onPressProfile}>
-          <User />
+          <Settings />
         </PressableScale>
       </XGroup.Item>
     </XGroup>

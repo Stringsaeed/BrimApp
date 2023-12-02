@@ -32,7 +32,7 @@ export const inputSizeVariant: SizeVariantSpreadFunction<any> = (
   };
 };
 
-export const textAreaSizeVariant: SizeVariantSpreadFunction<any> = (
+const textAreaSizeVariant: SizeVariantSpreadFunction<any> = (
   val = "$true",
   extras
 ) => {

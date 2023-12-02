@@ -96,7 +96,7 @@ export default function NoteView() {
           paddingTop={headerHeight}
           flex={1}
         >
-          <DateText date={note?.updated_at} />
+          <DateText date={note?.updatedAt} />
           <NoteTitleInput ref={titleInputRef} />
           <Separator />
           <Composer ref={richTextRef} />

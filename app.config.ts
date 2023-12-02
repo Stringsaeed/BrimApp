@@ -4,9 +4,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     plugins: [
-      "./plugins/withFirebaseAppCheck.js",
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
+      // "./plugins/withFirebaseAppCheck.js",
+      // "@react-native-firebase/app",
+      // "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
@@ -20,7 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
               },
             ],
             deploymentTarget: "14.0",
-            useFrameworks: "static",
+            // useFrameworks: "static",
           },
         },
       ],
@@ -39,16 +39,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#F7F6E4",
       },
-      googleServicesFile:
-        process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
+      // googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? "./assets/google-services.json",
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
       versionCode: 41,
     },
     ios: {
-      googleServicesFile:
-        process.env.GOOGLE_SERVICES_INFO_PLIST ??
-        "./assets/GoogleService-Info.plist",
+      // googleServicesFile: process.env.GOOGLE_SERVICES_INFO_PLIST ?? "./assets/GoogleService-Info.plist",
       config: { usesNonExemptEncryption: false },
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
@@ -57,11 +54,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     extra: {
       eas: {
-        androidFirebaseAppCheckDebugToken:
-          process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_ANDROID,
-        iOSfirebaseAppCheckDebugToken:
-          process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_IOS,
-        projectId: "e630d577-becd-41a6-ad64-226cac9be574",
+        // androidFirebaseAppCheckDebugToken: process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_ANDROID,
+        // iOSfirebaseAppCheckDebugToken: process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_IOS,
+        // projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
     },
     hooks: {

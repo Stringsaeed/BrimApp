@@ -12,7 +12,7 @@ import React from "react";
 
 import { inputSizeVariant } from "./helpers";
 
-export const defaultStyles = {
+const defaultStyles = {
   fontFamily: "$body",
   color: "$color",
   outlineWidth: 0,
@@ -40,7 +40,7 @@ export const defaultStyles = {
   minWidth: 0,
 } as const;
 
-export const InputFrame = styled(BottomSheetTextInput, {
+const InputFrame = styled(BottomSheetTextInput, {
   variants: {
     size: {
       "...size": inputSizeVariant,
@@ -58,15 +58,12 @@ export const InputFrame = styled(BottomSheetTextInput, {
   name: "Input",
 });
 
-export type InputProps = Omit<
-  GetProps<typeof InputFrame>,
-  "placeholderTextColor"
-> & {
+type InputProps = Omit<GetProps<typeof InputFrame>, "placeholderTextColor"> & {
   placeholderTextColor?: ColorStyleProp;
   rows?: number;
 };
 
-export const Input = InputFrame.styleable<InputProps>((propsIn, ref) => {
+const Input = InputFrame.styleable<InputProps>((propsIn, ref) => {
   const props = useInputProps(propsIn, ref);
   return <InputFrame {...props} />;
 });

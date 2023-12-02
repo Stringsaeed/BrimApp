@@ -4,8 +4,8 @@ import { text, field, readonly, date } from "@nozbe/watermelondb/decorators";
 export default class NoteModel extends Model {
   static table = "notes";
 
-  @text("status") status?: "published";
-  @field("is_private") is_private?: boolean = false;
+  @text("status") status!: string;
+  @field("is_private") is_private?: boolean;
   @text("user_id") user_id!: string;
   @text("title") title?: string;
   @text("note") note?: string;

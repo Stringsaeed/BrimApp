@@ -69,6 +69,7 @@ export default function NoteList({ onPressNote }: NotesListProps) {
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         style={styles.list}
+        layout={Layout.springify()}
         contentContainerStyle={styles.content}
         ListEmptyComponent={ListEmptyView}
         stickySectionHeadersEnabled={false}

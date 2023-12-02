@@ -1,62 +1,40 @@
-import database from "@react-native-firebase/database";
-
-import { Auth } from "services/auth";
-import { Note, noteSchema, notesSchema } from "types";
+import { wmDatabase } from "config";
+import { NoteModel } from "models";
+import { NoteSchema } from "types";
 
 export const NoteService = {
-  listenForChanges: (callback: (notes: Note[]) => void) => {
-    const userId = Auth.getCurrentUser()?.uid;
-    if (!userId) {
-      return () => {};
-    }
-    const ref = database().ref(`/notes/${userId}`).orderByChild("updated_at");
-    ref.on("value", (snapshot) => {
-      const snapshotValue = snapshot.val();
-      if (!snapshotValue) {
-        callback([]);
-        return;
-      }
-      const data: unknown[] = [];
-      snapshot.forEach((snapshot) => {
-        data.push({
-          ...snapshot.val(),
-          id: snapshot.key,
-          user: userId,
-        });
-        return undefined;
+  create: async (input: Omit<NoteSchema, "id">) => {
+    return await wmDatabase.write(async () => {
+      const note = await NoteService.getCollection().create((post) => {
+        post.title = input.title;
+        post.note = input.note;
+        post.is_private = input.is_private;
+        post.status = input.status || "draft";
       });
 
-      const notes = notesSchema.parse(data).reverse();
-      callback(notes);
+      return note;
     });
-    return () => ref.off("value");
   },
-  get: async (id: string) => {
-    const userId = Auth.getCurrentUser()?.uid;
-    if (!userId) throw new Error("User not found");
-    const ref = database().ref(`/notes/${userId}/${id}`);
-    const snapshot = await ref.once("value");
-    const snapshotValue = snapshot.val();
-    return noteSchema.parse({
-      ...snapshotValue,
-      id: snapshot.key,
-      user: userId,
+  update: async (id: string, input: Partial<NoteSchema>) => {
+    return await wmDatabase.write(async () => {
+      (await NoteService.getCollection().find(id)).update((note) => {
+        for (const key in input) {
+          if (key === "id") continue;
+          // @ts-expect-error
+          note[key] = input[key];
+        }
+
+        return note;
+      });
     });
   },
   delete: async (id: string) => {
-    const userId = Auth.getCurrentUser()?.uid;
-    if (!userId) throw new Error("User not found");
-    await database().ref(`/notes/${userId}/${id}`).update({
-      deleted_at: new Date().getTime(),
+    return await wmDatabase.write(async () => {
+      (await NoteService.getCollection().find(id)).destroyPermanently();
     });
   },
-  update: async (id: string, input: Partial<Note>) => {
-    const userId = Auth.getCurrentUser()?.uid;
-    if (!userId) throw new Error("User not found");
-    await database().ref(`/notes/${userId}/${id}`).update(input);
+  get: async (id: string) => {
+    return NoteService.getCollection().find(id);
   },
-  create: async (input: Omit<Note, "id">) => {
-    const ref = await database().ref(`/notes/${input.user_id}`).push(input);
-    return await NoteService.get(ref.key ?? "");
-  },
+  getCollection: () => wmDatabase.get<NoteModel>("notes"),
 };

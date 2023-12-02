@@ -3,7 +3,7 @@ import { useCallback, useEffect } from "react";
 
 import useUpdateNoteMutation from "hooks/use-update-note-mutation";
 import { Sentry } from "services";
-import { Note } from "types";
+import { Note, NoteSchema } from "types";
 
 export interface NoteFormValues {
   note: string;
@@ -22,8 +22,10 @@ export default function useNoteForm(note: Note) {
       setSubmitting(true);
       try {
         await updateNoteMutation.mutate({
-          status: note.status === "draft" ? "published" : note.status,
-          user_id: note.user_id!,
+          status:
+            note.status === "draft"
+              ? "published"
+              : (note.status as NoteSchema["status"]),
           title: values.title,
           note: values.note,
           id: note.id,

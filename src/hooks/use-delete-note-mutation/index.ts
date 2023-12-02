@@ -15,7 +15,6 @@ export default function useDeleteNoteMutation() {
       }
 
       await updateNoteMutation.mutateAsync({
-        user_id: input.user_id!,
         status: "trashed",
         id: input.id!,
       });

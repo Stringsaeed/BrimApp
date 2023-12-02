@@ -10,7 +10,7 @@ import {
   useUpdateNoteMutation,
 } from "hooks";
 import { UpdateNoteMutationInput } from "hooks/use-update-note-mutation";
-import { Note, DateType } from "types";
+import { Note, DateType, NoteSchema } from "types";
 
 type NotesListContext = {
   notes: Note[];
@@ -18,7 +18,7 @@ type NotesListContext = {
     title: string;
     data: Note[];
   }[];
-  addNote: (note: Omit<Note, "id">) => void;
+  addNote: (note: Omit<NoteSchema, "id">) => void;
   updateNote: (note: UpdateNoteMutationInput) => void;
   deleteNote: (note: Note) => void;
   archiveNote: (id: string) => void;
@@ -65,7 +65,7 @@ export const NotesListProvider = ({
   const sections = useMemo(() => {
     // group the notes by date and convert them to an array title and data
     const groupedNotes = notes.reduce((acc, note) => {
-      const date = getDateTitle(note.updated_at!);
+      const date = getDateTitle(note.updatedAt);
       if (!acc[date]) {
         acc[date] = [];
       }
@@ -85,7 +85,7 @@ export const NotesListProvider = ({
   const haptic = useHaptic();
 
   const addNote = useCallback(
-    (note: Omit<Note, "id">) => {
+    (note: Omit<NoteSchema, "id">) => {
       createNoteMutation.mutate(note);
     },
     [createNoteMutation]

@@ -6,9 +6,9 @@ import {
 import React, { useMemo } from "react";
 import { SizableText, useTheme, useThemeName } from "tamagui";
 
-import { useAuth } from "contexts";
+// import { useAuth } from "contexts";
 import createAppGroup from "navigation/app-group";
-import createAuthGroup from "navigation/auth-group";
+// import createAuthGroup from "navigation/auth-group";
 import { RootStackParamList } from "routers";
 
 const RootNavigatorCreator = createNativeStackNavigator<RootStackParamList>();
@@ -22,11 +22,11 @@ function headerTitle(props: HeaderTitleProps) {
 }
 
 export default function RootNavigator() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const themeName = useThemeName();
-  const authGroup = createAuthGroup(RootNavigatorCreator, themeName);
+  // const authGroup = createAuthGroup(RootNavigatorCreator, themeName);
   const appGroup = createAppGroup(RootNavigatorCreator, themeName);
-  const renderer = user ? appGroup : authGroup;
+
   const theme = useTheme();
   const foregroundColor = theme.color.get();
 
@@ -43,7 +43,7 @@ export default function RootNavigator() {
 
   return (
     <RootNavigatorCreator.Navigator screenOptions={screenOptions}>
-      {renderer}
+      {appGroup}
     </RootNavigatorCreator.Navigator>
   );
 }

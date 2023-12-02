@@ -1,15 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
+import { Trash2 } from "@tamagui/lucide-icons";
 import React from "react";
-import { Button, YGroup, ListItem, Separator } from "tamagui";
+import { YGroup, ListItem, Separator, Spacer } from "tamagui";
 
-import { ScreenContainer, Spacer } from "components";
-import { useSignOutMutation } from "hooks";
+import { ScreenContainer } from "components";
+// import { useSignOutMutation } from "hooks";
+import { wmDatabase } from "config";
 import { Routes } from "routers";
 
 import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
-  const signOutMutation = useSignOutMutation();
+  // const signOutMutation = useSignOutMutation();
   const navigation = useNavigation();
 
   function navigateToFactory(name: Routes.AccountInfo | Routes.Preferences) {
@@ -29,6 +31,7 @@ export default function Profile() {
           <ListItem
             onPress={navigateToFactory(Routes.AccountInfo)}
             title="Account Information"
+            disabled
           />
         </YGroup.Item>
         <YGroup.Item>
@@ -41,8 +44,25 @@ export default function Profile() {
           />
         </YGroup.Item>
       </YGroup>
+      {/* @ts-ignore */}
       <Spacer />
-      <Button
+      <YGroup bordered separator={<Separator />}>
+        <YGroup.Item>
+          <ListItem
+            color="$red10"
+            icon={Trash2}
+            // onPress={navigateToFactory(Routes.AccountInfo)}
+            title="Delete all data"
+            subTitle="This cannot be undone"
+            onPress={async () => {
+              await wmDatabase.write(async () => {
+                await wmDatabase.unsafeResetDatabase();
+              });
+            }}
+          />
+        </YGroup.Item>
+      </YGroup>
+      {/* <Button
         width="100%"
         bg="$accent"
         size="$5"
@@ -51,7 +71,7 @@ export default function Profile() {
         onPress={() => signOutMutation.mutate()}
       >
         Sign out
-      </Button>
+      </Button> */}
     </ScreenContainer>
   );
 }

@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { NoteService, Sentry } from "services";
-import { Note, RequiredNotNull } from "types";
+import { NoteSchema, RequiredNotNull } from "types";
 
-type RequiredInput = RequiredNotNull<Required<Pick<Note, "id">>>;
+type RequiredInput = RequiredNotNull<Required<Pick<NoteSchema, "id">>>;
 
 type OptionalInput = Partial<
-  Omit<Note, "id" | "user_id" | "updated_at" | "created_at">
+  Omit<NoteSchema, "id" | "user_id" | "updated_at" | "created_at">
 >;
 
 export type UpdateNoteMutationInput = RequiredInput & OptionalInput;

@@ -5,6 +5,7 @@ import {
   Lock,
   Archive,
   ArchiveRestore,
+  Undo,
 } from "@tamagui/lucide-icons";
 import React, { useCallback, useMemo } from "react";
 import { Gesture } from "react-native-gesture-handler";
@@ -17,7 +18,7 @@ import { cipherTitle, getNoteTitle } from "utils";
 import NoteListItemAction from "./action";
 import NoteListItemContainer from "./container";
 
-export interface NoteListItemProps {
+interface NoteListItemProps {
   item: Note;
   onPress: () => void;
   onRemove?: () => void;
@@ -52,7 +53,14 @@ export default function NoteListItemView({
   const renderLeftActions = useCallback(() => {
     if (!onLeftAction) return null;
 
-    const isRestorable = ["archived", "trashed"].includes(item.status);
+    const isRestorable = ["trashed", "archived"].includes(item.status);
+
+    const Icon =
+      item.status === "archived"
+        ? ArchiveRestore
+        : item.status === "trashed"
+        ? Undo
+        : Archive;
 
     return (
       <NoteListItemAction
@@ -60,11 +68,7 @@ export default function NoteListItemView({
         onPress={onLeftAction}
         variant="left"
       >
-        {isRestorable ? (
-          <ArchiveRestore size={24} color={foregroundColor} />
-        ) : (
-          <Archive size={24} color={foregroundColor} />
-        )}
+        <Icon size={24} color={foregroundColor} />
       </NoteListItemAction>
     );
   }, [foregroundColor, item.status, onLeftAction]);

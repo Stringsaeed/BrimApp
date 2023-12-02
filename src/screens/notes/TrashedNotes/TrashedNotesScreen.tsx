@@ -2,10 +2,10 @@ import React from "react";
 
 import { NotesList } from "components";
 import { NotesListProvider } from "contexts";
-import { useFilterNotes, useNavigateNote } from "hooks";
+import { useNavigateNote, useObserveNotes } from "hooks";
 
 export default function TrashedNotesScreen() {
-  const notes = useFilterNotes(useFilterNotes.filterTypes.Trashed);
+  const notes = useObserveNotes("trashed");
   const onNavigateNote = useNavigateNote();
 
   return (

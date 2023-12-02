@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { NoteService } from "services";
-import { Note } from "types";
+import { NoteSchema } from "types";
 
-async function createNote(input: Omit<Note, "id">) {
+async function createNote(input: Omit<NoteSchema, "id">) {
   return await NoteService.create(input);
 }
 

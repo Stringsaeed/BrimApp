@@ -1,35 +1,28 @@
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-// import { PostHogProvider } from "posthog-react-native";
+import { DatabaseProvider } from "@nozbe/watermelondb/react";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
-import {
-  AuthProvider,
-  NotesProvider,
-  PullToActionProvider,
-  QueryProvider,
-} from "contexts";
-import { useAppCheck, useHandleNotifications, useUserTheme } from "hooks";
+import { wmDatabase } from "config";
+import { NotesProvider, PullToActionProvider, QueryProvider } from "contexts";
+import { useUserTheme } from "hooks";
 import { AppNavigator } from "navigation";
-// import { Analytics } from "services";
 import { FeatureFlagsProvider } from "services";
 import { themeConfig } from "themes";
 
 import NavigationProvider from "./navigation-provider";
 
 export default function AppContainer() {
-  useAppCheck();
-  useHandleNotifications();
   const { theme } = useUserTheme();
 
   return (
     <FeatureFlagsProvider>
       <TamaguiProvider defaultTheme={theme} config={themeConfig}>
         <QueryProvider>
-          <AuthProvider>
+          <DatabaseProvider database={wmDatabase}>
             <NotesProvider>
               <GestureHandlerRootView style={styles.rootView}>
                 <SafeAreaProvider>
@@ -45,7 +38,7 @@ export default function AppContainer() {
                 </SafeAreaProvider>
               </GestureHandlerRootView>
             </NotesProvider>
-          </AuthProvider>
+          </DatabaseProvider>
         </QueryProvider>
       </TamaguiProvider>
     </FeatureFlagsProvider>

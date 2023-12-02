@@ -1,4 +1,6 @@
+import { withObservables } from "@nozbe/watermelondb/react";
 import React, {
+  PropsWithChildren,
   ReactNode,
   createContext,
   useCallback,
@@ -8,7 +10,8 @@ import React, {
 } from "react";
 import { InteractionManager } from "react-native";
 
-import useNotesQuery from "hooks/use-notes-query";
+import { wmDatabase } from "config";
+import { NoteModel } from "models";
 import { NoteService } from "services";
 import { Note } from "types";
 
@@ -18,9 +21,13 @@ export interface NotesContextType {
   notes: Note[];
 }
 
-export const NotesProvider = ({ children }: { children: ReactNode }) => {
-  const { data = [] } = useNotesQuery();
-
+const NotesProviderComponent = ({
+  notes: data = [],
+  children,
+}: {
+  children: ReactNode;
+  notes: Note[];
+}) => {
   const removeNote = useCallback(async (id: string) => {
     await NoteService.delete(id);
   }, []);
@@ -30,7 +37,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
       const toRemoved = data
         .map(async (note) => {
           if (
-            note.deleted_at ||
+            note.deletedAt ||
             note.status === "draft" ||
             note.note ||
             note.title
@@ -66,3 +73,11 @@ export const useNotesContext = () => {
 
   return context;
 };
+
+const enhance = withObservables([], () => ({
+  notes: wmDatabase.get<NoteModel>("notes").query().observe(),
+}));
+
+export const NotesProvider = enhance(
+  NotesProviderComponent
+) as unknown as React.FC<PropsWithChildren>;

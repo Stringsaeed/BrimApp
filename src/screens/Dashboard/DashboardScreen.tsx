@@ -4,16 +4,16 @@ import { DashboardHeader, NotesList } from "components";
 import { NotesListProvider } from "contexts";
 import {
   useCreateEmptyNoteMutation,
-  useFilterNotes,
   useNavigateNote,
   useNavigateProfile,
+  useObserveNotes,
 } from "hooks";
 
 export default function DashboardScreen() {
+  const notes = useObserveNotes("published");
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
-  const notes = useFilterNotes(useFilterNotes.filterTypes.Main);
 
   return (
     <NotesListProvider notes={notes}>

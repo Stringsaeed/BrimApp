@@ -47,7 +47,7 @@ export default function createAppGroup<
       <creator.Screen
         name={Routes.Profile}
         component={UserScreens.Profile}
-        options={{ title: "Profile" }}
+        options={{ title: "Settings" }}
       />
       <creator.Screen
         name={Routes.AccountInfo}
