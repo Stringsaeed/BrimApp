@@ -16,8 +16,6 @@
       "developmentClient": false,
       "env": {
         "TAMAGUI_TARGET": "native",
-        "GOOGLE_SERVICES_INFO_PLIST": "./assets/GoogleService-Info.plist",
-        "FIREBASE_APP_CHECK_DEBUG_TOKEN": "3AA1C52B-ECC1-49FB-8327-0452CD0C819B"
       },
       "channel": "preview"
     },
@@ -27,7 +25,6 @@
       },
       "env": {
         "TAMAGUI_TARGET": "native",
-        "GOOGLE_SERVICES_INFO_PLIST": "./assets/GoogleService-Info.plist"
       },
       "distribution": "store",
       "channel": "production"

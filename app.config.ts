@@ -4,9 +4,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     plugins: [
-      // "./plugins/withFirebaseAppCheck.js",
-      // "@react-native-firebase/app",
-      // "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
@@ -20,7 +17,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
               },
             ],
             deploymentTarget: "14.0",
-            // useFrameworks: "static",
           },
         },
       ],
@@ -52,13 +48,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       supportsTablet: true,
       buildNumber: "41",
     },
-    extra: {
-      eas: {
-        // androidFirebaseAppCheckDebugToken: process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_ANDROID,
-        // iOSfirebaseAppCheckDebugToken: process.env.FIREBASE_APP_CHECK_DEBUG_TOKEN_IOS,
-        // projectId: "e630d577-becd-41a6-ad64-226cac9be574",
-      },
-    },
     hooks: {
       postPublish: [
         {
@@ -75,12 +64,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       backgroundColor: "#F7F6E4",
       resizeMode: "contain",
     },
-    androidStatusBar: {
-      backgroundColor: "#F7F6E400",
-      translucent: true,
+    extra: {
+      eas: {
+        projectId: "e630d577-becd-41a6-ad64-226cac9be574",
+      },
     },
     updates: {
       url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
+    },
+    androidStatusBar: {
+      backgroundColor: "#F7F6E400",
+      translucent: true,
     },
     runtimeVersion: {
       policy: "appVersion",
@@ -98,8 +92,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
-    slug: "BrimApp",
     name: "BrimApp",
+    slug: "BrimApp",
     scheme: "brim",
   };
 };
