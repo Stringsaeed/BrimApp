@@ -55,7 +55,7 @@ export default function NoteView() {
   const titleInputRef = React.useRef<TextInput>(null);
   const richTextRef = React.useRef<ComposerRef>(null);
 
-  const togglePrivacy = async () => {
+  const togglePrivacy = () => {
     if (!note) return;
     notePrivacyMutation.mutate({ note });
   };

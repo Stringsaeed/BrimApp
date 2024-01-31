@@ -59,8 +59,8 @@ export default function NoteListItemView({
       item.status === "archived"
         ? ArchiveRestore
         : item.status === "trashed"
-        ? Undo
-        : Archive;
+          ? Undo
+          : Archive;
 
     return (
       <NoteListItemAction

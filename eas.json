@@ -15,7 +15,7 @@
       "distribution": "internal",
       "developmentClient": false,
       "env": {
-        "TAMAGUI_TARGET": "native",
+        "TAMAGUI_TARGET": "native"
       },
       "channel": "preview"
     },
@@ -24,7 +24,7 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "TAMAGUI_TARGET": "native",
+        "TAMAGUI_TARGET": "native"
       },
       "distribution": "store",
       "channel": "production"

@@ -19,8 +19,8 @@ export default function useCreateEmptyNoteMutation() {
   }, [createNoteMutation]);
 
   const onSuccess = (data: Note) => {
-    onNavigateNote(data);
+    void onNavigateNote(data);
   };
 
-  return useMutation(createEmptyNoteMutation, { onSuccess });
+  return useMutation({ mutationFn: createEmptyNoteMutation, onSuccess });
 }

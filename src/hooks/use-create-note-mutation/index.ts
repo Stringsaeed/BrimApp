@@ -8,5 +8,5 @@ async function createNote(input: Omit<NoteSchema, "id">) {
 }
 
 export default function useCreateNoteMutation() {
-  return useMutation(createNote);
+  return useMutation({ mutationFn: createNote });
 }

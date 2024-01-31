@@ -19,7 +19,7 @@ export default function ResetDatabaseListItem() {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const onReset = () => {
-    InteractionManager.runAfterInteractions(async () => {
+    void InteractionManager.runAfterInteractions(async () => {
       setIsLoading(true);
       try {
         await wmDatabase.write(async () => {
@@ -87,17 +87,13 @@ export default function ResetDatabaseListItem() {
 
             <Button
               disabled={isLoading}
-              icon={({ color, size }) =>
-                isLoading ? (
-                  <Spinner color={color} size="small" />
-                ) : (
-                  <Trash2 color={color} size={size} />
-                )
-              }
               onPress={onReset}
               bg="$red10"
               color="$background"
             >
+              <Button.Icon>
+                {isLoading ? <Spinner size="small" /> : <Trash2 />}
+              </Button.Icon>
               Delete All
             </Button>
           </XStack>

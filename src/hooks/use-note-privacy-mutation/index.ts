@@ -23,7 +23,7 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
     if (isPrivate === note.is_private) {
       return isPrivate;
     }
-    await NoteService.update(note.id!, { is_private: isPrivate });
+    await NoteService.update(note.id, { is_private: isPrivate });
     return isPrivate;
   } catch (e) {
     Sentry.captureException(e);
@@ -32,5 +32,5 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
 }
 
 export default function useNotePrivacyMutation() {
-  return useMutation(toggleNotePrivacy);
+  return useMutation({ mutationFn: toggleNotePrivacy });
 }

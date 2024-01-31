@@ -3,3 +3,5 @@ ios
 android
 .expo
 .tamagui
+*.config.js
+theme.d.ts

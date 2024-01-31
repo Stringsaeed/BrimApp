@@ -8,8 +8,8 @@ import { useScreenContainerContentStyle } from "hooks";
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
   : T extends "fixed"
-  ? ViewProps
-  : never;
+    ? ViewProps
+    : never;
 
 type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   type: T;

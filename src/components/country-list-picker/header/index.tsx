@@ -1,5 +1,5 @@
 import { Search, X, ArrowLeft } from "@tamagui/lucide-icons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ComponentProps, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button, XStack, Input, View } from "tamagui";
 
@@ -41,7 +41,11 @@ export default function CountryListPickerHeader({
         aspectRatio={1}
         borderRadius="$12"
         scaleIcon={1.3}
-        icon={({ color, size }) => <ArrowLeft size={size} color={color} />}
+        icon={
+          (({ color, size }: { color: string; size: number }) => (
+            <ArrowLeft size={size} color={color} />
+          )) as ComponentProps<typeof Button>["icon"]
+        }
       />
       <View flex={1}>
         {!!showSearch && (
@@ -65,12 +69,13 @@ export default function CountryListPickerHeader({
         aspectRatio={1}
         borderRadius="$12"
         scaleIcon={1.3}
-        icon={({ color, size }) =>
-          showSearch ? (
-            <X size={size} color={color} />
-          ) : (
-            <Search size={size} color={color} />
-          )
+        icon={
+          (({ color, size }: { color: string; size: number }) =>
+            showSearch ? (
+              <X size={size} color={color} />
+            ) : (
+              <Search size={size} color={color} />
+            )) as ComponentProps<typeof Button>["icon"]
         }
       />
     </XStack>

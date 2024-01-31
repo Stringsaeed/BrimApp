@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useThrottle<T extends unknown>(value: T, ms = 200) {
+export default function useThrottle<T>(value: T, ms = 200) {
   const [state, setState] = useState<T | undefined>(value);
   const timeout = useRef<NodeJS.Timeout>();
   const nextValue = useRef<T>();

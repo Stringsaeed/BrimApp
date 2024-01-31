@@ -7,7 +7,7 @@ import { DashboardScreen, NotesScreens, UserScreens } from "screens";
 
 export default function createAppGroup<
   ParamsList extends ParamListBase,
-  ThemeName extends "light" | "dark" | (string & {})
+  ThemeName extends string,
 >(
   creator: ReturnType<typeof createNativeStackNavigator<ParamsList>>,
   _: ThemeName

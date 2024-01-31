@@ -22,11 +22,12 @@ async function updateNote(input: UpdateNoteMutationInput) {
 }
 
 export default function useUpdateNoteMutation() {
-  return useMutation(updateNote, {
+  return useMutation({
     onError(error, variables, context) {
       Sentry.captureException(error, {
         extra: { variables, context },
       });
     },
+    mutationFn: updateNote,
   });
 }

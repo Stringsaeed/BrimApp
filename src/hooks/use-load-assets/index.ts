@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { useEffect } from "react";
 
-preventAutoHideAsync();
+void preventAutoHideAsync();
 
 export default function useLoadAssets() {
   const [loaded, error] = useFonts({
@@ -12,7 +12,7 @@ export default function useLoadAssets() {
 
   useEffect(() => {
     if (loaded || error) {
-      hideAsync();
+      void hideAsync();
     }
   }, [error, loaded]);
 

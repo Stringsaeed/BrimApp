@@ -5,7 +5,7 @@ import {
   TapGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
 import Animated, {
-  Extrapolate,
+  Extrapolation,
   interpolate,
   interpolateColor,
   runOnJS,
@@ -46,7 +46,7 @@ export default function AccentBackdrop({
       animatedIndex.value,
       [-1, 0, 1],
       [0, 0.4, 0.8],
-      Extrapolate.CLAMP
+      Extrapolation.CLAMP
     ),
   }));
 

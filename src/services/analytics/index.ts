@@ -1,8 +1,9 @@
 import "services/vexo";
 // import type TPostHog from "posthog-react-native";
-import { identifyDevice } from "vexo-analytics";
 
 // import { PostHog } from "services/posthug";
+import { identifyDevice } from "vexo-analytics";
+
 import { Vexo } from "services/vexo";
 import { AuthUser } from "types";
 
@@ -10,16 +11,16 @@ class AnalyticsService {
   // postHug: TPostHog | undefined;
 
   constructor() {
-    this.init();
+    void this.init();
   }
 
-  async init() {
+  init() {
     Vexo.init();
     // this.postHug = await PostHog.init();
   }
 
-  identify(user: AuthUser) {
-    identifyDevice(user.uid);
+  async identify(user: AuthUser) {
+    await identifyDevice(user.uid);
     // this.postHug?.identify(user.uid, user);
   }
 

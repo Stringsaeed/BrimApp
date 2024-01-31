@@ -1,8 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
-// import { useFeatureFlag } from "posthog-react-native";
-import React, { Fragment, useRef } from "react";
+import React, { ComponentProps, Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
 
 import BottomSheet from "components/bottom-sheet";
@@ -23,13 +22,13 @@ export default function NoteToolbox({ onOpen }: Props) {
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
 
-    setFieldValue("note", data);
+    void setFieldValue("note", data);
   };
 
   const handleRephraseSentence = async () => {
     const data = await rephraseSentenceMutation.mutateAsync(values.note);
 
-    setFieldValue("note", data);
+    void setFieldValue("note", data);
   };
 
   const handleOpenSheet = () => {
@@ -39,7 +38,7 @@ export default function NoteToolbox({ onOpen }: Props) {
         ref.current?.present();
       });
     } else {
-      handleFixGrammar();
+      void handleFixGrammar();
     }
   };
 
@@ -49,15 +48,16 @@ export default function NoteToolbox({ onOpen }: Props) {
         position="absolute"
         bottom={60}
         right={20}
-        borderRadius="$radius.12"
+        borderRadius="$12"
         bg="$accent"
         scaleIcon={2}
-        icon={({ color, size }) =>
-          fixGrammarMutation.isLoading ? (
-            <Spinner color={color} />
-          ) : (
-            <Wand2 color="$background" size={size} />
-          )
+        icon={
+          (({ color, size }: { color: string; size: number }) =>
+            fixGrammarMutation.isPending ? (
+              <Spinner color={color} />
+            ) : (
+              <Wand2 color="$background" size={size} />
+            )) as ComponentProps<typeof Button>["icon"]
         }
         aspectRatio={1}
         width={60}
@@ -69,7 +69,7 @@ export default function NoteToolbox({ onOpen }: Props) {
         <BottomSheet ref={ref}>
           <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
             <Button.Icon scaleIcon={1.5}>
-              {fixGrammarMutation.isLoading ? (
+              {fixGrammarMutation.isPending ? (
                 <Spinner color="$background" />
               ) : (
                 <Sparkles size="$2" color="$background" />
@@ -87,7 +87,7 @@ export default function NoteToolbox({ onOpen }: Props) {
             elevate
           >
             <Button.Icon scaleIcon={1.5}>
-              {rephraseSentenceMutation.isLoading ? (
+              {rephraseSentenceMutation.isPending ? (
                 <Spinner color="$background" />
               ) : (
                 <Sparkles size="$2" color="$background" />

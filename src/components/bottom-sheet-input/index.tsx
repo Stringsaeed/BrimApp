@@ -78,8 +78,9 @@ export function useInputProps(props: InputProps, ref: any) {
 
   const placeholderColorProp = props.placeholderTextColor;
   const placeholderTextColor =
-    // @ts-expect-error
-    theme[placeholderColorProp as any]?.get() ??
+    // @ts-expect-error placeholderColor is not in the type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    (placeholderColorProp && theme?.[placeholderColorProp]?.get?.()) ??
     placeholderColorProp ??
     theme.placeholderColor?.get();
 

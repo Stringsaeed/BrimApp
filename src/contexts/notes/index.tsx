@@ -33,7 +33,7 @@ const NotesProviderComponent = ({
   }, []);
 
   const syncNotes = useCallback(() => {
-    InteractionManager.runAfterInteractions(async () => {
+    void InteractionManager.runAfterInteractions(async () => {
       const toRemoved = data
         .map(async (note) => {
           if (

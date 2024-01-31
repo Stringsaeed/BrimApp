@@ -21,7 +21,7 @@ export default function AutoSaveFormik({
   ]);
 
   useEffect(() => {
-    dirty && debouncedSubmit();
+    void (dirty && debouncedSubmit());
   }, [debouncedSubmit, dirty, values.note, values.title]);
 
   return null;

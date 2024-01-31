@@ -14,14 +14,14 @@ export default function useNoteForm(note: Note) {
   const updateNoteMutation = useUpdateNoteMutation();
 
   const onSubmit = useCallback(
-    async (
+    (
       values: NoteFormValues,
       { setSubmitting }: FormikHelpers<NoteFormValues>
     ) => {
       if (!note) return;
       setSubmitting(true);
       try {
-        await updateNoteMutation.mutate({
+        updateNoteMutation.mutate({
           status:
             note.status === "draft"
               ? "published"
@@ -52,7 +52,7 @@ export default function useNoteForm(note: Note) {
       const isEmptyNote = config.values.note === "";
 
       if (isEmptyNote && !isSubmittedBefore && !isDirty) {
-        config.submitForm();
+        void config.submitForm();
       }
     };
   }, [config, note]);

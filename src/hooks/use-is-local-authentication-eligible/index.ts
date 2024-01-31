@@ -5,9 +5,9 @@ export default function useIsLocalAuthenticationEligible() {
   const [isEligible, setIsEligible] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const enrolledLevel = await LocalAuthentication.getEnrolledLevelAsync();
-      if (enrolledLevel > 1) {
+      if (enrolledLevel > LocalAuthentication.SecurityLevel.NONE) {
         setIsEligible(true);
       }
     })();

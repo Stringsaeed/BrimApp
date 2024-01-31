@@ -40,7 +40,6 @@ export default function Profile() {
           />
         </YGroup.Item>
       </YGroup>
-      {/* @ts-ignore */}
       <Spacer />
       <YGroup bordered separator={<Separator />}>
         <ResetDatabaseListItem />

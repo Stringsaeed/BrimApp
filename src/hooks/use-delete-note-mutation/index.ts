@@ -16,11 +16,11 @@ export default function useDeleteNoteMutation() {
 
       await updateNoteMutation.mutateAsync({
         status: "trashed",
-        id: input.id!,
+        id: input.id,
       });
     },
     [updateNoteMutation]
   );
 
-  return useMutation(onTrash);
+  return useMutation({ mutationFn: onTrash });
 }

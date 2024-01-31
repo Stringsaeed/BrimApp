@@ -35,7 +35,7 @@ export default function PullToAction({
   const scrollViewGesture = Gesture.Native();
   const hapticFeedback = useHaptic();
   const handleAdd = useCallback(() => {
-    hapticFeedback?.();
+    void hapticFeedback?.();
     createEmptyNoteMutation.mutate();
   }, [createEmptyNoteMutation, hapticFeedback]);
 

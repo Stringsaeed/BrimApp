@@ -1,5 +1,5 @@
-import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import parseISO from "date-fns/parseISO";
+import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
+import { parseISO } from "date-fns/parseISO";
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
 
 import {
@@ -64,14 +64,17 @@ export const NotesListProvider = ({
     useSearchableNotes(unSearchedNotes);
   const sections = useMemo(() => {
     // group the notes by date and convert them to an array title and data
-    const groupedNotes = notes.reduce((acc, note) => {
-      const date = getDateTitle(note.updatedAt);
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(note);
-      return acc;
-    }, {} as Record<string, Note[]>);
+    const groupedNotes = notes.reduce(
+      (acc, note) => {
+        const date = getDateTitle(note.updatedAt);
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(note);
+        return acc;
+      },
+      {} as Record<string, Note[]>
+    );
 
     return Object.entries(groupedNotes).map(([title, data]) => ({
       title,
@@ -131,7 +134,7 @@ export const NotesListProvider = ({
 
   const onNoteSelect = useCallback(
     (id: Note["id"]) => {
-      haptic?.();
+      void haptic?.();
       if (!multiSelectMode) {
         setSelectedNote([id]);
         setMultiSelectMode(true);

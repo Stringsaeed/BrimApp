@@ -49,7 +49,7 @@ export default function useUserTheme() {
   };
 
   useEffect(() => {
-    setBackgroundColorAsync(theme === "dark" ? "#000" : "#fff");
+    void setBackgroundColorAsync(theme === "dark" ? "#000" : "#fff");
   }, [theme]);
 
   useEffect(() => {

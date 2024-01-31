@@ -138,7 +138,6 @@ export default function NoteListMultiselectMenu() {
             {renderSelectedIndicatorIcon()}
           </Animated.View>
         </Stack>
-        {/* @ts-ignore */}
         <Spacer size="$2" />
         <SizableText>{selectedNotes.length} Selected</SizableText>
         <Spacer flex={1} />

@@ -6,10 +6,11 @@ import {
 import React, { useMemo } from "react";
 import { SizableText, useTheme, useThemeName } from "tamagui";
 
-// import { useAuth } from "contexts";
 import createAppGroup from "navigation/app-group";
-// import createAuthGroup from "navigation/auth-group";
 import { RootStackParamList } from "routers";
+
+// import { useAuth } from "contexts";
+// import createAuthGroup from "navigation/auth-group";
 
 const RootNavigatorCreator = createNativeStackNavigator<RootStackParamList>();
 

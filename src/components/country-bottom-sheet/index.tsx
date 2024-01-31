@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { ComponentProps, useCallback, useMemo, useState } from "react";
 import { Modal, Platform, StyleSheet, Image } from "react-native";
 import { Button, Circle } from "tamagui";
 
@@ -41,19 +41,21 @@ export default function CountryBottomSheet({
         onPress={handleOnPress}
         scaleIcon={1.4}
         borderRadius="$12"
-        icon={({ color, size }) => (
-          <Circle size={size} overflow="hidden" bg={color}>
-            <Image
-              accessible={Platform.OS !== "web"}
-              tintColor={color}
-              accessibilityIgnoresInvertColors
-              style={StyleSheet.absoluteFill}
-              source={{
-                uri: `https://flagcdn.com/w40/${region.toLowerCase()}.png`,
-              }}
-            />
-          </Circle>
-        )}
+        icon={
+          (({ color, size }: { color: string; size: number }) => (
+            <Circle size={size} overflow="hidden" bg={color}>
+              <Image
+                accessible={Platform.OS !== "web"}
+                tintColor={color}
+                accessibilityIgnoresInvertColors
+                style={StyleSheet.absoluteFill}
+                source={{
+                  uri: `https://flagcdn.com/w40/${region.toLowerCase()}.png`,
+                }}
+              />
+            </Circle>
+          )) as ComponentProps<typeof Button>["icon"]
+        }
       >
         <Button.Text>+{countryCode}</Button.Text>
       </Button>
