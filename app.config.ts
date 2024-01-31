@@ -27,21 +27,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
       "expo-localization",
-      "sentry-expo",
       "expo-notifications",
       "expo-font",
-    ],
-    hooks: {
-      postPublish: [
+      [
+        "@sentry/react-native/expo",
         {
-          config: {
-            organization: process.env.SENTRY_ORG,
-            project: process.env.SENTRY_PROJECT,
-          },
-          file: "sentry-expo/upload-sourcemaps",
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+          organization: process.env.SENTRY_ORG,
+          project: process.env.SENTRY_PROJECT,
         },
       ],
-    },
+    ],
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",

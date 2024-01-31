@@ -18,4 +18,4 @@ function App() {
   return <AppContainer />;
 }
 
-export default Sentry.Native.wrap(App);
+export default Sentry.wrap(App);

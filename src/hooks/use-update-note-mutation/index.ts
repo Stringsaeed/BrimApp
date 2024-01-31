@@ -24,7 +24,7 @@ async function updateNote(input: UpdateNoteMutationInput) {
 export default function useUpdateNoteMutation() {
   return useMutation(updateNote, {
     onError(error, variables, context) {
-      Sentry.Native.captureException(error, {
+      Sentry.captureException(error, {
         extra: { variables, context },
       });
     },

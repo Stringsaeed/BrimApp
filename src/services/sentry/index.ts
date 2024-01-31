@@ -1,13 +1,12 @@
-import * as Sentry from "sentry-expo";
+import * as Sentry from "@sentry/react-native";
 
 import { config } from "config";
 
-const routingInstrumentation =
-  new Sentry.Native.ReactNavigationInstrumentation();
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
-Sentry.Native.init({
+Sentry.init({
   integrations: [
-    new Sentry.Native.ReactNativeTracing({
+    new Sentry.ReactNativeTracing({
       routingInstrumentation,
     }),
   ],

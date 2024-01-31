@@ -31,7 +31,7 @@ export default function useNoteForm(note: Note) {
           id: note.id,
         });
       } catch (e) {
-        Sentry.Native.captureException(e);
+        Sentry.captureException(e);
       }
       setSubmitting(false);
     },
