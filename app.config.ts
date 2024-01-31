@@ -29,6 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       "expo-localization",
       "sentry-expo",
       "expo-notifications",
+      "expo-font",
     ],
     hooks: {
       postPublish: [
