@@ -1,5 +1,5 @@
 import React from "react";
-import { RectButton } from "react-native-gesture-handler";
+import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 import { View, styled } from "tamagui";
 
@@ -12,7 +12,7 @@ interface Props {
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const ActionButton = styled(RectButton, {
+const ActionButton = styled(Pressable, {
   variants: {
     action: {
       left: {
