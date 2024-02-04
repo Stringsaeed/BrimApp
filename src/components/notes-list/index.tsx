@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { SectionList, SectionListRenderItemInfo } from "react-native";
-import Animated, { Layout } from "react-native-reanimated";
+import Animated, { CurvedTransition } from "react-native-reanimated";
 import { SizableText } from "tamagui";
 
 import { useNotesList } from "contexts";
@@ -61,7 +61,7 @@ export default function NoteList({ onPressNote }: NotesListProps) {
   );
 
   return (
-    <Animated.View layout={Layout.springify()} style={styles.list}>
+    <Animated.View layout={CurvedTransition} style={styles.list}>
       <AnimatedSectionList
         sections={sections}
         ListHeaderComponent={NoteListSearchBar}
@@ -69,7 +69,7 @@ export default function NoteList({ onPressNote }: NotesListProps) {
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         style={styles.list}
-        layout={Layout.springify()}
+        layout={CurvedTransition}
         contentContainerStyle={styles.content}
         ListEmptyComponent={ListEmptyView}
         stickySectionHeadersEnabled={false}

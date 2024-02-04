@@ -12,7 +12,7 @@ import Animated, {
   Easing,
   FadeIn,
   FadeOut,
-  Layout,
+  LinearTransition,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -134,12 +134,16 @@ export default function NoteListMultiselectMenu() {
         alignItems="center"
       >
         <Stack onPress={handleSelectAll}>
-          <Animated.View layout={Layout.easing(Easing.inOut(Easing.ease))}>
+          <Animated.View
+            layout={LinearTransition.easing(Easing.inOut(Easing.ease))}
+          >
             {renderSelectedIndicatorIcon()}
           </Animated.View>
         </Stack>
         <Spacer size="$2" />
-        <SizableText>{selectedNotes.length} Selected</SizableText>
+        <SizableText fontVariant={["tabular-nums"]}>
+          {selectedNotes.length} Selected
+        </SizableText>
         <Spacer flex={1} />
         <XGroup>
           <XGroup.Item>
