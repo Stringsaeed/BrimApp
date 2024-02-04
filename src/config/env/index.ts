@@ -10,6 +10,7 @@ const envSchema = z.object({
   vexoAnalyticsApiKey: z.string(),
   huggingFaceApiKey: z.string(),
   webFirebaseApiKey: z.string(),
+  geminiAPIKey: z.string(),
   environment: z.string(),
   sentryDsn: z.string(),
 });
@@ -26,6 +27,7 @@ const unsafeConfig = {
   huggingFaceApiKey: process.env.EXPO_PUBLIC_HUGGING_FACE_API_KEY,
   supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
   postHugApiKey: process.env.EXPO_PUBLIC_POST_HUG_API_KEY,
+  geminiAPIKey: process.env.EXPO_PUBLIC_GEMINI_API_KEY,
   environment: process.env.NODE_ENV ?? "development",
   postHugHost: process.env.EXPO_PUBLIC_POST_HUG_HOST,
   supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,
