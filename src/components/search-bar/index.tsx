@@ -1,5 +1,6 @@
 import { Search } from "@tamagui/lucide-icons";
 import React, { ForwardedRef } from "react";
+import { useTranslation } from "react-i18next";
 import { TextInput } from "react-native";
 import { Input, InputProps, XStack } from "tamagui";
 
@@ -7,6 +8,7 @@ function SearchBarComponent(
   props: InputProps,
   ref?: ForwardedRef<TextInput | null>
 ) {
+  const { t } = useTranslation();
   return (
     <XStack
       px="$4"
@@ -22,7 +24,7 @@ function SearchBarComponent(
         flex={1}
         borderWidth={0}
         backgroundColor="$gray3"
-        placeholder="Search notes"
+        placeholder={t("searchNotes")}
         placeholderTextColor="$gray9"
         size="$3"
         {...props}
