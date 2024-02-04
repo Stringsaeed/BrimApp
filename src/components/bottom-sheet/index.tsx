@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, useTheme } from "tamagui";
 
 import BlurBackdrop from "./blur-backdrop";
+import styles from "./styles";
 
 interface Props extends Partial<BottomSheetProps> {
   title?: string;
@@ -39,12 +40,10 @@ const BottomSheetComponent = (
       detached={true}
       bottomInset={bottom + 32}
       {...props}
-      style={[props.style, { marginHorizontal: 16, borderRadius: 20 }]}
+      style={[props.style, styles.bottomSheetStyle]}
       ref={ref}
       topInset={top}
-      backgroundStyle={{
-        backgroundColor: theme.backgroundTransparent.get(),
-      }}
+      backgroundStyle={{ backgroundColor: theme.backgroundTransparent.get() }}
       handleComponent={renderHandle}
       backdropComponent={renderBackdrop}
     >
@@ -53,9 +52,9 @@ const BottomSheetComponent = (
           bg="$background"
           p="$4"
           shadowColor="$accent"
-          shadowOffset={{ height: -2, width: 0 }}
-          shadowOpacity={0.1}
-          shadowRadius={4}
+          shadowOffset={{ height: -3, width: 0 }}
+          shadowOpacity={0.2}
+          shadowRadius={5}
           elevationAndroid={4}
           borderRadius={20}
         >
