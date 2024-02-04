@@ -2,12 +2,8 @@
 const { getSentryExpoConfig } = require("@sentry/react-native/metro");
 
 /** @type {import('expo/metro-config').MetroConfig} */
-const defaultConfig = getSentryExpoConfig(__dirname, {
-  // [Web-only]: Enables CSS support in Metro.
-  isCSSEnabled: true,
-});
+const defaultConfig = getSentryExpoConfig(__dirname);
 
-defaultConfig.resolver.assetExts.push("cjs");
-defaultConfig.resolver.sourceExts.push("cjs", "mjs");
+defaultConfig.resolver.sourceExts.push("cjs");
 
 module.exports = defaultConfig;

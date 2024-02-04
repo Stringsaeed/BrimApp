@@ -12,11 +12,11 @@
       "utils": ["./utils"],
       "hooks": ["./hooks"],
       "types": ["./types"],
-      "test": ["./test"],
+      "test": ["./test"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowJs": true,
+    "allowJs": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", ".eslintrc.cjs"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }

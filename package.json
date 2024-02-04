@@ -24,6 +24,8 @@
     "generate-themes": "tamagui generate-themes ./src/themes/theme-builder.ts ./theme-output.ts"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.1.1",
+    "@google/generative-ai": "^0.1.3",
     "@gorhom/bottom-sheet": "^4.6.0",
     "@nozbe/watermelondb": "^0.27.1",
     "@react-native-menu/menu": "^0.9.1",
