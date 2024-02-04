@@ -27,7 +27,7 @@
       },
       "env": {
         "TAMAGUI_TARGET": "native",
-        "APP_VARIANT": "production" 
+        "APP_VARIANT": "production"
       },
       "distribution": "store",
       "channel": "production"

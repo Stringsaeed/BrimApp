@@ -6,12 +6,6 @@ const nameMap = {
   production: "BrimApp",
 };
 
-const slugMap = {
-  preview: "BrimAppPreview",
-  development: "BrimAppDev",
-  production: "BrimApp",
-};
-
 const schemeMap = {
   preview: "brim-preview",
   development: "brim-dev",
@@ -25,7 +19,6 @@ const bundleIdentifierMap = {
 };
 
 const name = nameMap[process.env.APP_VARIANT || "production"];
-const slug = slugMap[process.env.APP_VARIANT || "production"];
 const scheme = schemeMap[process.env.APP_VARIANT || "production"];
 const bundleIdentifier =
   bundleIdentifierMap[process.env.APP_VARIANT || "production"];
@@ -117,8 +110,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
+    slug: "BrimApp",
     scheme,
     name,
-    slug,
   };
 };
