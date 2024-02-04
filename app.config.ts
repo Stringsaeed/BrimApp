@@ -45,14 +45,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       userInterfaceStyle: "automatic",
       package: "com.stringsaeed.brim",
-      versionCode: 42,
+      versionCode: 45,
     },
     ios: {
       config: { usesNonExemptEncryption: false },
       bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
       supportsTablet: true,
-      buildNumber: "42",
+      buildNumber: "45",
     },
     splash: {
       image: "./assets/splash.png",
