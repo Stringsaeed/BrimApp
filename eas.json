@@ -13,9 +13,10 @@
         "buildType": "apk"
       },
       "distribution": "internal",
-      "developmentClient": false,
+      "developmentClient": true,
       "env": {
-        "TAMAGUI_TARGET": "native"
+        "TAMAGUI_TARGET": "native",
+        "APP_NAME": "Brim Preview"
       },
       "channel": "preview"
     },
