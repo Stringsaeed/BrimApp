@@ -5,6 +5,7 @@ import {
   useColorScheme,
   Appearance,
   StatusBar,
+  Platform,
 } from "react-native";
 import { useMMKVString } from "react-native-mmkv";
 
@@ -50,11 +51,15 @@ export default function useUserTheme() {
 
   useEffect(() => {
     void setBackgroundColorAsync(theme === "dark" ? "#000" : "#fff");
+    StatusBar.setBarStyle(theme === "dark" ? "light-content" : "dark-content");
   }, [theme]);
 
   useEffect(() => {
-    StatusBar.setBarStyle(theme === "dark" ? "light-content" : "dark-content");
-  }, [theme]);
+    if (Platform.OS === "android") {
+      StatusBar.setTranslucent(true);
+      StatusBar.setBackgroundColor("transparent");
+    }
+  }, []);
 
   useEffect(() => {
     syncNativeTheme(themeName);
