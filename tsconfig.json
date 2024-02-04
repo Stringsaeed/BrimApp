@@ -18,5 +18,5 @@
     "experimentalDecorators": true,
     "allowJs": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "./global.d.ts"]
 }

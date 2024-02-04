@@ -4,7 +4,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "TAMAGUI_TARGET": "native"
+        "TAMAGUI_TARGET": "native",
+        "APP_VARIANT": "development"
       },
       "channel": "development"
     },
@@ -16,7 +17,7 @@
       "developmentClient": true,
       "env": {
         "TAMAGUI_TARGET": "native",
-        "APP_NAME": "Brim Preview"
+        "APP_VARIANT": "preview"
       },
       "channel": "preview"
     },
@@ -25,7 +26,8 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "TAMAGUI_TARGET": "native"
+        "TAMAGUI_TARGET": "native",
+        "APP_VARIANT": "production" 
       },
       "distribution": "store",
       "channel": "production"

@@ -1,5 +1,35 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
 
+const nameMap = {
+  preview: "BrimApp (Preview)",
+  development: "BrimApp (Dev)",
+  production: "BrimApp",
+};
+
+const slugMap = {
+  preview: "BrimAppPreview",
+  development: "BrimAppDev",
+  production: "BrimApp",
+};
+
+const schemeMap = {
+  preview: "brim-preview",
+  development: "brim-dev",
+  production: "brim",
+};
+
+const bundleIdentifierMap = {
+  preview: "com.stringsaeed.brim.preview",
+  development: "com.stringsaeed.brim.dev",
+  production: "com.stringsaeed.brim",
+};
+
+const name = nameMap[process.env.APP_VARIANT || "production"];
+const slug = slugMap[process.env.APP_VARIANT || "production"];
+const scheme = schemeMap[process.env.APP_VARIANT || "production"];
+const bundleIdentifier =
+  bundleIdentifierMap[process.env.APP_VARIANT || "production"];
+
 export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
@@ -44,15 +74,15 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         backgroundColor: "#F7F6E4",
       },
       userInterfaceStyle: "automatic",
-      package: "com.stringsaeed.brim",
+      package: bundleIdentifier,
       versionCode: 45,
     },
     ios: {
       config: { usesNonExemptEncryption: false },
-      bundleIdentifier: "com.stringsaeed.brim",
       userInterfaceStyle: "automatic",
       supportsTablet: true,
       buildNumber: "45",
+      bundleIdentifier,
     },
     splash: {
       image: "./assets/splash.png",
@@ -87,8 +117,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: "stringsaeed",
     jsEngine: "hermes",
     version: "1.0.0",
-    slug: "BrimApp",
-    name: "BrimApp",
-    scheme: "brim",
+    scheme,
+    name,
+    slug,
   };
 };
