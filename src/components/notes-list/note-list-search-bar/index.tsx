@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { X } from "@tamagui/lucide-icons";
 import React, { useRef } from "react";
 import { TextInput } from "react-native";
-import Animated, { Easing, Layout } from "react-native-reanimated";
+import Animated, { Easing, LinearTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Circle, Spacer, XStack } from "tamagui";
 
@@ -56,7 +56,7 @@ export default function NoteListSearchBar() {
 
   return (
     <AnimatedXStack
-      layout={Layout.easing(Easing.inOut(Easing.ease))}
+      layout={LinearTransition.easing(Easing.inOut(Easing.ease))}
       my="$4"
       px="$4"
       marginTop={marginTop}
