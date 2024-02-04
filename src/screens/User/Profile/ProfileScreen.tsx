@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { YGroup, ListItem, Separator, Spacer } from "tamagui";
 
 import { ResetDatabaseListItem, ScreenContainer } from "components";
@@ -9,6 +10,7 @@ import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
   const navigation = useNavigation();
+  const { t } = useTranslation("settings");
 
   function navigateToFactory(name: Routes.AccountInfo | Routes.Preferences) {
     return function navigateTo() {
@@ -22,26 +24,28 @@ export default function Profile() {
       handleSafeArea="bottom"
       type="fixed"
     >
-      <YGroup bordered separator={<Separator />}>
+      <YGroup bordered>
         <YGroup.Item>
           <ListItem
             onPress={navigateToFactory(Routes.AccountInfo)}
-            title="Account Information"
+            title={t("accountInformation")}
             disabled
           />
         </YGroup.Item>
+        <Separator />
         <YGroup.Item>
-          <ListItem title="Notifications Settings" disabled />
+          <ListItem title={t("notifications")} disabled />
         </YGroup.Item>
+        <Separator />
         <YGroup.Item>
           <ListItem
-            title="Preferences"
+            title={t("preferences")}
             onPress={navigateToFactory(Routes.Preferences)}
           />
         </YGroup.Item>
       </YGroup>
       <Spacer />
-      <YGroup bordered separator={<Separator />}>
+      <YGroup bordered>
         <ResetDatabaseListItem />
       </YGroup>
       {/* <Button

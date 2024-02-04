@@ -1,5 +1,6 @@
 import { Trash2 } from "@tamagui/lucide-icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { InteractionManager } from "react-native";
 import {
   Button,
@@ -17,6 +18,7 @@ export default function ResetDatabaseListItem() {
   const { width } = useWindowDimensions();
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const { t } = useTranslation("settings");
 
   const onReset = () => {
     void InteractionManager.runAfterInteractions(async () => {
@@ -41,8 +43,8 @@ export default function ResetDatabaseListItem() {
           <ListItem
             color="$red10"
             icon={Trash2}
-            title="Delete all data"
-            subTitle="This cannot be undone"
+            title={t("deleteDataTitle")}
+            subTitle={t("deleteDataDescription")}
           />
         </Dialog.Trigger>
       </YGroup.Item>

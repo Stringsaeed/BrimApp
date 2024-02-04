@@ -1,7 +1,7 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import { enCommon } from "./locales";
+import { enCommon, enSettings } from "./locales";
 import { LanguageDetectorPlugin } from "./plugins";
 
 void i18next
@@ -10,6 +10,7 @@ void i18next
   .init({
     resources: {
       en: {
+        settings: enSettings,
         common: enCommon,
       },
     },
@@ -30,6 +31,7 @@ declare module "i18next" {
     defaultNS: "common";
     // custom resources type
     resources: {
+      settings: typeof enSettings;
       common: typeof enCommon;
     };
     // other
