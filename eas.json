@@ -44,6 +44,17 @@
         "track": "internal",
         "releaseStatus": "draft"
       }
+    },
+    "preview": {
+      "android": {
+        "track": "internal",
+        "releaseStatus": "draft"
+      },
+      "ios": {
+        "appleId": "mohameddiabaya@gmail.com",
+        "ascAppId": "6469449253",
+        "appleTeamId": "V3HN8HXZYK"
+      }
     }
   }
 }
