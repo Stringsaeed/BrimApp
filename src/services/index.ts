@@ -4,3 +4,4 @@ export * from "./analytics";
 export * from "./ai";
 export * from "./sentry";
 export * from "./flagsmith";
+export * from "./supabase";

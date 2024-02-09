@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import { AlignJustify } from "@tamagui/lucide-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 
 import PressableScale from "components/pressable-scale";
@@ -14,14 +14,14 @@ import {
 } from "themes";
 
 export default function OtherMenu() {
-  const navigation = useNavigation();
+  const router = useRouter();
 
   const onPressArchive = () => {
-    navigation.navigate(Routes.Archive);
+    router.push(Routes.Archive);
   };
 
   const onPressTrash = () => {
-    navigation.navigate(Routes.Trash);
+    router.push(Routes.Trash);
   };
 
   return (

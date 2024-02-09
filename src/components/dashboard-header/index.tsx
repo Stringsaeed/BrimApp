@@ -1,4 +1,4 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { Stack } from "expo-router";
 import React, { useCallback } from "react";
 
 import DashboardHeaderRight from "./right";
@@ -12,8 +12,6 @@ export default function DashboardHeader({
   onPressProfile,
   onPressCreate,
 }: Props) {
-  const navigation = useNavigation();
-
   const headerRight = useCallback(() => {
     return (
       <DashboardHeaderRight
@@ -23,11 +21,5 @@ export default function DashboardHeader({
     );
   }, [onPressCreate, onPressProfile]);
 
-  useFocusEffect(
-    useCallback(() => {
-      navigation.setOptions({ headerRight });
-    }, [navigation, headerRight])
-  );
-
-  return null;
+  return <Stack.Screen options={{ headerRight }} />;
 }

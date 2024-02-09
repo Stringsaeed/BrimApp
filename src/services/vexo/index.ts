@@ -8,7 +8,7 @@ export const Vexo = {
   init: () => {
     if (!__DEV__) {
       if (typeof apiKey === "string") {
-        vexo(apiKey);
+        // vexo(apiKey);
       }
     }
   },

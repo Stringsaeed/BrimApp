@@ -1,6 +1,6 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { useNavigation } from "@react-navigation/native";
 import { X } from "@tamagui/lucide-icons";
+import { useNavigation } from "expo-router";
 import React, { useRef } from "react";
 import { TextInput } from "react-native";
 import Animated, { Easing, LinearTransition } from "react-native-reanimated";
@@ -9,7 +9,6 @@ import { Circle, Spacer, XStack } from "tamagui";
 
 import SearchBar from "components/search-bar";
 import { useNotesList } from "contexts";
-import { RootStackScreenProps, Routes } from "routers";
 
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
@@ -19,8 +18,7 @@ export default function NoteListSearchBar() {
   const { top } = useSafeAreaInsets();
   const marginTop = headerHeight ? "$4" : top + 16;
   const inputRef = useRef<TextInput>(null);
-  const navigation =
-    useNavigation<RootStackScreenProps<Routes.Note>["navigation"]>();
+  const navigation = useNavigation();
   const {
     onSearchValueChange,
     isSearchBarVisible,

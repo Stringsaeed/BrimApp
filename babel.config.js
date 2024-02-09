@@ -16,7 +16,7 @@ if (isProd) {
 plugins.push([
   "transform-inline-environment-variables",
   {
-    include: ["TAMAGUI_TARGET", "EXPO_ROUTER_APP_ROOT"],
+    include: ["TAMAGUI_TARGET"],
   },
 ]);
 

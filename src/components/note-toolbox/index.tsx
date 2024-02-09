@@ -15,6 +15,7 @@ interface Props {
 export default function NoteToolbox({ onOpen }: Props) {
   const ref = useRef<BottomSheetModal>(null);
   const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
+  rephraseWithAIFlag.enabled = true;
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();

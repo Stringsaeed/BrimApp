@@ -1,7 +1,7 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import { enCommon, enSettings } from "./locales";
+import { enCommon, enSettings, enAuth } from "./locales";
 import { LanguageDetectorPlugin } from "./plugins";
 
 void i18next
@@ -12,6 +12,7 @@ void i18next
       en: {
         settings: enSettings,
         common: enCommon,
+        auth: enAuth,
       },
     },
     interpolation: {
@@ -33,6 +34,7 @@ declare module "i18next" {
     resources: {
       settings: typeof enSettings;
       common: typeof enCommon;
+      auth: typeof enAuth;
     };
     // other
   }

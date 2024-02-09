@@ -1,35 +1,13 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+//   type StaticRoutes = `/` | `/(app)/` | `/(app)` | `/(app)/notes/archived` | `/notes/archived` | `/(app)/notes/trashed` | `/notes/trashed` | `/(app)/user/account-info` | `/user/account-info` | `/(app)/user/preferences` | `/user/preferences` | `/(app)/user/profile` | `/user/profile`;
 
 export enum Routes {
   Login = "Login",
   Verify = "Verify",
-  Dashboard = "Dashboard",
-  Note = "Note",
-  Archive = "Archive",
-  Trash = "Trash",
-  Profile = "Profile",
-  AccountInfo = "AccountInfo",
-  Preferences = "Preferences",
-}
-
-export type RootStackParamList = {
-  [Routes.Login]: undefined;
-  [Routes.Verify]: { verificationId: string };
-  [Routes.Dashboard]: undefined;
-  [Routes.Note]: { id: string };
-  [Routes.Archive]: undefined;
-  [Routes.Trash]: undefined;
-  [Routes.Profile]: undefined;
-  [Routes.AccountInfo]: undefined;
-  [Routes.Preferences]: undefined;
-};
-
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, T>;
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
-  }
+  Dashboard = "/(app)",
+  Note = "/(app)/notes",
+  Archive = "/(app)/notes/archived",
+  Trash = "/(app)/notes/trashed",
+  Profile = "/(app)/user/profile",
+  AccountInfo = "/(app)/user/account-info",
+  Preferences = "/(app)/user/preferences",
 }

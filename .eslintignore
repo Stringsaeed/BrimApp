@@ -5,3 +5,4 @@ android
 .tamagui
 *.config.js
 theme.d.ts
+expo-env.d.ts

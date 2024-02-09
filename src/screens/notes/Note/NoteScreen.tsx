@@ -1,5 +1,5 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useGlobalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
 import React from "react";
 import { Keyboard, TextInput } from "react-native";
@@ -26,13 +26,11 @@ import {
   useNoteForm,
   useNotePrivacyMutation,
 } from "hooks";
-import { RootStackScreenProps, Routes } from "routers";
 
 export default function NoteView() {
-  const navigation = useNavigation();
-  const {
-    params: { id },
-  } = useRoute<RootStackScreenProps<Routes.Note>["route"]>();
+  const router = useRouter();
+  const { id: idParam } = useGlobalSearchParams();
+  const id = idParam as string;
   const headerHeight = useHeaderHeight();
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
@@ -63,7 +61,7 @@ export default function NoteView() {
   const handleDelete = async () => {
     if (!note) return;
     await deleteNoteMutation.mutateAsync(note);
-    navigation.goBack();
+    router.back();
   };
 
   const onToolboxSheetOpen = () => {

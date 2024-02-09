@@ -1,5 +1,5 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Lock, Unlock } from "@tamagui/lucide-icons";
+import { Stack } from "expo-router";
 import React, { Fragment, useCallback } from "react";
 import { Button, Separator, XGroup } from "tamagui";
 
@@ -22,7 +22,6 @@ export default function NoteHeaderRight({
   onPressTrash,
   onPressLock,
 }: NoteHeaderRightProps) {
-  const navigation = useNavigation();
   const isEligible = useIsLocalAuthenticationEligible();
 
   const headerRight = useCallback(() => {
@@ -51,13 +50,5 @@ export default function NoteHeaderRight({
     );
   }, [isEligible, isPrivate, onPressArchive, onPressLock, onPressTrash]);
 
-  useFocusEffect(
-    useCallback(() => {
-      navigation.setOptions({
-        headerRight,
-      });
-    }, [headerRight, navigation])
-  );
-
-  return null;
+  return <Stack.Screen options={{ headerRight }} />;
 }

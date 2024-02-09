@@ -60,6 +60,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           project: process.env.SENTRY_PROJECT,
         },
       ],
+      "expo-apple-authentication",
+      ["expo-router", { origin: "http://localhost:8081/" }],
     ],
     android: {
       adaptiveIcon: {
@@ -73,6 +75,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ios: {
       config: { usesNonExemptEncryption: false },
       userInterfaceStyle: "automatic",
+      usesAppleSignIn: true,
       supportsTablet: true,
       buildNumber: "45",
       bundleIdentifier,
@@ -94,14 +97,16 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     updates: {
       url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
     },
-    runtimeVersion: {
-      policy: "appVersion",
-    },
     experiments: {
       tsconfigPaths: true,
+      typedRoutes: true,
     },
     web: {
       bundler: "metro",
+      output: "server",
+    },
+    runtimeVersion: {
+      policy: "appVersion",
     },
     userInterfaceStyle: "automatic",
     assetBundlePatterns: ["**/*"],

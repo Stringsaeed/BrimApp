@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { YGroup, ListItem, Separator, Spacer } from "tamagui";
@@ -9,12 +9,12 @@ import { Routes } from "routers";
 import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
-  const navigation = useNavigation();
+  const router = useRouter();
   const { t } = useTranslation("settings");
 
   function navigateToFactory(name: Routes.AccountInfo | Routes.Preferences) {
     return function navigateTo() {
-      navigation.navigate(name);
+      router.push(name);
     };
   }
 
@@ -24,7 +24,7 @@ export default function Profile() {
       handleSafeArea="bottom"
       type="fixed"
     >
-      <YGroup bordered>
+      <YGroup bordered bg="$backgroundTransparent">
         <YGroup.Item>
           <ListItem
             onPress={navigateToFactory(Routes.AccountInfo)}

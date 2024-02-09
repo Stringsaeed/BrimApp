@@ -4,19 +4,44 @@
     "strict": true,
     "baseUrl": "./src/",
     "paths": {
-      "components": ["./components"],
-      "containers": ["./containers"],
-      "contexts": ["./contexts"],
-      "stores": ["./stores"],
-      "config": ["./config"],
-      "utils": ["./utils"],
-      "hooks": ["./hooks"],
-      "types": ["./types"],
-      "test": ["./test"]
+      "components": [
+        "./components"
+      ],
+      "containers": [
+        "./containers"
+      ],
+      "contexts": [
+        "./contexts"
+      ],
+      "stores": [
+        "./stores"
+      ],
+      "config": [
+        "./config"
+      ],
+      "utils": [
+        "./utils"
+      ],
+      "hooks": [
+        "./hooks"
+      ],
+      "types": [
+        "./types"
+      ],
+      "test": [
+        "./test"
+      ]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowJs": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "./global.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    "./global.d.ts",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }

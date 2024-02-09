@@ -1,11 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
 import { authenticateAsync } from "expo-local-authentication";
+import { useRouter } from "expo-router";
 
 import { Routes } from "routers";
 import { Note } from "types";
 
 export default function useNavigateNote() {
-  const router = useNavigation();
+  const router = useRouter();
   const onNavigateNote = async (note: Note) => {
     if (note.is_private) {
       const { success } = await authenticateAsync({
@@ -16,7 +16,7 @@ export default function useNavigateNote() {
       }
     }
 
-    router.navigate(Routes.Note, { id: note.id });
+    router.push(`${Routes.Note}/${note.id}`);
   };
 
   return onNavigateNote;
