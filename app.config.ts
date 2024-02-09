@@ -103,7 +103,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     web: {
       bundler: "metro",
-      output: "server",
+      output: "static",
     },
     runtimeVersion: {
       policy: "appVersion",
