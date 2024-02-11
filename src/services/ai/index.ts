@@ -1,31 +1,39 @@
-import Constants from "expo-constants";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const hostUri = Constants.expoConfig?.hostUri;
-const hostUriWithoutPort = hostUri?.replace(/:\d+$/, "");
+import { config } from "config";
 
-const API_URL = `http://${hostUriWithoutPort}:3000`;
+const genAI = new GoogleGenerativeAI(config.geminiAPIKey);
 
-async function query(type: "fixGrammar" | "rephrase", text: string) {
-  const response = await fetch(API_URL, {
-    body: JSON.stringify({ type, text }),
-    method: "POST",
-  });
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-  if (!response.ok) {
+const promptTemplate = (directives: string, userText: string) =>
+  `${directives} ${userText}`;
+
+const promptDirectives = {
+  fixGrammar: `Fix grammar in this text:`,
+  rephrase: `rephrase this text:`,
+};
+
+type PromptDirectives = typeof promptDirectives;
+type PromptType = keyof PromptDirectives;
+
+const executeQuery = async (type: PromptType, text: string) => {
+  const prompt = promptTemplate(promptDirectives[type], text);
+  return (await model.generateContent(prompt)).response.text();
+};
+
+async function query(type: PromptType, text: string) {
+  const data = await executeQuery(type, text);
+
+  if (!data) {
     return text;
   }
 
-  const data: { result: string } = await response.json();
-
-  if (!data.result) {
+  if (data === "NONE") {
     return text;
   }
 
-  if (data.result === "NONE") {
-    return text;
-  }
-
-  return data.result;
+  return data;
 }
 
 export async function fixGrammarAPI(prompt: string) {
