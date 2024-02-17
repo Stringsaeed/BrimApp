@@ -4,33 +4,15 @@
     "strict": true,
     "baseUrl": "./src/",
     "paths": {
-      "components": [
-        "./components"
-      ],
-      "containers": [
-        "./containers"
-      ],
-      "contexts": [
-        "./contexts"
-      ],
-      "stores": [
-        "./stores"
-      ],
-      "config": [
-        "./config"
-      ],
-      "utils": [
-        "./utils"
-      ],
-      "hooks": [
-        "./hooks"
-      ],
-      "types": [
-        "./types"
-      ],
-      "test": [
-        "./test"
-      ]
+      "components": ["./components"],
+      "containers": ["./containers"],
+      "contexts": ["./contexts"],
+      "stores": ["./stores"],
+      "config": ["./config"],
+      "utils": ["./utils"],
+      "hooks": ["./hooks"],
+      "types": ["./types"],
+      "test": ["./test"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -42,6 +24,9 @@
     "**/*.d.ts",
     "./global.d.ts",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "jest.config.js",
+    "jest-setup.js",
+    ".eslintrc.cjs"
   ]
 }

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnimatedKeyboardView should render correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "rgba(255,255,255,0)",
+      "flex": 1,
+      "flexDirection": "column",
+      "gap": 24,
+      "paddingBottom": 16,
+      "paddingLeft": 16,
+      "paddingRight": 16,
+      "paddingTop": 24,
+    }
+  }
+  testID="animated-keyboard-view"
+>
+  <Text>
+    Test
+  </Text>
+</View>
+`;

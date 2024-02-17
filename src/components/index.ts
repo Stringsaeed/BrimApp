@@ -9,7 +9,6 @@ export { default as BlurView } from "./blur-view";
 export { default as Spacer } from "./spacer";
 export { default as Row } from "./row";
 export { default as DashboardHeader } from "./dashboard-header";
-export { default as ArchivedNotesHeaderBackground } from "./archived-notes-header/background";
 export { default as ListItem } from "./list-item";
 export { default as AccountInfoContainer } from "./account-info-container";
 export { default as BottomSheet } from "./bottom-sheet";
