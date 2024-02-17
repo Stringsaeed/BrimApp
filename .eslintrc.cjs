@@ -42,24 +42,32 @@ module.exports = {
   },
   overrides: [
     {
+      rules: {
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-default-export": "off",
+      },
       files: [
         "*.stories.tsx",
         "test/**",
         "*.config.js",
         "*.config.ts",
         "plugins/**",
+        "jest-setup.js",
       ],
-      rules: {
-        "import/no-extraneous-dependencies": "off",
-        "import/no-default-export": "off",
-      },
     },
     {
+      rules: {
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-var-requires": "off",
+      },
       env: {
         "jest/globals": true,
         jest: true,
       },
-      files: ["test/**"],
+      files: ["test/**", "jest-setup.js", "*.test.tsx", "*.test.ts"],
     },
     {
       rules: {

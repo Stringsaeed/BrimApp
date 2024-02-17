@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthLayout should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "height": "100%",
+      "justifyContent": "center",
+      "minHeight": "100wh",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "bottom": 0,
+        "flex": 1,
+        "flexDirection": "column",
+        "left": 0,
+        "overflow": "hidden",
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  >
+    <ViewManagerAdapter_ExpoLinearGradient
+      colors={
+        [
+          4278190080,
+          4293086121,
+        ]
+      }
+      endPoint={
+        [
+          1.25,
+          0.5,
+        ]
+      }
+      startPoint={
+        [
+          0,
+          0.5,
+        ]
+      }
+      style={
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 0,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "#191919",
+        "borderBottomLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderTopRightRadius": 16,
+        "flexDirection": "column",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "maxHeight": 600,
+        "maxWidth": 400,
+        "paddingBottom": 60,
+        "paddingLeft": 60,
+        "paddingRight": 60,
+        "paddingTop": 60,
+        "position": "relative",
+      }
+    }
+  >
+    <View
+      pointerEvents="none"
+      style={
+        {
+          "bottom": 0,
+          "flex": 1,
+          "flexDirection": "column",
+          "left": 0,
+          "overflow": "hidden",
+          "paddingBottom": 0,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 0,
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+            },
+            {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+          ]
+        }
+      >
+        <ViewManagerAdapter_ExpoBlurView
+          blurReductionFactor={4}
+          experimentalBlurMethod="none"
+          intensity={8}
+          style={
+            {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+          tint="dark"
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "backgroundColor": "transparent",
+          "flexDirection": "column",
+          "marginBottom": "auto",
+          "paddingBottom": 32,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+          "paddingTop": 32,
+          "zIndex": 10,
+        }
+      }
+    >
+      <Text
+        accessibilityRole="header"
+        selectable={true}
+        style={
+          {
+            "color": "#fff",
+            "fontFamily": "System",
+            "fontSize": 23,
+            "fontWeight": "700",
+            "lineHeight": 27,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+            "marginTop": 0,
+            "textTransform": "none",
+          }
+        }
+        suppressHighlighting={true}
+      />
+    </View>
+    <Text>
+      Test
+    </Text>
+  </View>
+</View>
+`;

@@ -1,4 +1,4 @@
-import { getNoteTitle } from "./noteTitle";
+import { cipherTitle, getNoteTitle } from "./noteTitle";
 
 describe("note title", () => {
   it("should get the note title from simple html", () => {
@@ -42,5 +42,17 @@ describe("note title", () => {
     const note = "<div>note</div><div>note</div";
 
     expect(getNoteTitle(note)).toEqual("note");
+  });
+
+  it("should cipher the title", () => {
+    const title = "note";
+
+    expect(cipherTitle(title)).toEqual("n***");
+  });
+
+  it("should return empty string if title is empty", () => {
+    const title = "";
+
+    expect(getNoteTitle(title)).toEqual("");
   });
 });

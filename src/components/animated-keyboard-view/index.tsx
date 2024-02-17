@@ -34,6 +34,7 @@ export default function AnimatedKeyboardView({
 
   return (
     <AnimatedYStack
+      testID="animated-keyboard-view"
       pt={(handleTopSafeArea ? top : 0) + token$5Value}
       gap={24}
       px="$3.5"
