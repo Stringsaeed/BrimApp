@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlurView should render correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+      },
+      undefined,
+    ]
+  }
+>
+  <ViewManagerAdapter_ExpoBlurView
+    blurReductionFactor={4}
+    experimentalBlurMethod="none"
+    intensity={50}
+    style={
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    tint="default"
+  />
+</View>
+`;

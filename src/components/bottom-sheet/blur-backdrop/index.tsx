@@ -23,7 +23,7 @@ export default function BlurBackdrop({
   }, [close]);
   const containerAnimatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
-      animatedIndex.value,
+      animatedIndex?.value,
       [-1, 0, 1],
       [0, 1, 1],
       Extrapolation.CLAMP
@@ -32,7 +32,7 @@ export default function BlurBackdrop({
   const animatedProps = useAnimatedProps(() => {
     return {
       intensity: interpolate(
-        animatedIndex.value,
+        animatedIndex?.value,
         [-1, 0, 1],
         [0, 10, 50],
         Extrapolation.CLAMP
@@ -48,7 +48,10 @@ export default function BlurBackdrop({
 
   return (
     <GestureDetector gesture={tapGesture}>
-      <Animated.View style={[style, containerAnimatedStyle]}>
+      <Animated.View
+        testID="blur-backdrop"
+        style={[style, containerAnimatedStyle]}
+      >
         <AnimatedBlurView
           tint="dark"
           animatedProps={animatedProps}
