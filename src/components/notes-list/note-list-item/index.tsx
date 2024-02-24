@@ -12,6 +12,7 @@ import { Gesture } from "react-native-gesture-handler";
 import { ListItem, useTheme } from "tamagui";
 
 import { useNotesList } from "contexts";
+import { useUserAccent } from "hooks";
 import { Note } from "types";
 import { cipherTitle, getNoteTitle } from "utils";
 
@@ -31,6 +32,7 @@ export default function NoteListItemView({
   onPress,
   item,
 }: NoteListItemProps) {
+  const { accent } = useUserAccent();
   const { multiSelectMode, selectedNotes, onNoteSelect } = useNotesList();
   const theme = useTheme();
   const foregroundColor = theme.background.get();
@@ -84,7 +86,7 @@ export default function NoteListItemView({
   const listItemTitle = (
     <ListItem.Text
       fontWeight={item.title ? "500" : "normal"}
-      color={item.title ? "$accent" : "$gray7"}
+      color={item.title ? `$${accent}` : "$gray7"}
       fontSize="$5"
       numberOfLines={1}
     >
@@ -94,7 +96,7 @@ export default function NoteListItemView({
 
   const listItemIcon = multiSelectMode ? (
     selectedNotes.includes(item.id) ? (
-      <CheckCircle2 size={24} color="$accent" />
+      <CheckCircle2 size={24} color={`$${accent}`} />
     ) : (
       <Circle size={24} color="$gray6" />
     )

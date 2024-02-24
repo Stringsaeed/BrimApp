@@ -37,6 +37,7 @@ export default function AppContainer() {
       colors: {
         ...baseTheme.colors,
         background: selectiveTheme.background.val,
+        primary: selectiveTheme.accent.val,
         text: selectiveTheme.color.val,
       },
     };

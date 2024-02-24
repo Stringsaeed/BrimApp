@@ -6,21 +6,25 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { ForwardedRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Stack, useTheme } from "tamagui";
+import { Paragraph, SizableText, Stack, useTheme } from "tamagui";
+
+import { useUserAccent } from "hooks";
 
 import BlurBackdrop from "./blur-backdrop";
 import styles from "./styles";
 
 interface Props extends Partial<BottomSheetProps> {
   title?: string;
+  subtitle?: string;
   children: React.ReactNode;
 }
 
 // component
 const BottomSheetComponent = (
-  { children, ...props }: Props,
+  { children, subtitle, title, ...props }: Props,
   ref: ForwardedRef<BottomSheetModal>
 ) => {
+  const { accent } = useUserAccent();
   const { bottom, top } = useSafeAreaInsets();
   const theme = useTheme();
 
@@ -51,13 +55,19 @@ const BottomSheetComponent = (
         <Stack
           bg="$background"
           p="$4"
-          shadowColor="$accent"
+          shadowColor={`$${accent}`}
           shadowOffset={{ height: -3, width: 0 }}
           shadowOpacity={0.2}
           shadowRadius={5}
           elevationAndroid={4}
           borderRadius={20}
         >
+          {!!title && (
+            <Stack mb="$4">
+              <SizableText size="$6">{title}</SizableText>
+              {!!subtitle && <Paragraph color="$gray9">{subtitle}</Paragraph>}
+            </Stack>
+          )}
           {children}
         </Stack>
       </BottomSheetView>

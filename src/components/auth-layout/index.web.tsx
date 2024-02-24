@@ -4,9 +4,12 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Heading, View } from "tamagui";
 
+import { useUserAccent } from "hooks";
+
 import { AuthLayoutProps } from "./types";
 
 export default function AuthLayout({ children, heading }: AuthLayoutProps) {
+  const { accent } = useUserAccent();
   return (
     <View
       justifyContent="center"
@@ -19,7 +22,7 @@ export default function AuthLayout({ children, heading }: AuthLayoutProps) {
       <LinearGradient
         flex={1}
         style={StyleSheet.absoluteFill}
-        colors={["$background", "$accent"]}
+        colors={["$background", `$${accent}`]}
         start={[0, 0.5]}
         end={[1.25, 0.5]}
       />

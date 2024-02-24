@@ -5,7 +5,11 @@ import React, { ComponentProps, Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
 
 import BottomSheet from "components/bottom-sheet";
-import { useFixGrammarMutation, useRephraseSentenceMutation } from "hooks";
+import {
+  useFixGrammarMutation,
+  useRephraseSentenceMutation,
+  useUserAccent,
+} from "hooks";
 import { NoteFormValues } from "hooks/use-note-form";
 import { useFeatureFlag } from "services";
 
@@ -13,9 +17,9 @@ interface Props {
   onOpen?: () => void;
 }
 export default function NoteToolbox({ onOpen }: Props) {
+  const { accent } = useUserAccent();
   const ref = useRef<BottomSheetModal>(null);
   const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
-  rephraseWithAIFlag.enabled = true;
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
@@ -50,7 +54,7 @@ export default function NoteToolbox({ onOpen }: Props) {
         bottom={60}
         right={20}
         borderRadius="$12"
-        bg="$accent"
+        bg={`$${accent}`}
         scaleIcon={2}
         icon={
           (({ color, size }: { color: string; size: number }) =>
@@ -68,7 +72,12 @@ export default function NoteToolbox({ onOpen }: Props) {
       />
       {!!rephraseWithAIFlag.enabled && (
         <BottomSheet ref={ref}>
-          <Button size="$6" onPress={handleFixGrammar} bg="$accent" elevate>
+          <Button
+            size="$6"
+            onPress={handleFixGrammar}
+            bg={`$${accent}`}
+            elevate
+          >
             <Button.Icon scaleIcon={1.5}>
               {fixGrammarMutation.isPending ? (
                 <Spinner color="$background" />
@@ -84,7 +93,7 @@ export default function NoteToolbox({ onOpen }: Props) {
           <Button
             size="$6"
             onPress={handleRephraseSentence}
-            bg="$accent"
+            bg={`$${accent}`}
             elevate
           >
             <Button.Icon scaleIcon={1.5}>
