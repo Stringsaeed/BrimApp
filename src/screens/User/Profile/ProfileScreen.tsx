@@ -48,16 +48,6 @@ export default function Profile() {
       <YGroup bordered>
         <ResetDatabaseListItem />
       </YGroup>
-      {/* <Button
-        width="100%"
-        bg="$accent"
-        size="$5"
-        color="$background"
-        borderRadius="$12"
-        onPress={() => signOutMutation.mutate()}
-      >
-        Sign out
-      </Button> */}
     </ScreenContainer>
   );
 }

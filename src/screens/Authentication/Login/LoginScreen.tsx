@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 import { Heading, Text, Button, View, Input } from "tamagui";
 
 import { Spacer, AuthLayout } from "components";
-import { useLoginForm } from "hooks";
+import { useLoginForm, useUserAccent } from "hooks";
 
 export default function LoginScreen() {
   const { t } = useTranslation("auth");
   const { isSubmitDisabled, onSubmit, control } = useLoginForm();
+  const { accent } = useUserAccent();
 
   return (
     <AuthLayout>
@@ -40,7 +41,7 @@ export default function LoginScreen() {
       <Spacer />
       <Button
         width="100%"
-        bg="$accent"
+        bg={`$${accent}`}
         size="$5"
         color="$background"
         borderRadius="$12"

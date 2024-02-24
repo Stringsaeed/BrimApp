@@ -7,6 +7,7 @@ import { z } from "zod";
 import BottomSheet from "components/bottom-sheet";
 import BottomSheetInput from "components/bottom-sheet-input";
 import FieldError from "components/field-error";
+import { useUserAccent } from "hooks";
 
 // import { Auth } from "services";
 
@@ -30,6 +31,7 @@ function UpdateAccountSheetComponent(
   { type }: Props,
   sheetRef?: ForwardedRef<BottomSheetModal>
 ) {
+  const { accent } = useUserAccent();
   const { handleSubmit, control } = useForm<UpdateAccountSchema>({
     defaultValues: { [type]: "" },
   });
@@ -95,7 +97,7 @@ function UpdateAccountSheetComponent(
           </>
         ) : null}
         <Form.Trigger asChild>
-          <Button bg="$accent">Update</Button>
+          <Button bg={`$${accent}`}>Update</Button>
         </Form.Trigger>
       </Form>
     </BottomSheet>

@@ -7,7 +7,6 @@ import {
   CircleDotDashed,
 } from "@tamagui/lucide-icons";
 import React from "react";
-import { Alert } from "react-native";
 import Animated, {
   Easing,
   FadeIn,
@@ -26,23 +25,20 @@ import {
 } from "tamagui";
 
 import { useNotesList } from "contexts";
-import { useHapticCallback } from "hooks";
+import { useHapticCallback, useUserAccent } from "hooks";
 
 export default function NoteListMultiselectMenu() {
+  const { accent } = useUserAccent();
   const { bottom } = useSafeAreaInsets();
   const {
     toggleMultiSelectMode,
     multiSelectMode,
     selectedNotes,
     onNoteSelect,
+    archiveNote,
     deleteNote,
     notes,
   } = useNotesList();
-
-  // TODO: Implement this
-  const notImplementedFn = () => {
-    Alert.alert("Not implemented");
-  };
 
   const onTrash = useHapticCallback(
     () => {
@@ -56,6 +52,23 @@ export default function NoteListMultiselectMenu() {
             return;
           }
           deleteNote?.(note);
+        });
+    },
+    { feedbackType: "success" }
+  );
+
+  const onArchive = useHapticCallback(
+    () => {
+      selectedNotes
+        .map((selectedNoteId) =>
+          notes.find((note) => note.id === selectedNoteId)
+        )
+        .filter((note) => note)
+        .forEach((note) => {
+          if (!note) {
+            return;
+          }
+          archiveNote?.(note.id);
         });
     },
     { feedbackType: "success" }
@@ -85,7 +98,7 @@ export default function NoteListMultiselectMenu() {
       case noOfSelectedNotes === noOfNotes:
         return (
           <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <CircleDot {...shared} color="$accent" />
+            <CircleDot {...shared} color={`$${accent}`} />
           </Animated.View>
         );
       default:
@@ -147,7 +160,7 @@ export default function NoteListMultiselectMenu() {
         <Spacer flex={1} />
         <XGroup>
           <XGroup.Item>
-            <Button onPress={notImplementedFn} icon={Archive} circular />
+            <Button onPress={onArchive} icon={Archive} circular />
           </XGroup.Item>
           <XGroup.Item>
             <Button onPress={onTrash} icon={Trash2} circular />
