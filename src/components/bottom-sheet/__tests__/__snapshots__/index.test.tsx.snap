@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlurView should render correctly 1`] = `
+<View
+  backgroundStyle={
+    {
+      "backgroundColor": "#00000000",
+    }
+  }
+  bottomInset={32}
+  detached={true}
+  enableDynamicSizing={true}
+  enablePanDownToClose={true}
+  style={
+    [
+      undefined,
+      {
+        "borderRadius": 20,
+        "marginHorizontal": 16,
+      },
+    ]
+  }
+  topInset={0}
+>
+  <View
+    animatedStyle={
+      {
+        "value": {
+          "opacity": NaN,
+        },
+      }
+    }
+    collapsable={false}
+    style={
+      {
+        "opacity": NaN,
+      }
+    }
+    testID="blur-backdrop"
+  >
+    <View
+      animatedStyle={
+        {
+          "value": {},
+        }
+      }
+      collapsable={false}
+      style={
+        [
+          {
+            "backgroundColor": "transparent",
+          },
+          {
+            "backgroundColor": "rgba(0,0,0,0.2)",
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+        ]
+      }
+    >
+      <ViewManagerAdapter_ExpoBlurView
+        blurReductionFactor={4}
+        experimentalBlurMethod="none"
+        intensity={NaN}
+        style={
+          {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+        tint="dark"
+      />
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "#000000",
+        "borderRadius": 20,
+        "paddingBottom": 18,
+        "paddingLeft": 18,
+        "paddingRight": 18,
+        "paddingTop": 18,
+        "shadowColor": "rgb(227,75,169)",
+        "shadowOffset": {
+          "height": -3,
+          "width": 0,
+        },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 5,
+      }
+    }
+  >
+    <Text>
+      Test
+    </Text>
+  </View>
+</View>
+`;
