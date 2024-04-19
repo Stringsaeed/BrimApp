@@ -1,3 +1,4 @@
+import { observer } from "@legendapp/state/react";
 import React from "react";
 
 import { DashboardHeader, NotesList } from "components";
@@ -9,8 +10,10 @@ import {
   useObserveNotes,
 } from "hooks";
 
-export default function DashboardScreen() {
-  const notes = useObserveNotes("published");
+function DashboardScreen() {
+  const notes = useObserveNotes(
+    (note) => note.status === "published" || note.status === "draft"
+  );
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
@@ -25,3 +28,5 @@ export default function DashboardScreen() {
     </NotesListProvider>
   );
 }
+
+export default observer(DashboardScreen);

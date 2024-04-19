@@ -1,45 +1,45 @@
-import { wmDatabase } from "config";
-import { NoteModel } from "models";
-import { Sentry } from "services/sentry";
-import { NoteSchema } from "types";
+import { notesState } from "services/database";
+import { Note } from "types";
 
 export const NoteService = {
-  update: async (id: string, input: Partial<NoteSchema>) => {
-    return await wmDatabase.write(async () => {
-      void (await NoteService.getCollection().find(id)).update((note) => {
-        for (const key in input) {
-          if (key === "id") continue;
-          // @ts-expect-error the note is a class instance
-          note[key] = input[key];
-        }
-
-        return note;
-      });
-    });
-  },
-  create: async (input: Omit<NoteSchema, "id">) => {
-    return await wmDatabase.write(async () => {
-      const note = await NoteService.getCollection().create((post) => {
-        post.title = input.title;
-        post.note = input.note;
-        post.is_private = input.is_private;
-        post.status = input.status || "draft";
+  create: (input: Omit<Note, "id">): Note => {
+    const newId = Math.random().toString(36).substr(2, 9);
+    const observedNotes = notesState.notes.set((notes) => {
+      notes.push({
+        ...input,
+        id: newId,
       });
 
-      return note;
+      return notes;
+    });
+
+    const newNote = observedNotes
+      .get()
+      .find((note) => note.id === newId) as Note;
+
+    return newNote;
+  },
+  update: (id: string, input: Partial<Note>) => {
+    return notesState.notes.set((notes) => {
+      const newNotes = [...notes];
+      const index = newNotes.findIndex((note) => note.id === id);
+      if (index === -1) return notes;
+      newNotes[index] = {
+        ...notes[index],
+        ...input,
+      };
+      return newNotes;
     });
   },
-  delete: async (id: string) => {
-    return await wmDatabase.write(async () => {
-      (await NoteService.getCollection().find(id))
-        .destroyPermanently()
-        .catch((e) => {
-          Sentry.captureException(e);
-        });
+  delete: (id: string) => {
+    return notesState.notes.set((notes) => {
+      return notes.filter((note) => note.id !== id);
     });
   },
   get: (id: string) => {
-    return NoteService.getCollection().find(id);
+    return notesState.notes.get().find((note) => note.id === id);
   },
-  getCollection: () => wmDatabase.get<NoteModel>("notes"),
+  deleteAll: () => {
+    return notesState.notes.set([]);
+  },
 };

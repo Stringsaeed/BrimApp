@@ -1,33 +1,10 @@
-import { Q } from "@nozbe/watermelondb";
-import { useDatabase } from "@nozbe/watermelondb/react";
-import { useEffect, useState } from "react";
+import { useSelector } from "@legendapp/state/react";
 
-import { NoteModel } from "models";
+import { notesState } from "services";
+import { Note } from "types";
 
-export default function useObserveNotes(status: string) {
-  const [notes, setNotes] = useState<NoteModel[]>([]);
-  const database = useDatabase();
-  const notesCollection = database
-    .get<NoteModel>("notes")
-    .query(Q.sortBy("updated_at", Q.desc), Q.where("status", status));
-
-  useEffect(() => {
-    if (!notesCollection) return;
-    const subscription = notesCollection
-      .observeWithColumns([
-        "updated_at",
-        "created_at",
-        "title",
-        "note",
-        "status",
-      ])
-      .subscribe((value) => {
-        setNotes(value);
-      });
-
-    return () => subscription.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export default function useObserveNotes(filterBy: (note: Note) => boolean) {
+  const notes = useSelector(() => notesState.notes.get().filter(filterBy));
 
   return notes;
 }

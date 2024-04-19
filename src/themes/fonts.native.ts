@@ -63,7 +63,7 @@ const bodySize = {
 };
 export const bodyFont = createFont({
   lineHeight: Object.fromEntries(
-    Object.entries(headingSize).map(([k, v]) => [k, getVariableValue(v) + 5])
+    Object.entries(headingSize).map(([k, v]) => [k, getVariableValue(v) * 1.5])
   ),
   size: Object.fromEntries(
     Object.entries(bodySize).map(([k, v]) => [k, getVariableValue(v)])

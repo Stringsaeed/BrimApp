@@ -1,5 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
+import { useRouter } from "expo-router";
 import { useFormikContext } from "formik";
 import React, { ComponentProps, Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
@@ -12,12 +13,14 @@ import {
 } from "hooks";
 import { NoteFormValues } from "hooks/use-note-form";
 import { useFeatureFlag } from "services";
+import supabaseClient from "services/supabase";
 
 interface Props {
   onOpen?: () => void;
 }
 export default function NoteToolbox({ onOpen }: Props) {
   const { accent } = useUserAccent();
+  const router = useRouter();
   const ref = useRef<BottomSheetModal>(null);
   const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
   const fixGrammarMutation = useFixGrammarMutation();
@@ -36,7 +39,12 @@ export default function NoteToolbox({ onOpen }: Props) {
     void setFieldValue("note", data);
   };
 
-  const handleOpenSheet = () => {
+  const handleOpenSheet = async () => {
+    const isAuthenticated = !!(await supabaseClient.auth.getSession()).data
+      .session;
+    if (!isAuthenticated) {
+      return router.push("/auth/login");
+    }
     if (rephraseWithAIFlag.enabled) {
       onOpen?.();
       requestAnimationFrame(() => {

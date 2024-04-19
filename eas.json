@@ -5,7 +5,10 @@
       "distribution": "internal",
       "env": {
         "TAMAGUI_TARGET": "native",
-        "APP_VARIANT": "development"
+        "APP_VARIANT": "development",
+        "SENTRY_AUTH_TOKEN": "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",
+        "SENTRY_PROJECT": "brim-mobile",
+        "SENTRY_ORG": "baeynh-rt"
       },
       "channel": "development"
     },
