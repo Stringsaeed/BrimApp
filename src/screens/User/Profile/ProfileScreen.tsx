@@ -1,18 +1,26 @@
+import { LogOut } from "@tamagui/lucide-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { YGroup, ListItem, Separator, Spacer } from "tamagui";
 
 import { ResetDatabaseListItem, ScreenContainer } from "components";
+import { useAuthentication } from "contexts";
 import { Routes } from "routers";
+import supabaseClient from "services/supabase";
 
 import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
   const router = useRouter();
   const { t } = useTranslation("settings");
+  const { t: tAuth } = useTranslation("auth");
 
-  function navigateToFactory(name: Routes.AccountInfo | Routes.Preferences) {
+  const { isAuthenticated, user } = useAuthentication();
+
+  function navigateToFactory(
+    name: Routes.AccountInfo | Routes.Preferences | Routes.Login
+  ) {
     return function navigateTo() {
       router.push(name);
     };
@@ -26,13 +34,23 @@ export default function Profile() {
     >
       <YGroup bordered bg="$backgroundTransparent">
         <YGroup.Item>
-          <ListItem
-            onPress={navigateToFactory(Routes.AccountInfo)}
-            title={t("accountInformation")}
-            disabled
-          />
+          {isAuthenticated ? (
+            <ListItem
+              title={user?.email}
+              onPress={navigateToFactory(Routes.AccountInfo)}
+            />
+          ) : (
+            <ListItem
+              title={tAuth("login.description")}
+              onPress={navigateToFactory(Routes.Login)}
+            />
+          )}
         </YGroup.Item>
-        <Separator />
+      </YGroup>
+
+      <Spacer />
+
+      <YGroup bordered bg="$backgroundTransparent">
         <YGroup.Item>
           <ListItem title={t("notifications")} disabled />
         </YGroup.Item>
@@ -48,6 +66,18 @@ export default function Profile() {
       <YGroup bordered>
         <ResetDatabaseListItem />
       </YGroup>
+      <Spacer />
+      {isAuthenticated ? (
+        <YGroup bordered>
+          <ListItem
+            icon={LogOut}
+            title="Logout"
+            onPress={() => {
+              void supabaseClient.auth.signOut();
+            }}
+          />
+        </YGroup>
+      ) : null}
     </ScreenContainer>
   );
 }

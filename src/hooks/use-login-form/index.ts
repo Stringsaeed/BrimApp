@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,7 +21,16 @@ function loginMutate(values: LoginSchema) {
   });
 }
 export default function useLoginForm() {
+  const router = useRouter();
   const signInWithPhoneNumberMutation = useMutation({
+    onSuccess(_, variables) {
+      router.push({
+        params: {
+          email: variables.email,
+        },
+        pathname: `/auth/verify`,
+      });
+    },
     mutationFn: loginMutate,
   });
 
@@ -32,7 +42,7 @@ export default function useLoginForm() {
   );
 
   const {
-    formState: { isDirty, isValid },
+    formState: { isSubmitting, isDirty, isValid },
     handleSubmit,
     control,
   } = useForm<LoginSchema>({
@@ -47,6 +57,7 @@ export default function useLoginForm() {
 
   return {
     isSubmitDisabled,
+    isSubmitting,
     onSubmit,
     control,
   };

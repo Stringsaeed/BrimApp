@@ -1,4 +1,5 @@
 import {
+  BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetProps,
@@ -10,7 +11,6 @@ import { Paragraph, SizableText, Stack, useTheme } from "tamagui";
 
 import { useUserAccent } from "hooks";
 
-import BlurBackdrop from "./blur-backdrop";
 import styles from "./styles";
 
 interface Props extends Partial<BottomSheetProps> {
@@ -33,7 +33,14 @@ const BottomSheetComponent = (
   }, []);
 
   const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => <BlurBackdrop {...props} />,
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        pressBehavior="close"
+      />
+    ),
     []
   );
 

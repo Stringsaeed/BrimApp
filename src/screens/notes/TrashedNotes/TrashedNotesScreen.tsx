@@ -5,7 +5,7 @@ import { NotesListProvider } from "contexts";
 import { useNavigateNote, useObserveNotes } from "hooks";
 
 export default function TrashedNotesScreen() {
-  const notes = useObserveNotes("trashed");
+  const notes = useObserveNotes((note) => note.status === "trashed");
   const onNavigateNote = useNavigateNote();
 
   return (

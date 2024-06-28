@@ -12,7 +12,7 @@ import {
   useWindowDimensions,
 } from "tamagui";
 
-import { wmDatabase } from "config";
+import { NoteService } from "services";
 
 export default function ResetDatabaseListItem() {
   const { width } = useWindowDimensions();
@@ -21,15 +21,10 @@ export default function ResetDatabaseListItem() {
   const { t } = useTranslation("settings");
 
   const onReset = () => {
-    void InteractionManager.runAfterInteractions(async () => {
+    void InteractionManager.runAfterInteractions(() => {
       setIsLoading(true);
       try {
-        await wmDatabase.write(async () => {
-          const notes = await wmDatabase.get("notes").query().fetch();
-          await wmDatabase.batch(
-            ...notes.map((note) => note.prepareDestroyPermanently())
-          );
-        });
+        NoteService.deleteAll();
       } finally {
         setIsLoading(false);
       }

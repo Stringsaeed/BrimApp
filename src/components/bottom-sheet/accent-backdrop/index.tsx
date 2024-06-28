@@ -14,12 +14,16 @@ import Animated, {
 } from "react-native-reanimated";
 import { useTheme } from "tamagui";
 
+import { useUserAccent } from "hooks";
+import { UserAccentValue } from "types";
+
 export default function AccentBackdrop({
   animatedIndex,
   style,
 }: BottomSheetBackdropProps) {
+  const { accent: accentValue } = useUserAccent();
   const theme = useTheme();
-  const accent = theme.accent.get();
+  const accent = theme[accentValue as UserAccentValue].val;
   const { close } = useBottomSheet();
 
   const handleOnPress = useCallback(() => {

@@ -18,7 +18,6 @@ import {
   NoteToolbox,
 } from "components";
 import { ComposerRef } from "components/composer/types";
-import { useNotesContext } from "contexts";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
@@ -26,11 +25,13 @@ import {
   useNoteForm,
   useNotePrivacyMutation,
 } from "hooks";
+import { NoteService } from "services";
 
 export default function NoteView() {
   const router = useRouter();
   const { id: idParam } = useGlobalSearchParams();
   const id = idParam as string;
+
   const headerHeight = useHeaderHeight();
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
@@ -44,8 +45,8 @@ export default function NoteView() {
   );
 
   const onNavigateProfile = useNavigateProfile();
-  const { notes } = useNotesContext();
-  const note = notes.find((note) => note.id === id);
+  const note = NoteService.get(id);
+
   const config = useNoteForm(note!);
 
   const notePrivacyMutation = useNotePrivacyMutation();
@@ -94,7 +95,7 @@ export default function NoteView() {
           paddingTop={headerHeight}
           flex={1}
         >
-          <DateText date={note?.updatedAt} />
+          <DateText date={note?.updated_at} />
           <NoteTitleInput ref={titleInputRef} />
           <Separator />
           <Composer ref={richTextRef} />

@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "@tamagui/lucide-icons";
 import React from "react";
-import { Button, XGroup } from "tamagui";
+import { XGroup } from "tamagui";
 
 // import { useIsLocalAuthenticationEligible } from "hooks";
 import {
@@ -26,7 +26,7 @@ export default function NotePageHeaderMenu({
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <XGroup.Item>
-          <Button size="$3" circular icon={MoreHorizontal} />
+          <MoreHorizontal />
         </XGroup.Item>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

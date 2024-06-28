@@ -23,7 +23,7 @@ async function toggleNotePrivacy({ note }: { note: Note }) {
     if (isPrivate === note.is_private) {
       return isPrivate;
     }
-    await NoteService.update(note.id, { is_private: isPrivate });
+    NoteService.update(note.id, { is_private: isPrivate });
     return isPrivate;
   } catch (e) {
     Sentry.captureException(e);

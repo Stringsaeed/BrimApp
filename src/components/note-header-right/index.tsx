@@ -1,8 +1,9 @@
 import { Lock, Unlock } from "@tamagui/lucide-icons";
 import { Stack } from "expo-router";
-import React, { Fragment, useCallback } from "react";
-import { Button, Separator, XGroup } from "tamagui";
+import React, { useCallback } from "react";
+import { XGroup } from "tamagui";
 
+import PressableScale from "components/pressable-scale";
 import { useIsLocalAuthenticationEligible } from "hooks";
 
 import NotePageHeaderMenu from "./menu";
@@ -26,19 +27,13 @@ export default function NoteHeaderRight({
 
   const headerRight = useCallback(() => {
     return (
-      <XGroup size="$2" animation="slow" enterStyle={{ opacity: 0 }}>
+      <XGroup gap="$2" animation="slow" enterStyle={{ opacity: 0 }}>
         {isEligible && (
-          <Fragment>
-            <XGroup.Item>
-              <Button
-                size="$3"
-                circular
-                onPress={onPressLock}
-                icon={isPrivate ? Lock : Unlock}
-              />
-            </XGroup.Item>
-            <Separator vertical />
-          </Fragment>
+          <XGroup.Item>
+            <PressableScale onPress={onPressLock}>
+              {isPrivate ? <Lock color="$accent" /> : <Unlock />}
+            </PressableScale>
+          </XGroup.Item>
         )}
         <NotePageHeaderMenu
           onPressArchive={onPressArchive}
