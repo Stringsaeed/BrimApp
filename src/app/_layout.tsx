@@ -6,11 +6,13 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { Stack } from "expo-router";
-import React, { useMemo } from "react";
+import { Stack, useNavigationContainerRef } from "expo-router";
+import { setBackgroundColorAsync } from "expo-system-ui";
+import React, { useEffect, useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { LogBox, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "react-native-get-random-values";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
@@ -22,13 +24,18 @@ import {
 } from "contexts";
 import { useLoadAssets, useUserAccent, useUserTheme } from "hooks";
 import i18next from "i18n";
-import { FeatureFlagsProvider } from "services";
+import { FeatureFlagsProvider, Sentry, navigationIntegration } from "services";
 import { themeConfig } from "themes";
 
-export default function AppContainer() {
-  const { theme } = useUserTheme();
+LogBox.ignoreLogs([
+  '[Reanimated] Property "opacity" of AnimatedComponent(YStack) may be overwritten by a layout animation. Please wrap your component with an animated view and apply the layout animation on the wrapper.',
+]);
+
+function AppContainer() {
   const { accent } = useUserAccent();
+  const { theme } = useUserTheme();
   const isLoaded = useLoadAssets();
+  const ref = useNavigationContainerRef();
 
   const screenOptions = useMemo<NativeStackNavigationOptions>(() => {
     const selectiveTheme = themeConfig.themes[theme];
@@ -54,6 +61,17 @@ export default function AppContainer() {
       },
     };
   }, [accent, theme]);
+
+  useEffect(() => {
+    const selectiveTheme = themeConfig.themes[theme];
+    void setBackgroundColorAsync(selectiveTheme[accent].val);
+  }, [accent, theme]);
+
+  useEffect(() => {
+    if (ref) {
+      navigationIntegration.registerNavigationContainer(ref);
+    }
+  }, [ref]);
 
   if (!isLoaded) {
     return null;
@@ -128,3 +146,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default Sentry.wrap(AppContainer);

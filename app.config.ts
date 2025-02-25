@@ -1,4 +1,4 @@
-import { ExpoConfig, ConfigContext } from "expo/config";
+import { ConfigContext, ExpoConfig } from "expo/config";
 
 const nameMap = {
   preview: "BrimApp (Preview)",
@@ -31,7 +31,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         "expo-build-properties",
         {
           ios: {
-            deploymentTarget: "14.0",
             useFrameworks: "static",
           },
         },

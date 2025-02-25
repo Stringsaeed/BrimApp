@@ -10,7 +10,7 @@ import {
   useUpdateNoteMutation,
 } from "hooks";
 import { UpdateNoteMutationInput } from "hooks/use-update-note-mutation";
-import { Note, DateType } from "types";
+import { DateType, Note } from "types";
 
 type NotesListContext = {
   notes: Note[];

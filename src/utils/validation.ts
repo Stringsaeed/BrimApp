@@ -16,7 +16,7 @@ export function isValidPhoneNumber<T extends string>(
     }
     const parsedNumber = phoneUtil.parse(number, country);
     return phoneUtil.isValidNumber(parsedNumber);
-  } catch (e) {
+  } catch {
     return false;
   }
 }

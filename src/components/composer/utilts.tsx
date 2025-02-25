@@ -32,3 +32,10 @@ export const FontFamilyStylesheet = `
   font-display: swap;
 }
 `;
+
+export const customFont = `
+${FontFamilyStylesheet}
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+`;

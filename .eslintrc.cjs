@@ -63,11 +63,10 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
       },
+      files: ["test/**", "jest-setup.js", "*.test.tsx", "*.test.ts"],
       env: {
-        "jest/globals": true,
         jest: true,
       },
-      files: ["test/**", "jest-setup.js", "*.test.tsx", "*.test.ts"],
     },
     {
       rules: {
@@ -85,12 +84,16 @@ module.exports = {
       typescript: {},
     },
   },
-  extends: ["@callstack", "plugin:@typescript-eslint/recommended-type-checked"],
+  extends: [
+    "expo",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "prettier",
+  ],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: true,
   },
-  plugins: ["perfectionist", "prettier", "@typescript-eslint"],
+  plugins: ["perfectionist", "prettier", "@typescript-eslint", "import"],
   parser: "@typescript-eslint/parser",
   root: true,
 };

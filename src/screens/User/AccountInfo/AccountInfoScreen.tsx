@@ -11,17 +11,19 @@ export default function AccountInfoScreen() {
 
   return (
     <AccountInfoContainer>
-      <YGroup bordered separator={<Separator />}>
+      <YGroup bordered ov="hidden">
         <UpdateAccountListItem
           title="Display Name"
           subTitle={user?.user_metadata?.displayName ?? ""}
           type="displayName"
         />
+        <Separator />
         <UpdateAccountListItem
           title="Email"
           subTitle={user?.email ?? ""}
           type="email"
         />
+        <Separator />
         <UpdateAccountListItem
           title="Phone"
           subTitle={user?.phone ?? ""}

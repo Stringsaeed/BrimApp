@@ -1,66 +1,49 @@
 import { observable } from "@legendapp/state";
-import { enableReactTracking } from "@legendapp/state/config/enableReactTracking";
-import {
-  configureObservablePersistence,
-  persistObservable,
-} from "@legendapp/state/persist";
-import { ObservablePersistMMKV } from "@legendapp/state/persist-plugins/mmkv";
+import { observablePersistAsyncStorage } from "@legendapp/state/persist-plugins/async-storage";
+import { configureSynced } from "@legendapp/state/sync";
+import { syncedSupabase } from "@legendapp/state/sync-plugins/supabase";
+import { v4 as uuidv4 } from "uuid";
 
+import { AsyncStorage } from "services/storage";
 import supabaseClient from "services/supabase";
 import { Note } from "types";
 
-configureObservablePersistence({ pluginLocal: ObservablePersistMMKV });
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+export const generateId = () => uuidv4();
 
-export const notesState = observable({
-  notes: [] as Note[],
-});
-
-persistObservable(notesState, {
-  pluginRemote: {
-    get: ({ onChange }) => {
-      const getFn = async () => {
-        const session = await supabaseClient.auth.getSession();
-        if (!session) {
-          return { notes: [] };
-        }
-
-        const userId = session.data.session?.user.id;
-        if (!userId) {
-          return { notes: [] };
-        }
-
-        const result = await supabaseClient
-          .from("notes")
-          .select("*")
-          .eq("user_id", userId);
-
-        return { notes: result.data ?? [] };
-      };
-
-      // Set a timer to poll every 10 seconds
-      setInterval(async () => {
-        const data = await getFn();
-        await onChange({ value: data });
-      }, 10000);
-
-      // Return the initial value
-      return getFn();
-    },
-    set: async ({ value }) => {
-      try {
-        const result = await supabaseClient.from("notes").upsert(value.notes);
-        if (result.error) {
-          throw result.error;
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("Error saving notes", error);
-      }
-    },
+// Create a configured sync function
+const customSynced = configureSynced(syncedSupabase, {
+  // Use React Native Async Storage
+  persist: {
+    plugin: observablePersistAsyncStorage({
+      AsyncStorage: AsyncStorage,
+    }),
   },
-  local: "notesState",
+  fieldCreatedAt: "created_at",
+  fieldUpdatedAt: "updated_at",
+  // Optionally enable soft deletes
+  fieldDeleted: "deleted_at",
+  changesSince: "last-sync",
+  supabase: supabaseClient,
+  generateId,
 });
 
-enableReactTracking({
-  auto: true,
-});
+export const notes$ = observable<Record<string, Note>>(
+  customSynced({
+    select: (from) =>
+      from.select(
+        "created_at,deleted_at,id,is_private,note,status,title,updated_at,user_id"
+      ),
+    persist: {
+      retrySync: true, // Persist pending changes and retry
+      name: "notes",
+    },
+    retry: {
+      infinite: true, // Retry changes with exponential backoff
+    },
+    actions: ["read", "create", "update", "delete"],
+    supabase: supabaseClient,
+    collection: "notes",
+    realtime: true,
+  })
+);

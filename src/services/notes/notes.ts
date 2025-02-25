@@ -1,45 +1,41 @@
-import { notesState } from "services/database";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { generateId, notes$ } from "services/database";
 import { Note } from "types";
 
 export const NoteService = {
   create: (input: Omit<Note, "id">): Note => {
-    const newId = Math.random().toString(36).substr(2, 9);
-    const observedNotes = notesState.notes.set((notes) => {
-      notes.push({
-        ...input,
-        id: newId,
-      });
-
-      return notes;
+    const newId = generateId();
+    notes$[newId].assign({
+      ...input,
+      id: newId,
     });
 
-    const newNote = observedNotes
-      .get()
-      .find((note) => note.id === newId) as Note;
+    const newNote = notes$.get() ?? {};
 
-    return newNote;
+    if (!newNote[newId]) {
+      throw new Error("=== Failed to create note");
+    }
+
+    return newNote[newId] as unknown as Note;
   },
   update: (id: string, input: Partial<Note>) => {
-    return notesState.notes.set((notes) => {
-      const newNotes = [...notes];
-      const index = newNotes.findIndex((note) => note.id === id);
-      if (index === -1) return notes;
-      newNotes[index] = {
-        ...notes[index],
-        ...input,
-      };
-      return newNotes;
+    const note = notes$[id];
+    // @ts-expect-error - TODO: fix this
+    return notes$[id].assign({
+      ...note,
+      ...input,
+      id,
     });
   },
   delete: (id: string) => {
-    return notesState.notes.set((notes) => {
-      return notes.filter((note) => note.id !== id);
+    return notes$[id].assign({
+      deleted_at: new Date().toISOString(),
     });
   },
   get: (id: string) => {
-    return notesState.notes.get().find((note) => note.id === id);
+    return notes$.get()[id] as unknown as Note;
   },
   deleteAll: () => {
-    return notesState.notes.set([]);
+    return notes$.set({});
   },
 };

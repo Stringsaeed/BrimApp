@@ -67,7 +67,7 @@ function ScrollScreen({
       <ScrollView
         {...restProps}
         style={overrideStyle}
-        contentContainerStyle={contentStyle}
+        contentContainerStyle={contentStyle as any}
       />
     </Wrapper>
   );

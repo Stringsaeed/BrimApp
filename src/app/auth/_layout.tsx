@@ -1,9 +1,52 @@
-import { Stack } from "expo-router";
+import { Header, HeaderBackButton } from "@react-navigation/elements";
+import { X } from "@tamagui/lucide-icons";
+import { Stack, useRouter } from "expo-router";
 import React from "react";
+import { Circle } from "tamagui";
 
 export default function AuthLayout() {
+  const router = useRouter();
+
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{
+        header: () => (
+          <Header
+            title=""
+            headerRight={() => (
+              <HeaderBackButton
+                canGoBack
+                labelVisible={false}
+                backImage={({ tintColor }) => (
+                  <Circle
+                    onPress={() => {
+                      router.replace("/");
+                    }}
+                    size="$2"
+                    jc="center"
+                    ai="center"
+                    mx="$2"
+                  >
+                    <X
+                      onPress={() => {
+                        router.replace("/");
+                      }}
+                      size="$1"
+                      color={tintColor}
+                    />
+                  </Circle>
+                )}
+                onPress={() => {
+                  router.replace("/");
+                }}
+              />
+            )}
+          />
+        ),
+
+        headerShown: true,
+      }}
+    >
       <Stack.Screen name="login" />
       <Stack.Screen name="verify" />
     </Stack>

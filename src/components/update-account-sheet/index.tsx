@@ -1,4 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { ForwardedRef, Fragment, useImperativeHandle } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { TextInputProps } from "react-native";
@@ -9,7 +10,6 @@ import BottomSheet from "components/bottom-sheet";
 import BottomSheetInput from "components/bottom-sheet-input";
 import FieldError from "components/field-error";
 import { useUserAccent } from "hooks";
-import supabaseClient from "services/supabase";
 
 // import { Auth } from "services";
 
@@ -74,41 +74,16 @@ function UpdateAccountSheetComponent(
   const { accent } = useUserAccent();
   const { inputProps, label, id } = fieldsMap[type];
   const { handleSubmit, control } = useForm<UpdateAccountSchema>({
+    resolver: zodResolver(updateAccountSchema),
     defaultValues: { [type]: defaultValue },
   });
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit((data) => {
     if ("displayName" in data) {
-      const result = await supabaseClient.auth.updateUser({
-        data: {
-          displayName: data.displayName,
-        },
-      });
-
-      if (result.error) {
-        return result.error;
-      }
-
       innerRef?.current?.dismiss();
     } else if ("email" in data) {
-      const result = await supabaseClient.auth.updateUser({
-        email: data.email,
-      });
-
-      if (result.error) {
-        return result.error;
-      }
-
       innerRef?.current?.dismiss();
     } else if ("phone" in data) {
-      const result = await supabaseClient.auth.updateUser({
-        phone: data.phone,
-      });
-
-      if (result.error) {
-        return result.error;
-      }
-
       innerRef?.current?.dismiss();
     }
   });
@@ -117,7 +92,7 @@ function UpdateAccountSheetComponent(
 
   return (
     <BottomSheet ref={innerRef}>
-      <Form space="$4" minHeight={100} onSubmit={onSubmit}>
+      <Form gap="$4" minHeight={100} onSubmit={onSubmit}>
         <Controller
           name={type}
           control={control}

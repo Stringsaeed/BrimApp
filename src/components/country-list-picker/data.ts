@@ -1,6 +1,6 @@
 import { CountryDataType } from "types";
 
-const countryList: Array<CountryDataType> = [
+const countryList: CountryDataType[] = [
   {
     name: "Afghanistan",
     dial_code: "+93",

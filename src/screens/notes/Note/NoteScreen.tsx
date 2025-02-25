@@ -1,3 +1,4 @@
+import { MarkdownTextInput } from "@expensify/react-native-live-markdown";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
@@ -10,14 +11,13 @@ import Animated, {
 import { Separator, YStack } from "tamagui";
 
 import {
-  NoteAutoSave,
   Composer,
   DateText,
+  NoteAutoSave,
   NoteHeaderRight,
   NoteTitleInput,
   NoteToolbox,
 } from "components";
-import { ComposerRef } from "components/composer/types";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
@@ -28,13 +28,16 @@ import {
 import { NoteService } from "services";
 
 export default function NoteView() {
+  const titleInputRef = React.useRef<TextInput>(null);
+  const richTextRef = React.useRef<MarkdownTextInput>(null);
+
   const router = useRouter();
   const { id: idParam } = useGlobalSearchParams();
   const id = idParam as string;
+  const note = NoteService.get(id);
 
+  // UI hooks
   const headerHeight = useHeaderHeight();
-  const createEmptyNoteMutation = useCreateEmptyNoteMutation();
-  const deleteNoteMutation = useDeleteNoteMutation();
   const { height } = useAnimatedKeyboard();
   const stylez = useAnimatedStyle(
     () => ({
@@ -44,15 +47,12 @@ export default function NoteView() {
     [height]
   );
 
+  // Logic hooks
   const onNavigateProfile = useNavigateProfile();
-  const note = NoteService.get(id);
-
-  const config = useNoteForm(note!);
-
+  const deleteNoteMutation = useDeleteNoteMutation();
   const notePrivacyMutation = useNotePrivacyMutation();
-
-  const titleInputRef = React.useRef<TextInput>(null);
-  const richTextRef = React.useRef<ComposerRef>(null);
+  const createEmptyNoteMutation = useCreateEmptyNoteMutation();
+  const config = useNoteForm(note);
 
   const togglePrivacy = () => {
     if (!note) return;

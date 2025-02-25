@@ -29,7 +29,15 @@ export default function NotePageHeaderMenu({
           <MoreHorizontal />
         </XGroup.Item>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent
+        loop
+        side="right"
+        align="end"
+        alignOffset={undefined}
+        avoidCollisions={undefined}
+        collisionPadding={undefined}
+        sideOffset={undefined}
+      >
         <DropdownMenuItem onSelect={onPressArchive} key="archive">
           <DropdownMenuItemIcon
             ios={{

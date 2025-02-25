@@ -14,12 +14,12 @@ export default function AutoSaveFormik({
     title: string;
   }>();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSubmit = useCallback(debounce(submitForm, debounceMs), [
-    submitForm,
-    debounceMs,
-  ]);
+  const debouncedSubmit = useCallback(
+    () => debounce(submitForm, debounceMs)(),
+    [submitForm, debounceMs]
+  );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: values needed to be updated
   useEffect(() => {
     void (dirty && debouncedSubmit());
   }, [debouncedSubmit, dirty, values.note, values.title]);

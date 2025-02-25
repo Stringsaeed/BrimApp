@@ -1,4 +1,4 @@
-import { useHeaderHeight } from "@react-navigation/elements";
+import { Header, useHeaderHeight } from "@react-navigation/elements";
 import { useMutation } from "@tanstack/react-query";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import React from "react";
@@ -7,6 +7,7 @@ import { Button, Form, Heading, Input, Paragraph, YStack } from "tamagui";
 import { useUserAccent } from "hooks";
 import { Sentry } from "services";
 import supabaseClient from "services/supabase";
+
 
 function verifyEmail({ email, token }: { email: string; token: string }) {
   return supabaseClient.auth.verifyOtp({
@@ -24,7 +25,7 @@ export default function VerifyScreen() {
   const { mutate } = useMutation({
     onSuccess(data) {
       if (data.data.session !== null) {
-        router.back();
+        router.dismissAll();
       } else {
         Sentry.captureException(data.error);
       }

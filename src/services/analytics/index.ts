@@ -2,7 +2,8 @@ import "services/vexo";
 // import type TPostHog from "posthog-react-native";
 
 // import { PostHog } from "services/posthug";
-import { identifyDevice } from "vexo-analytics";
+
+import { customEvent, identifyDevice } from "vexo-analytics";
 
 import { Vexo } from "services/vexo";
 import { AuthUser } from "types";
@@ -24,7 +25,8 @@ class AnalyticsService {
     // this.postHug?.identify(user.uid, user);
   }
 
-  async signOut() {
+  signOut() {
+    customEvent("signOut", {});
     // await this.postHug?.reset();
   }
 }

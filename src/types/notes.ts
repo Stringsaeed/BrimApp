@@ -13,7 +13,7 @@ export const noteSchema = z.object({
   updated_at: dateSchema,
   created_at: dateSchema,
   deleted_at: dateSchema,
-  id: z.string(),
+  id: z.string().uuid(),
 });
 
 export const notesSchema = z.array(noteSchema);

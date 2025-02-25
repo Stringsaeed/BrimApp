@@ -23,7 +23,7 @@ export default function AccentBackdrop({
 }: BottomSheetBackdropProps) {
   const { accent: accentValue } = useUserAccent();
   const theme = useTheme();
-  const accent = theme[accentValue as UserAccentValue].val;
+  const accent = theme[accentValue].val;
   const { close } = useBottomSheet();
 
   const handleOnPress = useCallback(() => {

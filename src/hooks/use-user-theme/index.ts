@@ -50,7 +50,6 @@ export default function useUserTheme() {
   };
 
   useEffect(() => {
-    void setBackgroundColorAsync(theme === "dark" ? "#000" : "#fff");
     StatusBar.setBarStyle(theme === "dark" ? "light-content" : "dark-content");
   }, [theme]);
 

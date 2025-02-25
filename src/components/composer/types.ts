@@ -1,6 +1,4 @@
-export interface ComposerComponentProps {
-  onLoadEnd?: () => void;
-}
+export type ComposerComponentProps = unknown;
 
 export interface ComposerRef {
   focus: () => void;

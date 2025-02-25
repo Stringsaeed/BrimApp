@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { NoteService } from "services";
 import { Note } from "types";
 
-async function createNote(input: Omit<Note, "id">) {
+function createNote(input: Omit<Note, "id">): Promise<Note> {
   return Promise.resolve(NoteService.create(input));
 }
 

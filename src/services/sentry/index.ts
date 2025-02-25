@@ -2,17 +2,17 @@ import * as Sentry from "@sentry/react-native";
 
 import { config } from "config";
 
-const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+export const navigationIntegration = Sentry.reactNavigationIntegration({
+  enableTimeToInitialDisplay: true,
+});
+export const tracingIntegration = Sentry.reactNativeTracingIntegration();
 
 Sentry.init({
-  integrations: [
-    new Sentry.ReactNativeTracing({
-      routingInstrumentation,
-    }),
-  ],
+  integrations: [navigationIntegration, tracingIntegration],
+  enableNativeFramesTracking: true,
   environment: config.environment,
   dsn: config.sentryDsn,
   debug: false,
 });
 
-export { Sentry, routingInstrumentation };
+export { Sentry };

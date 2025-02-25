@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useRef, useState } from "react";
 
 export default function useThrottle<T>(value: T, ms = 200) {
   const [state, setState] = useState<T | undefined>(value);
@@ -23,8 +23,7 @@ export default function useThrottle<T>(value: T, ms = 200) {
       nextValue.current = value;
       hasNextValue.current = true;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [value, ms]);
 
   // clear on unmount
   useEffect(() => () => timeout.current && clearTimeout(timeout.current));

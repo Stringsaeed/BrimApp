@@ -45,6 +45,7 @@ declare module "tamagui" {
 
   // work everywhere you import `tamagui`
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface TamaguiCustomConfig extends AppConfig {}
 }
 
