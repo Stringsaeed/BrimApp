@@ -15,7 +15,6 @@ import Animated, {
 import { useTheme } from "tamagui";
 
 import { useUserAccent } from "hooks";
-import { UserAccentValue } from "types";
 
 export default function AccentBackdrop({
   animatedIndex,

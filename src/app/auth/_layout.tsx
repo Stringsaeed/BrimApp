@@ -18,32 +18,18 @@ export default function AuthLayout() {
                 canGoBack
                 labelVisible={false}
                 backImage={({ tintColor }) => (
-                  <Circle
-                    onPress={() => {
-                      router.replace("/");
-                    }}
-                    size="$2"
-                    jc="center"
-                    ai="center"
-                    mx="$2"
-                  >
-                    <X
-                      onPress={() => {
-                        router.replace("/");
-                      }}
-                      size="$1"
-                      color={tintColor}
-                    />
+                  <Circle size="$2" jc="center" ai="center" mx="$2">
+                    <X size="$1" color={tintColor} />
                   </Circle>
                 )}
                 onPress={() => {
-                  router.replace("/");
+                  router.back();
                 }}
               />
             )}
           />
         ),
-
+        headerTransparent: false,
         headerShown: true,
       }}
     >

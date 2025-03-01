@@ -7,3 +7,4 @@ android
 theme.d.ts
 expo-env.d.ts
 .tamagui
+coverage

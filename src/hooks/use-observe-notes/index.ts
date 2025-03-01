@@ -1,12 +1,16 @@
-import { useSelector } from "@legendapp/state/react";
+import { use$ } from "@legendapp/state/react";
+import { useMemo } from "react";
 
 import { notes$ } from "services";
-import { Note } from "types";
+import type { Note } from "types";
 
 export default function useObserveNotes(filterBy: (note: Note) => boolean) {
-  const notes = useSelector(() =>
-    Object.values(notes$.get(true) ?? {}).filter(filterBy)
-  );
+  const observedNotes = use$(notes$);
+
+  const notes = useMemo(() => {
+    if (!observedNotes) return [];
+    return Object.values(observedNotes).filter(filterBy);
+  }, [filterBy, observedNotes]);
 
   return notes;
 }

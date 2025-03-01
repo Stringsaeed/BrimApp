@@ -1,27 +1,24 @@
-import { useHeaderHeight } from "@react-navigation/elements";
-import React from "react";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-  Heading,
   Button,
+  Form,
+  Heading,
   Input,
   Paragraph,
-  Form,
-  YStack,
   Spinner,
+  YStack,
 } from "tamagui";
 
 import { useLoginForm, useUserAccent } from "hooks";
 
 export default function LoginScreen() {
+  const { accent } = useUserAccent();
   const { t } = useTranslation("auth");
   const { isSubmitDisabled, isSubmitting, onSubmit, control } = useLoginForm();
-  const { accent } = useUserAccent();
-  const headerHeight = useHeaderHeight();
 
   return (
-    <Form f={1} px="$4" gap="$4" pt={headerHeight} onSubmit={onSubmit}>
+    <Form f={1} px="$4" pt="$5" gap="$4" onSubmit={onSubmit}>
       <YStack>
         <Heading>{t("login.title")}</Heading>
         <Paragraph>{t("login.description")}</Paragraph>

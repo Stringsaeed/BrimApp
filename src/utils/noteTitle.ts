@@ -1,10 +1,24 @@
+import { generateText } from "@tiptap/core";
+import StarterKit from "@tiptap/starter-kit";
 import { decode } from "html-entities";
 
 const contentInsideTagsRegex = /<(\w+)[^>]*>((?:[^<]+|<(?!\/?\1))*)<\/\1>/i;
 const globalRegex = /<(\w+)[^>]*>((?:[^<]+|<(?!\/?\1))*)<\/\1>/gi;
 
+export function getNoteTitleV2(note?: string): string {
+  if (!note) return "";
+  try {
+    const json = JSON.parse(note);
+    const text = generateText(json, [StarterKit]);
+    return getNoteTitle(text);
+  } catch {
+    return getNoteTitle(note);
+  }
+}
+
 export function getNoteTitle(note?: string): string {
   if (!note) return "";
+
   // local match
   const [, , z] = note.match(contentInsideTagsRegex) ?? [];
 

@@ -1,8 +1,8 @@
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { ForwardedRef, Fragment, useImperativeHandle } from "react";
+import React, { type ForwardedRef, Fragment, useImperativeHandle } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { TextInputProps } from "react-native";
+import type { TextInputProps } from "react-native";
 import { Button, Form, Label } from "tamagui";
 import { z } from "zod";
 

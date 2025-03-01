@@ -4,7 +4,7 @@ import React, { useCallback } from "react";
 import { XGroup } from "tamagui";
 
 import PressableScale from "components/pressable-scale";
-import { useIsLocalAuthenticationEligible } from "hooks";
+import { useIsLocalAuthenticationEligible, useUserAccent } from "hooks";
 
 import NotePageHeaderMenu from "./menu";
 
@@ -23,6 +23,7 @@ export default function NoteHeaderRight({
   onPressTrash,
   onPressLock,
 }: NoteHeaderRightProps) {
+  const { accent } = useUserAccent();
   const isEligible = useIsLocalAuthenticationEligible();
 
   const headerRight = useCallback(() => {
@@ -31,7 +32,7 @@ export default function NoteHeaderRight({
         {isEligible && (
           <XGroup.Item>
             <PressableScale onPress={onPressLock}>
-              {isPrivate ? <Lock color="$accent" /> : <Unlock />}
+              {isPrivate ? <Lock color={`$${accent}`} /> : <Unlock />}
             </PressableScale>
           </XGroup.Item>
         )}
@@ -43,7 +44,14 @@ export default function NoteHeaderRight({
         />
       </XGroup>
     );
-  }, [isEligible, isPrivate, onPressArchive, onPressLock, onPressTrash]);
+  }, [
+    accent,
+    isEligible,
+    isPrivate,
+    onPressArchive,
+    onPressLock,
+    onPressTrash,
+  ]);
 
   return <Stack.Screen options={{ headerRight }} />;
 }

@@ -1,4 +1,4 @@
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Pencil } from "@tamagui/lucide-icons";
 import React, { useRef } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies

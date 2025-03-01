@@ -23,7 +23,7 @@ function NoteTitleInputComponent(
       value={values.title}
       onChangeText={handleChange("title")}
       onBlur={handleBlur("title")}
-      textAlignVertical="center"
+      verticalAlign="center"
       fontSize="$7"
       fontWeight="bold"
       lineHeight={undefined}

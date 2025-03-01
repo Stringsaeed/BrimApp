@@ -47,13 +47,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       [
         "@sentry/react-native/expo",
         {
-          authToken: process.env.SENTRY_AUTH_TOKEN,
           organization: process.env.SENTRY_ORG,
           project: process.env.SENTRY_PROJECT,
         },
       ],
       "expo-apple-authentication",
       "expo-router",
+      "expo-speech-recognition",
+      "@vonovak/react-native-theme-control",
     ],
     android: {
       adaptiveIcon: {

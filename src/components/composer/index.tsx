@@ -1,50 +1,40 @@
-import {
-  MarkdownTextInput,
-  parseExpensiMark,
-} from "@expensify/react-native-live-markdown";
-import React, { ForwardedRef } from "react";
-import { Stack, styled, useTheme } from "tamagui";
+import React, { useImperativeHandle, useState, type ForwardedRef } from "react";
+import { Stack } from "tamagui";
 
-import { useUserAccent } from "hooks";
+// import { useUserAccent } from "hooks";
 
-import { ComposerComponentProps } from "./types";
+import TiptapInput from "components/tiptap-input";
+
+import type { ComposerComponentProps, ComposerRef } from "./types";
 import useNoteComposer from "./use-note-composer";
 
-const TamaguiComposer = styled(
-  MarkdownTextInput,
-  {
-    name: "TamaguiComposer",
-  },
-  {
-    isInput: true,
-  }
-);
 function ComposerComponent(
   _: ComposerComponentProps,
-  ref: ForwardedRef<MarkdownTextInput>
+  ref: ForwardedRef<ComposerRef>
 ) {
-  const theme = useTheme();
-  const { accent } = useUserAccent();
+  // const theme = useTheme();
+  // const { accent } = useUserAccent();
+  const [isFocused, setIsFocused] = useState(false);
   const { onChangeText, onBlur, value } = useNoteComposer();
+
+  useImperativeHandle(ref, () => ({
+    isFocused: () => {
+      return isFocused;
+    },
+    focus: () => {
+      setIsFocused(true);
+    },
+    blur: () => {
+      setIsFocused(false);
+    },
+  }));
 
   return (
     <Stack flex={1} flexGrow={1}>
-      <TamaguiComposer
-        ref={ref}
-        value={value}
-        parser={parseExpensiMark}
-        onChangeText={onChangeText}
+      <TiptapInput
+        content={value}
+        onChange={(content) => onChangeText(content)}
         onBlur={onBlur}
-        fontFamily="$body"
-        p="$4"
-        color="$color"
-        minHeight="100%"
-        verticalAlign="top"
-        cursorColor={theme[accent].get()}
-        selectionColor={theme[accent].get()}
-        multiline
-        // placeholderTextColor={theme.color.get()}
-        placeholder="Write something..."
       />
     </Stack>
   );

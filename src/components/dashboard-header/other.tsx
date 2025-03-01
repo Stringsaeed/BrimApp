@@ -1,6 +1,7 @@
 import { AlignJustify } from "@tamagui/lucide-icons";
 import { useRouter } from "expo-router";
 import React from "react";
+import { useColorScheme } from "react-native";
 
 import PressableScale from "components/pressable-scale";
 import { Routes } from "routers";
@@ -15,6 +16,7 @@ import {
 
 export default function OtherMenu() {
   const router = useRouter();
+  const colorScheme = useColorScheme();
 
   const onPressArchive = () => {
     router.push(Routes.Archive);
@@ -25,7 +27,7 @@ export default function OtherMenu() {
   };
 
   return (
-    <DropdownMenuRoot>
+    <DropdownMenuRoot key={colorScheme}>
       <DropdownMenuTrigger>
         <PressableScale activeScale={0.9}>
           <AlignJustify />

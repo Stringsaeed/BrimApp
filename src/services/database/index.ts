@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AsyncStorage } from "services/storage";
 import supabaseClient from "services/supabase";
-import { Note } from "types";
+import type { Note } from "types";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
 export const generateId = () => uuidv4();
@@ -28,7 +28,7 @@ const customSynced = configureSynced(syncedSupabase, {
   generateId,
 });
 
-export const notes$ = observable<Record<string, Note>>(
+export const notes$ = observable<Record<string, Note> | undefined>(
   customSynced({
     select: (from) =>
       from.select(

@@ -1,13 +1,10 @@
-import { MarkdownTextInput } from "@expensify/react-native-live-markdown";
+import type { MarkdownTextInput } from "@expensify/react-native-live-markdown";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { SystemBars } from "@vonovak/react-native-theme-control";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
 import React from "react";
-import { Keyboard, TextInput } from "react-native";
-import Animated, {
-  useAnimatedKeyboard,
-  useAnimatedStyle,
-} from "react-native-reanimated";
+import { Keyboard, type TextInput } from "react-native";
 import { Separator, YStack } from "tamagui";
 
 import {
@@ -38,14 +35,6 @@ export default function NoteView() {
 
   // UI hooks
   const headerHeight = useHeaderHeight();
-  const { height } = useAnimatedKeyboard();
-  const stylez = useAnimatedStyle(
-    () => ({
-      paddingBottom: height.value,
-      flex: 1,
-    }),
-    [height]
-  );
 
   // Logic hooks
   const onNavigateProfile = useNavigateProfile();
@@ -81,6 +70,7 @@ export default function NoteView() {
 
   return (
     <FormikProvider value={config}>
+      <SystemBars translucent />
       <NoteHeaderRight
         onPressLock={togglePrivacy}
         onPressTrash={handleDelete}
@@ -89,19 +79,13 @@ export default function NoteView() {
         onPressProfile={onNavigateProfile}
       />
       <NoteAutoSave />
-      <Animated.View style={stylez}>
-        <YStack
-          backgroundColor="$background"
-          paddingTop={headerHeight}
-          flex={1}
-        >
-          <DateText date={note?.updated_at} />
-          <NoteTitleInput ref={titleInputRef} />
-          <Separator />
-          <Composer ref={richTextRef} />
-          <NoteToolbox onOpen={onToolboxSheetOpen} />
-        </YStack>
-      </Animated.View>
+      <YStack backgroundColor="$background" paddingTop={headerHeight} flex={1}>
+        <DateText date={note?.updated_at} />
+        <NoteTitleInput ref={titleInputRef} />
+        <Separator />
+        <Composer ref={richTextRef} />
+        <NoteToolbox onOpen={onToolboxSheetOpen} />
+      </YStack>
     </FormikProvider>
   );
 }

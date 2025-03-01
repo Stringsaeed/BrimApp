@@ -1,10 +1,10 @@
 import {
-  CheckCircle2,
-  Circle,
-  Trash2,
-  Lock,
   Archive,
   ArchiveRestore,
+  CheckCircle2,
+  Circle,
+  Lock,
+  Trash2,
   Undo,
 } from "@tamagui/lucide-icons";
 import React, { useCallback, useMemo } from "react";
@@ -14,7 +14,7 @@ import { ListItem, useTheme } from "tamagui";
 import { useNotesList } from "contexts";
 import { useUserAccent } from "hooks";
 import { Note } from "types";
-import { cipherTitle, getNoteTitle } from "utils";
+import { cipherTitle, getNoteTitleV2 } from "utils";
 
 import NoteListItemAction from "./action";
 import NoteListItemContainer from "./container";
@@ -37,7 +37,7 @@ export default function NoteListItemView({
   const theme = useTheme();
   const foregroundColor = theme.background.get();
   const content = useMemo(() => {
-    const title = getNoteTitle(item.note);
+    const title = getNoteTitleV2(item.note);
     if (!item.is_private) return title;
 
     return cipherTitle(title);

@@ -18,7 +18,6 @@ import { useUserAccent } from "hooks";
 import { Routes } from "routers";
 import supabaseClient from "services/supabase";
 
-
 import styles from "./ProfileScreen.styles";
 
 export default function Profile() {

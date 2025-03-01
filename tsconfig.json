@@ -28,5 +28,6 @@
     "jest.config.js",
     "jest-setup.js",
     ".eslintrc.cjs"
-  ]
+  ],
+  "exclude": ["coverage"]
 }

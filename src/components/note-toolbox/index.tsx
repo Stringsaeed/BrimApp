@@ -14,14 +14,18 @@ import {
 import { NoteFormValues } from "hooks/use-note-form";
 import { useFeatureFlag } from "services";
 
+import VoiceRecordingButton from "../voice-recording-button";
+
 interface Props {
   onOpen?: () => void;
 }
+
 export default function NoteToolbox({ onOpen }: Props) {
   const { accent } = useUserAccent();
   // const router = useRouter();
   const ref = useRef<BottomSheetModal>(null);
   const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
+  const recordVoiceNotesFlag = useFeatureFlag("record_voice_notes");
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
@@ -44,7 +48,7 @@ export default function NoteToolbox({ onOpen }: Props) {
     // if (!isAuthenticated) {
     //   return router.push("/auth/login");
     // }
-    if (rephraseWithAIFlag.enabled) {
+    if (rephraseWithAIFlag.enabled || recordVoiceNotesFlag.enabled) {
       onOpen?.();
       requestAnimationFrame(() => {
         ref.current?.present();
@@ -52,6 +56,13 @@ export default function NoteToolbox({ onOpen }: Props) {
     } else {
       void handleFixGrammar();
     }
+  };
+
+  const handleTranscriptionComplete = (text: string) => {
+    // Append the transcribed text to the current note
+    const currentNote = values.note || "";
+    const updatedNote = currentNote ? `${currentNote}\n\n${text}` : text;
+    void setFieldValue("note", updatedNote);
   };
 
   return (
@@ -77,45 +88,50 @@ export default function NoteToolbox({ onOpen }: Props) {
         onPress={handleOpenSheet}
         elevate
       />
-      {!!rephraseWithAIFlag.enabled && (
-        <BottomSheet ref={ref}>
-          <Button
-            size="$6"
-            onPress={handleFixGrammar}
-            bg={`$${accent}`}
-            elevate
-          >
-            <Button.Icon scaleIcon={1.5}>
-              {fixGrammarMutation.isPending ? (
-                <Spinner color="$background" />
-              ) : (
-                <Sparkles size="$2" color="$background" />
-              )}
-            </Button.Icon>
-            <Button.Text size="$6" color="$background">
-              Fix Grammar With AI
-            </Button.Text>
-          </Button>
-          <Spacer />
-          <Button
-            size="$6"
-            onPress={handleRephraseSentence}
-            bg={`$${accent}`}
-            elevate
-          >
-            <Button.Icon scaleIcon={1.5}>
-              {rephraseSentenceMutation.isPending ? (
-                <Spinner color="$background" />
-              ) : (
-                <Sparkles size="$2" color="$background" />
-              )}
-            </Button.Icon>
-            <Button.Text size="$6" color="$background">
-              Rephrase With AI
-            </Button.Text>
-          </Button>
-        </BottomSheet>
-      )}
+      {!!rephraseWithAIFlag.enabled ||
+        (!!recordVoiceNotesFlag.enabled && (
+          <BottomSheet ref={ref}>
+            <Button
+              size="$6"
+              onPress={handleFixGrammar}
+              bg={`$${accent}`}
+              elevate
+            >
+              <Button.Icon scaleIcon={1.5}>
+                {fixGrammarMutation.isPending ? (
+                  <Spinner color="$background" />
+                ) : (
+                  <Sparkles size="$2" color="$background" />
+                )}
+              </Button.Icon>
+              <Button.Text size="$6" color="$background">
+                Fix Grammar With AI
+              </Button.Text>
+            </Button>
+            <Spacer />
+            <Button
+              size="$6"
+              onPress={handleRephraseSentence}
+              bg={`$${accent}`}
+              elevate
+            >
+              <Button.Icon scaleIcon={1.5}>
+                {rephraseSentenceMutation.isPending ? (
+                  <Spinner color="$background" />
+                ) : (
+                  <Sparkles size="$2" color="$background" />
+                )}
+              </Button.Icon>
+              <Button.Text size="$6" color="$background">
+                Rephrase With AI
+              </Button.Text>
+            </Button>
+            <Spacer />
+            <VoiceRecordingButton
+              onTranscriptionComplete={handleTranscriptionComplete}
+            />
+          </BottomSheet>
+        ))}
     </Fragment>
   );
 }

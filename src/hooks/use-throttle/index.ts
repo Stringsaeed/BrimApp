@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useThrottle<T>(value: T, ms = 200) {
   const [state, setState] = useState<T | undefined>(value);

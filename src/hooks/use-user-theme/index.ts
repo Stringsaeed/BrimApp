@@ -1,11 +1,11 @@
-import { setBackgroundColorAsync } from "expo-system-ui";
+import { setThemePreference } from "@vonovak/react-native-theme-control";
 import { useEffect, useMemo } from "react";
 import {
-  ColorSchemeName,
-  useColorScheme,
   Appearance,
-  StatusBar,
+  ColorSchemeName,
   Platform,
+  StatusBar,
+  useColorScheme,
 } from "react-native";
 import { useMMKVString } from "react-native-mmkv";
 
@@ -19,9 +19,13 @@ const getTheme = (value: string, systemTheme: NonNullable<ColorSchemeName>) => {
 function syncNativeTheme(themeName: UserThemeValue) {
   if (themeName === "system") {
     Appearance.setColorScheme(null);
+    setThemePreference("system");
     return;
   }
-
+  setThemePreference(themeName, {
+    // restartActivity: true,
+    persistTheme: true,
+  });
   Appearance.setColorScheme(themeName);
 }
 
@@ -58,7 +62,7 @@ export default function useUserTheme() {
       StatusBar.setTranslucent(true);
       StatusBar.setBackgroundColor("transparent");
     }
-  }, []);
+  }, [themeName]);
 
   useEffect(() => {
     syncNativeTheme(themeName);

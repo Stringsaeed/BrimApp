@@ -10,7 +10,7 @@ import { Stack, useNavigationContainerRef } from "expo-router";
 import { setBackgroundColorAsync } from "expo-system-ui";
 import React, { useEffect, useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
-import { LogBox, StyleSheet } from "react-native";
+import { LogBox, Platform, StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-get-random-values";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -42,8 +42,13 @@ function AppContainer() {
 
     return {
       headerTintColor: selectiveTheme[accent].val,
+      statusBarBackgroundColor: "transparent",
       headerBackTitleVisible: false,
       headerShadowVisible: false,
+      statusBarTranslucent: true,
+      statusBarAnimation: "fade",
+      statusBarHidden: false,
+      statusBarStyle: theme,
       headerBackTitle: "",
     };
   }, [accent, theme]);
@@ -63,6 +68,10 @@ function AppContainer() {
   }, [accent, theme]);
 
   useEffect(() => {
+    if (Platform.OS === "android") {
+      return;
+    }
+
     const selectiveTheme = themeConfig.themes[theme];
     void setBackgroundColorAsync(selectiveTheme[accent].val);
   }, [accent, theme]);
@@ -97,6 +106,11 @@ function AppContainer() {
                             <Stack.Screen
                               name="(app)/notes/[id]"
                               options={{ headerTransparent: true, title: "" }}
+                              listeners={{
+                                focus: () => {
+                                  StatusBar.setTranslucent(true);
+                                },
+                              }}
                             />
                             <Stack.Screen
                               name="(app)/notes/archived"
@@ -121,8 +135,8 @@ function AppContainer() {
                             <Stack.Screen
                               name="auth"
                               options={{
-                                headerTransparent: true,
                                 presentation: "modal",
+                                headerShown: false,
                                 title: "",
                               }}
                             />

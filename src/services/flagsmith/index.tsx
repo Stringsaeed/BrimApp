@@ -23,6 +23,14 @@ export function FeatureFlagsProvider({
     <FlagsmithProvider
       flagsmith={flagsmith}
       options={{
+        defaultFlags: {
+          record_voice_notes: {
+            enabled: true,
+          },
+          rephrase_with_ai: {
+            enabled: true,
+          },
+        },
         enableLogs: __DEV__,
         cacheFlags: true,
         environmentID,
