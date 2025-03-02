@@ -1,8 +1,6 @@
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Pencil } from "@tamagui/lucide-icons";
 import React, { useRef } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { preview } from "react-native-ide";
 import { ListItem, YGroup } from "tamagui";
 
 import UpdateAccountSheet from "components/update-account-sheet";
@@ -32,7 +30,3 @@ export default function UpdateAccountListItem({
     </YGroup.Item>
   );
 }
-
-preview(
-  <UpdateAccountListItem title="Title" subTitle="SubTitle" type="displayName" />
-);
