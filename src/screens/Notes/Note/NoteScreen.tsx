@@ -1,4 +1,3 @@
-import type { MarkdownTextInput } from "@expensify/react-native-live-markdown";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { SystemBars } from "@vonovak/react-native-theme-control";
 import { useGlobalSearchParams, useRouter } from "expo-router";
@@ -15,6 +14,7 @@ import {
   NoteTitleInput,
   NoteToolbox,
 } from "components";
+import type { ComposerRef } from "components/composer/types";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
@@ -26,7 +26,7 @@ import { NoteService } from "services";
 
 export default function NoteView() {
   const titleInputRef = React.useRef<TextInput>(null);
-  const richTextRef = React.useRef<MarkdownTextInput>(null);
+  const richTextRef = React.useRef<ComposerRef>(null);
 
   const router = useRouter();
   const { id: idParam } = useGlobalSearchParams();
@@ -59,11 +59,11 @@ export default function NoteView() {
       return Keyboard.dismiss();
     }
 
-    if (richTextRef.current.isFocused()) {
+    if (richTextRef.current?.isFocused()) {
       richTextRef.current?.blur();
     }
 
-    if (titleInputRef.current.isFocused()) {
+    if (titleInputRef.current?.isFocused()) {
       titleInputRef.current?.blur();
     }
   };
