@@ -10,9 +10,8 @@ pre-commit:
     typecheck:
       glob: "*.{ts,tsx}"
       run: bun tsc-files --noEmit {staged_files}
-    # Disabling tests in pre-commit hook due to React Native testing issues
-    # tests:
-    #   run: bun test
+    tests:
+      run: bun run test --passWithNoTests --findRelatedTests {staged_files}
 
 commit-msg:
   commands:
