@@ -1,0 +1,20 @@
+pre-commit:
+  parallel: true
+  commands:
+    linter:
+      glob: "*.{js,jsx,ts,tsx}"
+      run: bun lint
+    format:
+      glob: "*.{js,jsx,ts,tsx,json,md,css,scss}"
+      run: bun prettier --write {staged_files}
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: bun tsc-files --noEmit {staged_files}
+    # Disabling tests in pre-commit hook due to React Native testing issues
+    # tests:
+    #   run: bun test
+
+commit-msg:
+  commands:
+    commitlint:
+      run: bun commitlint --edit {1}
