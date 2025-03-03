@@ -2,6 +2,7 @@
   "name": "brimapp",
   "version": "1.0.0",
   "main": "expo-router/entry",
+  "license": "MIT",
   "scripts": {
     "start:web": "TAMAGUI_TARGET=web bun expo start --web",
     "lint:eslint": "bun eslint . --cache --max-warnings 0 ",
