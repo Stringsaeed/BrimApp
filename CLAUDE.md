@@ -21,4 +21,20 @@
 - **Error Handling**: Use Sentry.captureException for error reporting
 - **Testing**: Component tests in `__tests__` directories, snapshot testing
 
+## Git Workflow
+
+- Pre-commit hook runs linting, formatting, TypeScript checks, and tests
+- Commit messages follow conventional commits format:
+  - `feat:` New features
+  - `fix:` Bug fixes
+  - `docs:` Documentation changes
+  - `style:` Code style changes (formatting, etc.)
+  - `refactor:` Code changes that neither fix bugs nor add features
+  - `perf:` Performance improvements
+  - `test:` Adding or updating tests
+  - `chore:` Changes to the build process, dependencies, etc.
+  - `ci:` CI configuration changes
+  - `build:` Changes that affect the build system
+  - `revert:` Reverts a previous commit
+
 Always run `bun validate:strict` before committing changes.
