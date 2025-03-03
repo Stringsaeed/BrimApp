@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteTitleInput renders correctly 1`] = `
+<TextInput
+  accessibilityLabel="Text input field"
+  onChangeText={[Function]}
+  placeholder="Wanna title your note? 😒"
+  placeholderTextColor="hsl(0, 0%, 56.1%)"
+  style={
+    {
+      "borderBottomWidth": 0,
+      "borderLeftWidth": 0,
+      "borderRightWidth": 0,
+      "borderStyle": "solid",
+      "borderTopWidth": 0,
+      "color": "hsl(0, 0%, 9.0%)",
+      "fontSize": 20,
+      "fontWeight": "bold",
+      "paddingBottom": 10,
+      "paddingLeft": 13,
+      "paddingRight": 13,
+      "paddingTop": 10,
+    }
+  }
+  textAlignVertical="auto"
+  value="Test Title"
+/>
+`;
