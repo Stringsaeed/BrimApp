@@ -53,9 +53,34 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ],
       "expo-apple-authentication",
       "expo-router",
-      "expo-speech-recognition",
-      "@vonovak/react-native-theme-control",
+      [
+        "expo-audio",
+        {
+          microphonePermission: "Allow $(PRODUCT_NAME) to use the microphone.",
+        },
+      ],
+      [
+        "expo-build-properties",
+        {
+          ios: {
+            deploymentTarget: "17.0",
+          },
+        },
+      ],
     ],
+    ios: {
+      infoPlist: {
+        // status bar config
+        UIViewControllerBasedStatusBarAppearance: "NO",
+      },
+      config: { usesNonExemptEncryption: false },
+      userInterfaceStyle: "automatic",
+      usesAppleSignIn: false,
+      supportsTablet: false,
+      newArchEnabled: true,
+      buildNumber: "45",
+      bundleIdentifier,
+    },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
@@ -63,15 +88,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       userInterfaceStyle: "automatic",
       package: bundleIdentifier,
+      newArchEnabled: true,
       versionCode: 45,
-    },
-    ios: {
-      config: { usesNonExemptEncryption: false },
-      userInterfaceStyle: "automatic",
-      usesAppleSignIn: true,
-      supportsTablet: true,
-      buildNumber: "45",
-      bundleIdentifier,
     },
     splash: {
       image: "./assets/splash.png",
@@ -106,6 +124,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     icon: "./assets/icon.png",
     orientation: "portrait",
     owner: "stringsaeed",
+    newArchEnabled: true,
     jsEngine: "hermes",
     version: "1.0.0",
     slug: "BrimApp",

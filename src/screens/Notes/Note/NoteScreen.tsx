@@ -1,5 +1,4 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { SystemBars } from "@vonovak/react-native-theme-control";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
 import React from "react";
@@ -70,7 +69,6 @@ export default function NoteView() {
 
   return (
     <FormikProvider value={config}>
-      <SystemBars translucent />
       <NoteHeaderRight
         onPressLock={togglePrivacy}
         onPressTrash={handleDelete}

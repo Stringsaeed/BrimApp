@@ -1,88 +1,104 @@
-import { Mic } from "@tamagui/lucide-icons";
+import { Audio } from "expo-av";
 import React, { useState } from "react";
-import { Button, Spinner, Text, YStack } from "tamagui";
+import {
+  useSharedValue,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
+import { View } from "tamagui";
 
 import { useUserAccent } from "hooks";
-import { VoiceTranscriptionService } from "services";
 
-interface Props {
-  onTranscriptionComplete: (text: string) => void;
-}
+import ReanimatedIconWaveform from "./reanimated-icon-waveform";
 
-export default function VoiceRecordingButton({
-  onTranscriptionComplete,
-}: Props) {
+const MIN_SCALE = 0;
+
+export default function VoiceRecordingButton() {
   const { accent } = useUserAccent();
+
+  // const [recognizing, setRecognizing] = useState(false);
+  // const [, setTranscript] = useState("");
+  const volumeProgress = useSharedValue<number>(0);
+  const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
+
+  // const recorder = useAudioRecorder({
+  //   ...RecordingPresets.HIGH_QUALITY,
+  //   isMeteringEnabled: true,
+  // });
+  // const player = useAudioPlayer(recorder?.uri);
+
+  // const { metering } = useAudioRecorderState(recorder, 100);
 
   const handlePress = async () => {
-    if (isRecording) {
-      // Stop recording
-      setIsRecording(false);
-      setIsTranscribing(true);
+    const status = await Audio.requestPermissionsAsync();
 
-      try {
-        // Stop the recording and get the audio URI
-        const audioUri = await VoiceTranscriptionService.stopRecording();
-
-        if (audioUri) {
-          // Transcribe the audio
-          const transcription =
-            await VoiceTranscriptionService.transcribeAudio();
-          onTranscriptionComplete(transcription);
-        }
-      } catch {
-        // Handle error silently
-      } finally {
-        setIsTranscribing(false);
-      }
-    } else {
-      // Start recording
-      setIsRecording(true);
-
-      try {
-        await VoiceTranscriptionService.startRecording();
-      } catch {
-        // Handle error silently
-        setIsRecording(false);
-      }
+    if (!status.granted) {
+      return;
     }
+
+    await Audio.setAudioModeAsync({
+      playsInSilentModeIOS: true,
+      allowsRecordingIOS: true,
+    });
+
+    const { recording } = await Audio.Recording.createAsync({
+      ...Audio.RecordingOptionsPresets.HIGH_QUALITY,
+      isMeteringEnabled: true,
+    });
+
+    recording.setProgressUpdateInterval(100);
+
+    recording.setOnRecordingStatusUpdate((status) => {
+      if (status.metering === undefined) {
+        volumeProgress.value = 0 as const;
+        return;
+      }
+
+      const normalizedMetering = ((status.metering + 160) / 160) * 100;
+
+      const clampedNormalized = Math.min(Math.max(normalizedMetering, 0), 100);
+
+      volumeProgress.value = withSequence(
+        withTiming(clampedNormalized, {
+          duration: 100,
+        }),
+
+        withTiming(MIN_SCALE, {
+          duration: 50,
+        })
+      );
+    });
+    await recording.startAsync();
+
+    setRecording(recording);
+
+    setIsRecording(true);
+  };
+
+  const handleStopRecording = async () => {
+    setIsRecording(false);
+    await recording?.stopAndUnloadAsync();
+    setRecording(null);
   };
 
   return (
-    <YStack>
-      <Button
+    <>
+      <View
         position="absolute"
-        bottom={130} // Position above the AI button
+        bottom={130}
         right={20}
         borderRadius="$12"
-        bg={isRecording ? "$red10" : `$${accent}`}
-        scaleIcon={2}
-        icon={
-          isTranscribing ? (
-            <Spinner color="$background" />
-          ) : (
-            <Mic color="$background" size={24} />
-          )
-        }
         aspectRatio={1}
         width={60}
+        jc="center"
+        ai="center"
         height={60}
-        onPress={handlePress}
-        elevate
-      />
-      {isRecording && (
-        <Text
-          position="absolute"
-          bottom={195} // Position above the button
-          right={20}
-          color="$red10"
-          fontWeight="bold"
-        >
-          Recording...
-        </Text>
-      )}
-    </YStack>
+        bg={isRecording ? "$red10" : `$${accent}`}
+        onPress={isRecording ? handleStopRecording : handlePress}
+      >
+        <ReanimatedIconWaveform volumeProgress={volumeProgress} />
+      </View>
+    </>
   );
 }

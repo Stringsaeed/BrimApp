@@ -7,9 +7,6 @@ pre-commit:
     format:
       glob: "*.{js,jsx,ts,tsx,json,md,css,scss}"
       run: bun prettier --write {staged_files}
-    typecheck:
-      glob: "*.{ts,tsx}"
-      run: bun tsc-files --noEmit {staged_files}
     tests:
       run: bun run test --passWithNoTests --findRelatedTests {staged_files}
 

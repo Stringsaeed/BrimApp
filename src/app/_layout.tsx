@@ -40,17 +40,21 @@ function AppContainer() {
   const screenOptions = useMemo<NativeStackNavigationOptions>(() => {
     const selectiveTheme = themeConfig.themes[theme];
 
-    return {
+    const config: NativeStackNavigationOptions = {
       headerTintColor: selectiveTheme[accent].val,
-      statusBarBackgroundColor: "transparent",
-      headerBackTitleVisible: false,
       headerShadowVisible: false,
-      statusBarTranslucent: true,
-      statusBarAnimation: "fade",
-      statusBarHidden: false,
-      statusBarStyle: theme,
       headerBackTitle: "",
     };
+
+    if (Platform.OS === "android") {
+      config.statusBarBackgroundColor = "transparent";
+      config.statusBarTranslucent = true;
+      config.statusBarAnimation = "fade";
+      config.statusBarHidden = false;
+      config.statusBarStyle = theme;
+    }
+
+    return config;
   }, [accent, theme]);
 
   const navigationTheme = useMemo(() => {

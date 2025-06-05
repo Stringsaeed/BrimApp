@@ -1,4 +1,3 @@
-import { setThemePreference } from "@vonovak/react-native-theme-control";
 import { useEffect, useMemo } from "react";
 import {
   Appearance,
@@ -19,13 +18,8 @@ const getTheme = (value: string, systemTheme: NonNullable<ColorSchemeName>) => {
 function syncNativeTheme(themeName: UserThemeValue) {
   if (themeName === "system") {
     Appearance.setColorScheme(null);
-    setThemePreference("system");
     return;
   }
-  setThemePreference(themeName, {
-    // restartActivity: true,
-    persistTheme: true,
-  });
   Appearance.setColorScheme(themeName);
 }
 

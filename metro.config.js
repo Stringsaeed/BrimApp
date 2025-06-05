@@ -6,6 +6,8 @@ const { withTamagui } = require("@tamagui/metro-plugin");
 const defaultConfig = getSentryExpoConfig(__dirname);
 
 defaultConfig.resolver.sourceExts.push("cjs");
+defaultConfig.resolver.assetExts.push("pte");
+defaultConfig.resolver.assetExts.push("bin");
 
 module.exports = withTamagui(defaultConfig, {
   components: ["tamagui"],

@@ -1,6 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
-// import { useRouter } from "expo-router";
 import { useFormikContext } from "formik";
 import React, { ComponentProps, Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
@@ -22,7 +21,6 @@ interface Props {
 
 export default function NoteToolbox({ onOpen }: Props) {
   const { accent } = useUserAccent();
-  // const router = useRouter();
   const ref = useRef<BottomSheetModal>(null);
   const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
   const recordVoiceNotesFlag = useFeatureFlag("record_voice_notes");
@@ -43,11 +41,6 @@ export default function NoteToolbox({ onOpen }: Props) {
   };
 
   const handleOpenSheet = () => {
-    // const isAuthenticated = !!(await supabaseClient.auth.getSession()).data
-    //   .session;
-    // if (!isAuthenticated) {
-    //   return router.push("/auth/login");
-    // }
     if (rephraseWithAIFlag.enabled || recordVoiceNotesFlag.enabled) {
       onOpen?.();
       requestAnimationFrame(() => {
@@ -58,15 +51,9 @@ export default function NoteToolbox({ onOpen }: Props) {
     }
   };
 
-  const handleTranscriptionComplete = (text: string) => {
-    // Append the transcribed text to the current note
-    const currentNote = values.note || "";
-    const updatedNote = currentNote ? `${currentNote}\n\n${text}` : text;
-    void setFieldValue("note", updatedNote);
-  };
-
   return (
     <Fragment>
+      <VoiceRecordingButton />
       <Button
         position="absolute"
         bottom={60}
@@ -127,9 +114,6 @@ export default function NoteToolbox({ onOpen }: Props) {
               </Button.Text>
             </Button>
             <Spacer />
-            <VoiceRecordingButton
-              onTranscriptionComplete={handleTranscriptionComplete}
-            />
           </BottomSheet>
         ))}
     </Fragment>
