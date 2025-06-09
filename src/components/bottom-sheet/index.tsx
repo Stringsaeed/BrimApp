@@ -5,11 +5,24 @@ import {
   BottomSheetProps,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { ForwardedRef, useCallback } from "react";
+import { X } from "@tamagui/lucide-icons";
+import React, {
+  ForwardedRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Paragraph, SizableText, Stack, useTheme } from "tamagui";
+import {
+  Circle,
+  Paragraph,
+  SizableText,
+  Stack,
+  useTheme,
+  XStack,
+} from "tamagui";
 
-import { useUserAccent } from "hooks";
+import { useUserAccent } from "@/hooks";
 
 import styles from "./styles";
 
@@ -24,9 +37,12 @@ const BottomSheetComponent = (
   { children, subtitle, title, ...props }: Props,
   ref: ForwardedRef<BottomSheetModal>
 ) => {
+  const innerRef = useRef<BottomSheetModal>(null);
   const { accent } = useUserAccent();
   const { bottom, top } = useSafeAreaInsets();
   const theme = useTheme();
+
+  useImperativeHandle(ref, () => innerRef.current!);
 
   const renderHandle = useCallback(() => {
     return null;
@@ -52,7 +68,7 @@ const BottomSheetComponent = (
       bottomInset={bottom + 32}
       {...props}
       style={[props.style, styles.bottomSheetStyle]}
-      ref={ref}
+      ref={innerRef}
       topInset={top}
       backgroundStyle={{ backgroundColor: theme.backgroundTransparent.get() }}
       handleComponent={renderHandle}
@@ -71,7 +87,19 @@ const BottomSheetComponent = (
         >
           {!!title && (
             <Stack mb="$4">
-              <SizableText size="$6">{title}</SizableText>
+              <XStack ai="center" gap="$2" jc="space-between">
+                <SizableText size="$6">{title}</SizableText>
+                <Circle
+                  bordered
+                  size="$2"
+                  jc="center"
+                  ai="center"
+                  borderColor={"$gray7"}
+                  onPress={() => innerRef.current?.close()}
+                >
+                  <X size="$1" />
+                </Circle>
+              </XStack>
               {!!subtitle && <Paragraph color="$gray9">{subtitle}</Paragraph>}
             </Stack>
           )}

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import * as LocalAuthentication from "expo-local-authentication";
 
-import { NoteService, Sentry } from "services";
-import { Note } from "types";
+import { NoteService, Sentry } from "@/services";
+import { Note } from "@/types";
 
 async function toggleNotePrivacy({ note }: { note: Note }) {
   try {

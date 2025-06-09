@@ -1,8 +1,8 @@
 import { use$ } from "@legendapp/state/react";
 import { useMemo } from "react";
 
-import { notes$ } from "services";
-import type { Note } from "types";
+import { notes$ } from "@/services";
+import type { Note } from "@/types";
 
 export default function useObserveNotes(filterBy: (note: Note) => boolean) {
   const observedNotes = use$(notes$);

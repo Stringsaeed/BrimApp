@@ -12,16 +12,16 @@ import {
   NoteHeaderRight,
   NoteTitleInput,
   NoteToolbox,
-} from "components";
-import type { ComposerRef } from "components/composer/types";
+} from "@/components";
+import type { ComposerRef } from "@/components/composer/types";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
   useNavigateProfile,
   useNoteForm,
   useNotePrivacyMutation,
-} from "hooks";
-import { NoteService } from "services";
+} from "@/hooks";
+import { NoteService } from "@/services";
 
 export default function NoteView() {
   const titleInputRef = React.useRef<TextInput>(null);

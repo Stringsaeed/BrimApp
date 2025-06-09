@@ -3,8 +3,8 @@ import { Stack } from "expo-router";
 import React, { useCallback } from "react";
 import { XGroup } from "tamagui";
 
-import PressableScale from "components/pressable-scale";
-import { useIsLocalAuthenticationEligible, useUserAccent } from "hooks";
+import PressableScale from "@/components/pressable-scale";
+import { useIsLocalAuthenticationEligible, useUserAccent } from "@/hooks";
 
 import NotePageHeaderMenu from "./menu";
 

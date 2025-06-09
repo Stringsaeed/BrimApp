@@ -22,7 +22,7 @@ BrimApp is a modern note-taking application that allows users to create, edit, a
 - **Backend**: Supabase for authentication, database, and real-time subscriptions
 - **Form Management**: Formik
 - **Text Editor**: TipTap for rich text editing
-- **Package Manager**: Bun
+- **Package Manager**: yarn
 - **Testing**: Jest
 - **Error Tracking**: Sentry
 - **Analytics**: Vexo Analytics
@@ -33,7 +33,7 @@ BrimApp is a modern note-taking application that allows users to create, edit, a
 ### Prerequisites
 
 - Node.js (v18+)
-- [Bun](https://bun.sh/) package manager
+- [yarn](https://yarnpkg.com/) package manager
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
@@ -45,7 +45,7 @@ git clone <repository-url>
 cd BrimApp
 
 # Install dependencies
-bun install
+yarn install
 ```
 
 ### Environment Configuration
@@ -67,58 +67,58 @@ EXPO_PUBLIC_SENTRY_DSN=your_sentry_dsn
 
 ```bash
 # Start Expo development server
-bun start
+yarn start
 
 # Start with web support
-bun start:web
+yarn start:web
 
 # Clear cache and start
-bun start:clear
+yarn start:clear
 ```
 
 ### Running on Devices
 
 ```bash
 # Run on iOS simulator
-bun ios
+yarn ios
 
 # Run on Android emulator
-bun android
+yarn android
 ```
 
 ### Code Quality Tools
 
 ```bash
 # Run ESLint and Prettier checks
-bun lint
+yarn lint
 
 # ESLint only
-bun lint:eslint
+yarn lint:eslint
 
 # Prettier check only
-bun lint:formatting
+yarn lint:formatting
 
 # Auto-format code
-bun format
+yarn format
 
 # TypeScript type checking
-bun check
+yarn check
 
 # Full validation (format, lint, type check)
-bun validate:strict
+yarn validate:strict
 
 # Check for dead code
-bun checkDead
+yarn checkDead
 ```
 
 ### Testing
 
 ```bash
 # Run all tests
-bun test
+yarn test
 
 # Run a specific test file
-bun test -- path/to/test/file.test.tsx
+yarn test -- path/to/test/file.test.tsx
 ```
 
 ## 🗄️ Supabase Setup
@@ -129,32 +129,32 @@ To run Supabase services locally for development:
 
 ```bash
 # Start Supabase services
-bun supabase:start
+yarn supabase:start
 
 # Stop Supabase services
-bun supabase:stop
+yarn supabase:stop
 
 # Check status of Supabase services
-bun supabase:status
+yarn supabase:status
 
 # Open Supabase Studio (UI)
-bun supabase:studio
+yarn supabase:studio
 ```
 
 ### Database Management
 
 ```bash
 # Apply migrations to local database
-bun supabase:db:push
+yarn supabase:db:push
 
 # Pull schema from remote database
-bun supabase:db:pull
+yarn supabase:db:pull
 
 # Reset local database (caution: destructive)
-bun supabase:db:reset
+yarn supabase:db:reset
 
 # Generate TypeScript types from database schema
-bun supabase:gen:types
+yarn supabase:gen:types
 ```
 
 ## 📱 Building and Deployment
@@ -203,7 +203,7 @@ eas submit --profile production
 2. Fork the repository
 3. Create a feature branch (`git checkout -b feature/amazing-feature`)
 4. Make your changes following the code style guidelines
-5. Run validation (`bun validate:strict`)
+5. Run validation (`yarn validate:strict`)
 6. Commit your changes
 7. Push to your branch
 8. Open a Pull Request

@@ -4,9 +4,9 @@ import { configureSynced } from "@legendapp/state/sync";
 import { syncedSupabase } from "@legendapp/state/sync-plugins/supabase";
 import { v4 as uuidv4 } from "uuid";
 
-import { AsyncStorage } from "services/storage";
-import supabaseClient from "services/supabase";
-import type { Note } from "types";
+import { AsyncStorage } from "@/services/storage";
+import supabaseClient from "@/services/supabase";
+import type { Note } from "@/types";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
 export const generateId = () => uuidv4();

@@ -1,9 +1,9 @@
 import { FormikHelpers, useFormik } from "formik";
 import { useCallback, useEffect } from "react";
 
-import useUpdateNoteMutation from "hooks/use-update-note-mutation";
-import { Sentry } from "services";
-import { Note } from "types";
+import useUpdateNoteMutation from "@/hooks/use-update-note-mutation";
+import { Sentry } from "@/services";
+import { Note } from "@/types";
 
 export interface NoteFormValues {
   note: string;

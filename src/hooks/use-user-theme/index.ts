@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { useMMKVString } from "react-native-mmkv";
 
-import { storage } from "services";
-import { UserThemeValue } from "types";
+import { storage } from "@/services";
+import { UserThemeValue } from "@/types";
 
 const getTheme = (value: string, systemTheme: NonNullable<ColorSchemeName>) => {
   return value === "system" ? systemTheme : value === "dark" ? "dark" : "light";

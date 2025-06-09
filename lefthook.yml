@@ -3,14 +3,14 @@ pre-commit:
   commands:
     linter:
       glob: "*.{js,jsx,ts,tsx}"
-      run: bun lint
+      run: yarn lint
     format:
       glob: "*.{js,jsx,ts,tsx,json,md,css,scss}"
-      run: bun prettier --write {staged_files}
+      run: yarn prettier --write {staged_files}
     tests:
-      run: bun run test --passWithNoTests --findRelatedTests {staged_files}
+      run: yarn run test --passWithNoTests --findRelatedTests {staged_files}
 
 commit-msg:
   commands:
     commitlint:
-      run: bun commitlint --edit {1}
+      run: yarn commitlint --edit {1}

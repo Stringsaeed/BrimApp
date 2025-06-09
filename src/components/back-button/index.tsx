@@ -5,17 +5,10 @@ import {
 import { ChevronLeft } from "@tamagui/lucide-icons";
 import React from "react";
 
-export default function BackButton({
-  canGoBack,
-  ...props
-}: HeaderBackButtonProps) {
-  if (!canGoBack) {
-    return null;
-  }
+export default function BackButton({ ...props }: HeaderBackButtonProps) {
   return (
     <HeaderBackButton
       {...props}
-      labelVisible={false}
       backImage={() => <ChevronLeft size="$2" color="$accent" />}
     />
   );

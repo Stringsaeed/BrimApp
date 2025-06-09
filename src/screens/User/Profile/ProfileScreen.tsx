@@ -3,20 +3,20 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import {
-  YGroup,
+  Button,
+  Card,
   ListItem,
+  Paragraph,
   Separator,
   Spacer,
-  Card,
-  Paragraph,
-  Button,
+  YGroup,
 } from "tamagui";
 
-import { ResetDatabaseListItem, ScreenContainer } from "components";
-import { useAuthentication } from "contexts";
-import { useUserAccent } from "hooks";
-import { Routes } from "routers";
-import supabaseClient from "services/supabase";
+import { ResetDatabaseListItem, ScreenContainer } from "@/components";
+import { useAuthentication } from "@/contexts";
+import { useUserAccent } from "@/hooks";
+import { Routes } from "@/routers";
+import supabaseClient from "@/services/supabase";
 
 import styles from "./ProfileScreen.styles";
 

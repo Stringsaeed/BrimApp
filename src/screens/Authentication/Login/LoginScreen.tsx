@@ -10,7 +10,7 @@ import {
   YStack,
 } from "tamagui";
 
-import { useLoginForm, useUserAccent } from "hooks";
+import { useLoginForm, useUserAccent } from "@/hooks";
 
 export default function LoginScreen() {
   const { accent } = useUserAccent();

@@ -3,7 +3,7 @@ import React, { ForwardedRef } from "react";
 import { TextInput } from "react-native";
 import { Input } from "tamagui";
 
-import { NoteFormValues } from "hooks/use-note-form";
+import { NoteFormValues } from "@/hooks/use-note-form";
 
 import { NoteTitleInputProps } from "./type";
 

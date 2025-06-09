@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import {
   DarkTheme,
@@ -12,7 +11,7 @@ import React, { useEffect, useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { LogBox, Platform, StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import "react-native-get-random-values";
+import { install } from "react-native-quick-crypto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
@@ -21,11 +20,26 @@ import {
   NotesProvider,
   PullToActionProvider,
   QueryProvider,
-} from "contexts";
-import { useLoadAssets, useUserAccent, useUserTheme } from "hooks";
-import i18next from "i18n";
-import { FeatureFlagsProvider, Sentry, navigationIntegration } from "services";
-import { themeConfig } from "themes";
+} from "@/contexts";
+import { useLoadAssets, useUserAccent, useUserTheme } from "@/hooks";
+import i18next from "@/i18n";
+import {
+  FeatureFlagsProvider,
+  Sentry,
+  navigationIntegration,
+} from "@/services";
+import { themeConfig } from "@/themes";
+
+function callSafe(maybeFunction: unknown): void {
+  try {
+    // intentionally unsound type assertion
+    (maybeFunction as () => unknown)();
+  } catch (e) {
+    Sentry.captureException(e);
+  }
+}
+
+callSafe(install);
 
 LogBox.ignoreLogs([
   '[Reanimated] Property "opacity" of AnimatedComponent(YStack) may be overwritten by a layout animation. Please wrap your component with an animated view and apply the layout animation on the wrapper.',

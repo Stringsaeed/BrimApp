@@ -7,8 +7,8 @@ import Animated, { Easing, LinearTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Circle, Spacer, XStack } from "tamagui";
 
-import SearchBar from "components/search-bar";
-import { useNotesList } from "contexts";
+import SearchBar from "@/components/search-bar";
+import { useNotesList } from "@/contexts";
 
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 

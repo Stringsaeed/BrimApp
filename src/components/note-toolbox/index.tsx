@@ -4,14 +4,14 @@ import { useFormikContext } from "formik";
 import React, { ComponentProps, Fragment, useRef } from "react";
 import { Button, Spacer, Spinner } from "tamagui";
 
-import BottomSheet from "components/bottom-sheet";
+import BottomSheet from "@/components/bottom-sheet";
 import {
   useFixGrammarMutation,
   useRephraseSentenceMutation,
   useUserAccent,
-} from "hooks";
-import { NoteFormValues } from "hooks/use-note-form";
-import { useFeatureFlag } from "services";
+} from "@/hooks";
+import { NoteFormValues } from "@/hooks/use-note-form";
+import { useFeatureFlag } from "@/services";
 
 import VoiceRecordingButton from "../voice-recording-button";
 
@@ -51,9 +51,13 @@ export default function NoteToolbox({ onOpen }: Props) {
     }
   };
 
+  const handleRecordVoiceNote = (value: string) => {
+    void setFieldValue("note", value);
+  };
+
   return (
     <Fragment>
-      <VoiceRecordingButton />
+      <VoiceRecordingButton onTranscribe={handleRecordVoiceNote} />
       <Button
         position="absolute"
         bottom={60}

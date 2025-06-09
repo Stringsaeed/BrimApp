@@ -6,7 +6,7 @@ import React, { PropsWithChildren } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
-import config from "themes/theme";
+import config from "@/themes/theme";
 
 export default function render<T>(
   component: React.ReactElement<T>,

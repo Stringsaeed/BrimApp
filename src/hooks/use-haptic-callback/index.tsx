@@ -1,4 +1,4 @@
-import useHaptic, { FeedbackType } from "hooks/use-haptic";
+import useHaptic, { FeedbackType } from "@/hooks/use-haptic";
 
 interface UseHapticCallbackOptions {
   shouldWait?: boolean;

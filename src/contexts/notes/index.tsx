@@ -10,8 +10,8 @@ import React, {
 } from "react";
 import { InteractionManager } from "react-native";
 
-import { NoteService } from "services";
-import { Note } from "types";
+import { NoteService } from "@/services";
+import { Note } from "@/types";
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 

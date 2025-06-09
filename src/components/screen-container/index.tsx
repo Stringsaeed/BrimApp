@@ -2,8 +2,8 @@ import React from "react";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { ScrollView } from "tamagui";
 
-import AnimatedKeyboardView from "components/animated-keyboard-view";
-import { useScreenContainerContentStyle } from "hooks";
+import AnimatedKeyboardView from "@/components/animated-keyboard-view";
+import { useScreenContainerContentStyle } from "@/hooks";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps

@@ -11,10 +11,10 @@ import React, { useCallback, useMemo } from "react";
 import { Gesture } from "react-native-gesture-handler";
 import { ListItem, useTheme } from "tamagui";
 
-import { useNotesList } from "contexts";
-import { useUserAccent } from "hooks";
-import { Note } from "types";
-import { cipherTitle, getNoteTitleV2 } from "utils";
+import { useNotesList } from "@/contexts";
+import { useUserAccent } from "@/hooks";
+import { Note } from "@/types";
+import { cipherTitle, getNoteTitleV2 } from "@/utils";
 
 import NoteListItemAction from "./action";
 import NoteListItemContainer from "./container";

@@ -6,8 +6,8 @@ import {
 import React from "react";
 import flagsmith from "react-native-flagsmith";
 
-import { config } from "config";
-import { AsyncStorage } from "services/storage";
+import { config } from "@/config";
+import { AsyncStorage } from "@/services/storage";
 
 const environmentID = config.flagsmithEnvironmentId;
 
@@ -26,9 +26,13 @@ export function FeatureFlagsProvider({
         defaultFlags: {
           record_voice_notes: {
             enabled: true,
+            value: true,
+            id: 1,
           },
           rephrase_with_ai: {
             enabled: true,
+            value: true,
+            id: 2,
           },
         },
         enableLogs: __DEV__,

@@ -3,8 +3,8 @@ import { SectionList, SectionListRenderItemInfo } from "react-native";
 import Animated, { CurvedTransition } from "react-native-reanimated";
 import { SizableText } from "tamagui";
 
-import { useNotesList } from "contexts";
-import { Note } from "types";
+import { useNotesList } from "@/contexts";
+import { Note } from "@/types";
 
 import ListEmptyView from "./list-empty-view";
 import NoteListItemView from "./note-list-item";

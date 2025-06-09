@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 
-import { Routes } from "routers";
+import { Routes } from "@/routers";
 
 export default function useNavigateProfile() {
   const router = useRouter();

@@ -1,14 +1,14 @@
 import { observer } from "@legendapp/state/react";
 import React from "react";
 
-import { DashboardHeader, NotesList } from "components";
-import { NotesListProvider } from "contexts";
+import { DashboardHeader, NotesList } from "@/components";
+import { NotesListProvider } from "@/contexts";
 import {
   useCreateEmptyNoteMutation,
   useNavigateNote,
   useNavigateProfile,
   useObserveNotes,
-} from "hooks";
+} from "@/hooks";
 
 function DashboardScreen() {
   const notes = useObserveNotes(

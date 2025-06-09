@@ -3,8 +3,8 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { useColorScheme } from "react-native";
 
-import PressableScale from "components/pressable-scale";
-import { Routes } from "routers";
+import PressableScale from "@/components/pressable-scale";
+import { Routes } from "@/routers";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -12,7 +12,7 @@ import {
   DropdownMenuItemTitle,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from "themes";
+} from "@/themes";
 
 export default function OtherMenu() {
   const router = useRouter();

@@ -3,9 +3,9 @@ import { useGlobalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Button, Form, Heading, Input, Paragraph, YStack } from "tamagui";
 
-import { useUserAccent } from "hooks";
-import { Sentry } from "services";
-import supabaseClient from "services/supabase";
+import { useUserAccent } from "@/hooks";
+import { Sentry } from "@/services";
+import supabaseClient from "@/services/supabase";
 
 function verifyEmail({ email, token }: { email: string; token: string }) {
   return supabaseClient.auth.verifyOtp({

@@ -1,12 +1,12 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Settings, Sun, Moon } from "@tamagui/lucide-icons";
+import { Moon, Settings, Sun } from "@tamagui/lucide-icons";
 import capitalize from "lodash.capitalize";
 import React, { useRef } from "react";
 import { ListItem, Separator, YGroup } from "tamagui";
 
-import BottomSheet from "components/bottom-sheet";
-import { useUserTheme } from "hooks";
-import { UserThemeValue } from "types";
+import BottomSheet from "@/components/bottom-sheet";
+import { useUserTheme } from "@/hooks";
+import { UserThemeValue } from "@/types";
 
 import SelectThemeItem from "./select-theme-item";
 

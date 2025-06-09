@@ -1,9 +1,7 @@
 import React, { useImperativeHandle, useState, type ForwardedRef } from "react";
-import { Stack } from "tamagui";
+import { Stack, TextArea } from "tamagui";
 
-// import { useUserAccent } from "hooks";
-
-import TiptapInput from "components/tiptap-input";
+// import { useUserAccent } from "@/hooks";
 
 import type { ComposerComponentProps, ComposerRef } from "./types";
 import useNoteComposer from "./use-note-composer";
@@ -31,10 +29,15 @@ function ComposerComponent(
 
   return (
     <Stack flex={1} flexGrow={1}>
-      <TiptapInput
-        content={value}
-        onChange={(content) => onChangeText(content)}
+      <TextArea
+        value={value}
+        onChangeText={onChangeText}
         onBlur={onBlur}
+        minHeight="auto"
+        height="auto"
+        unstyled
+        color="$gray12"
+        p="$4"
       />
     </Stack>
   );

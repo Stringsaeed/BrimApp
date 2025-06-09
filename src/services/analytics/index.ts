@@ -1,12 +1,11 @@
-import "services/vexo";
 // import type TPostHog from "posthog-react-native";
 
-// import { PostHog } from "services/posthug";
+// import { PostHog } from "@/services/posthug";
 
 import { customEvent, identifyDevice } from "vexo-analytics";
 
-import { Vexo } from "services/vexo";
-import { AuthUser } from "types";
+import { Vexo } from "@/services/vexo";
+import { AuthUser } from "@/types";
 
 class AnalyticsService {
   // postHug: TPostHog | undefined;

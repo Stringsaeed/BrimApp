@@ -4,7 +4,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Heading, View } from "tamagui";
 
-import { useUserAccent } from "hooks";
+import { useUserAccent } from "@/hooks";
 
 import { AuthLayoutProps } from "./types";
 

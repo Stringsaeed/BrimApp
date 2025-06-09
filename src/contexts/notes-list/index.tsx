@@ -8,9 +8,9 @@ import {
   useHaptic,
   useSearchableNotes,
   useUpdateNoteMutation,
-} from "hooks";
-import { UpdateNoteMutationInput } from "hooks/use-update-note-mutation";
-import { DateType, Note } from "types";
+} from "@/hooks";
+import { UpdateNoteMutationInput } from "@/hooks/use-update-note-mutation";
+import { DateType, Note } from "@/types";
 
 type NotesListContext = {
   notes: Note[];

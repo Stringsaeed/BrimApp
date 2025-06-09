@@ -21,16 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache bun
+      - name: Cache yarn
         uses: actions/cache@v4
         with:
           path: |
-            ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
@@ -39,10 +35,10 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: bun install
+        run: yarn install
 
       - name: Check
-        run: bun validate:strict
+        run: yarn validate:strict
 
       - name: Publish update
         run: eas update --auto

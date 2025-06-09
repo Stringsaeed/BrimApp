@@ -1,6 +1,6 @@
 import { vexo } from "vexo-analytics";
 
-import { config } from "config";
+import { config } from "@/config";
 
 const apiKey = config.vexoAnalyticsApiKey;
 

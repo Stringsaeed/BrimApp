@@ -1,6 +1,6 @@
 import React from "react";
 
-import AnimatedKeyboardView from "components/animated-keyboard-view";
+import AnimatedKeyboardView from "@/components/animated-keyboard-view";
 
 import { AuthLayoutProps } from "./types";
 

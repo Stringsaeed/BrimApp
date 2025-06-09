@@ -3,9 +3,8 @@ import { useFormikContext } from "formik";
 import React from "react";
 import { TextInput } from "react-native";
 
-import render from "utils/test";
-
 import NoteTitleInput from "../";
+import render from "../../../utils/test";
 
 // Mock the useFormikContext hook
 jest.mock("formik", () => ({

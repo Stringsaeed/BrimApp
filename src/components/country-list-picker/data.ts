@@ -1,4 +1,4 @@
-import { CountryDataType } from "types";
+import { CountryDataType } from "@/types";
 
 const countryList: CountryDataType[] = [
   {

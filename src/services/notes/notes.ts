@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { generateId, notes$ } from "services/database";
-import type { Note } from "types";
+import { generateId, notes$ } from "@/services/database";
+import type { Note } from "@/types";
 
 export const NoteService = {
   create: (input: Omit<Note, "id">): Note => {

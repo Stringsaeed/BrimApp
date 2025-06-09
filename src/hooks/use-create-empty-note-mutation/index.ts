@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 
-import useCreateNoteMutation from "hooks/use-create-note-mutation";
-import useNavigateNote from "hooks/use-navigate-note";
-import { Note } from "types";
+import useCreateNoteMutation from "@/hooks/use-create-note-mutation";
+import useNavigateNote from "@/hooks/use-navigate-note";
+import { Note } from "@/types";
 
 export default function useCreateEmptyNoteMutation() {
   const onNavigateNote = useNavigateNote();
@@ -22,5 +22,8 @@ export default function useCreateEmptyNoteMutation() {
     void onNavigateNote(data);
   };
 
-  return useMutation({ mutationFn: createEmptyNoteMutation, onSuccess });
+  return useMutation({
+    mutationFn: createEmptyNoteMutation,
+    onSuccess,
+  });
 }

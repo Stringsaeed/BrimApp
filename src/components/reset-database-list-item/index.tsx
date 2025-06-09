@@ -12,7 +12,7 @@ import {
   useWindowDimensions,
 } from "tamagui";
 
-import { NoteService } from "services";
+import { NoteService } from "@/services";
 
 export default function ResetDatabaseListItem() {
   const { width } = useWindowDimensions();

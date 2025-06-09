@@ -6,12 +6,12 @@ import type { TextInputProps } from "react-native";
 import { Button, Form, Label } from "tamagui";
 import { z } from "zod";
 
-import BottomSheet from "components/bottom-sheet";
-import BottomSheetInput from "components/bottom-sheet-input";
-import FieldError from "components/field-error";
-import { useUserAccent } from "hooks";
+import BottomSheet from "@/components/bottom-sheet";
+import BottomSheetInput from "@/components/bottom-sheet-input";
+import FieldError from "@/components/field-error";
+import { useUserAccent } from "@/hooks";
 
-// import { Auth } from "services";
+// import { Auth } from "@/services";
 
 const updateAccountSchema = z.union([
   z.object({
@@ -99,6 +99,7 @@ function UpdateAccountSheetComponent(
           render={({ fieldState: { error }, field }) => (
             <Fragment>
               <Label htmlFor={id}>{label}</Label>
+              {/** @ts-expect-error --- to be fixedF */}
               <BottomSheetInput
                 id={id}
                 {...inputProps}

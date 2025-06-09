@@ -20,7 +20,7 @@ export default function SelectThemeItem({
       <ListItem
         title={title}
         bg="$backgroundTransparent"
-        iconAfter={({ color, size }) => (
+        iconAfter={({ color, size }: any) => (
           <Square
             animation="lazy"
             scale={selected ? 1 : 0}

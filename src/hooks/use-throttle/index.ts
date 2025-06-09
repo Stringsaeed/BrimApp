@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 export default function useThrottle<T>(value: T, ms = 200) {
   const [state, setState] = useState<T | undefined>(value);
-  const timeout = useRef<NodeJS.Timeout>();
-  const nextValue = useRef<T>();
+  const timeout = useRef<number>(undefined);
+  const nextValue = useRef<T>(undefined);
   const hasNextValue = useRef(false);
 
   useEffect(() => {
@@ -26,7 +26,14 @@ export default function useThrottle<T>(value: T, ms = 200) {
   }, [value, ms]);
 
   // clear on unmount
-  useEffect(() => () => timeout.current && clearTimeout(timeout.current));
+  useEffect(
+    () => () => {
+      if (typeof timeout.current === "number") {
+        clearTimeout(timeout.current);
+      }
+    },
+    []
+  );
 
   return state;
 }

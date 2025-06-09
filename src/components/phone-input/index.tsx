@@ -2,7 +2,7 @@ import React from "react";
 import { Control, Controller } from "react-hook-form";
 import { Input, View, XStack } from "tamagui";
 
-import CountryBottomSheet from "components/country-bottom-sheet";
+import CountryBottomSheet from "@/components/country-bottom-sheet";
 
 interface Props {
   control: Control<

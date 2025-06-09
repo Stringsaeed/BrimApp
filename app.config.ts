@@ -28,14 +28,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ...config,
     plugins: [
       [
-        "expo-build-properties",
-        {
-          ios: {
-            useFrameworks: "static",
-          },
-        },
-      ],
-      [
         "expo-local-authentication",
         {
           faceIDPermission: "Allow $(PRODUCT_NAME) to use Face ID.",
@@ -60,11 +52,16 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
       [
-        "expo-build-properties",
+        "react-native-audio-api",
         {
-          ios: {
-            deploymentTarget: "17.0",
-          },
+          androidPermissions: [
+            "android.permission.MODIFY_AUDIO_SETTINGS",
+            "android.permission.FOREGROUND_SERVICE",
+            "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+          ],
+          androidFSTypes: ["mediaPlayback"],
+          androidForegroundService: true,
+          iosBackgroundMode: true,
         },
       ],
     ],
@@ -88,6 +85,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       userInterfaceStyle: "automatic",
       package: bundleIdentifier,
+      edgeToEdgeEnabled: true,
       newArchEnabled: true,
       versionCode: 45,
     },
@@ -116,12 +114,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       bundler: "metro",
       output: "static",
     },
-    runtimeVersion: {
-      policy: "appVersion",
-    },
     userInterfaceStyle: "automatic",
     assetBundlePatterns: ["**/*"],
     icon: "./assets/icon.png",
+    runtimeVersion: "1.0.0",
     orientation: "portrait",
     owner: "stringsaeed",
     newArchEnabled: true,

@@ -9,8 +9,8 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Paragraph, YStack } from "tamagui";
 
-import Spacing from "components/spacing";
-import { usePullToActionContext } from "contexts";
+import Spacing from "@/components/spacing";
+import { usePullToActionContext } from "@/contexts";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 

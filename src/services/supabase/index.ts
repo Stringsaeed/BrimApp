@@ -1,9 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
-import "react-native-url-polyfill/auto";
 
-import { config } from "config";
-import { AsyncStorage } from "services/storage";
-import type { Database } from "types";
+import { config } from "@/config";
+import { AsyncStorage } from "@/services/storage";
+import type { Database } from "@/types";
+import "react-native-get-random-values";
+import "react-native-url-polyfill/auto";
 
 const supabaseClient = createClient<Database>(
   config.supabaseUrl,

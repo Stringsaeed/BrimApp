@@ -1,5 +1,5 @@
 interface ToolbarIconMapper {
-  [key: string]: (props: { tintColor: string }) => JSX.Element;
+  [key: string]: (props: { tintColor: string }) => React.JSX.Element;
 }
 
 export function getToolbarIconMapper(): ToolbarIconMapper {

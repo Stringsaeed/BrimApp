@@ -63,10 +63,13 @@ type InputProps = Omit<GetProps<typeof InputFrame>, "placeholderTextColor"> & {
   rows?: number;
 };
 
-const Input = InputFrame.styleable<InputProps>((propsIn, ref) => {
-  const props = useInputProps(propsIn, ref);
-  return <InputFrame {...props} />;
-});
+const Input = InputFrame.styleable<InputProps>(
+  // @ts-expect-error --- to be fixed
+  (propsIn: InputProps, ref: any) => {
+    const props = useInputProps(propsIn, ref);
+    return <InputFrame {...props} />;
+  }
+);
 
 export function useInputProps(props: InputProps, ref: any) {
   const theme = useTheme();

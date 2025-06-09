@@ -2,13 +2,13 @@
 
 ## Key Commands
 
-- Build/Start: `bun start` or `bun start:web` (web version)
-- Lint: `bun lint` (includes ESLint + Prettier)
-- Type Check: `bun check`
-- Format: `bun format`
-- Validate All: `bun validate:strict` (format, lint, type check)
-- Test: `bun test`
-- Single Test: `bun test -- path/to/test/file.test.tsx`
+- Build/Start: `yarn start` or `yarn start:web` (web version)
+- Lint: `yarn lint` (includes ESLint + Prettier)
+- Type Check: `yarn check`
+- Format: `yarn format`
+- Validate All: `yarn validate:strict` (format, lint, type check)
+- Test: `yarn test`
+- Single Test: `yarn test -- path/to/test/file.test.tsx`
 
 ## Code Style
 
@@ -37,4 +37,4 @@
   - `build:` Changes that affect the build system
   - `revert:` Reverts a previous commit
 
-Always run `bun validate:strict` before committing changes.
+Always run `yarn validate:strict` before committing changes.

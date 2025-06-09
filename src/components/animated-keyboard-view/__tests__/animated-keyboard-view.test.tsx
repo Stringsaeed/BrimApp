@@ -4,9 +4,8 @@ import React from "react";
 import { Text } from "react-native";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 
-import render from "utils/test";
-
 import AnimatedKeyboardView from "../";
+import render from "../../../utils/test";
 
 jest.mock("react-native-reanimated", () => {
   const mockedReanimated = require("react-native-reanimated/mock");

@@ -2,9 +2,9 @@ import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
 import React, { useCallback, useMemo, useState } from "react";
 import { View, YStack } from "tamagui";
 
-import CountryPickerItem from "components/country-picker-item";
-import { CountryPickerProvider } from "contexts";
-import { CountryDataType } from "types";
+import CountryPickerItem from "@/components/country-picker-item";
+import { CountryPickerProvider } from "@/contexts";
+import { CountryDataType } from "@/types";
 
 import countryList from "./data";
 import CountryListPickerHeader from "./header";

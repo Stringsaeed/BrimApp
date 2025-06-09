@@ -1,8 +1,8 @@
 import { authenticateAsync } from "expo-local-authentication";
 import { useRouter } from "expo-router";
 
-import { Routes } from "routers";
-import { Note } from "types";
+import { Routes } from "@/routers";
+import { Note } from "@/types";
 
 export default function useNavigateNote() {
   const router = useRouter();

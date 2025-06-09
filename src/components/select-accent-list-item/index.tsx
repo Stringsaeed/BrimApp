@@ -3,9 +3,9 @@ import capitalize from "lodash.capitalize";
 import React, { useRef } from "react";
 import { Circle, ListItem, RadioGroup, XStack, YGroup } from "tamagui";
 
-import BottomSheet from "components/bottom-sheet";
-import { useUserAccent } from "hooks";
-import { UserAccentValue } from "types";
+import BottomSheet from "@/components/bottom-sheet";
+import { useUserAccent } from "@/hooks";
+import { UserAccentValue } from "@/types";
 
 const accentOptions = [
   "blue10",
@@ -37,7 +37,9 @@ export default function SelectAccentListItem() {
           onPress={() => {
             sheetRef.current?.present();
           }}
-          iconAfter={({ size }) => <Circle size={size} bg={`$${value}`} />}
+          iconAfter={({ size }: { size: any }) => (
+            <Circle size={size} bg={`$${value}`} />
+          )}
         />
       </YGroup.Item>
       <BottomSheet

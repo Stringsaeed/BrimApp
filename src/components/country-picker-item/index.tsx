@@ -3,8 +3,8 @@ import React, { useCallback } from "react";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { ListItem, SizableText } from "tamagui";
 
-import { useCountryPickerContext } from "contexts";
-import { CountryDataType } from "types";
+import { useCountryPickerContext } from "@/contexts";
+import { CountryDataType } from "@/types";
 
 interface CountryPickerItemProps {
   item: CountryDataType;
@@ -25,7 +25,7 @@ export default function CountryPickerItem({ item }: CountryPickerItemProps) {
 
   return (
     <ListItem
-      icon={({ color, size }) => (
+      icon={({ color, size }: any) => (
         <SizableText
           numberOfLines={1}
           adjustsFontSizeToFit
@@ -44,7 +44,7 @@ export default function CountryPickerItem({ item }: CountryPickerItemProps) {
       }}
       accessible
       title={`${item.name} (${item.dial_code})`}
-      iconAfter={({ color, size }) => (
+      iconAfter={({ color, size }: any) => (
         <Animated.View style={style}>
           <Check size={size} color={color} />
         </Animated.View>

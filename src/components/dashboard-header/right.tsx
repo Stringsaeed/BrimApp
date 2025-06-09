@@ -2,7 +2,7 @@ import { Plus, Settings } from "@tamagui/lucide-icons";
 import React from "react";
 import { XGroup } from "tamagui";
 
-import PressableScale from "components/pressable-scale";
+import PressableScale from "@/components/pressable-scale";
 
 import OtherMenu from "./other";
 

@@ -3,7 +3,7 @@ import { Pencil } from "@tamagui/lucide-icons";
 import React, { useRef } from "react";
 import { ListItem, YGroup } from "tamagui";
 
-import UpdateAccountSheet from "components/update-account-sheet";
+import UpdateAccountSheet from "@/components/update-account-sheet";
 
 type Props = {
   title: string;

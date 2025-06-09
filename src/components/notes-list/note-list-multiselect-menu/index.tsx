@@ -1,10 +1,10 @@
 import {
   Archive,
-  X,
-  Trash2,
-  CircleDot,
   Circle,
+  CircleDot,
   CircleDotDashed,
+  Trash2,
+  X,
 } from "@tamagui/lucide-icons";
 import React from "react";
 import Animated, {
@@ -24,8 +24,8 @@ import {
   XStack,
 } from "tamagui";
 
-import { useNotesList } from "contexts";
-import { useHapticCallback, useUserAccent } from "hooks";
+import { useNotesList } from "@/contexts";
+import { useHapticCallback, useUserAccent } from "@/hooks";
 
 export default function NoteListMultiselectMenu() {
   const { accent } = useUserAccent();

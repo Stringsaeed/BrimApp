@@ -1,10 +1,10 @@
 import React from "react";
 import { Separator, YGroup } from "tamagui";
 
-import { AccountInfoContainer, UpdateAccountListItem } from "components";
-import { useAuthentication } from "contexts";
+import { AccountInfoContainer, UpdateAccountListItem } from "@/components";
+import { useAuthentication } from "@/contexts";
 
-// import { useAuth } from "contexts";
+// import { useAuth } from "@/contexts";
 
 export default function AccountInfoScreen() {
   const { user } = useAuthentication();

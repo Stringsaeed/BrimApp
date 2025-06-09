@@ -12,11 +12,10 @@ export default function AuthLayout() {
       screenOptions={{
         header: () => (
           <Header
+            headerStatusBarHeight={0}
             title=""
             headerRight={() => (
               <HeaderBackButton
-                canGoBack
-                labelVisible={false}
                 backImage={({ tintColor }) => (
                   <Circle size="$2" jc="center" ai="center" mx="$2">
                     <X size="$1" color={tintColor} />

@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import supabaseClient from "services/supabase";
+import supabaseClient from "@/services/supabase";
 
 const loginSchema = z.object({
   email: z.string().email().min(1),

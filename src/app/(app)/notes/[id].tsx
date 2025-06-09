@@ -1,3 +1,3 @@
-import { NotesScreens } from "screens";
+import { NotesScreens } from "@/screens";
 
 export default NotesScreens.Note;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Separator, View, YGroup } from "tamagui";
 
-import { SelectAccentListItem, SelectThemeListItem } from "components";
+import { SelectAccentListItem, SelectThemeListItem } from "@/components";
 
 export default function PreferencesScreen() {
   return (

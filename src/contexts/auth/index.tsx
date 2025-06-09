@@ -15,7 +15,7 @@ import React, {
   useState,
 } from "react";
 
-import supabaseClient from "services/supabase";
+import supabaseClient from "@/services/supabase";
 
 type AuthenticationContextType = {
   user: User | null;
