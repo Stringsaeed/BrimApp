@@ -15,6 +15,7 @@ import { install } from "react-native-quick-crypto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 
+import { ImmersiveOverlay } from "@/components/immersive-overlay";
 import {
   AuthenticationProvider,
   NotesProvider,
@@ -116,49 +117,54 @@ function AppContainer() {
                     <BottomSheetModalProvider>
                       <AuthenticationProvider>
                         <PullToActionProvider>
-                          <Stack screenOptions={screenOptions}>
-                            <Stack.Screen
-                              name="(app)/index"
-                              options={{ title: "" }}
-                            />
-                            <Stack.Screen
-                              name="(app)/notes/[id]"
-                              options={{ headerTransparent: true, title: "" }}
-                              listeners={{
-                                focus: () => {
-                                  StatusBar.setTranslucent(true);
-                                },
-                              }}
-                            />
-                            <Stack.Screen
-                              name="(app)/notes/archived"
-                              options={{ title: "Archived" }}
-                            />
-                            <Stack.Screen
-                              name="(app)/notes/trashed"
-                              options={{ title: "Trash" }}
-                            />
-                            <Stack.Screen
-                              name="(app)/user/profile"
-                              options={{ title: "Settings" }}
-                            />
-                            <Stack.Screen
-                              name="(app)/user/account-info"
-                              options={{ title: "Account Information" }}
-                            />
-                            <Stack.Screen
-                              name="(app)/user/preferences"
-                              options={{ title: "Preferences" }}
-                            />
-                            <Stack.Screen
-                              name="auth"
-                              options={{
-                                presentation: "modal",
-                                headerShown: false,
-                                title: "",
-                              }}
-                            />
-                          </Stack>
+                          <ImmersiveOverlay>
+                            <Stack screenOptions={screenOptions}>
+                              <Stack.Screen
+                                name="(app)/index"
+                                options={{ title: "" }}
+                              />
+                              <Stack.Screen
+                                name="(app)/notes/[id]"
+                                options={{
+                                  headerTransparent: true,
+                                  title: "",
+                                }}
+                                listeners={{
+                                  focus: () => {
+                                    StatusBar.setTranslucent(true);
+                                  },
+                                }}
+                              />
+                              <Stack.Screen
+                                name="(app)/notes/archived"
+                                options={{ title: "Archived" }}
+                              />
+                              <Stack.Screen
+                                name="(app)/notes/trashed"
+                                options={{ title: "Trash" }}
+                              />
+                              <Stack.Screen
+                                name="(app)/user/profile"
+                                options={{ title: "Settings" }}
+                              />
+                              <Stack.Screen
+                                name="(app)/user/account-info"
+                                options={{ title: "Account Information" }}
+                              />
+                              <Stack.Screen
+                                name="(app)/user/preferences"
+                                options={{ title: "Preferences" }}
+                              />
+                              <Stack.Screen
+                                name="auth"
+                                options={{
+                                  presentation: "modal",
+                                  headerShown: false,
+                                  title: "",
+                                }}
+                              />
+                            </Stack>
+                          </ImmersiveOverlay>
                         </PullToActionProvider>
                       </AuthenticationProvider>
                     </BottomSheetModalProvider>

@@ -2,6 +2,7 @@ import { observer } from "@legendapp/state/react";
 import React from "react";
 
 import { DashboardHeader, NotesList } from "@/components";
+import { useImmersiveOverlay } from "@/components/immersive-overlay/store";
 import { NotesListProvider } from "@/contexts";
 import {
   useCreateEmptyNoteMutation,
@@ -17,11 +18,15 @@ function DashboardScreen() {
   const createEmptyNoteMutation = useCreateEmptyNoteMutation();
   const onNavigateNote = useNavigateNote();
   const onPressProfile = useNavigateProfile();
+  const { immerse } = useImmersiveOverlay();
 
   return (
     <NotesListProvider notes={notes}>
       <DashboardHeader
-        onPressCreate={createEmptyNoteMutation.mutate}
+        onPressCreate={() => {
+          immerse();
+          createEmptyNoteMutation.mutate();
+        }}
         onPressProfile={onPressProfile}
       />
       <NotesList onPressNote={onNavigateNote} />
