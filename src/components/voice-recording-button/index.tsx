@@ -97,7 +97,7 @@ export default function VoiceRecordingButton({
     <>
       <View
         position="absolute"
-        bottom={130}
+        bottom={110}
         right={20}
         borderRadius="$12"
         aspectRatio={1}

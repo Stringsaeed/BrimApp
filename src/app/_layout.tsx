@@ -11,6 +11,7 @@ import React, { useEffect, useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { LogBox, Platform, StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { install } from "react-native-quick-crypto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
@@ -30,15 +31,7 @@ import {
   navigationIntegration,
 } from "@/services";
 import { themeConfig } from "@/themes";
-
-function callSafe(maybeFunction: unknown): void {
-  try {
-    // intentionally unsound type assertion
-    (maybeFunction as () => unknown)();
-  } catch (e) {
-    Sentry.captureException(e);
-  }
-}
+import { callSafe } from "@/utils/safe-call";
 
 callSafe(install);
 
@@ -62,8 +55,6 @@ function AppContainer() {
     };
 
     if (Platform.OS === "android") {
-      config.statusBarBackgroundColor = "transparent";
-      config.statusBarTranslucent = true;
       config.statusBarAnimation = "fade";
       config.statusBarHidden = false;
       config.statusBarStyle = theme;
@@ -114,60 +105,64 @@ function AppContainer() {
               <NotesProvider>
                 <GestureHandlerRootView style={styles.rootView}>
                   <SafeAreaProvider>
-                    <BottomSheetModalProvider>
-                      <AuthenticationProvider>
-                        <PullToActionProvider>
-                          <ImmersiveOverlay>
-                            <Stack screenOptions={screenOptions}>
-                              <Stack.Screen
-                                name="(app)/index"
-                                options={{ title: "" }}
-                              />
-                              <Stack.Screen
-                                name="(app)/notes/[id]"
-                                options={{
-                                  headerTransparent: true,
-                                  title: "",
-                                }}
-                                listeners={{
-                                  focus: () => {
-                                    StatusBar.setTranslucent(true);
-                                  },
-                                }}
-                              />
-                              <Stack.Screen
-                                name="(app)/notes/archived"
-                                options={{ title: "Archived" }}
-                              />
-                              <Stack.Screen
-                                name="(app)/notes/trashed"
-                                options={{ title: "Trash" }}
-                              />
-                              <Stack.Screen
-                                name="(app)/user/profile"
-                                options={{ title: "Settings" }}
-                              />
-                              <Stack.Screen
-                                name="(app)/user/account-info"
-                                options={{ title: "Account Information" }}
-                              />
-                              <Stack.Screen
-                                name="(app)/user/preferences"
-                                options={{ title: "Preferences" }}
-                              />
-                              <Stack.Screen
-                                name="auth"
-                                options={{
-                                  presentation: "modal",
-                                  headerShown: false,
-                                  title: "",
-                                }}
-                              />
-                            </Stack>
-                          </ImmersiveOverlay>
-                        </PullToActionProvider>
-                      </AuthenticationProvider>
-                    </BottomSheetModalProvider>
+                    <KeyboardProvider>
+                      <BottomSheetModalProvider>
+                        <AuthenticationProvider>
+                          <PullToActionProvider>
+                            <ImmersiveOverlay>
+                              <Stack screenOptions={screenOptions}>
+                                <Stack.Screen
+                                  name="(app)/index"
+                                  options={{ title: "" }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/notes/[id]"
+                                  options={{
+                                    headerTransparent: true,
+                                    title: "",
+                                  }}
+                                  listeners={{
+                                    focus: () => {
+                                      if (Platform.OS === "android") {
+                                        StatusBar.setTranslucent(true);
+                                      }
+                                    },
+                                  }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/notes/archived"
+                                  options={{ title: "Archived" }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/notes/trashed"
+                                  options={{ title: "Trash" }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/user/profile"
+                                  options={{ title: "Settings" }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/user/account-info"
+                                  options={{ title: "Account Information" }}
+                                />
+                                <Stack.Screen
+                                  name="(app)/user/preferences"
+                                  options={{ title: "Preferences" }}
+                                />
+                                <Stack.Screen
+                                  name="auth"
+                                  options={{
+                                    presentation: "modal",
+                                    headerShown: false,
+                                    title: "",
+                                  }}
+                                />
+                              </Stack>
+                            </ImmersiveOverlay>
+                          </PullToActionProvider>
+                        </AuthenticationProvider>
+                      </BottomSheetModalProvider>
+                    </KeyboardProvider>
                   </SafeAreaProvider>
                 </GestureHandlerRootView>
               </NotesProvider>

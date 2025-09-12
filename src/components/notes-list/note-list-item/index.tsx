@@ -14,7 +14,7 @@ import { ListItem, useTheme } from "tamagui";
 import { useNotesList } from "@/contexts";
 import { useUserAccent } from "@/hooks";
 import { Note } from "@/types";
-import { cipherTitle, getNoteTitleV2 } from "@/utils";
+import { cipherTitle, getNoteTitle } from "@/utils";
 
 import NoteListItemAction from "./action";
 import NoteListItemContainer from "./container";
@@ -37,7 +37,7 @@ export default function NoteListItemView({
   const theme = useTheme();
   const foregroundColor = theme.background.get();
   const content = useMemo(() => {
-    const title = getNoteTitleV2(item.note);
+    const title = getNoteTitle(item.note);
     if (!item.is_private) return title;
 
     return cipherTitle(title);

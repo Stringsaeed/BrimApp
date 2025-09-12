@@ -6,7 +6,7 @@ const apiKey = config.vexoAnalyticsApiKey;
 
 export const Vexo = {
   init: () => {
-    if (!__DEV__) {
+    if (!__DEV__ || config.environment !== "testing") {
       if (typeof apiKey === "string") {
         vexo(apiKey);
       }

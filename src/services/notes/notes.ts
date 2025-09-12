@@ -18,23 +18,19 @@ export const NoteService = {
 
     return newNote[newId] as unknown as Note;
   },
-  update: (id: string, input: Partial<Note>) => {
-    const note = notes$[id];
-    // @ts-expect-error - TODO: fix this
-    return notes$[id].assign({
-      ...note,
-      ...input,
-      id,
-    });
-  },
   delete: (id: string) => {
     return notes$[id].assign({
       deleted_at: new Date().toISOString(),
     });
   },
   get: (id: string) => {
-    const _notes = notes$.get();
+    const _notes = notes$.get(true);
     return _notes?.[id] as unknown as Note;
+  },
+  update: (id: string, input: Partial<Note>) => {
+    return notes$[id].assign({
+      ...input,
+    });
   },
   deleteAll: () => {
     return notes$.set({});

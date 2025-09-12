@@ -22,10 +22,6 @@ export default function useNoteForm(note: Note) {
       setSubmitting(true);
       try {
         updateNoteMutation.mutate({
-          status:
-            note.status === "draft"
-              ? "published"
-              : (note.status as Note["status"]),
           title: values.title,
           note: values.note,
           id: note.id,

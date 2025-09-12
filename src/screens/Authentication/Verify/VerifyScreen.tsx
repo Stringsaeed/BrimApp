@@ -23,7 +23,8 @@ export default function VerifyScreen() {
   const { mutate } = useMutation({
     onSuccess(data) {
       if (data.data.session !== null) {
-        router.dismissAll();
+        router.back();
+        router.back();
       } else {
         Sentry.captureException(data.error);
       }

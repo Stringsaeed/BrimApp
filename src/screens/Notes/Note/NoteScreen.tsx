@@ -1,8 +1,10 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { useGlobalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { FormikProvider } from "formik";
 import React from "react";
-import { Keyboard, type TextInput } from "react-native";
+import { type TextInput } from "react-native";
+import { EnrichedTextInputInstance } from "react-native-enriched";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { Separator, YStack } from "tamagui";
 
 import {
@@ -13,7 +15,6 @@ import {
   NoteTitleInput,
   NoteToolbox,
 } from "@/components";
-import type { ComposerRef } from "@/components/composer/types";
 import {
   useCreateEmptyNoteMutation,
   useDeleteNoteMutation,
@@ -25,10 +26,10 @@ import { NoteService } from "@/services";
 
 export default function NoteView() {
   const titleInputRef = React.useRef<TextInput>(null);
-  const richTextRef = React.useRef<ComposerRef>(null);
+  const composerRef = React.useRef<EnrichedTextInputInstance>(null);
 
   const router = useRouter();
-  const { id: idParam } = useGlobalSearchParams();
+  const { id: idParam } = useLocalSearchParams();
   const id = idParam as string;
   const note = NoteService.get(id);
 
@@ -54,13 +55,7 @@ export default function NoteView() {
   };
 
   const onToolboxSheetOpen = () => {
-    if (!richTextRef.current || !titleInputRef.current) {
-      return Keyboard.dismiss();
-    }
-
-    if (richTextRef.current?.isFocused()) {
-      richTextRef.current?.blur();
-    }
+    composerRef.current?.blur();
 
     if (titleInputRef.current?.isFocused()) {
       titleInputRef.current?.blur();
@@ -68,22 +63,28 @@ export default function NoteView() {
   };
 
   return (
-    <FormikProvider value={config}>
-      <NoteHeaderRight
-        onPressLock={togglePrivacy}
-        onPressTrash={handleDelete}
-        isPrivate={note?.is_private}
-        onPressPlus={createEmptyNoteMutation.mutate}
-        onPressProfile={onNavigateProfile}
-      />
-      <NoteAutoSave />
-      <YStack backgroundColor="$background" paddingTop={headerHeight} flex={1}>
-        <DateText date={note?.updated_at} />
-        <NoteTitleInput ref={titleInputRef} />
-        <Separator />
-        <Composer ref={richTextRef} />
-        <NoteToolbox onOpen={onToolboxSheetOpen} />
-      </YStack>
-    </FormikProvider>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <FormikProvider value={config}>
+        <NoteHeaderRight
+          onPressLock={togglePrivacy}
+          onPressTrash={handleDelete}
+          isPrivate={note?.is_private}
+          onPressPlus={createEmptyNoteMutation.mutate}
+          onPressProfile={onNavigateProfile}
+        />
+        <NoteAutoSave />
+        <YStack
+          backgroundColor="$background"
+          paddingTop={headerHeight}
+          flex={1}
+        >
+          <DateText date={note?.updated_at} />
+          <NoteTitleInput ref={titleInputRef} />
+          <Separator />
+          <Composer ref={composerRef} />
+          <NoteToolbox onOpen={onToolboxSheetOpen} />
+        </YStack>
+      </FormikProvider>
+    </KeyboardAvoidingView>
   );
 }

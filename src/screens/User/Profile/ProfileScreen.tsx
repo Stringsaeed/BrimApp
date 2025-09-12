@@ -54,7 +54,7 @@ export default function Profile() {
               <Card.Footer>
                 <Button
                   onPress={navigateToFactory(Routes.Login)}
-                  color="$color"
+                  color="$background"
                   width="100%"
                   bg={`$${accent}`}
                   size="$4"

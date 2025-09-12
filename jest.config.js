@@ -21,6 +21,8 @@ const packagesToTransform = [
   "tamagui",
   "@tamagui/(.*)",
   "moti",
+  "@gorhom/bottom-sheet",
+  "@sentry/react-native",
 ];
 
 /** @type {import("jest").Config} */
@@ -30,7 +32,9 @@ module.exports = {
   ],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testRegex: "\\.test\\.[jt]sx?$",
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1",
+  },
   setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
   modulePaths: [compilerOptions.baseUrl],
   preset: "jest-expo",

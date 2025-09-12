@@ -1,7 +1,9 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Sparkles, Wand2 } from "@tamagui/lucide-icons";
 import { useFormikContext } from "formik";
-import React, { ComponentProps, Fragment, useRef } from "react";
+import React, { ComponentProps, useRef } from "react";
+import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { Button, Spacer, Spinner } from "tamagui";
 
 import BottomSheet from "@/components/bottom-sheet";
@@ -11,7 +13,6 @@ import {
   useUserAccent,
 } from "@/hooks";
 import { NoteFormValues } from "@/hooks/use-note-form";
-import { useFeatureFlag } from "@/services";
 
 import VoiceRecordingButton from "../voice-recording-button";
 
@@ -22,11 +23,10 @@ interface Props {
 export default function NoteToolbox({ onOpen }: Props) {
   const { accent } = useUserAccent();
   const ref = useRef<BottomSheetModal>(null);
-  const rephraseWithAIFlag = useFeatureFlag("rephrase_with_ai");
-  const recordVoiceNotesFlag = useFeatureFlag("record_voice_notes");
   const fixGrammarMutation = useFixGrammarMutation();
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
+  const { height } = useReanimatedKeyboardAnimation();
 
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
@@ -41,14 +41,10 @@ export default function NoteToolbox({ onOpen }: Props) {
   };
 
   const handleOpenSheet = () => {
-    if (rephraseWithAIFlag.enabled || recordVoiceNotesFlag.enabled) {
-      onOpen?.();
-      requestAnimationFrame(() => {
-        ref.current?.present();
-      });
-    } else {
-      void handleFixGrammar();
-    }
+    onOpen?.();
+    requestAnimationFrame(() => {
+      ref.current?.present();
+    });
   };
 
   const handleRecordVoiceNote = (value: string) => {
@@ -56,11 +52,16 @@ export default function NoteToolbox({ onOpen }: Props) {
   };
 
   return (
-    <Fragment>
+    <Animated.View
+      style={useAnimatedStyle(() => ({
+        transform: [{ translateY: height.value }],
+        flexDirection: "row",
+      }))}
+    >
       <VoiceRecordingButton onTranscribe={handleRecordVoiceNote} />
       <Button
         position="absolute"
-        bottom={60}
+        bottom={40}
         right={20}
         borderRadius="$12"
         bg={`$${accent}`}
@@ -79,47 +80,39 @@ export default function NoteToolbox({ onOpen }: Props) {
         onPress={handleOpenSheet}
         elevate
       />
-      {!!rephraseWithAIFlag.enabled ||
-        (!!recordVoiceNotesFlag.enabled && (
-          <BottomSheet ref={ref}>
-            <Button
-              size="$6"
-              onPress={handleFixGrammar}
-              bg={`$${accent}`}
-              elevate
-            >
-              <Button.Icon scaleIcon={1.5}>
-                {fixGrammarMutation.isPending ? (
-                  <Spinner color="$background" />
-                ) : (
-                  <Sparkles size="$2" color="$background" />
-                )}
-              </Button.Icon>
-              <Button.Text size="$6" color="$background">
-                Fix Grammar With AI
-              </Button.Text>
-            </Button>
-            <Spacer />
-            <Button
-              size="$6"
-              onPress={handleRephraseSentence}
-              bg={`$${accent}`}
-              elevate
-            >
-              <Button.Icon scaleIcon={1.5}>
-                {rephraseSentenceMutation.isPending ? (
-                  <Spinner color="$background" />
-                ) : (
-                  <Sparkles size="$2" color="$background" />
-                )}
-              </Button.Icon>
-              <Button.Text size="$6" color="$background">
-                Rephrase With AI
-              </Button.Text>
-            </Button>
-            <Spacer />
-          </BottomSheet>
-        ))}
-    </Fragment>
+      <BottomSheet ref={ref}>
+        <Button size="$6" onPress={handleFixGrammar} bg={`$${accent}`} elevate>
+          <Button.Icon scaleIcon={1.5}>
+            {fixGrammarMutation.isPending ? (
+              <Spinner color="$background" />
+            ) : (
+              <Sparkles size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
+            Fix Grammar With AI
+          </Button.Text>
+        </Button>
+        <Spacer />
+        <Button
+          size="$6"
+          onPress={handleRephraseSentence}
+          bg={`$${accent}`}
+          elevate
+        >
+          <Button.Icon scaleIcon={1.5}>
+            {rephraseSentenceMutation.isPending ? (
+              <Spinner color="$background" />
+            ) : (
+              <Sparkles size="$2" color="$background" />
+            )}
+          </Button.Icon>
+          <Button.Text size="$6" color="$background">
+            Rephrase With AI
+          </Button.Text>
+        </Button>
+        <Spacer />
+      </BottomSheet>
+    </Animated.View>
   );
 }

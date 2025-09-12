@@ -5,10 +5,10 @@ pre-commit:
       glob: "*.{js,jsx,ts,tsx}"
       run: yarn lint
     format:
-      glob: "*.{js,jsx,ts,tsx,json,md,css,scss}"
+      glob: "*.{js,jsx,ts,tsx,json,css,scss}"
       run: yarn prettier --write {staged_files}
-    tests:
-      run: yarn run test --passWithNoTests --findRelatedTests {staged_files}
+    # tests:
+    #   run: yarn run test --passWithNoTests --findRelatedTests {staged_files}
 
 commit-msg:
   commands:

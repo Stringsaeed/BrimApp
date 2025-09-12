@@ -7,7 +7,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Paragraph, YStack } from "tamagui";
+import { Paragraph, XStack, YStack } from "tamagui";
 
 import Spacing from "@/components/spacing";
 import { usePullToActionContext } from "@/contexts";
@@ -36,9 +36,11 @@ export default function ListEmptyView() {
       <YStack justifyContent="center" alignItems="center" pb="$7">
         <Paragraph>No Notes?</Paragraph>
         <Spacing />
-        <Paragraph>
-          Click the <Plus size={18} /> button to create your first note!
-        </Paragraph>
+        <XStack alignItems="center" gap="$2">
+          <Paragraph>Click the </Paragraph>
+          <Plus size={18} />
+          <Paragraph> button to create your first note!</Paragraph>
+        </XStack>
       </YStack>
     </AnimatedYStack>
   );
