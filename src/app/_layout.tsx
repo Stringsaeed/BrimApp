@@ -10,6 +10,8 @@ import { setBackgroundColorAsync } from "expo-system-ui";
 import React, { useEffect, useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { LogBox, Platform, StatusBar, StyleSheet } from "react-native";
+import { initExecutorch } from "react-native-executorch";
+import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { install } from "react-native-quick-crypto";
@@ -38,6 +40,8 @@ callSafe(install);
 LogBox.ignoreLogs([
   '[Reanimated] Property "opacity" of AnimatedComponent(YStack) may be overwritten by a layout animation. Please wrap your component with an animated view and apply the layout animation on the wrapper.',
 ]);
+
+initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 
 function AppContainer() {
   const { accent } = useUserAccent();

@@ -11,9 +11,9 @@ exports[`BlurView should render correctly 1`] = `
     ]
   }
 >
-  <ViewManagerAdapter_ExpoBlurView
+  <ViewManagerAdapter_ExpoBlur
+    blurMethod="none"
     blurReductionFactor={4}
-    experimentalBlurMethod="none"
     intensity={50}
     style={
       {

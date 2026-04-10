@@ -49,7 +49,7 @@ describe("AnimatedKeyboardView", () => {
     );
 
     expect(screen.getByTestId("animated-keyboard-view")).toHaveStyle({
-      backgroundColor: "rgba(10,10,10,0)",
+      backgroundColor: "rgba(255,255,255,0)",
       flexDirection: "column",
       paddingBottom: 16,
       paddingRight: 16,

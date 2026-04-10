@@ -115,6 +115,7 @@
     "react-native-audio-api": "^0.11.7",
     "react-native-enriched": "^0.6.0",
     "react-native-executorch": "^0.8.3",
+    "react-native-executorch-expo-resource-fetcher": "^0.8.0",
     "react-native-flagsmith": "^10.0.0",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-get-random-values": "^2.0.0",

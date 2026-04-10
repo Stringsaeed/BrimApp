@@ -13,7 +13,8 @@ exports[`AuthLayout should render correctly 1`] = `
     }
   }
 >
-  <View
+  <RCTView
+    ref={[Function]}
     style={
       {
         "bottom": 0,
@@ -57,8 +58,9 @@ exports[`AuthLayout should render correctly 1`] = `
         }
       }
     />
-  </View>
-  <View
+  </RCTView>
+  <RCTView
+    ref={[Function]}
     style={
       {
         "backgroundColor": "#191919",
@@ -79,8 +81,9 @@ exports[`AuthLayout should render correctly 1`] = `
       }
     }
   >
-    <View
+    <RCTView
       pointerEvents="none"
+      ref={[Function]}
       style={
         {
           "bottom": 0,
@@ -115,9 +118,9 @@ exports[`AuthLayout should render correctly 1`] = `
           ]
         }
       >
-        <ViewManagerAdapter_ExpoBlurView
+        <ViewManagerAdapter_ExpoBlur
+          blurMethod="none"
           blurReductionFactor={4}
-          experimentalBlurMethod="none"
           intensity={8}
           style={
             {
@@ -131,24 +134,24 @@ exports[`AuthLayout should render correctly 1`] = `
           tint="dark"
         />
       </View>
-    </View>
-    <View
+    </RCTView>
+    <RCTView
+      ref={[Function]}
       style={
         {
           "backgroundColor": "transparent",
           "flexDirection": "column",
           "marginBottom": "auto",
-          "paddingBottom": 32,
-          "paddingLeft": 32,
-          "paddingRight": 32,
-          "paddingTop": 32,
+          "paddingBottom": 18,
+          "paddingLeft": 18,
+          "paddingRight": 18,
+          "paddingTop": 18,
           "zIndex": 10,
         }
       }
     >
       <Text
         accessibilityRole="header"
-        selectable={true}
         style={
           {
             "color": "#fff",
@@ -161,14 +164,15 @@ exports[`AuthLayout should render correctly 1`] = `
             "marginRight": 0,
             "marginTop": 0,
             "textTransform": "none",
+            "userSelect": "auto",
           }
         }
         suppressHighlighting={true}
       />
-    </View>
+    </RCTView>
     <Text>
       Test
     </Text>
-  </View>
+  </RCTView>
 </View>
 `;

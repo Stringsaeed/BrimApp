@@ -1,6 +1,3 @@
-const { pathsToModuleNameMapper } = require("ts-jest");
-const { compilerOptions } = require("./tsconfig.json");
-
 const packagesToTransform = [
   "react-native",
   "react-native-(.*)",
@@ -36,7 +33,6 @@ module.exports = {
     "@/(.*)": "<rootDir>/src/$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
-  modulePaths: [compilerOptions.baseUrl],
   preset: "jest-expo",
   roots: ["."],
   collectCoverage: true,

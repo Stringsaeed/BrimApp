@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountInfoContainer should render correctly 1`] = `
-<View
+<RCTView
   collapsable={false}
   jestAnimatedProps={
     {
@@ -14,6 +14,8 @@ exports[`AccountInfoContainer should render correctly 1`] = `
     }
   }
   layout={[Function]}
+  nativeID="0"
+  ref={[Function]}
   style={
     {
       "flex": 1,
@@ -28,5 +30,5 @@ exports[`AccountInfoContainer should render correctly 1`] = `
   <Text>
     Test
   </Text>
-</View>
+</RCTView>
 `;

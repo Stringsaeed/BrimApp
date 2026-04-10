@@ -3,9 +3,11 @@
 exports[`NoteTitleInput renders correctly 1`] = `
 <TextInput
   accessibilityLabel="Text input field"
+  cursorColor="hsl(323, 72.8%, 59.2%)"
   onChangeText={[Function]}
   placeholder="Wanna title your note? 😒"
-  placeholderTextColor="hsl(0, 0%, 56.1%)"
+  placeholderTextColor="#545454"
+  selectionColor="hsl(323, 72.8%, 59.2%)"
   style={
     {
       "borderBottomWidth": 0,
@@ -13,7 +15,7 @@ exports[`NoteTitleInput renders correctly 1`] = `
       "borderRightWidth": 0,
       "borderStyle": "solid",
       "borderTopWidth": 0,
-      "color": "hsl(0, 0%, 9.0%)",
+      "color": "hsl(0, 0%, 93.0%)",
       "fontSize": 20,
       "fontWeight": "bold",
       "paddingBottom": 10,

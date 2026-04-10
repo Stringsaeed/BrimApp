@@ -184,6 +184,9 @@ importers:
       react-native-executorch:
         specifier: ^0.8.3
         version: 0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+      react-native-executorch-expo-resource-fetcher:
+        specifier: ^0.8.0
+        version: 0.8.0(expo-asset@55.0.14(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(expo-file-system@55.0.16(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)))(expo@55.0.14)(react-native-executorch@0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
       react-native-flagsmith:
         specifier: ^10.0.0
         version: 10.0.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
@@ -6124,6 +6127,15 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
+
+  react-native-executorch-expo-resource-fetcher@0.8.0:
+    resolution: {integrity: sha512-vdAne2FBL0nCQ2c2yHTSt8Uttm0Klmo/K7tirSVlKxgVtli4cmsfl+UpR5giaNtlRZ3ImMAMXNW34j0fItmRfQ==}
+    peerDependencies:
+      expo: '>=54.0.0'
+      expo-asset: '>=12.0.0'
+      expo-file-system: '>=19.0.0'
+      react-native: '*'
+      react-native-executorch: '*'
 
   react-native-executorch@0.8.3:
     resolution: {integrity: sha512-BJ5eawHqb/C815fCUXxa4ftr4tzjZbqNIJYxEI5gzUYWmeYvoVMWXNu3n70Um2Kp/S+CP83sOR2Z/lGVlfEu2g==}
@@ -14557,6 +14569,14 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
+
+  react-native-executorch-expo-resource-fetcher@0.8.0(expo-asset@55.0.14(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(expo-file-system@55.0.16(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)))(expo@55.0.14)(react-native-executorch@0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)):
+    dependencies:
+      expo: 55.0.14(@babel/core@7.29.0)(@expo/dom-webview@55.0.5)(@expo/metro-runtime@55.0.9)(expo-router@55.0.12)(react-dom@19.2.0(react@19.2.0))(react-native-webview@13.16.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native-worklets@0.7.2(@babel/core@7.29.0)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+      expo-asset: 55.0.14(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+      expo-file-system: 55.0.16(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
+      react-native: 0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
+      react-native-executorch: 0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
 
   react-native-executorch@0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:

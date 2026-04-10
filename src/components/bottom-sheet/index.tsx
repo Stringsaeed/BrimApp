@@ -51,6 +51,7 @@ const BottomSheetComponent = (
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
+        aria-label="backdrop"
         {...props}
         appearsOnIndex={0}
         disappearsOnIndex={-1}

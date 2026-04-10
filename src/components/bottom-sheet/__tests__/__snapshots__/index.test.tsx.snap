@@ -23,66 +23,20 @@ exports[`BlurView should render correctly 1`] = `
   topInset={0}
 >
   <View
-    animatedStyle={
-      {
-        "value": {
-          "opacity": NaN,
-        },
-      }
-    }
-    collapsable={false}
-    style={
-      {
-        "opacity": NaN,
-      }
-    }
-    testID="blur-backdrop"
-  >
-    <View
-      animatedStyle={
-        {
-          "value": {},
-        }
-      }
-      collapsable={false}
-      style={
-        [
-          {
-            "backgroundColor": "transparent",
-          },
-          {
-            "backgroundColor": "rgba(0,0,0,0.2)",
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          },
-        ]
-      }
-    >
-      <ViewManagerAdapter_ExpoBlurView
-        blurReductionFactor={4}
-        experimentalBlurMethod="none"
-        intensity={NaN}
-        style={
-          {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          }
-        }
-        tint="dark"
-      />
-    </View>
-  </View>
-  <View
+    appearsOnIndex={0}
+    aria-label="backdrop"
+    disappearsOnIndex={-1}
+    pressBehavior="close"
+  />
+  <RCTView
+    ref={[Function]}
     style={
       {
         "backgroundColor": "#000000",
-        "borderRadius": 20,
+        "borderBottomLeftRadius": 20,
+        "borderBottomRightRadius": 20,
+        "borderTopLeftRadius": 20,
+        "borderTopRightRadius": 20,
         "paddingBottom": 18,
         "paddingLeft": 18,
         "paddingRight": 18,
@@ -100,6 +54,6 @@ exports[`BlurView should render correctly 1`] = `
     <Text>
       Test
     </Text>
-  </View>
+  </RCTView>
 </View>
 `;

@@ -10,5 +10,9 @@
     "./android",
     "./coverage",
     "./.pnpm-store"
+  ],
+  "ignoreDependencies": [
+    "@react-navigation/native-stack",
+    "@react-navigation/native"
   ]
 }
