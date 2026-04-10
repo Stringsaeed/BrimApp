@@ -1,8 +1,8 @@
-import { MMKV } from "react-native-mmkv";
+import { createMMKV } from "react-native-mmkv";
 
-export const storage = new MMKV();
+export const storage = createMMKV();
 
-export interface IAsyncStorage {
+interface IAsyncStorage {
   setItem: (key: string, value: string) => Promise<void>;
   getItem: (key: string) => Promise<string | null>;
   removeItem: (key: string) => Promise<void>;
@@ -15,5 +15,7 @@ export const AsyncStorage: IAsyncStorage = {
   multiGet: (keys: string[]) =>
     Promise.resolve(keys.map((key) => [key, storage.getString(key)])),
   getItem: (key: string) => Promise.resolve(storage.getString(key) ?? null),
-  removeItem: (key: string) => Promise.resolve(storage.delete(key)),
+  removeItem: async (key: string) => {
+    await storage.remove(key);
+  },
 };

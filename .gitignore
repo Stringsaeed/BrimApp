@@ -65,7 +65,7 @@ local.properties
 #
 node_modules/
 npm-debug.log
-yarn-error.log
+pnpm-debug.log
 
 # Bundle artifacts
 *.jsbundle
@@ -92,9 +92,6 @@ coverage
 .tamagui
 
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+.pnpm-store
+
+.env.local

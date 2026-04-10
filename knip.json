@@ -9,6 +9,6 @@
     "./ios",
     "./android",
     "./coverage",
-    "./.yarn"
+    "./.pnpm-store"
   ]
 }

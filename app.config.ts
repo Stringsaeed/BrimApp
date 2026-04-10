@@ -97,10 +97,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
     },
-    androidStatusBar: {
-      backgroundColor: "#F7F6E400",
-      translucent: true,
-    },
     updates: {
       url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
     },

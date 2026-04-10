@@ -2,10 +2,11 @@ import * as Sentry from "@sentry/react-native";
 
 import { config } from "@/config";
 
+const tracingIntegration = Sentry.reactNativeTracingIntegration();
+
 export const navigationIntegration = Sentry.reactNavigationIntegration({
   enableTimeToInitialDisplay: true,
 });
-export const tracingIntegration = Sentry.reactNativeTracingIntegration();
 
 Sentry.init({
   integrations: [navigationIntegration, tracingIntegration],
@@ -13,6 +14,7 @@ Sentry.init({
   environment: config.environment,
   sampleRate: __DEV__ ? 1 : 0.1,
   dsn: config.sentryDsn,
+  sendDefaultPii: true,
   debug: __DEV__,
 });
 

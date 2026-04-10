@@ -3,14 +3,14 @@ pre-commit:
   commands:
     linter:
       glob: "*.{js,jsx,ts,tsx}"
-      run: yarn lint
+      run: pnpm lint
     format:
       glob: "*.{js,jsx,ts,tsx,json,css,scss}"
-      run: yarn exec biome check --write {staged_files}
+      run: pnpm exec biome check --write {staged_files}
     # tests:
-    #   run: yarn run test --passWithNoTests --findRelatedTests {staged_files}
+    #   run: pnpm run test --passWithNoTests --findRelatedTests {staged_files}
 
 commit-msg:
   commands:
     commitlint:
-      run: yarn commitlint --edit {1}
+      run: pnpm commitlint --edit {1}

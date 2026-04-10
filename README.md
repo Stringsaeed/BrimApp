@@ -22,7 +22,7 @@ BrimApp is a modern note-taking application that allows users to create, edit, a
 - **Backend**: Supabase for authentication, database, and real-time subscriptions
 - **Form Management**: Formik
 - **Text Editor**: TipTap for rich text editing
-- **Package Manager**: yarn
+- **Package Manager**: pnpm
 - **Testing**: Jest
 - **Error Tracking**: Sentry
 - **Analytics**: Vexo Analytics
@@ -33,7 +33,7 @@ BrimApp is a modern note-taking application that allows users to create, edit, a
 ### Prerequisites
 
 - Node.js (v18+)
-- [yarn](https://yarnpkg.com/) package manager
+- [pnpm](https://pnpm.io/) package manager
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
@@ -45,7 +45,7 @@ git clone <repository-url>
 cd BrimApp
 
 # Install dependencies
-yarn install
+pnpm install
 ```
 
 ### Environment Configuration
@@ -67,64 +67,64 @@ EXPO_PUBLIC_SENTRY_DSN=your_sentry_dsn
 
 ```bash
 # Start Expo development server
-yarn start
+pnpm start
 
 # Start with web support
-yarn start:web
+pnpm start:web
 
 # Clear cache and start
-yarn start:clear
+pnpm start:clear
 ```
 
 ### Running on Devices
 
 ```bash
 # Run on iOS simulator
-yarn ios
+pnpm ios
 
 # Run on Android emulator
-yarn android
+pnpm android
 ```
 
 ### Code Quality Tools
 
 ```bash
 # Run Biome lint check
-yarn lint
+pnpm lint
 
 # Run Biome lint with auto-fixes
-yarn lint:write
+pnpm lint:write
 
 # Run Biome formatter check
-yarn format
+pnpm format
 
 # Run Biome formatter with auto-write
-yarn format:write
+pnpm format:write
 
 # Run Biome lint+format check
-yarn lint_format:check
+pnpm lint_format:check
 
 # Run Biome lint+format check with auto-write
-yarn lint_format:check:write
+pnpm lint_format:check:write
 
 # TypeScript type checking
-yarn check
+pnpm check
 
 # Full validation (format, lint, type check)
-yarn validate:strict
+pnpm validate:strict
 
 # Check for dead code
-yarn checkDead
+pnpm checkDead
 ```
 
 ### Testing
 
 ```bash
 # Run all tests
-yarn test
+pnpm test
 
 # Run a specific test file
-yarn test -- path/to/test/file.test.tsx
+pnpm test -- path/to/test/file.test.tsx
 ```
 
 ## 🗄️ Supabase Setup
@@ -135,32 +135,32 @@ To run Supabase services locally for development:
 
 ```bash
 # Start Supabase services
-yarn supabase:start
+pnpm supabase:start
 
 # Stop Supabase services
-yarn supabase:stop
+pnpm supabase:stop
 
 # Check status of Supabase services
-yarn supabase:status
+pnpm supabase:status
 
 # Open Supabase Studio (UI)
-yarn supabase:studio
+pnpm supabase:studio
 ```
 
 ### Database Management
 
 ```bash
 # Apply migrations to local database
-yarn supabase:db:push
+pnpm supabase:db:push
 
 # Pull schema from remote database
-yarn supabase:db:pull
+pnpm supabase:db:pull
 
 # Reset local database (caution: destructive)
-yarn supabase:db:reset
+pnpm supabase:db:reset
 
 # Generate TypeScript types from database schema
-yarn supabase:gen:types
+pnpm supabase:gen:types
 ```
 
 ## 📱 Building and Deployment
@@ -209,7 +209,7 @@ eas submit --profile production
 2. Fork the repository
 3. Create a feature branch (`git checkout -b feature/amazing-feature`)
 4. Make your changes following the code style guidelines
-5. Run validation (`yarn validate:strict`)
+5. Run validation (`pnpm validate:strict`)
 6. Commit your changes
 7. Push to your branch
 8. Open a Pull Request
