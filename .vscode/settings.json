@@ -34,7 +34,6 @@
   },
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
-  "tailwindCSS.classAttributes": ["class", "className", "headerClassName"],
   "i18n-ally.localesPaths": [
     "src/i18n",
     "coverage/lcov-report/i18n",
