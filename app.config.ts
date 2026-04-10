@@ -36,6 +36,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       "expo-localization",
       "expo-notifications",
       "expo-font",
+      "expo-asset",
       [
         "@sentry/react-native/expo",
         {
@@ -74,7 +75,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       userInterfaceStyle: "automatic",
       usesAppleSignIn: false,
       supportsTablet: false,
-      newArchEnabled: true,
       buildNumber: "45",
       bundleIdentifier,
     },
@@ -85,8 +85,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       userInterfaceStyle: "automatic",
       package: bundleIdentifier,
-      edgeToEdgeEnabled: true,
-      newArchEnabled: true,
       versionCode: 45,
     },
     splash: {
@@ -120,7 +118,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     runtimeVersion: "1.0.0",
     orientation: "portrait",
     owner: "stringsaeed",
-    newArchEnabled: true,
     jsEngine: "hermes",
     version: "1.0.0",
     slug: "BrimApp",

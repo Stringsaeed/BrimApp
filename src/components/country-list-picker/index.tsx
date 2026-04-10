@@ -49,11 +49,7 @@ export default function CountryListPicker({
           onSearchSubmit={(value) => setSearch(value)}
         />
         <View flex={1}>
-          <FlashList
-            data={data}
-            renderItem={renderItem}
-            estimatedItemSize={60}
-          />
+          <FlashList data={data} renderItem={renderItem} />
         </View>
       </YStack>
     </CountryPickerProvider>
