@@ -1,8 +1,8 @@
 import React from "react";
-import Animated, { useSharedValue } from "react-native-reanimated";
+import { SharedValue, useSharedValue } from "react-native-reanimated";
 
 type PullToActionContext = {
-  translateY: Animated.SharedValue<number>;
+  translateY: SharedValue<number>;
 };
 
 const pullToActionContext = React.createContext<

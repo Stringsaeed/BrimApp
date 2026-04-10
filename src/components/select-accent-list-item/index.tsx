@@ -37,9 +37,7 @@ export default function SelectAccentListItem() {
           onPress={() => {
             sheetRef.current?.present();
           }}
-          iconAfter={({ size }: { size: any }) => (
-            <Circle size={size} bg={`$${value}`} />
-          )}
+          iconAfter={({ size }) => <Circle size={size} bg={`$${value}`} />}
         />
       </YGroup.Item>
       <BottomSheet

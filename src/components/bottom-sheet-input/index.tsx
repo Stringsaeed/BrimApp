@@ -64,7 +64,6 @@ type InputProps = Omit<GetProps<typeof InputFrame>, "placeholderTextColor"> & {
 };
 
 const Input = InputFrame.styleable<InputProps>(
-  // @ts-expect-error --- to be fixed
   (propsIn: InputProps, ref: any) => {
     const props = useInputProps(propsIn, ref);
     return <InputFrame {...props} />;

@@ -99,7 +99,6 @@ function UpdateAccountSheetComponent(
           render={({ fieldState: { error }, field }) => (
             <Fragment>
               <Label htmlFor={id}>{label}</Label>
-              {/** @ts-expect-error --- to be fixedF */}
               <BottomSheetInput
                 id={id}
                 {...inputProps}

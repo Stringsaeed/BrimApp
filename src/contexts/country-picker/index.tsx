@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import Animated, { useSharedValue } from "react-native-reanimated";
+import { SharedValue, useSharedValue } from "react-native-reanimated";
 
 import { CountryDataType } from "@/types";
 
@@ -7,7 +7,7 @@ type CountryPickerContext = {
   value: string;
   onChange: (value: CountryDataType) => void;
 
-  sharedValue: Animated.SharedValue<string>;
+  sharedValue: SharedValue<string>;
 };
 
 type CountryPickerProviderProps = PropsWithChildren<{

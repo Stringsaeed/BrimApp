@@ -16,7 +16,7 @@ export default function DashboardHeaderRight({
   onPressCreate,
 }: DashboardHeaderRightProps) {
   return (
-    <XGroup gap="$2" alignItems="center">
+    <XGroup gap="$2" alignSelf="flex-end" ov="hidden" alignItems="center">
       <XGroup.Item>
         <OtherMenu />
       </XGroup.Item>
