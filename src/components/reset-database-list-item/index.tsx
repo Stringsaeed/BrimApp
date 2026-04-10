@@ -7,9 +7,9 @@ import {
   Dialog,
   ListItem,
   Spinner,
+  useWindowDimensions,
   XStack,
   YGroup,
-  useWindowDimensions,
 } from "tamagui";
 
 import { NoteService } from "@/services";

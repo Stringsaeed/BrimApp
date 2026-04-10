@@ -6,7 +6,7 @@ pre-commit:
       run: yarn lint
     format:
       glob: "*.{js,jsx,ts,tsx,json,css,scss}"
-      run: yarn prettier --write {staged_files}
+      run: yarn exec biome check --write {staged_files}
     # tests:
     #   run: yarn run test --passWithNoTests --findRelatedTests {staged_files}
 

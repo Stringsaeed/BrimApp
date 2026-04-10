@@ -83,7 +83,7 @@ src/
 - Use `@/` alias for `src/` directory
 - Absolute imports preferred over relative
 
-### Import Order (ESLint enforced)
+### Import Order (Biome enforced)
 
 1. Node.js built-ins
 2. External packages
@@ -103,7 +103,7 @@ src/
 ### Component Structure
 
 ```typescript
-// Imports (ordered by ESLint rules)
+// Imports (ordered by Biome rules)
 import { external } from "package";
 import { internal } from "@/module";
 
@@ -151,7 +151,6 @@ export default Component;
 ### Root Level
 
 - `tsconfig.json`: TypeScript configuration with path mapping
-- `.eslintrc.cjs`: ESLint rules with import ordering
-- `.prettierrc.cjs`: Code formatting rules
+- `biome.json`: Biome lint and formatting configuration
 - `jest.config.js`: Test configuration
 - `app.config.ts`: Expo configuration with environment variants

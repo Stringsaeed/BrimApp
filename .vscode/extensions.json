@@ -1,3 +1,7 @@
 {
-  "recommendations": ["denoland.vscode-deno", "foxundermoon.shell-format"]
+  "recommendations": [
+    "denoland.vscode-deno",
+    "foxundermoon.shell-format",
+    "biomejs.biome"
+  ]
 }

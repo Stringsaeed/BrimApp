@@ -1,2 +1,2 @@
-export { default as themeConfig } from "./theme";
 export * from "./dropdown";
+export { default as themeConfig } from "./theme";

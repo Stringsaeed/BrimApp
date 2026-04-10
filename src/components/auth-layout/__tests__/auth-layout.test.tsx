@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { screen } from "@testing-library/react-native";
 import React from "react";
 import { Text } from "react-native";
-
-import AuthLayout from "../";
 import render from "../../../utils/test";
+import AuthLayout from "../";
 
 jest.mock("react-native-reanimated", () => {
   const mockedReanimated = require("react-native-reanimated/mock");

@@ -111,7 +111,7 @@ export default function NoteListMultiselectMenu() {
   };
 
   const handleSelectAll = () => {
-    const selectedNotesIds = new Array(...selectedNotes.map((n) => n));
+    const selectedNotesIds = [...selectedNotes.map((n) => n)];
 
     if (noOfSelectedNotes === 0) {
       return notes.forEach((note) => {

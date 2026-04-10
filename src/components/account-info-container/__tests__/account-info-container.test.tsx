@@ -1,9 +1,8 @@
 import { screen } from "@testing-library/react-native";
 import React from "react";
 import { Text } from "react-native";
-
-import AccountInfoContainer from "../";
 import render from "../../../utils/test";
+import AccountInfoContainer from "../";
 
 describe("AccountInfoContainer", () => {
   it("should render correctly", () => {

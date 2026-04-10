@@ -10,10 +10,10 @@ const WAVEFORM_ITEMS = Array.from({ length: 5 }, (_, index) => index);
 const WaveformItem = ({
   volumeProgress,
   index,
-}: {
+}: Readonly<{
   index: number;
   volumeProgress: SharedValue<0 | 1>;
-}) => {
+}>) => {
   // we need to do like a wave
   // so we need to have a sine wave
   // the maximum height is the third item
@@ -41,9 +41,9 @@ const WaveformItem = ({
 
 export default function SkiaIconWaveform({
   volumeProgress,
-}: {
+}: Readonly<{
   volumeProgress: SharedValue<0 | 1>;
-}) {
+}>) {
   return (
     <Canvas style={{ backgroundColor: "transparent", height: 24, width: 24 }}>
       {WAVEFORM_ITEMS.map((index) => (

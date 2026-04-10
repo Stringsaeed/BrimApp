@@ -52,16 +52,12 @@ export default function useToolbarConfig() {
     async (updates: Partial<ToolbarConfig>) => {
       if (!config) return;
 
-      try {
-        const updatedConfig = await ToolbarConfigService.updateConfig(
-          updates,
-          accent
-        );
-        setConfig(updatedConfig);
-        return updatedConfig;
-      } catch (error) {
-        throw error;
-      }
+      const updatedConfig = await ToolbarConfigService.updateConfig(
+        updates,
+        accent
+      );
+      setConfig(updatedConfig);
+      return updatedConfig;
     },
     [config, accent]
   );
@@ -77,16 +73,9 @@ export default function useToolbarConfig() {
     async (tool: FormattingTool) => {
       if (!config) return;
 
-      try {
-        const updatedConfig = await ToolbarConfigService.enableTool(
-          tool,
-          accent
-        );
-        setConfig(updatedConfig);
-        return updatedConfig;
-      } catch (error) {
-        throw error;
-      }
+      const updatedConfig = await ToolbarConfigService.enableTool(tool, accent);
+      setConfig(updatedConfig);
+      return updatedConfig;
     },
     [config, accent]
   );
@@ -95,28 +84,20 @@ export default function useToolbarConfig() {
     async (tool: FormattingTool) => {
       if (!config) return;
 
-      try {
-        const updatedConfig = await ToolbarConfigService.disableTool(
-          tool,
-          accent
-        );
-        setConfig(updatedConfig);
-        return updatedConfig;
-      } catch (error) {
-        throw error;
-      }
+      const updatedConfig = await ToolbarConfigService.disableTool(
+        tool,
+        accent
+      );
+      setConfig(updatedConfig);
+      return updatedConfig;
     },
     [config, accent]
   );
 
   const resetToDefaults = useCallback(async () => {
-    try {
-      const defaultConfig = await ToolbarConfigService.resetToDefaults(accent);
-      setConfig(defaultConfig);
-      return defaultConfig;
-    } catch (error) {
-      throw error;
-    }
+    const defaultConfig = await ToolbarConfigService.resetToDefaults(accent);
+    setConfig(defaultConfig);
+    return defaultConfig;
   }, [accent]);
 
   return {

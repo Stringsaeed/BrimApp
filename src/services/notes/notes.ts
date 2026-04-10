@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { generateId, notes$ } from "@/services/database";
 import type { Note } from "@/types";
 

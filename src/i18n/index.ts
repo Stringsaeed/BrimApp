@@ -1,10 +1,10 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import { enCommon, enSettings, enAuth } from "./locales";
+import { enAuth, enCommon, enSettings } from "./locales";
 import { LanguageDetectorPlugin } from "./plugins";
 
-void i18next
+i18next
   .use(LanguageDetectorPlugin)
   .use(initReactI18next)
   .init({

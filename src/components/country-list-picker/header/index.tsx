@@ -1,7 +1,7 @@
-import { Search, X, ArrowLeft } from "@tamagui/lucide-icons";
+import { ArrowLeft, Search, X } from "@tamagui/lucide-icons";
 import React, { ComponentProps, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button, XStack, Input, View } from "tamagui";
+import { Button, Input, View, XStack } from "tamagui";
 
 type Props = {
   title?: string;

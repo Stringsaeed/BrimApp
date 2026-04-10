@@ -89,17 +89,23 @@ yarn android
 ### Code Quality Tools
 
 ```bash
-# Run ESLint and Prettier checks
+# Run Biome lint check
 yarn lint
 
-# ESLint only
-yarn lint:eslint
+# Run Biome lint with auto-fixes
+yarn lint:write
 
-# Prettier check only
-yarn lint:formatting
-
-# Auto-format code
+# Run Biome formatter check
 yarn format
+
+# Run Biome formatter with auto-write
+yarn format:write
+
+# Run Biome lint+format check
+yarn lint_format:check
+
+# Run Biome lint+format check with auto-write
+yarn lint_format:check:write
 
 # TypeScript type checking
 yarn check

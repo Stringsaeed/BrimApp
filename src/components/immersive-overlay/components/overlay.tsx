@@ -55,26 +55,22 @@ const Content = () => {
         { perspective: 1000 },
         {
           rotateX: displayImmersiveOverlay.value
-            ? // biome-ignore lint/style/noNonNullAssertion: <explanation>
-              withTiming(enteringState.transform[1].rotateX as string, {
+            ? withTiming(enteringState.transform[1].rotateX as string, {
                 duration,
                 easing,
               })
-            : // biome-ignore lint/style/noNonNullAssertion: <explanation>
-              withTiming(exitingState.transform[1].rotateX as string, {
+            : withTiming(exitingState.transform[1].rotateX as string, {
                 duration,
                 easing,
               }),
         },
         {
           skewY: displayImmersiveOverlay.value
-            ? // biome-ignore lint/style/noNonNullAssertion: <explanation>
-              withTiming(enteringState.transform[2].skewY as string, {
+            ? withTiming(enteringState.transform[2].skewY as string, {
                 duration,
                 easing,
               })
-            : // biome-ignore lint/style/noNonNullAssertion: <explanation>
-              withTiming(exitingState.transform[2].skewY as string, {
+            : withTiming(exitingState.transform[2].skewY as string, {
                 duration,
                 easing,
               }),
@@ -82,7 +78,6 @@ const Content = () => {
         {
           scaleY: displayImmersiveOverlay.value
             ? withTiming(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 enteringState.transform[3].scaleY as unknown as string,
                 {
                   duration,
@@ -90,7 +85,6 @@ const Content = () => {
                 }
               )
             : withTiming(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 exitingState.transform[3].scaleY as unknown as string,
                 {
                   duration,
@@ -101,7 +95,6 @@ const Content = () => {
         {
           scaleX: displayImmersiveOverlay.value
             ? withTiming(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 enteringState.transform[4].scaleX as unknown as string,
                 {
                   duration,
@@ -109,7 +102,6 @@ const Content = () => {
                 }
               )
             : withTiming(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 exitingState.transform[4].scaleX as unknown as string,
                 {
                   duration,
@@ -120,11 +112,9 @@ const Content = () => {
         {
           translateY: displayImmersiveOverlay.value
             ? withSpring(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 enteringState.transform[5].translateY as unknown as string
               ) // Use withSpring for entering translateY
             : withTiming(
-                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 exitingState.transform[5].translateY as unknown as string,
                 {
                   duration,

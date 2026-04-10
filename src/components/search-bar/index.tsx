@@ -1,13 +1,13 @@
 import { Search } from "@tamagui/lucide-icons";
-import React, { ForwardedRef } from "react";
+import React, { Ref } from "react";
 import { useTranslation } from "react-i18next";
 import { TextInput } from "react-native";
 import { Input, InputProps, XStack } from "tamagui";
 
-function SearchBarComponent(
-  props: InputProps,
-  ref?: ForwardedRef<TextInput | null>
-) {
+function SearchBar({
+  ref,
+  ...props
+}: InputProps & { ref?: Ref<TextInput> | null }) {
   const { t } = useTranslation();
   return (
     <XStack
@@ -33,5 +33,4 @@ function SearchBarComponent(
   );
 }
 
-const SearchBar = React.forwardRef(SearchBarComponent);
 export default SearchBar;

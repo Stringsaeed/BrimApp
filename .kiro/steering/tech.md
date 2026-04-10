@@ -51,7 +51,7 @@ yarn android            # Run on Android emulator
 ### Code Quality
 
 ```bash
-yarn lint               # Run ESLint + Prettier checks
+yarn lint               # Run Biome lint check
 yarn format             # Auto-format code
 yarn check              # TypeScript type checking
 yarn validate:strict    # Full validation (format, lint, types)
@@ -83,8 +83,7 @@ eas build --profile production    # Build production
 
 ## Code Quality Tools
 
-- **ESLint**: Configured with TypeScript, Expo, and custom rules
-- **Prettier**: Code formatting with 2-space tabs, double quotes
+- **Biome**: Unified linting and formatting with project-specific rules
 - **TypeScript**: Strict mode with path mapping (`@/*` → `./src/*`)
 - **Jest**: Testing with Expo preset and coverage reporting
 - **Lefthook**: Git hooks for pre-commit validation

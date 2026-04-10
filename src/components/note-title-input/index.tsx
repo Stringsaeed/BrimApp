@@ -8,10 +8,7 @@ import { NoteFormValues } from "@/hooks/use-note-form";
 
 import { NoteTitleInputProps } from "./type";
 
-function NoteTitleInputComponent(
-  props: NoteTitleInputProps,
-  ref: ForwardedRef<TextInput>
-) {
+function NoteTitleInput({ ref, ...props }: NoteTitleInputProps) {
   const theme = useTheme();
   const { accent } = useUserAccent();
   const { handleChange, handleBlur, values } =
@@ -41,5 +38,4 @@ function NoteTitleInputComponent(
   );
 }
 
-const NoteTitleInput = React.forwardRef(NoteTitleInputComponent);
 export default NoteTitleInput;

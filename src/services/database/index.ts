@@ -8,7 +8,6 @@ import { AsyncStorage } from "@/services/storage";
 import supabaseClient from "@/services/supabase";
 import type { Note } from "@/types";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
 export const generateId = () => uuidv4();
 
 // Create a configured sync function

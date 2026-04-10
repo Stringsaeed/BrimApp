@@ -98,23 +98,17 @@ export const ToolbarConfigService = {
     await ToolbarConfigService.saveConfig(defaultConfig);
     return defaultConfig;
   },
-
-  saveConfig: async (config: ToolbarConfig): Promise<void> => {
-    try {
-      const configJson = JSON.stringify(config);
-      storage.set(TOOLBAR_CONFIG_KEY, configJson);
-      await Promise.resolve();
-    } catch (error) {
-      throw error;
-    }
-  },
-
   isToolEnabled: async (
     tool: FormattingTool,
     userAccent: UserAccentValue = "pink10"
   ): Promise<boolean> => {
     const config = await ToolbarConfigService.loadConfig(userAccent);
     return config.enabledTools.includes(tool);
+  },
+  saveConfig: async (config: ToolbarConfig): Promise<void> => {
+    const configJson = JSON.stringify(config);
+    storage.set(TOOLBAR_CONFIG_KEY, configJson);
+    await Promise.resolve();
   },
 };
 

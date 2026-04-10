@@ -62,7 +62,7 @@ export default function useUserTheme() {
       StatusBar.setTranslucent(true);
       StatusBar.setBackgroundColor("transparent");
     }
-  }, [themeName]);
+  }, []);
 
   useEffect(() => {
     syncNativeTheme(themeName);

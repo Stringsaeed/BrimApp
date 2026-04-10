@@ -27,8 +27,8 @@ import { useLoadAssets, useUserAccent, useUserTheme } from "@/hooks";
 import i18next from "@/i18n";
 import {
   FeatureFlagsProvider,
-  Sentry,
   navigationIntegration,
+  Sentry,
 } from "@/services";
 import { themeConfig } from "@/themes";
 import { callSafe } from "@/utils/safe-call";

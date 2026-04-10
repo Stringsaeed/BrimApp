@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { type SharedValue, makeMutable } from "react-native-reanimated";
+import { makeMutable, type SharedValue } from "react-native-reanimated";
 import { create } from "zustand";
 
 export interface ImmersiveOverlayState {

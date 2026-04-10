@@ -78,7 +78,7 @@
 ## Coding Standards
 
 - Language: TypeScript (strict mode on).
-- Formatting: Prettier (`tabWidth: 2`, double quotes, semicolons, trailing commas `es5`).
+- Formatting/Linting: Biome (2-space indentation, double quotes, semicolons, trailing commas `es5`).
 - Imports:
 - Enforce group order: `builtin -> external -> internal -> parent -> sibling -> index`.
 - Alphabetize ascending with blank lines between groups.
@@ -108,10 +108,12 @@
 - `yarn start:clear`: Start with cleared cache.
 - `yarn ios`: Run iOS app.
 - `yarn android`: Run Android app.
-- `yarn lint`: Run ESLint + Prettier check.
-- `yarn lint:eslint`: ESLint only.
-- `yarn lint:formatting`: Prettier check only.
-- `yarn format`: Prettier write + ESLint fix.
+- `yarn lint`: Run Biome lint check.
+- `yarn lint:write`: Run Biome lint with auto-fixes.
+- `yarn format`: Run Biome formatter check.
+- `yarn format:write`: Run Biome formatter with auto-write.
+- `yarn lint_format:check`: Run Biome lint+format check.
+- `yarn lint_format:check:write`: Run Biome lint+format check with auto-write.
 - `yarn check`: TypeScript check (`tsc --noEmit`).
 - `yarn validate`: `format + lint`.
 - `yarn validate:strict`: `validate + check`.
@@ -127,7 +129,7 @@
 - Git hooks are managed with Lefthook.
 - Pre-commit currently runs:
 - `yarn lint`
-- `yarn prettier --write {staged_files}`
+- `yarn exec biome check --write {staged_files}`
 - Commit message hook runs commitlint (`@commitlint/config-conventional`).
 - Allowed commit types:
 - `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`

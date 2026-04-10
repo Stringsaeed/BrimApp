@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable import/no-extraneous-dependencies */
 import {
-  SizeVariantSpreadFunction,
   getVariableValue,
   isWeb,
+  SizeVariantSpreadFunction,
 } from "@tamagui/core";
 import { getButtonSized } from "@tamagui/get-button-sized";
 import { getFontSized } from "@tamagui/get-font-sized";

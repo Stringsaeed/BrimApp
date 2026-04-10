@@ -3,7 +3,7 @@
 ## Key Commands
 
 - Build/Start: `yarn start` or `yarn start:web` (web version)
-- Lint: `yarn lint` (includes ESLint + Prettier)
+- Lint: `yarn lint` (Biome lint check)
 - Type Check: `yarn check`
 - Format: `yarn format`
 - Validate All: `yarn validate:strict` (format, lint, type check)
