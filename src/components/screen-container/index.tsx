@@ -27,10 +27,10 @@ function FixedScreen({
   handleSafeArea,
   handleKeyboard,
   centered,
+  onFocus,
+  onBlur,
   ...restProps
 }: Props<"fixed">) {
-  const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
-
   const contentStyle = useScreenContainerContentStyle({
     overrideStyle: overrideStyle,
     withoutBeautifulPadding,
@@ -39,7 +39,20 @@ function FixedScreen({
     centered,
   });
 
-  return <Wrapper {...restProps} flex={1} style={contentStyle} />;
+  if (handleKeyboard) {
+    return (
+      <AnimatedKeyboardView {...restProps} flex={1} style={contentStyle} />
+    );
+  }
+
+  return (
+    <View
+      {...restProps}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      style={[contentStyle, { flex: 1 }]}
+    />
+  );
 }
 
 function ScrollScreen({
@@ -78,11 +91,21 @@ export default function ScreenContainer<T extends "scroll" | "fixed">({
   ...restProps
 }: Props<T>) {
   if (type === "fixed") {
-    return <FixedScreen type={type} {...restProps} />;
+    return (
+      <FixedScreen
+        type={type}
+        {...(restProps as Omit<Props<"fixed">, "type">)}
+      />
+    );
   }
 
   if (type === "scroll") {
-    return <ScrollScreen type={type} {...restProps} />;
+    return (
+      <ScrollScreen
+        type={type}
+        {...(restProps as Omit<Props<"scroll">, "type">)}
+      />
+    );
   }
 
   return null;
