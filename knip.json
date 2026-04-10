@@ -9,10 +9,24 @@
     "./ios",
     "./android",
     "./coverage",
-    "./.pnpm-store"
+    "./.pnpm-store",
+    "babel.config.js",
+    "metro.config.js"
   ],
   "ignoreDependencies": [
     "@react-navigation/native-stack",
-    "@react-navigation/native"
-  ]
+    "@react-navigation/native",
+    "@react-navigation/elements",
+    "expo-application",
+    "expo-device",
+    "react-native-nitro-modules",
+    "@tamagui/core",
+    "@tamagui/get-button-sized",
+    "@tamagui/get-token",
+    "@tamagui/focusable",
+    "@tamagui/shorthands",
+    "@tamagui/themes",
+    "expo-linear-gradient"
+  ],
+  "ignoreBinaries": ["supabase"]
 }
