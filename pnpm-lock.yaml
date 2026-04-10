@@ -19,6 +19,9 @@ importers:
 
   .:
     dependencies:
+      '@flagsmith/react-native':
+        specifier: ^11.0.0
+        version: 11.0.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
       '@google/generative-ai':
         specifier: ^0.1.3
         version: 0.1.3
@@ -130,9 +133,6 @@ importers:
       expo-updates:
         specifier: ~55.0.20
         version: 55.0.20(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
-      flagsmith:
-        specifier: ^10.0.0
-        version: 10.0.0
       formik:
         specifier: ^2.4.9
         version: 2.4.9(@types/react@19.2.14)(react@19.2.0)
@@ -181,9 +181,6 @@ importers:
       react-native-executorch-expo-resource-fetcher:
         specifier: ^0.8.0
         version: 0.8.0(expo-asset@55.0.14(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(expo-file-system@55.0.16(expo@55.0.14)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)))(expo@55.0.14)(react-native-executorch@0.8.3(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
-      react-native-flagsmith:
-        specifier: ^10.0.0
-        version: 10.0.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))
       react-native-gesture-handler:
         specifier: ~2.30.0
         version: 2.30.1(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
@@ -1326,6 +1323,11 @@ packages:
   '@expo/xcpretty@4.4.3':
     resolution: {integrity: sha512-wC562eD3gS6vO2tWHToFhlFnmHKfKHgF1oyvojeSkLK/ZYop1bMU+7cOMiF9Sq70CzcsLy/EMRy/uRc76QmNRw==}
     hasBin: true
+
+  '@flagsmith/react-native@11.0.0':
+    resolution: {integrity: sha512-Wj6AWGUyMW0vfuiB07l0xehMl5pe4iGaXc2P1t8iJtW3WqHifPQxoCvO9SRbwX3jsFJCvCsD0PcjIKGK4M6jdw==}
+    peerDependencies:
+      react-native: '>=0.20.0'
 
   '@floating-ui/core@1.7.5':
     resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
@@ -4213,10 +4215,6 @@ packages:
   find-value@1.0.13:
     resolution: {integrity: sha512-epNL4mnl3HUYrwVQtZ8s0nxkE4ogAoSqO1V1fa670Ww1fXp8Yr74zNS9Aib/vLNf0rq0AF/4mboo7ev5XkikXQ==}
 
-  flagsmith@10.0.0:
-    resolution: {integrity: sha512-JEO4V6nO6ic4ahi5uZRVBYKFil9IuRkLWemKZuFv3QVUCxluQfgymwiuPSs4/LqwFqQ+89SuubaawHxUxUPTzg==}
-    deprecated: This package has moved to @flagsmith/flagsmith. Please update your dependencies.
-
   flow-enums-runtime@0.0.6:
     resolution: {integrity: sha512-3PYnM29RFXwvAN6Pc/scUfkI7RwhQ/xqyLUyPNlXUp9S40zI8nup9tUSrTLSVnWGBN38FNiGWbwZOB6uR4OGdw==}
 
@@ -5662,12 +5660,6 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
-
-  react-native-flagsmith@10.0.0:
-    resolution: {integrity: sha512-Nt7Nc/exuuRYh9LbKv8EwcqwDA9a1BR03g8uGTmOrYu8WzUY83yM/6xqrkAd4wVwnDfSR/cDk+pbCyFY1jd0iA==}
-    deprecated: This package has moved to @flagsmith/react-native. Please update your dependencies.
-    peerDependencies:
-      react-native: '>=0.20.0'
 
   react-native-gesture-handler@2.30.1:
     resolution: {integrity: sha512-xIUBDo5ktmJs++0fZlavQNvDEE4PsihWhSeJsJtoz4Q6p0MiTM9TgrTgfEgzRR36qGPytFoeq+ShLrVwGdpUdA==}
@@ -7915,6 +7907,10 @@ snapshots:
       '@babel/code-frame': 7.29.0
       chalk: 4.1.2
       js-yaml: 4.1.1
+
+  '@flagsmith/react-native@11.0.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))':
+    dependencies:
+      react-native: 0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
 
   '@floating-ui/core@1.7.5':
     dependencies:
@@ -11667,8 +11663,6 @@ snapshots:
 
   find-value@1.0.13: {}
 
-  flagsmith@10.0.0: {}
-
   flow-enums-runtime@0.0.6: {}
 
   fontfaceobserver@2.3.0: {}
@@ -13456,10 +13450,6 @@ snapshots:
       react: 19.2.0
       react-native: 0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
       zod: 4.3.6
-
-  react-native-flagsmith@10.0.0(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)):
-    dependencies:
-      react-native: 0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
 
   react-native-gesture-handler@2.30.1(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:

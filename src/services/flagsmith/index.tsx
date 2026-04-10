@@ -1,11 +1,9 @@
+import flagsmith from "@flagsmith/react-native";
 import {
   FlagsmithContextType,
   FlagsmithProvider,
-  useFlags,
-} from "flagsmith/react";
+} from "@flagsmith/react-native/react";
 import React from "react";
-import flagsmith from "react-native-flagsmith";
-
 import { config } from "@/config";
 import { AsyncStorage } from "@/services/storage";
 
@@ -44,8 +42,4 @@ export function FeatureFlagsProvider({
       {children}
     </FlagsmithProvider>
   );
-}
-
-export function useFeatureFlag(_flags: string) {
-  return useFlags([_flags])[_flags];
 }
