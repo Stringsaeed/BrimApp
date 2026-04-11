@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import useCreateNoteMutation from "@/hooks/use-create-note-mutation";
 import useNavigateNote from "@/hooks/use-navigate-note";
-import { Note } from "@/types";
+import { Note } from "@/types/notes";
 
 export default function useCreateEmptyNoteMutation() {
   const onNavigateNote = useNavigateNote();

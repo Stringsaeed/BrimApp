@@ -1,3 +1,2 @@
-import { AuthenticationScreens } from "@/screens";
-
+import AuthenticationScreens from "@/screens/Authentication";
 export default AuthenticationScreens.Verify;

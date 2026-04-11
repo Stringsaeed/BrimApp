@@ -1,8 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
-
-import { config } from "@/config";
+import { config } from "@/config/env";
 import { AsyncStorage } from "@/services/storage";
-import type { Database } from "@/types";
+import type { Database } from "@/types/supabase";
 import "react-native-get-random-values";
 import "react-native-url-polyfill/auto";
 

@@ -1,5 +1,5 @@
-import LoginScreen from "./Login";
-import VerifyScreen from "./Verify";
+import LoginScreen from "./Login/LoginScreen";
+import VerifyScreen from "./Verify/VerifyScreen";
 
 const AuthenticationScreens = {
   Verify: VerifyScreen,

@@ -1,6 +1,6 @@
-import AccountInfo from "./AccountInfo";
-import Preferences from "./Preferences";
-import Profile from "./Profile";
+import AccountInfo from "./AccountInfo/AccountInfoScreen";
+import Preferences from "./Preferences/PreferencesScreen";
+import Profile from "./Profile/ProfileScreen";
 
 const UserScreens = {
   Preferences,

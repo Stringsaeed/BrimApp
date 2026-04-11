@@ -6,9 +6,3 @@ export type ComposerComponentProps = {
   onFocus?: () => void;
   onBlur?: () => void;
 };
-
-export interface ComposerRef {
-  focus: () => void;
-  blur: () => void;
-  isFocused: () => boolean;
-}

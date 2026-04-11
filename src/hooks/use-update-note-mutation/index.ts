@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-
-import { NoteService, Sentry } from "@/services";
-import { Note, RequiredNotNull } from "@/types";
+import { NoteService } from "@/services/notes/notes";
+import { Sentry } from "@/services/sentry";
+import { Note } from "@/types/notes";
+import { RequiredNotNull } from "@/types/utils";
 
 type RequiredInput = RequiredNotNull<Required<Pick<Note, "id">>>;
 

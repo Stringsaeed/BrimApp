@@ -6,8 +6,7 @@ import {
   Message,
   useLLM,
 } from "react-native-executorch";
-
-import { Sentry } from "@/services";
+import { Sentry } from "@/services/sentry";
 
 export default function useFixGrammarMutation() {
   const llm = useLLM({

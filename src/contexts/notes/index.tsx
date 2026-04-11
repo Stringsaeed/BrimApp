@@ -9,13 +9,12 @@ import React, {
   useMemo,
 } from "react";
 import { InteractionManager } from "react-native";
-
-import { NoteService } from "@/services";
-import { Note } from "@/types";
+import { NoteService } from "@/services/notes/notes";
+import { Note } from "@/types/notes";
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
-export interface NotesContextType {
+interface NotesContextType {
   notes: Note[];
 }
 
@@ -61,16 +60,6 @@ const NotesProviderComponent = ({
       {children}
     </NotesContext.Provider>
   );
-};
-
-export const useNotesContext = () => {
-  const context = useContext(NotesContext);
-
-  if (!context) {
-    throw new Error("useNotes must be used within a NotesProvider");
-  }
-
-  return context;
 };
 
 export const NotesProvider = observer(

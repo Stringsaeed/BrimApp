@@ -17,22 +17,19 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { install } from "react-native-quick-crypto";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
-
 import { ImmersiveOverlay } from "@/components/immersive-overlay";
-import {
-  AuthenticationProvider,
-  NotesProvider,
-  PullToActionProvider,
-  QueryProvider,
-} from "@/contexts";
-import { useLoadAssets, useUserAccent, useUserTheme } from "@/hooks";
+import { AuthenticationProvider } from "@/contexts/auth";
+import { NotesProvider } from "@/contexts/notes";
+import { PullToActionProvider } from "@/contexts/pull-to-action";
+import { QueryProvider } from "@/contexts/query";
+import useLoadAssets from "@/hooks/use-load-assets";
+import useUserAccent from "@/hooks/use-user-accent";
+import useUserTheme from "@/hooks/use-user-theme";
 import i18next from "@/i18n";
-import {
-  FeatureFlagsProvider,
-  navigationIntegration,
-  Sentry,
-} from "@/services";
-import { themeConfig } from "@/themes";
+import { Analytics } from "@/services/analytics";
+import { FeatureFlagsProvider } from "@/services/flagsmith";
+import { navigationIntegration, Sentry } from "@/services/sentry";
+import themeConfig from "@/themes/theme";
 import { callSafe } from "@/utils/safe-call";
 
 callSafe(install);
@@ -43,30 +40,27 @@ LogBox.ignoreLogs([
 
 initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 
+Analytics.init();
+
 function AppContainer() {
   const { accent } = useUserAccent();
   const { theme } = useUserTheme();
   const isLoaded = useLoadAssets();
   const ref = useNavigationContainerRef();
-
   const screenOptions = useMemo<NativeStackNavigationOptions>(() => {
     const selectiveTheme = themeConfig.themes[theme];
-
     const config: NativeStackNavigationOptions = {
       headerTintColor: selectiveTheme[accent].val,
       headerShadowVisible: false,
       headerBackTitle: "",
     };
-
     if (Platform.OS === "android") {
       config.statusBarAnimation = "fade";
       config.statusBarHidden = false;
       config.statusBarStyle = theme;
     }
-
     return config;
   }, [accent, theme]);
-
   const navigationTheme = useMemo(() => {
     const baseTheme = theme === "dark" ? DarkTheme : DefaultTheme;
     const selectiveTheme = themeConfig.themes[theme];
@@ -80,26 +74,21 @@ function AppContainer() {
       },
     };
   }, [accent, theme]);
-
   useEffect(() => {
     if (Platform.OS === "android") {
       return;
     }
-
     const selectiveTheme = themeConfig.themes[theme];
     void setBackgroundColorAsync(selectiveTheme[accent].val);
   }, [accent, theme]);
-
   useEffect(() => {
     if (ref) {
       navigationIntegration.registerNavigationContainer(ref);
     }
   }, [ref]);
-
   if (!isLoaded) {
     return null;
   }
-
   return (
     <I18nextProvider i18n={i18next}>
       <FeatureFlagsProvider>
@@ -177,11 +166,9 @@ function AppContainer() {
     </I18nextProvider>
   );
 }
-
 const styles = StyleSheet.create({
   rootView: {
     flex: 1,
   },
 });
-
 export default Sentry.wrap(AppContainer);

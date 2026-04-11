@@ -1,6 +1,5 @@
 import * as Sentry from "@sentry/react-native";
-
-import { config } from "@/config";
+import { config } from "@/config/env";
 
 const tracingIntegration = Sentry.reactNativeTracingIntegration();
 

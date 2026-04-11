@@ -2,10 +2,9 @@ import { Lock, Unlock } from "@tamagui/lucide-icons";
 import { Stack } from "expo-router";
 import React, { useCallback } from "react";
 import { XGroup } from "tamagui";
-
 import PressableScale from "@/components/pressable-scale";
-import { useIsLocalAuthenticationEligible, useUserAccent } from "@/hooks";
-
+import useIsLocalAuthenticationEligible from "@/hooks/use-is-local-authentication-eligible";
+import useUserAccent from "@/hooks/use-user-accent";
 import NotePageHeaderMenu from "./menu";
 
 interface NoteHeaderRightProps {
@@ -16,7 +15,6 @@ interface NoteHeaderRightProps {
   onPressArchive?: () => void;
   onPressProfile?: () => void;
 }
-
 export default function NoteHeaderRight({
   isPrivate = false,
   onPressArchive,
@@ -25,7 +23,6 @@ export default function NoteHeaderRight({
 }: NoteHeaderRightProps) {
   const { accent } = useUserAccent();
   const isEligible = useIsLocalAuthenticationEligible();
-
   const headerRight = useCallback(() => {
     return (
       <XGroup gap="$2" animation="slow" enterStyle={{ opacity: 0 }}>
@@ -52,6 +49,5 @@ export default function NoteHeaderRight({
     onPressLock,
     onPressTrash,
   ]);
-
   return <Stack.Screen options={{ headerRight }} />;
 }

@@ -3,11 +3,8 @@ import { BlurView } from "expo-blur";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Heading, View } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
-
+import useUserAccent from "@/hooks/use-user-accent";
 import { AuthLayoutProps } from "./types";
-
 export default function AuthLayout({ children, heading }: AuthLayoutProps) {
   const { accent } = useUserAccent();
   return (

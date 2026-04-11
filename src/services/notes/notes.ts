@@ -1,5 +1,5 @@
 import { generateId, notes$ } from "@/services/database";
-import type { Note } from "@/types";
+import type { Note } from "@/types/notes";
 
 export const NoteService = {
   create: (input: Omit<Note, "id">): Note => {

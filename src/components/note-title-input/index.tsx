@@ -2,10 +2,8 @@ import { useFormikContext } from "formik";
 import React, { ForwardedRef } from "react";
 import { TextInput } from "react-native";
 import { Input, useTheme } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
 import { NoteFormValues } from "@/hooks/use-note-form";
-
+import useUserAccent from "@/hooks/use-user-accent";
 import { NoteTitleInputProps } from "./type";
 
 function NoteTitleInput({ ref, ...props }: NoteTitleInputProps) {
@@ -13,7 +11,6 @@ function NoteTitleInput({ ref, ...props }: NoteTitleInputProps) {
   const { accent } = useUserAccent();
   const { handleChange, handleBlur, values } =
     useFormikContext<NoteFormValues>();
-
   return (
     <Input
       ref={ref}
@@ -37,5 +34,4 @@ function NoteTitleInput({ ref, ...props }: NoteTitleInputProps) {
     />
   );
 }
-
 export default NoteTitleInput;

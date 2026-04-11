@@ -11,21 +11,18 @@ import {
   Spacer,
   YGroup,
 } from "tamagui";
-
-import { ResetDatabaseListItem, ScreenContainer } from "@/components";
-import { useAuthentication } from "@/contexts";
-import { useUserAccent } from "@/hooks";
+import ResetDatabaseListItem from "@/components/reset-database-list-item";
+import ScreenContainer from "@/components/screen-container";
+import { useAuthentication } from "@/contexts/auth";
+import useUserAccent from "@/hooks/use-user-accent";
 import { Routes } from "@/routers";
 import supabaseClient from "@/services/supabase";
-
 import styles from "./ProfileScreen.styles";
-
 export default function Profile() {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const { accent } = useUserAccent();
   const { isAuthenticated, user } = useAuthentication();
-
   function navigateToFactory(
     name: Routes.AccountInfo | Routes.Preferences | Routes.Login
   ) {
@@ -33,7 +30,6 @@ export default function Profile() {
       router.push(name);
     };
   }
-
   return (
     <ScreenContainer
       style={styles.container}

@@ -1,16 +1,15 @@
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { parseISO } from "date-fns/parseISO";
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-
-import {
-  useCreateNoteMutation,
-  useDeleteNoteMutation,
-  useHaptic,
-  useSearchableNotes,
-  useUpdateNoteMutation,
-} from "@/hooks";
-import { UpdateNoteMutationInput } from "@/hooks/use-update-note-mutation";
-import { DateType, Note } from "@/types";
+import useCreateNoteMutation from "@/hooks/use-create-note-mutation";
+import useDeleteNoteMutation from "@/hooks/use-delete-note-mutation";
+import useHaptic from "@/hooks/use-haptic";
+import useSearchableNotes from "@/hooks/use-searchable-notes";
+import useUpdateNoteMutation, {
+  UpdateNoteMutationInput,
+} from "@/hooks/use-update-note-mutation";
+import { DateType } from "@/types/date";
+import { Note } from "@/types/notes";
 
 type NotesListContext = {
   notes: Note[];
@@ -32,17 +31,13 @@ type NotesListContext = {
   multiSelectMode?: boolean;
   toggleMultiSelectMode?: () => void;
 };
-
 type NotesListProviderProps = PropsWithChildren<
   Pick<NotesListContext, "notes">
 >;
-
 const notesListContext = React.createContext<NotesListContext | undefined>(
   undefined
 );
-
 const { Provider } = notesListContext;
-
 const getDateTitle = (date: DateType) => {
   if (!date) return "";
   return formatDistanceToNowStrict(
@@ -52,7 +47,6 @@ const getDateTitle = (date: DateType) => {
     }
   );
 };
-
 export const NotesListProvider = ({
   notes: unSearchedNotes,
   children,
@@ -75,53 +69,45 @@ export const NotesListProvider = ({
       },
       {} as Record<string, Note[]>
     );
-
     return Object.entries(groupedNotes).map(([title, data]) => ({
       title,
       data,
     }));
   }, [notes]);
-
   const createNoteMutation = useCreateNoteMutation();
   const updateNoteMutation = useUpdateNoteMutation();
   const deleteNoteMutation = useDeleteNoteMutation();
   const haptic = useHaptic();
-
   const addNote = useCallback(
     (note: Omit<Note, "id">) => {
       createNoteMutation.mutate(note);
     },
     [createNoteMutation]
   );
-
   const updateNote = useCallback(
     (note: UpdateNoteMutationInput) => {
       updateNoteMutation.mutate(note);
     },
     [updateNoteMutation]
   );
-
   const deleteNote = useCallback(
     (note: Note) => {
       deleteNoteMutation.mutate(note);
     },
     [deleteNoteMutation]
   );
-
   const archiveNote = useCallback(
     (id: string) => {
       updateNoteMutation.mutate({ status: "archived", id });
     },
     [updateNoteMutation]
   );
-
   const unarchiveNote = useCallback(
     (id: string) => {
       updateNoteMutation.mutate({ status: "published", id });
     },
     [updateNoteMutation]
   );
-
   const restoreNote = useCallback(
     (id: string) => {
       updateNoteMutation.mutate({
@@ -131,7 +117,6 @@ export const NotesListProvider = ({
     },
     [updateNoteMutation]
   );
-
   const onNoteSelect = useCallback(
     (id: Note["id"]) => {
       void haptic?.();
@@ -148,18 +133,15 @@ export const NotesListProvider = ({
     },
     [haptic, multiSelectMode, selectedNotes]
   );
-
   const toggleMultiSelectMode = useCallback(() => {
     setMultiSelectMode((prevValue) => {
       const newValue = !prevValue;
       if (newValue) {
         setSelectedNote([]);
       }
-
       return newValue;
     });
   }, []);
-
   const contextValue = useMemo<NotesListContext>(
     () => ({
       toggleMultiSelectMode,
@@ -196,10 +178,8 @@ export const NotesListProvider = ({
       notes,
     ]
   );
-
   return <Provider value={contextValue}>{children}</Provider>;
 };
-
 export const useNotesList = () => {
   const context = React.useContext(notesListContext);
   if (context === undefined) {

@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Circle, Spacer, XStack } from "tamagui";
 
 import SearchBar from "@/components/search-bar";
-import { useNotesList } from "@/contexts";
+import { useNotesList } from "@/contexts/notes-list";
 
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AsyncStorage } from "@/services/storage";
 import supabaseClient from "@/services/supabase";
-import type { Note } from "@/types";
+import type { Note } from "@/types/notes";
 
 export const generateId = () => uuidv4();
 

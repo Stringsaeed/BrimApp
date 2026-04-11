@@ -6,9 +6,7 @@ import {
   OnChangeStateEvent,
 } from "react-native-enriched";
 import { Stack, useTheme } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
-
+import useUserAccent from "@/hooks/use-user-accent";
 import { ComposerComponentProps } from "./types";
 import useNoteComposer from "./use-note-composer";
 
@@ -19,14 +17,11 @@ function Composer({ ref }: ComposerComponentProps) {
   const { onChangeText, value } = useNoteComposer();
   const innerRef = React.useRef<EnrichedTextInputInstance>(null);
   const [, setStylesState] = useState<OnChangeStateEvent | null>();
-
   useImperativeHandle(ref, () => innerRef.current!);
-
   // biome-ignore lint/correctness/useExhaustiveDependencies: We only want to set the initial value on mount, and not update it when the value changes
   useEffect(() => {
     innerRef.current?.setValue(value);
   }, []);
-
   return (
     <Stack flex={1} flexGrow={1}>
       <EnrichedTextInput
@@ -43,9 +38,7 @@ function Composer({ ref }: ComposerComponentProps) {
     </Stack>
   );
 }
-
 export default Composer;
-
 const useStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({

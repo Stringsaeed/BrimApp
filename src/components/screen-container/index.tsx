@@ -1,16 +1,14 @@
 import React from "react";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { ScrollView } from "tamagui";
-
 import AnimatedKeyboardView from "@/components/animated-keyboard-view";
-import { useScreenContainerContentStyle } from "@/hooks";
+import useScreenContainerContentStyle from "@/hooks/use-screen-container-content-style";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
   : T extends "fixed"
     ? ViewProps
     : never;
-
 type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   type: T;
   centered?: boolean;
@@ -19,7 +17,6 @@ type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   handleHeaderHeight?: boolean;
   handleSafeArea?: false | "top" | "bottom" | ["top", "bottom"];
 };
-
 function FixedScreen({
   withoutBeautifulPadding,
   style: overrideStyle,
@@ -38,13 +35,11 @@ function FixedScreen({
     handleSafeArea,
     centered,
   });
-
   if (handleKeyboard) {
     return (
       <AnimatedKeyboardView {...restProps} flex={1} style={contentStyle} />
     );
   }
-
   return (
     <View
       {...restProps}
@@ -54,7 +49,6 @@ function FixedScreen({
     />
   );
 }
-
 function ScrollScreen({
   contentContainerStyle: overrideContentStyle,
   withoutBeautifulPadding,
@@ -66,7 +60,6 @@ function ScrollScreen({
   ...restProps
 }: Props<"scroll">) {
   const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
-
   const contentStyle = useScreenContainerContentStyle({
     overrideStyle: overrideContentStyle,
     withoutBeautifulPadding,
@@ -74,7 +67,6 @@ function ScrollScreen({
     handleSafeArea,
     centered,
   });
-
   return (
     <Wrapper flex={1}>
       <ScrollView
@@ -85,7 +77,6 @@ function ScrollScreen({
     </Wrapper>
   );
 }
-
 export default function ScreenContainer<T extends "scroll" | "fixed">({
   type,
   ...restProps
@@ -98,7 +89,6 @@ export default function ScreenContainer<T extends "scroll" | "fixed">({
       />
     );
   }
-
   if (type === "scroll") {
     return (
       <ScrollScreen
@@ -107,6 +97,5 @@ export default function ScreenContainer<T extends "scroll" | "fixed">({
       />
     );
   }
-
   return null;
 }

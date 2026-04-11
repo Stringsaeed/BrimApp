@@ -5,14 +5,12 @@ import { Controller, useForm } from "react-hook-form";
 import type { TextInputProps } from "react-native";
 import { Button, Form, Label } from "tamagui";
 import { z } from "zod";
-
 import BottomSheet from "@/components/bottom-sheet";
 import BottomSheetInput from "@/components/bottom-sheet-input";
 import FieldError from "@/components/field-error";
-import { useUserAccent } from "@/hooks";
+import useUserAccent from "@/hooks/use-user-accent";
 
 // import { Auth } from "@/services";
-
 const updateAccountSchema = z.union([
   z.object({
     displayName: z.string().min(3).max(30),
@@ -25,15 +23,12 @@ const updateAccountSchema = z.union([
   }),
 ]);
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-
 type UpdateAccountSchema = z.infer<typeof updateAccountSchema>;
-
 interface Props {
   type: KeysOfUnion<UpdateAccountSchema>;
   defaultValue: string;
   ref?: Ref<BottomSheetModal> | null;
 }
-
 const fieldsMap = {
   displayName: {
     inputProps: {
@@ -66,7 +61,6 @@ const fieldsMap = {
     id: "email",
   },
 };
-
 function UpdateAccountSheet({ defaultValue, type, ref }: Props) {
   const innerRef = React.useRef<BottomSheetModal>(null);
   const { accent } = useUserAccent();
@@ -75,7 +69,6 @@ function UpdateAccountSheet({ defaultValue, type, ref }: Props) {
     resolver: zodResolver(updateAccountSchema),
     defaultValues: { [type]: defaultValue },
   });
-
   const onSubmit = handleSubmit((data) => {
     if ("displayName" in data) {
       innerRef?.current?.dismiss();
@@ -85,9 +78,7 @@ function UpdateAccountSheet({ defaultValue, type, ref }: Props) {
       innerRef?.current?.dismiss();
     }
   });
-
   useImperativeHandle(ref, () => innerRef.current as BottomSheetModal);
-
   return (
     <BottomSheet ref={innerRef}>
       <Form gap="$4" minHeight={100} onSubmit={onSubmit}>
@@ -116,5 +107,4 @@ function UpdateAccountSheet({ defaultValue, type, ref }: Props) {
     </BottomSheet>
   );
 }
-
 export default UpdateAccountSheet;

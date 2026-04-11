@@ -1,6 +1,6 @@
-import Archived from "./ArchivedNotes";
-import Note from "./Note";
-import Trashed from "./TrashedNotes";
+import Archived from "./ArchivedNotes/ArchivedNotesScreen";
+import Note from "./Note/NoteScreen";
+import Trashed from "./TrashedNotes/TrashedNotesScreen";
 
 const NotesScreens = {
   Archived,

@@ -7,9 +7,8 @@ import {
   useColorScheme,
 } from "react-native";
 import { useMMKVString } from "react-native-mmkv";
-
-import { storage } from "@/services";
-import { UserThemeValue } from "@/types";
+import { storage } from "@/services/storage";
+import { UserThemeValue } from "@/types/theme";
 
 type ResolvedTheme = Exclude<UserThemeValue, "system">;
 

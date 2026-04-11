@@ -11,8 +11,7 @@ import {
   XStack,
   YGroup,
 } from "tamagui";
-
-import { NoteService } from "@/services";
+import { NoteService } from "@/services/notes/notes";
 
 export default function ResetDatabaseListItem() {
   const { width } = useWindowDimensions();

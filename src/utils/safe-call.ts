@@ -1,4 +1,4 @@
-import { Sentry } from "@/services";
+import { Sentry } from "@/services/sentry";
 
 export function callSafe(maybeFunction: unknown): void {
   try {

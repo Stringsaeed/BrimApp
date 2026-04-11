@@ -2,8 +2,7 @@ import { format } from "date-fns/format";
 import { parseISO } from "date-fns/parseISO";
 import React from "react";
 import { SizableText, SizableTextProps } from "tamagui";
-
-import { DateType } from "@/types";
+import { DateType } from "@/types/date";
 
 type DateTextProps = Exclude<
   SizableTextProps & {

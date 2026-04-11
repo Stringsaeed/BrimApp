@@ -69,7 +69,7 @@ const Input = InputFrame.styleable<InputProps>(
   }
 );
 
-export function useInputProps(props: InputProps, ref: any) {
+function useInputProps(props: InputProps, ref: any) {
   const theme = useTheme();
   const { ref: combinedRef, onChangeText } = useFocusable({
     isInput: true,

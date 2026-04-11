@@ -23,10 +23,9 @@ import {
   XGroup,
   XStack,
 } from "tamagui";
-
-import { useNotesList } from "@/contexts";
-import { useHapticCallback, useUserAccent } from "@/hooks";
-
+import { useNotesList } from "@/contexts/notes-list";
+import useHapticCallback from "@/hooks/use-haptic-callback";
+import useUserAccent from "@/hooks/use-user-accent";
 export default function NoteListMultiselectMenu() {
   const { accent } = useUserAccent();
   const { bottom } = useSafeAreaInsets();
@@ -39,7 +38,6 @@ export default function NoteListMultiselectMenu() {
     deleteNote,
     notes,
   } = useNotesList();
-
   const onTrash = useHapticCallback(
     () => {
       selectedNotes
@@ -56,7 +54,6 @@ export default function NoteListMultiselectMenu() {
     },
     { feedbackType: "success" }
   );
-
   const onArchive = useHapticCallback(
     () => {
       selectedNotes
@@ -73,17 +70,14 @@ export default function NoteListMultiselectMenu() {
     },
     { feedbackType: "success" }
   );
-
   const onClose = useHapticCallback(
     () => {
       toggleMultiSelectMode?.();
     },
     { feedbackType: "medium" }
   );
-
   const noOfSelectedNotes = selectedNotes.length;
   const noOfNotes = notes.length;
-
   const renderSelectedIndicatorIcon = () => {
     const shared = {
       size: 24,
@@ -109,33 +103,27 @@ export default function NoteListMultiselectMenu() {
         );
     }
   };
-
   const handleSelectAll = () => {
     const selectedNotesIds = [...selectedNotes.map((n) => n)];
-
     if (noOfSelectedNotes === 0) {
       return notes.forEach((note) => {
         onNoteSelect?.(note.id);
       });
     }
-
     if (noOfSelectedNotes === noOfNotes) {
       return selectedNotesIds.forEach((noteId) => {
         onNoteSelect?.(noteId);
       });
     }
-
     notes
       .filter((note) => !selectedNotesIds.includes(note.id))
       .forEach((note) => {
         onNoteSelect?.(note.id);
       });
   };
-
   if (!multiSelectMode) {
     return <></>;
   }
-
   return (
     <Animated.View exiting={FadeOut} entering={FadeIn}>
       <XStack

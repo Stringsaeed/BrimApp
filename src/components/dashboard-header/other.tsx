@@ -12,7 +12,7 @@ import {
   DropdownMenuItemTitle,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from "@/themes";
+} from "@/themes/dropdown";
 
 export default function OtherMenu() {
   const router = useRouter();

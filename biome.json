@@ -47,6 +47,9 @@
         "noUnsafePlusOperands": "error",
         "useImportsFirst": "warn"
       },
+      "performance": {
+        "noBarrelFile": "error"
+      },
       "security": { "noDangerouslySetInnerHtmlWithChildren": "warn" },
       "style": {
         "noCommonJs": "error",
