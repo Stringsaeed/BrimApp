@@ -5,21 +5,16 @@ import React, { ComponentProps, useRef } from "react";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { Button, Spacer, Spinner } from "tamagui";
-
 import BottomSheet from "@/components/bottom-sheet";
-import {
-  useFixGrammarMutation,
-  useRephraseSentenceMutation,
-  useUserAccent,
-} from "@/hooks";
+import useFixGrammarMutation from "@/hooks/use-fix-grammar-mutation";
 import { NoteFormValues } from "@/hooks/use-note-form";
-
+import useRephraseSentenceMutation from "@/hooks/use-rephrase-sentence-mutation";
+import useUserAccent from "@/hooks/use-user-accent";
 import VoiceRecordingButton from "../voice-recording-button";
 
 interface Props {
   onOpen?: () => void;
 }
-
 export default function NoteToolbox({ onOpen }: Props) {
   const { accent } = useUserAccent();
   const ref = useRef<BottomSheetModal>(null);
@@ -27,30 +22,23 @@ export default function NoteToolbox({ onOpen }: Props) {
   const rephraseSentenceMutation = useRephraseSentenceMutation();
   const { setFieldValue, values } = useFormikContext<NoteFormValues>();
   const { height } = useReanimatedKeyboardAnimation();
-
   const handleFixGrammar = async () => {
     const data = await fixGrammarMutation.mutateAsync(values.note);
-
     void setFieldValue("note", data);
   };
-
   const handleRephraseSentence = async () => {
     const data = await rephraseSentenceMutation.mutateAsync(values.note);
-
     void setFieldValue("note", data);
   };
-
   const handleOpenSheet = () => {
     onOpen?.();
     requestAnimationFrame(() => {
       ref.current?.present();
     });
   };
-
   const handleRecordVoiceNote = (value: string) => {
     void setFieldValue("note", value);
   };
-
   return (
     <Animated.View
       style={useAnimatedStyle(() => ({

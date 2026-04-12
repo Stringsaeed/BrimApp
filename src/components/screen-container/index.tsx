@@ -1,16 +1,14 @@
 import React from "react";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { ScrollView } from "tamagui";
-
 import AnimatedKeyboardView from "@/components/animated-keyboard-view";
-import { useScreenContainerContentStyle } from "@/hooks";
+import useScreenContainerContentStyle from "@/hooks/use-screen-container-content-style";
 
 type BaseProps<T> = T extends "scroll"
   ? ScrollViewProps
   : T extends "fixed"
     ? ViewProps
     : never;
-
 type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   type: T;
   centered?: boolean;
@@ -19,7 +17,6 @@ type Props<T extends "scroll" | "fixed"> = BaseProps<T> & {
   handleHeaderHeight?: boolean;
   handleSafeArea?: false | "top" | "bottom" | ["top", "bottom"];
 };
-
 function FixedScreen({
   withoutBeautifulPadding,
   style: overrideStyle,
@@ -27,10 +24,10 @@ function FixedScreen({
   handleSafeArea,
   handleKeyboard,
   centered,
+  onFocus,
+  onBlur,
   ...restProps
 }: Props<"fixed">) {
-  const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
-
   const contentStyle = useScreenContainerContentStyle({
     overrideStyle: overrideStyle,
     withoutBeautifulPadding,
@@ -38,10 +35,20 @@ function FixedScreen({
     handleSafeArea,
     centered,
   });
-
-  return <Wrapper {...restProps} flex={1} style={contentStyle} />;
+  if (handleKeyboard) {
+    return (
+      <AnimatedKeyboardView {...restProps} flex={1} style={contentStyle} />
+    );
+  }
+  return (
+    <View
+      {...restProps}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      style={[contentStyle, { flex: 1 }]}
+    />
+  );
 }
-
 function ScrollScreen({
   contentContainerStyle: overrideContentStyle,
   withoutBeautifulPadding,
@@ -53,7 +60,6 @@ function ScrollScreen({
   ...restProps
 }: Props<"scroll">) {
   const Wrapper = handleKeyboard ? AnimatedKeyboardView : View;
-
   const contentStyle = useScreenContainerContentStyle({
     overrideStyle: overrideContentStyle,
     withoutBeautifulPadding,
@@ -61,7 +67,6 @@ function ScrollScreen({
     handleSafeArea,
     centered,
   });
-
   return (
     <Wrapper flex={1}>
       <ScrollView
@@ -72,18 +77,25 @@ function ScrollScreen({
     </Wrapper>
   );
 }
-
 export default function ScreenContainer<T extends "scroll" | "fixed">({
   type,
   ...restProps
 }: Props<T>) {
   if (type === "fixed") {
-    return <FixedScreen type={type} {...restProps} />;
+    return (
+      <FixedScreen
+        type={type}
+        {...(restProps as Omit<Props<"fixed">, "type">)}
+      />
+    );
   }
-
   if (type === "scroll") {
-    return <ScrollScreen type={type} {...restProps} />;
+    return (
+      <ScrollScreen
+        type={type}
+        {...(restProps as Omit<Props<"scroll">, "type">)}
+      />
+    );
   }
-
   return null;
 }

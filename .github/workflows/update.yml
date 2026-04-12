@@ -21,12 +21,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache yarn
-        uses: actions/cache@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: |
-            ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          version: 10.33.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
@@ -35,10 +39,10 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
 
       - name: Check
-        run: yarn validate:strict
+        run: pnpm validate:strict
 
       - name: Publish update
         run: eas update --auto

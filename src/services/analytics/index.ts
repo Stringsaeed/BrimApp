@@ -5,7 +5,7 @@
 import { customEvent, identifyDevice } from "vexo-analytics";
 
 import { Vexo } from "@/services/vexo";
-import { AuthUser } from "@/types";
+import { AuthUser } from "@/types/auth";
 
 class AnalyticsService {
   // postHug: TPostHog | undefined;

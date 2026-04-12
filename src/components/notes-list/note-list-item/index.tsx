@@ -10,12 +10,10 @@ import {
 import React, { useCallback, useMemo } from "react";
 import { Gesture } from "react-native-gesture-handler";
 import { ListItem, useTheme } from "tamagui";
-
-import { useNotesList } from "@/contexts";
-import { useUserAccent } from "@/hooks";
-import { Note } from "@/types";
-import { cipherTitle, getNoteTitle } from "@/utils";
-
+import { useNotesList } from "@/contexts/notes-list";
+import useUserAccent from "@/hooks/use-user-accent";
+import { Note } from "@/types/notes";
+import { cipherTitle, getNoteTitle } from "@/utils/noteTitle";
 import NoteListItemAction from "./action";
 import NoteListItemContainer from "./container";
 
@@ -25,7 +23,6 @@ interface NoteListItemProps {
   onRemove?: () => void;
   onLeftAction?: () => void;
 }
-
 export default function NoteListItemView({
   onLeftAction,
   onRemove,
@@ -37,12 +34,10 @@ export default function NoteListItemView({
   const theme = useTheme();
   const foregroundColor = theme.background.get();
   const content = useMemo(() => {
-    const title = getNoteTitle(item.note);
+    const title = item.note;
     if (!item.is_private) return title;
-
-    return cipherTitle(title);
+    return title;
   }, [item.is_private, item.note]);
-
   const renderRightActions = useCallback(() => {
     if (!onRemove) return null;
     return (
@@ -51,19 +46,15 @@ export default function NoteListItemView({
       </NoteListItemAction>
     );
   }, [foregroundColor, onRemove]);
-
   const renderLeftActions = useCallback(() => {
     if (!onLeftAction) return null;
-
     const isRestorable = ["trashed", "archived"].includes(item.status);
-
     const Icon =
       item.status === "archived"
         ? ArchiveRestore
         : item.status === "trashed"
           ? Undo
           : Archive;
-
     return (
       <NoteListItemAction
         bg={isRestorable ? "$green9" : "$yellow9"}
@@ -74,7 +65,6 @@ export default function NoteListItemView({
       </NoteListItemAction>
     );
   }, [foregroundColor, item.status, onLeftAction]);
-
   const onSwipeableWillOpen = (direction: "left" | "right") => {
     if (direction === "left") {
       onLeftAction?.();
@@ -82,7 +72,6 @@ export default function NoteListItemView({
       onRemove?.();
     }
   };
-
   const listItemTitle = (
     <ListItem.Text
       fontWeight={item.title ? "500" : "normal"}
@@ -93,7 +82,6 @@ export default function NoteListItemView({
       {item.title || "Draft"}
     </ListItem.Text>
   );
-
   const listItemIcon = multiSelectMode ? (
     selectedNotes.includes(item.id) ? (
       <CheckCircle2 size={24} color={`$${accent}`} />
@@ -101,7 +89,6 @@ export default function NoteListItemView({
       <Circle size={24} color="$gray6" />
     )
   ) : null;
-
   const tapGesture = Gesture.Tap()
     .onEnd(() => {
       if (multiSelectMode) return onNoteSelect(item.id);
@@ -113,9 +100,7 @@ export default function NoteListItemView({
       onNoteSelect(item.id);
     })
     .runOnJS(true);
-
   const gesture = Gesture.Exclusive(tapGesture, longPressGesture);
-
   return (
     <NoteListItemContainer
       gesture={gesture}

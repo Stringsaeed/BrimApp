@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 
 import useUpdateNoteMutation from "@/hooks/use-update-note-mutation";
-import { NoteService } from "@/services";
-import { Note } from "@/types";
+import { NoteService } from "@/services/notes/notes";
+import { Note } from "@/types/notes";
 
 export default function useDeleteNoteMutation() {
   const updateNoteMutation = useUpdateNoteMutation();

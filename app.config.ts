@@ -35,7 +35,18 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ],
       "expo-localization",
       "expo-notifications",
-      "expo-font",
+      [
+        "expo-font",
+        {
+          ios: {
+            fonts: [
+              "./assets/fonts/Nunito-VariableFont_wght.ttf",
+              "./assets/fonts/Nunito-Italic-VariableFont_wght.ttf",
+            ],
+          },
+        },
+      ],
+      "expo-asset",
       [
         "@sentry/react-native/expo",
         {
@@ -74,7 +85,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       userInterfaceStyle: "automatic",
       usesAppleSignIn: false,
       supportsTablet: false,
-      newArchEnabled: true,
       buildNumber: "45",
       bundleIdentifier,
     },
@@ -85,8 +95,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       userInterfaceStyle: "automatic",
       package: bundleIdentifier,
-      edgeToEdgeEnabled: true,
-      newArchEnabled: true,
       versionCode: 45,
     },
     splash: {
@@ -98,10 +106,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       eas: {
         projectId: "e630d577-becd-41a6-ad64-226cac9be574",
       },
-    },
-    androidStatusBar: {
-      backgroundColor: "#F7F6E400",
-      translucent: true,
     },
     updates: {
       url: "https://u.expo.dev/e630d577-becd-41a6-ad64-226cac9be574",
@@ -120,7 +124,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     runtimeVersion: "1.0.0",
     orientation: "portrait",
     owner: "stringsaeed",
-    newArchEnabled: true,
     jsEngine: "hermes",
     version: "1.0.0",
     slug: "BrimApp",

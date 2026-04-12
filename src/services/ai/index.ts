@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-import { config } from "@/config";
+import { config } from "@/config/env";
 
 const genAI = new GoogleGenerativeAI(config.geminiAPIKey);
 
@@ -34,10 +33,6 @@ async function query(type: PromptType, text: string) {
   }
 
   return data;
-}
-
-export async function fixGrammarAPI(prompt: string) {
-  return await query("fixGrammar", prompt);
 }
 
 export async function rephraseSentencesAPI(text: string) {

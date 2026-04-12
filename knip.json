@@ -1,14 +1,23 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "project": ["src/**/*.ts", "src/**/*.tsx"],
-  "entry": ["src/app/**/*.ts", "src/app/**/*.tsx"],
-  "ignore": [
-    "./public",
-    "./node_modules",
-    "./modules",
-    "./ios",
-    "./android",
-    "./coverage",
-    "./.yarn"
-  ]
+  "entry": ["src/app/**/*.tsx"],
+  "ignore": ["babel.config.js", "src/types/supabase.ts"],
+  "ignoreDependencies": [
+    "@react-navigation/native-stack",
+    "@react-navigation/native",
+    "@react-navigation/elements",
+    "expo-application",
+    "expo-device",
+    "@tamagui/core",
+    "@tamagui/get-button-sized",
+    "@tamagui/get-font-sized",
+    "@tamagui/get-token",
+    "@tamagui/focusable",
+    "@tamagui/shorthands",
+    "@tamagui/themes",
+    "expo-linear-gradient",
+    "expo-symbols"
+  ],
+  "ignoreBinaries": ["supabase"]
 }

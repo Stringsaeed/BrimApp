@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-import { Note } from "@/types";
+import { Note } from "@/types/notes";
 
 export default function useSearchableNotes(notes: Note[]) {
   const [searchText, setSearchText] = useState("");

@@ -22,6 +22,6 @@ describe("BlurView", () => {
       </BottomSheet>
     );
 
-    expect(screen.getByTestId("blur-backdrop")).toBeTruthy();
+    expect(screen.getByLabelText("backdrop")).toBeTruthy();
   });
 });

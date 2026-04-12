@@ -21,9 +21,7 @@ import {
   useTheme,
   XStack,
 } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
-
+import useUserAccent from "@/hooks/use-user-accent";
 import styles from "./styles";
 
 interface Props extends Partial<BottomSheetProps> {
@@ -31,7 +29,6 @@ interface Props extends Partial<BottomSheetProps> {
   subtitle?: string;
   children: React.ReactNode;
 }
-
 // component
 const BottomSheetComponent = (
   { children, subtitle, title, ...props }: Props,
@@ -41,16 +38,14 @@ const BottomSheetComponent = (
   const { accent } = useUserAccent();
   const { bottom, top } = useSafeAreaInsets();
   const theme = useTheme();
-
   useImperativeHandle(ref, () => innerRef.current!);
-
   const renderHandle = useCallback(() => {
     return null;
   }, []);
-
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
+        aria-label="backdrop"
         {...props}
         appearsOnIndex={0}
         disappearsOnIndex={-1}
@@ -59,7 +54,6 @@ const BottomSheetComponent = (
     ),
     []
   );
-
   return (
     <BottomSheetModal
       enablePanDownToClose={true}
@@ -109,7 +103,6 @@ const BottomSheetComponent = (
     </BottomSheetModal>
   );
 };
-
 // forward ref
 const BottomSheet = React.forwardRef(BottomSheetComponent);
 export default BottomSheet;

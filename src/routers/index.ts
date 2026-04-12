@@ -2,8 +2,6 @@
 
 export enum Routes {
   Login = "/auth/login",
-  Verify = "/auth/verify",
-  Dashboard = "/(app)",
   Note = "/(app)/notes",
   Archive = "/(app)/notes/archived",
   Trash = "/(app)/notes/trashed",

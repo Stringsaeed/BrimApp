@@ -7,12 +7,11 @@ import {
   Dialog,
   ListItem,
   Spinner,
+  useWindowDimensions,
   XStack,
   YGroup,
-  useWindowDimensions,
 } from "tamagui";
-
-import { NoteService } from "@/services";
+import { NoteService } from "@/services/notes/notes";
 
 export default function ResetDatabaseListItem() {
   const { width } = useWindowDimensions();

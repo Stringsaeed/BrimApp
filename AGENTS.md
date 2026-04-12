@@ -10,7 +10,7 @@
 - Error reporting: Sentry (`src/services/sentry`)
 - Feature flags: Flagsmith (`src/services/flagsmith`)
 - Analytics: Vexo (`src/services/vexo`)
-- Package manager: Yarn 4 (`.yarnrc.yml`)
+- Package manager: pnpm 10 (`.npmrc`)
 
 ## Working Principles
 
@@ -78,7 +78,7 @@
 ## Coding Standards
 
 - Language: TypeScript (strict mode on).
-- Formatting: Prettier (`tabWidth: 2`, double quotes, semicolons, trailing commas `es5`).
+- Formatting/Linting: Biome (2-space indentation, double quotes, semicolons, trailing commas `es5`).
 - Imports:
 - Enforce group order: `builtin -> external -> internal -> parent -> sibling -> index`.
 - Alphabetize ascending with blank lines between groups.
@@ -103,36 +103,38 @@
 
 ## Commands
 
-- `yarn start`: Start Expo dev server.
-- `yarn start:web`: Start web build (`TAMAGUI_TARGET=web`).
-- `yarn start:clear`: Start with cleared cache.
-- `yarn ios`: Run iOS app.
-- `yarn android`: Run Android app.
-- `yarn lint`: Run ESLint + Prettier check.
-- `yarn lint:eslint`: ESLint only.
-- `yarn lint:formatting`: Prettier check only.
-- `yarn format`: Prettier write + ESLint fix.
-- `yarn check`: TypeScript check (`tsc --noEmit`).
-- `yarn validate`: `format + lint`.
-- `yarn validate:strict`: `validate + check`.
-- `yarn test`: Run all tests.
-- `yarn test -- path/to/file.test.tsx`: Run a specific test file.
-- `yarn checkDead`: Dead code and unused export scan via Knip.
-- `yarn supabase:start|stop|status|studio`: Local Supabase lifecycle.
-- `yarn supabase:db:push|pull|reset`: Schema management.
-- `yarn supabase:gen:types`: Regenerate `src/types/supabase.ts`.
+- `pnpm start`: Start Expo dev server.
+- `pnpm start:web`: Start web build (`TAMAGUI_TARGET=web`).
+- `pnpm start:clear`: Start with cleared cache.
+- `pnpm ios`: Run iOS app.
+- `pnpm android`: Run Android app.
+- `pnpm lint`: Run Biome lint check.
+- `pnpm lint:write`: Run Biome lint with auto-fixes.
+- `pnpm format`: Run Biome formatter check.
+- `pnpm format:write`: Run Biome formatter with auto-write.
+- `pnpm lint_format:check`: Run Biome lint+format check.
+- `pnpm lint_format:check:write`: Run Biome lint+format check with auto-write.
+- `pnpm check`: TypeScript check (`tsc --noEmit`).
+- `pnpm validate`: `format + lint`.
+- `pnpm validate:strict`: `validate + check`.
+- `pnpm test`: Run all tests.
+- `pnpm test -- path/to/file.test.tsx`: Run a specific test file.
+- `pnpm checkDead`: Dead code and unused export scan via Knip.
+- `pnpm supabase:start|stop|status|studio`: Local Supabase lifecycle.
+- `pnpm supabase:db:push|pull|reset`: Schema management.
+- `pnpm supabase:gen:types`: Regenerate `src/types/supabase.ts`.
 
 ## Git and CI Workflow
 
 - Git hooks are managed with Lefthook.
 - Pre-commit currently runs:
-- `yarn lint`
-- `yarn prettier --write {staged_files}`
+- `pnpm lint`
+- `pnpm exec biome check --write {staged_files}`
 - Commit message hook runs commitlint (`@commitlint/config-conventional`).
 - Allowed commit types:
 - `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`
 - CI:
-- `.github/workflows/update.yml` runs on push and executes `yarn validate:strict` before `eas update --auto`.
+- `.github/workflows/update.yml` runs on push and executes `pnpm validate:strict` before `eas update --auto`.
 - `.github/workflows/codeql.yml` performs security analysis on `main` and on schedule.
 
 ## Supabase Notes
@@ -144,8 +146,8 @@
 
 ## Agent Checklist Before Handoff
 
-- Run `yarn validate:strict` for production-facing changes.
-- Run relevant tests (`yarn test` or targeted test files) when behavior changes.
+- Run `pnpm validate:strict` for production-facing changes.
+- Run relevant tests (`pnpm test` or targeted test files) when behavior changes.
 - Regenerate Supabase types when schema changes.
 - Keep route wrappers thin and avoid business logic in `src/app` files.
 - Confirm no secrets are committed from `.env` or service credential files.

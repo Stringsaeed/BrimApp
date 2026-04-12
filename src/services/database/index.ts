@@ -6,9 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AsyncStorage } from "@/services/storage";
 import supabaseClient from "@/services/supabase";
-import type { Note } from "@/types";
+import type { Note } from "@/types/notes";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
 export const generateId = () => uuidv4();
 
 // Create a configured sync function
@@ -33,7 +32,7 @@ export const notes$ = observable<Record<string, Note> | undefined>(
     select: (from) =>
       from.select(
         "created_at,deleted_at,id,is_private,note,status,title,updated_at,user_id"
-      ),
+      ) as never,
     persist: {
       retrySync: true, // Persist pending changes and retry
       name: "notes",

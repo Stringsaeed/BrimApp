@@ -1,3 +1,2 @@
-import { UserScreens } from "@/screens";
-
+import UserScreens from "@/screens/User";
 export default UserScreens.Preferences;

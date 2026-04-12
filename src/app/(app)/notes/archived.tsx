@@ -1,3 +1,2 @@
-import { NotesScreens } from "@/screens";
-
+import NotesScreens from "@/screens/Notes";
 export default NotesScreens.Archived;

@@ -1,10 +1,12 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import { enCommon, enSettings, enAuth } from "./locales";
-import { LanguageDetectorPlugin } from "./plugins";
+import enAuth from "./locales/en/auth";
+import enCommon from "./locales/en/common";
+import enSettings from "./locales/en/settings";
+import LanguageDetectorPlugin from "./plugins/language-detector";
 
-void i18next
+i18next
   .use(LanguageDetectorPlugin)
   .use(initReactI18next)
   .init({
@@ -18,7 +20,7 @@ void i18next
     interpolation: {
       escapeValue: false,
     },
-    compatibilityJSON: "v3",
+    compatibilityJSON: "v4",
     defaultNS: "common",
     fallbackLng: "en",
     ns: ["common"],

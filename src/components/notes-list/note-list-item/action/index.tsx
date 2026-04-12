@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
-import { View, styled } from "tamagui";
+import { styled, View } from "tamagui";
 
 interface Props {
   variant: "left" | "right";

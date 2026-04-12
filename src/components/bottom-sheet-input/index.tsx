@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import {
   ColorStyleProp,
@@ -70,7 +69,7 @@ const Input = InputFrame.styleable<InputProps>(
   }
 );
 
-export function useInputProps(props: InputProps, ref: any) {
+function useInputProps(props: InputProps, ref: any) {
   const theme = useTheme();
   const { ref: combinedRef, onChangeText } = useFocusable({
     isInput: true,
@@ -81,7 +80,6 @@ export function useInputProps(props: InputProps, ref: any) {
   const placeholderColorProp = props.placeholderTextColor;
   const placeholderTextColor =
     // @ts-expect-error placeholderColor is not in the type
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     (placeholderColorProp && theme?.[placeholderColorProp]?.get?.()) ??
     placeholderColorProp ??
     theme.placeholderColor?.get();

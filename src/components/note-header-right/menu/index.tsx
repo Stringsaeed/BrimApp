@@ -1,8 +1,6 @@
 import { MoreHorizontal } from "@tamagui/lucide-icons";
 import React from "react";
 import { XGroup } from "tamagui";
-
-// import { useIsLocalAuthenticationEligible } from "@/hooks";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -10,7 +8,7 @@ import {
   DropdownMenuItemTitle,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from "@/themes";
+} from "@/themes/dropdown";
 
 interface NotePageHeaderMenuProps {
   onPressArchive?: () => void;

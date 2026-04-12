@@ -16,6 +16,4 @@ export const noteSchema = z.object({
   id: z.string().uuid(),
 });
 
-export const notesSchema = z.array(noteSchema);
-
 export type Note = z.infer<typeof noteSchema>;

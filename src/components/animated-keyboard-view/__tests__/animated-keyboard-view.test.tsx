@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { screen } from "@testing-library/react-native";
 import React from "react";
 import { Text } from "react-native";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
-
-import AnimatedKeyboardView from "../";
 import render from "../../../utils/test";
+import AnimatedKeyboardView from "../";
 
 jest.mock("react-native-reanimated", () => {
   const mockedReanimated = require("react-native-reanimated/mock");
@@ -51,7 +49,7 @@ describe("AnimatedKeyboardView", () => {
     );
 
     expect(screen.getByTestId("animated-keyboard-view")).toHaveStyle({
-      backgroundColor: "rgba(10,10,10,0)",
+      backgroundColor: "rgba(255,255,255,0)",
       flexDirection: "column",
       paddingBottom: 16,
       paddingRight: 16,

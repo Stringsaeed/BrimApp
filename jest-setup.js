@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import "@testing-library/react-native/extend-expect";
 import React from "react";
 import "react-native-gesture-handler/jestSetup";
@@ -102,3 +100,7 @@ jest.mock("@supabase/supabase-js", () => {
 });
 
 export {};
+
+jest.mock("react-native-worklets", () =>
+  require("react-native-worklets/lib/module/mock")
+);

@@ -1,9 +1,4 @@
-import React, {
-  ForwardedRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   EnrichedTextInput,
@@ -11,35 +6,27 @@ import {
   OnChangeStateEvent,
 } from "react-native-enriched";
 import { Stack, useTheme } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
-
+import useUserAccent from "@/hooks/use-user-accent";
 import { ComposerComponentProps } from "./types";
 import useNoteComposer from "./use-note-composer";
 
-function ComposerComponent(
-  _: ComposerComponentProps,
-  ref: ForwardedRef<EnrichedTextInputInstance>
-) {
+function Composer({ ref, ...props }: ComposerComponentProps) {
   const theme = useTheme();
   const styles = useStyles();
   const { accent } = useUserAccent();
   const { onChangeText, value } = useNoteComposer();
   const innerRef = React.useRef<EnrichedTextInputInstance>(null);
   const [, setStylesState] = useState<OnChangeStateEvent | null>();
-
   useImperativeHandle(ref, () => innerRef.current!);
-
+  // biome-ignore lint/correctness/useExhaustiveDependencies: We only want to set the initial value on mount, and not update it when the value changes
   useEffect(() => {
     innerRef.current?.setValue(value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <Stack flex={1} flexGrow={1}>
       <EnrichedTextInput
+        {...props}
         ref={innerRef}
-        // onBlur={() => onBlur()}
         onChangeText={(e) => {
           onChangeText(e.nativeEvent.value);
         }}
@@ -47,14 +34,13 @@ function ComposerComponent(
         cursorColor={theme[accent]?.val}
         selectionColor={theme[accent]?.val}
         style={styles.input}
+        placeholder="What's on your mind?"
+        placeholderTextColor={theme.placeholderColor.val}
       />
     </Stack>
   );
 }
-
-const Composer = React.forwardRef(ComposerComponent);
 export default Composer;
-
 const useStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
@@ -69,6 +55,8 @@ const useStyles = () => {
       padding: 16,
       flexGrow: 1,
       flex: 1,
+      fontFamily: "Nunito",
+      minHeight: 200,
     },
   });
 };

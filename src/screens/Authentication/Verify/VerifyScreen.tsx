@@ -2,9 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Button, Form, Heading, Input, Paragraph, YStack } from "tamagui";
-
-import { useUserAccent } from "@/hooks";
-import { Sentry } from "@/services";
+import useUserAccent from "@/hooks/use-user-accent";
+import { Sentry } from "@/services/sentry";
 import supabaseClient from "@/services/supabase";
 
 function verifyEmail({ email, token }: { email: string; token: string }) {
@@ -14,7 +13,6 @@ function verifyEmail({ email, token }: { email: string; token: string }) {
     token,
   });
 }
-
 export default function VerifyScreen() {
   const [code, setCode] = useState("");
   const router = useRouter();
@@ -32,11 +30,9 @@ export default function VerifyScreen() {
     mutationFn: verifyEmail,
   });
   const isSubmitDisabled = code.length < 6;
-
   const handleSubmit = () => {
     mutate({ email: email as string, token: code });
   };
-
   return (
     <Form f={1} px="$4" gap="$4" pt="$5" onSubmit={handleSubmit}>
       <YStack>
@@ -63,7 +59,6 @@ export default function VerifyScreen() {
         selectionColor={`$${accent}`}
         borderWidth={1}
         borderColor={`$${accent}`}
-        // cursorColor="$accent"
       />
 
       <Form.Trigger asChild>

@@ -3,11 +3,9 @@ import { Moon, Settings, Sun } from "@tamagui/lucide-icons";
 import capitalize from "lodash.capitalize";
 import React, { useRef } from "react";
 import { ListItem, Separator, YGroup } from "tamagui";
-
 import BottomSheet from "@/components/bottom-sheet";
-import { useUserTheme } from "@/hooks";
-import { UserThemeValue } from "@/types";
-
+import useUserTheme from "@/hooks/use-user-theme";
+import { UserThemeValue } from "@/types/theme";
 import SelectThemeItem from "./select-theme-item";
 
 const getIconByValue = (value: UserThemeValue) => {
@@ -20,16 +18,13 @@ const getIconByValue = (value: UserThemeValue) => {
       return Moon;
   }
 };
-
 export default function SelectThemeListItem() {
   const sheetRef = useRef<BottomSheetModal>(null);
   const { themeName: value, onChange } = useUserTheme();
   const Icon = getIconByValue(value);
-
   const onPressFactory = (value: UserThemeValue) => () => {
     onChange(value);
   };
-
   return (
     <>
       <YGroup.Item>

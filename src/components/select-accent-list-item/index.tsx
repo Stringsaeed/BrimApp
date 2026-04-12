@@ -2,10 +2,9 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import capitalize from "lodash.capitalize";
 import React, { useRef } from "react";
 import { Circle, ListItem, RadioGroup, XStack, YGroup } from "tamagui";
-
 import BottomSheet from "@/components/bottom-sheet";
-import { useUserAccent } from "@/hooks";
-import { UserAccentValue } from "@/types";
+import useUserAccent from "@/hooks/use-user-accent";
+import { UserAccentValue } from "@/types/theme";
 
 const accentOptions = [
   "blue10",
@@ -17,17 +16,13 @@ const accentOptions = [
   "red10",
   "yellow10",
 ];
-
 export default function SelectAccentListItem() {
   const sheetRef = useRef<BottomSheetModal>(null);
   const { accent: value, onChange } = useUserAccent();
-
   const onValueChange = (value: string) => {
     onChange(value as UserAccentValue);
   };
-
   const subtitle = capitalize(value).replace("10", "");
-
   return (
     <>
       <YGroup.Item>

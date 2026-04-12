@@ -41,6 +41,6 @@ export function cipherTitle(title: string) {
   );
 }
 
-export function cleanup(text: string) {
+function cleanup(text: string) {
   return decode(text.replace(/<[^>]+>/gi, ""));
 }

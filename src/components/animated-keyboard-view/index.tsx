@@ -5,7 +5,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { YStack, getTokenValue } from "tamagui";
+import { getTokenValue, YStack } from "tamagui";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 

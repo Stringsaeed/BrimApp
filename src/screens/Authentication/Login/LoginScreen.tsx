@@ -9,14 +9,12 @@ import {
   Spinner,
   YStack,
 } from "tamagui";
-
-import { useLoginForm, useUserAccent } from "@/hooks";
-
+import useLoginForm from "@/hooks/use-login-form";
+import useUserAccent from "@/hooks/use-user-accent";
 export default function LoginScreen() {
   const { accent } = useUserAccent();
   const { t } = useTranslation("auth");
   const { isSubmitDisabled, isSubmitting, onSubmit, control } = useLoginForm();
-
   return (
     <Form f={1} px="$4" pt="$5" gap="$4" onSubmit={onSubmit}>
       <YStack>
