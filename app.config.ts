@@ -35,7 +35,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ],
       "expo-localization",
       "expo-notifications",
-      "expo-font",
+      [
+        "expo-font",
+        {
+          ios: {
+            fonts: [
+              "./assets/fonts/Nunito-VariableFont_wght.ttf",
+              "./assets/fonts/Nunito-Italic-VariableFont_wght.ttf",
+            ],
+          },
+        },
+      ],
       "expo-asset",
       [
         "@sentry/react-native/expo",

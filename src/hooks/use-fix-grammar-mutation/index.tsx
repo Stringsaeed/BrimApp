@@ -1,18 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import {
-  LLAMA3_2_1B,
-  LLAMA3_2_TOKENIZER,
-  LLAMA3_2_TOKENIZER_CONFIG,
-  Message,
-  useLLM,
-} from "react-native-executorch";
+import { LLAMA3_2_1B, Message, useLLM } from "react-native-executorch";
 import { Sentry } from "@/services/sentry";
 
 export default function useFixGrammarMutation() {
   const llm = useLLM({
-    tokenizerConfigSource: LLAMA3_2_TOKENIZER_CONFIG,
-    tokenizerSource: LLAMA3_2_TOKENIZER,
-    modelSource: LLAMA3_2_1B,
+    model: LLAMA3_2_1B,
   });
 
   const fixGrammar = async (text: string) => {

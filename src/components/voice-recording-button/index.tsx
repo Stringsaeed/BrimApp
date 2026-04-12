@@ -1,55 +1,147 @@
-import { Buffer } from "buffer";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, PermissionsAndroid, Platform } from "react-native";
-import { useSpeechToText } from "react-native-executorch";
-import LiveAudioStream from "react-native-live-audio-stream";
+import {
+  AudioContext,
+  AudioManager,
+  AudioRecorder,
+} from "react-native-audio-api";
+import {
+  TranscriptionResult,
+  useSpeechToText,
+  WHISPER_TINY_EN,
+} from "react-native-executorch";
 import { useSharedValue } from "react-native-reanimated";
 import { Spinner, View } from "tamagui";
 import useUserAccent from "@/hooks/use-user-accent";
 import { Sentry } from "@/services/sentry";
 import ReanimatedIconWaveform from "./reanimated-icon-waveform";
 
-const audioStreamOptions = {
-  sampleRate: 16000,
-  bitsPerSample: 16,
-  bufferSize: 16000,
-  audioSource: 1,
-  channels: 1,
-};
-const startStreamingAudio = (options: any, onChunk: (data: string) => void) => {
-  LiveAudioStream.init(options);
-  LiveAudioStream.on("data", onChunk);
-  LiveAudioStream.start();
-};
-const float32ArrayFromPCMBinaryBuffer = (b64EncodedBuffer: string) => {
-  const b64DecodedChunk = Buffer.from(b64EncodedBuffer, "base64");
-  const int16Array = new Int16Array(b64DecodedChunk.buffer);
-  const float32Array = new Float32Array(int16Array.length);
-  for (let i = 0; i < int16Array.length; i++) {
-    float32Array[i] = Math.max(
-      -1,
-      Math.min(1, (int16Array[i] / audioStreamOptions.bufferSize) * 8)
-    );
-  }
-  return float32Array;
-};
+// const audioStreamOptions = {
+//   sampleRate: 16000,
+//   bitsPerSample: 16,
+//   bufferSize: 16000,
+//   audioSource: 1,
+//   channels: 1,
+// };
+// const startStreamingAudio = (options: any, onChunk: (data: string) => void) => {
+//   LiveAudioStream.init(options);
+//   LiveAudioStream.on("data", onChunk);
+//   LiveAudioStream.start();
+// };
+// const float32ArrayFromPCMBinaryBuffer = (b64EncodedBuffer: string) => {
+//   const b64DecodedChunk = Buffer.from(b64EncodedBuffer, "base64");
+//   const int16Array = new Int16Array(b64DecodedChunk.buffer);
+//   const float32Array = new Float32Array(int16Array.length);
+//   for (let i = 0; i < int16Array.length; i++) {
+//     float32Array[i] = Math.max(
+//       -1,
+//       Math.min(1, (int16Array[i] / audioStreamOptions.bufferSize) * 8)
+//     );
+//   }
+//   return float32Array;
+// };
+
 export default function VoiceRecordingButton({
   onTranscribe,
 }: {
   onTranscribe?: (text: string) => void;
 }) {
-  const volumeProgress = useSharedValue(0);
-  const [isRecording, setIsRecording] = useState(false);
   const { accent } = useUserAccent();
-  const { isGenerating, transcribe, isReady } = useSpeechToText({
-    streamingConfig: "quality",
-    modelName: "moonshine",
+  const volumeProgress = useSharedValue(0);
+
+  const [, setTranscription] = useState<null | TranscriptionResult>(null);
+  const [liveResult, setLiveResult] = useState<{
+    fullText: string;
+    segments: any[];
+  } | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const recorder = useRef(new AudioRecorder());
+  const isRecordingRef = useRef(false);
+  const model = useSpeechToText({
+    model: WHISPER_TINY_EN,
   });
-  const audioBuffer = useRef<number[]>([]);
-  const onChunk = (data: string) => {
-    const float32Chunk = float32ArrayFromPCMBinaryBuffer(data);
-    audioBuffer.current?.push(...float32Chunk);
+  const handleStartTranscribeFromMicrophone = async () => {
+    isRecordingRef.current = true;
+
+    setTranscription(null);
+    setLiveResult({ fullText: "", segments: [] });
+
+    const sampleRate = 16000;
+
+    recorder.current.onAudioReady(
+      {
+        sampleRate,
+        bufferLength: 0.1 * sampleRate,
+        channelCount: 1,
+      },
+      ({ buffer }) => {
+        model.streamInsert(buffer.getChannelData(0));
+      }
+    );
+
+    try {
+      const success = await AudioManager.setAudioSessionActivity(true);
+      if (!success) {
+        Alert.alert("Cannot start audio session correctly");
+      }
+      const result = recorder.current.start();
+      if (result.status === "error") {
+        Alert.alert(`Recording problems: ${result.message}`);
+      }
+    } catch (e) {
+      Alert.alert(e instanceof Error ? e.message : String(e));
+      isRecordingRef.current = false;
+      return;
+    }
+
+    let accumulatedText = "";
+    let accumulatedSegments: any[] = [];
+
+    try {
+      const streamIter = model.stream({
+        verbose: __DEV__,
+      });
+
+      for await (const { committed, nonCommitted } of streamIter) {
+        if (!isRecordingRef.current) break;
+
+        if (committed.text) {
+          accumulatedText += committed.text;
+        }
+        if (committed.segments) {
+          accumulatedSegments = [...accumulatedSegments, ...committed.segments];
+        }
+
+        const currentDisplay = {
+          fullText: accumulatedText + nonCommitted.text,
+          segments: [...accumulatedSegments, ...(nonCommitted.segments || [])],
+        };
+
+        setLiveResult(currentDisplay);
+      }
+    } catch (e) {
+      Alert.alert(e instanceof Error ? e.message : String(e));
+    }
   };
+
+  const handleStopTranscribeFromMicrophone = () => {
+    isRecordingRef.current = false;
+
+    recorder.current.stop();
+    model.streamStop();
+
+    if (liveResult) {
+      setTranscription({
+        text: liveResult.fullText,
+        segments: liveResult.segments,
+        language: "en",
+        duration: 0,
+      });
+      onTranscribe?.(liveResult.fullText);
+      setLiveResult(null);
+    }
+  };
+
   const handleRecordPress = async () => {
     if (Platform.OS === "android") {
       const permission = await PermissionsAndroid.check(
@@ -68,19 +160,28 @@ export default function VoiceRecordingButton({
     if (isRecording) {
       try {
         setIsRecording(false);
-        await LiveAudioStream.stop();
-        const result = await transcribe(audioBuffer.current);
-        audioBuffer.current = [];
-        onTranscribe?.(result);
+        handleStopTranscribeFromMicrophone();
       } catch (error) {
         Sentry.captureException(error);
       }
     } else {
       setIsRecording(true);
-      // recorder.record();
-      startStreamingAudio(audioStreamOptions, onChunk);
+      void handleStartTranscribeFromMicrophone();
     }
   };
+
+  useEffect(() => {
+    AudioManager.setAudioSessionOptions({
+      iosCategory: "playAndRecord",
+      iosMode: "spokenAudio",
+      iosOptions: ["allowBluetoothHFP", "defaultToSpeaker"],
+    });
+    const checkPerms = async () => {
+      await AudioManager.requestRecordingPermissions();
+    };
+    void checkPerms();
+  }, []);
+
   return (
     <>
       <View
@@ -96,9 +197,9 @@ export default function VoiceRecordingButton({
         opacity={isRecording ? 0.5 : 1}
         bg={`$${accent}`}
         onPress={handleRecordPress}
-        disabled={isGenerating || !isReady}
+        disabled={model.isGenerating || !model.isReady}
       >
-        {isGenerating ? (
+        {model.isGenerating ? (
           <Spinner />
         ) : (
           <ReanimatedIconWaveform volumeProgress={volumeProgress} />

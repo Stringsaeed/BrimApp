@@ -136,7 +136,9 @@ export default function NoteListMultiselectMenu() {
       >
         <Stack onPress={handleSelectAll}>
           <Animated.View
-            layout={LinearTransition.easing(Easing.inOut(Easing.ease))}
+            layout={LinearTransition.easing(Easing.inOut(Easing.ease)).duration(
+              800
+            )}
           >
             {renderSelectedIndicatorIcon()}
           </Animated.View>

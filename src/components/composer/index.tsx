@@ -10,7 +10,7 @@ import useUserAccent from "@/hooks/use-user-accent";
 import { ComposerComponentProps } from "./types";
 import useNoteComposer from "./use-note-composer";
 
-function Composer({ ref }: ComposerComponentProps) {
+function Composer({ ref, ...props }: ComposerComponentProps) {
   const theme = useTheme();
   const styles = useStyles();
   const { accent } = useUserAccent();
@@ -25,8 +25,8 @@ function Composer({ ref }: ComposerComponentProps) {
   return (
     <Stack flex={1} flexGrow={1}>
       <EnrichedTextInput
+        {...props}
         ref={innerRef}
-        // onBlur={() => onBlur()}
         onChangeText={(e) => {
           onChangeText(e.nativeEvent.value);
         }}
@@ -34,6 +34,8 @@ function Composer({ ref }: ComposerComponentProps) {
         cursorColor={theme[accent]?.val}
         selectionColor={theme[accent]?.val}
         style={styles.input}
+        placeholder="What's on your mind?"
+        placeholderTextColor={theme.placeholderColor.val}
       />
     </Stack>
   );
@@ -53,6 +55,8 @@ const useStyles = () => {
       padding: 16,
       flexGrow: 1,
       flex: 1,
+      fontFamily: "Nunito",
+      minHeight: 200,
     },
   });
 };

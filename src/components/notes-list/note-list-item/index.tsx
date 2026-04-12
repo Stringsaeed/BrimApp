@@ -34,9 +34,9 @@ export default function NoteListItemView({
   const theme = useTheme();
   const foregroundColor = theme.background.get();
   const content = useMemo(() => {
-    const title = getNoteTitle(item.note);
+    const title = item.note;
     if (!item.is_private) return title;
-    return cipherTitle(title);
+    return title;
   }, [item.is_private, item.note]);
   const renderRightActions = useCallback(() => {
     if (!onRemove) return null;

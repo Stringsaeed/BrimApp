@@ -1,8 +1,9 @@
 import { ForwardedRef } from "react";
-import { EnrichedTextInputInstance } from "react-native-enriched";
+import {
+  EnrichedTextInputInstance,
+  EnrichedTextInputProps,
+} from "react-native-enriched";
 
-export type ComposerComponentProps = {
+export type ComposerComponentProps = EnrichedTextInputProps & {
   ref?: ForwardedRef<EnrichedTextInputInstance>;
-  onFocus?: () => void;
-  onBlur?: () => void;
 };

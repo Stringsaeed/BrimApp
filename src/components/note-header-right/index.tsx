@@ -1,6 +1,8 @@
+import { NativeStackHeaderItem } from "@react-navigation/native-stack";
 import { Lock, Unlock } from "@tamagui/lucide-icons";
 import { Stack } from "expo-router";
 import React, { useCallback } from "react";
+import { Platform } from "react-native";
 import { XGroup } from "tamagui";
 import PressableScale from "@/components/pressable-scale";
 import useIsLocalAuthenticationEligible from "@/hooks/use-is-local-authentication-eligible";
@@ -49,5 +51,58 @@ export default function NoteHeaderRight({
     onPressLock,
     onPressTrash,
   ]);
-  return <Stack.Screen options={{ headerRight }} />;
+
+  const unstable_headerRight = (): NativeStackHeaderItem[] => [
+    {
+      type: "button",
+      label: "Toggle Privacy",
+      icon: {
+        type: "sfSymbol",
+        name: !isPrivate ? "lock" : "lock.open",
+      },
+      sharesBackground: false,
+      onPress: () => onPressLock?.(),
+    },
+    {
+      type: "menu",
+      label: "Actions",
+      icon: {
+        type: "sfSymbol",
+        name: "ellipsis",
+      },
+      menu: {
+        items: [
+          {
+            type: "action",
+            label: "Archive",
+            icon: {
+              type: "sfSymbol",
+              name: "archivebox",
+            },
+            onPress: () => onPressArchive?.(),
+          },
+          {
+            type: "action",
+            label: "Trash",
+            icon: {
+              type: "sfSymbol",
+              name: "trash",
+            },
+            onPress: () => onPressTrash?.(),
+          },
+        ],
+      },
+    },
+  ];
+
+  return (
+    <Stack.Screen
+      options={Platform.select({
+        default: { headerRight },
+        ios: {
+          unstable_headerRightItems: unstable_headerRight,
+        },
+      })}
+    />
+  );
 }

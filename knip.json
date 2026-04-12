@@ -16,7 +16,8 @@
     "@tamagui/focusable",
     "@tamagui/shorthands",
     "@tamagui/themes",
-    "expo-linear-gradient"
+    "expo-linear-gradient",
+    "expo-symbols"
   ],
   "ignoreBinaries": ["supabase"]
 }
