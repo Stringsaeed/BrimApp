@@ -32,7 +32,7 @@ export const notes$ = observable<Record<string, Note> | undefined>(
     select: (from) =>
       from.select(
         "created_at,deleted_at,id,is_private,note,status,title,updated_at,user_id"
-      ),
+      ) as never,
     persist: {
       retrySync: true, // Persist pending changes and retry
       name: "notes",

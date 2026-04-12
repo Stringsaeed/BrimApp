@@ -1,11 +1,11 @@
 import { BlurView } from "expo-blur";
 import { SymbolView } from "expo-symbols";
+import { ScrollView } from "react-native";
 import {
   EnrichedTextInputInstance,
   OnChangeStateEvent,
 } from "react-native-enriched";
 import { KeyboardToolbar } from "react-native-keyboard-controller";
-import { ScrollView } from "react-native-reanimated/src/Animated";
 import { Button, useTheme, XGroup } from "tamagui";
 import tinycolor from "tinycolor2";
 import useUserAccent from "@/hooks/use-user-accent";

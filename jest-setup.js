@@ -102,5 +102,5 @@ jest.mock("@supabase/supabase-js", () => {
 export {};
 
 jest.mock("react-native-worklets", () =>
-  require("react-native-worklets/src/mock")
+  require("react-native-worklets/lib/module/mock")
 );
